@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#003914">
+<title>Mentions légales | ES Blanquefort Basket Ball</title>
+<style>
+:root{
+  --g:#003914;
+  --d:#001f0c;
+  --muted:#56695c;
+  --line:rgba(0,57,20,.18);
+  --soft:#f7fbf6;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:linear-gradient(135deg,#fff 0%,#f7fbf6 58%,#eef5ed 100%);
+  color:#102a18;
+}
+.page{
+  min-height:100vh;
+  padding:18px 10px 32px;
+}
+.container{
+  width:100%;
+  max-width:940px;
+  margin:0 auto;
+}
+.header{
+  text-align:center;
+  padding:14px 10px 18px;
+}
+.logo{
+  width:112px;
+  max-width:40vw;
+  height:auto;
+  filter:drop-shadow(0 10px 14px rgba(0,31,12,.18));
+}
+.badge{
+  display:inline-flex;
+  margin-top:10px;
+  padding:7px 12px;
+  border-radius:999px;
+  background:linear-gradient(135deg,var(--g),var(--d));
+  color:#fff;
+  font-size:12px;
+  font-weight:1000;
+  text-transform:uppercase;
+}
+h1{
+  margin:12px 0 6px;
+  color:var(--d);
+  font-size:clamp(30px,7vw,48px);
+  line-height:1;
+  text-transform:uppercase;
+}
+.intro{
+  margin:0 auto;
+  max-width:720px;
+  color:var(--muted);
+  font-weight:750;
+  line-height:1.45;
+}
+.card{
+  background:rgba(255,255,255,.96);
+  border:1px solid var(--line);
+  border-radius:18px;
+  box-shadow:0 14px 34px rgba(0,31,12,.10);
+  padding:18px;
+  margin:12px 0;
+}
+h2{
+  margin:0 0 10px;
+  color:var(--g);
+  font-size:20px;
+  text-transform:uppercase;
+}
+p,li{
+  color:#183726;
+  font-size:15px;
+  line-height:1.55;
+  font-weight:650;
+}
+ul{padding-left:20px}
+strong{color:var(--d);font-weight:1000}
+.note{
+  padding:12px 14px;
+  border-left:5px solid var(--g);
+  background:var(--soft);
+  border-radius:12px;
+  color:#183726;
+  font-weight:800;
+}
+.footer{
+  text-align:center;
+  margin-top:18px;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:750;
+  line-height:1.45;
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:10px;
+  min-height:42px;
+  padding:10px 14px;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--g),var(--d));
+  color:#fff;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:1000;
+  text-transform:uppercase;
+}
+a{color:var(--g);font-weight:1000}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="container">
+
+    <header class="header">
+      <img class="logo" src="../assets/logo.png" alt="Logo ES Blanquefort Basket Ball" onerror="this.src='logo.png';this.onerror=null;">
+      <br>
+      <span class="badge">ES Blanquefort Basket Ball</span>
+      <h1>Mentions légales</h1>
+      <p class="intro">Cette page présente les informations légales communes aux interfaces numériques du club.</p>
+      <a class="btn" href="javascript:history.back()">Retour</a>
+    </header>
+
+    <section class="card">
+      <h2>Éditeur du service</h2>
+      <p>
+        Le présent service numérique est édité pour le compte de
+        <strong>ES Blanquefort Basket Ball</strong>.
+      </p>
+      <p>
+        Objet des interfaces : information club, essais, réinscriptions, suivi des licenciés,
+        communication interne, organisation sportive et administrative.
+      </p>
+      <p>
+        Contact club : <strong>contact@es-blanquefort-basketball.fr</strong>
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Responsable de publication</h2>
+      <p>
+        Le responsable de publication est le représentant légal ou la personne désignée par
+        <strong>ES Blanquefort Basket Ball</strong>.
+      </p>
+      <p>
+        Les contenus publiés dans les interfaces sont fournis, validés ou administrés par le club.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Hébergement</h2>
+      <p>
+        Les pages publiques peuvent être hébergées via une solution de publication web utilisée par le club
+        pour ses interfaces HTML.
+      </p>
+      <p>
+        Les données de fonctionnement peuvent être centralisées dans l’environnement Google du club
+        lorsque les formulaires ou interfaces sont connectés à Google Sheets / Google Apps Script.
+      </p>
+      <p class="note">
+        Cette page est volontairement générique afin de rester valable pour l’ensemble des interfaces club.
+        Les informations d’hébergement peuvent être précisées par le bureau si nécessaire.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Données personnelles</h2>
+      <p>
+        Les interfaces peuvent collecter ou afficher des données nécessaires au fonctionnement du club :
+      </p>
+      <ul>
+        <li>nom et prénom du licencié ou de l’enfant concerné ;</li>
+        <li>date de naissance ;</li>
+        <li>catégorie sportive ;</li>
+        <li>coordonnées parent ou licencié selon le cas ;</li>
+        <li>réponses aux essais, réinscriptions, présences, communications ou questionnaires club.</li>
+      </ul>
+      <p>
+        Ces données sont utilisées uniquement pour la gestion associative, sportive et administrative
+        de l’ES Blanquefort Basket Ball.
+      </p>
+      <p>
+        Pour toute demande d’accès, de rectification ou de suppression, contacter le club :
+        <strong>contact@es-blanquefort-basketball.fr</strong>.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Accès aux interfaces</h2>
+      <p>
+        Les interfaces ne donnent pas toutes accès aux mêmes informations.
+      </p>
+      <ul>
+        <li><strong>Parents / licenciés :</strong> accès aux informations utiles à leur situation.</li>
+        <li><strong>Coachs :</strong> accès aux groupes, entraînements, essais et informations utiles à l’encadrement.</li>
+        <li><strong>Bureau :</strong> accès de pilotage et de suivi interne.</li>
+      </ul>
+      <p>
+        Les utilisateurs s’engagent à ne pas diffuser des informations internes du club à des personnes non concernées.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Cookies et stockage local</h2>
+      <p>
+        Les interfaces peuvent utiliser le stockage local du navigateur afin d’améliorer l’usage :
+      </p>
+      <ul>
+        <li>mémorisation de certains choix d’affichage ;</li>
+        <li>favoris d’équipe côté coach ;</li>
+        <li>statut “lu / non lu” pour les communications ;</li>
+        <li>facilitation de l’utilisation comme raccourci sur écran d’accueil.</li>
+      </ul>
+      <p>
+        Ces informations restent généralement stockées sur l’appareil utilisé et ne servent pas à du suivi publicitaire.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Responsabilité</h2>
+      <p>
+        Le club s’efforce de maintenir des informations fiables et à jour. Toutefois, les horaires,
+        convocations, essais, communications ou informations sportives peuvent être modifiés.
+      </p>
+      <p>
+        En cas de doute, les informations confirmées directement par le club ou les responsables sportifs
+        prévalent.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Création et réalisation</h2>
+      <p>
+        Interfaces numériques créées pour l’ES Blanquefort Basket Ball par
+        <strong>L’Rénov IA Studio</strong>.
+      </p>
+      <p>
+        Conception : application club, formulaires HTML, logique Google Sheets / Apps Script,
+        interfaces coachs, licenciés et bureau.
+      </p>
+    </section>
+
+    <footer class="footer">
+      <strong>Vert et blanc un jour, Blanquefort toujours&nbsp;!</strong><br>
+      ES Blanquefort Basket Ball · Mentions légales communes aux interfaces club.<br>
+      Créé par <strong>L’Rénov IA Studio</strong>.
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>

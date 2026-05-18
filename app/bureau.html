@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#003914">
+<title>Interface bureau | ES Blanquefort Basket Ball</title>
+<style>
+:root{
+  --g:#003914;--d:#001f0c;--l:#0b6b2b;--muted:#56695c;--line:rgba(0,57,20,.20);
+  --soft:#f7fbf6;--white:#fff;--warn:#fff7e6;--ok:#eaf4e9;--ko:#fff0ed;--blue:#edf4ff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;overflow-y:auto}
+body{
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:linear-gradient(135deg,#fff 0%,#f7fbf6 58%,#eef5ed 100%);
+  color:#082313;
+}
+button,input,select,textarea{font:inherit}
+a{color:inherit;text-decoration:none}
+.page{min-height:100vh;padding:14px 8px 32px;position:relative;overflow:hidden}
+.page:before{
+  content:"";position:absolute;left:50%;top:-180px;width:560px;height:292px;transform:translateX(-50%);
+  background:linear-gradient(135deg,var(--d),var(--g));border-radius:0 0 70% 70%;z-index:0;
+  box-shadow:0 24px 60px rgba(0,31,12,.18)
+}
+.container{width:100%;max-width:1220px;margin:0 auto;position:relative;z-index:1}
+.hero{text-align:center;padding-top:4px;margin-bottom:12px}
+.logo{width:128px;max-width:44vw;height:auto;filter:drop-shadow(0 12px 16px rgba(0,31,12,.22))}
+.clubline{display:flex;align-items:center;justify-content:center;gap:7px;margin:4px 0 8px;color:var(--d);font-weight:1000;font-size:clamp(14px,3.8vw,18px);line-height:1.15}
+.dot{width:14px;height:14px;min-width:14px;border-radius:50%;display:inline-block}
+.dot.green{background:#003914}.dot.white{background:#fff;border:2px solid #003914}
+.slogan{display:inline-flex;margin:0 auto 10px;padding:7px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--d);font-weight:1000;font-size:13px;box-shadow:0 8px 18px rgba(0,31,12,.08)}
+.kicker{display:inline-flex;padding:7px 12px;border-radius:999px;color:#fff;background:linear-gradient(135deg,var(--g),var(--l));font-weight:950;font-size:12px;box-shadow:0 8px 18px rgba(0,57,20,.18)}
+h1{margin:10px 0 8px;color:var(--d);text-transform:uppercase;font-size:clamp(32px,9vw,54px);line-height:.96;letter-spacing:-.8px;font-weight:1000}
+.hero p{max-width:820px;margin:0 auto;font-size:14.5px;line-height:1.45;font-weight:700;color:#244232}
+
+.shell{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:20px;box-shadow:0 18px 46px rgba(0,31,12,.16);padding:13px}
+.nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin:0 0 12px}
+.nav button{min-height:38px;border:1px solid rgba(0,57,20,.16);background:#fff;color:var(--d);font-weight:1000;border-radius:12px;padding:7px 5px;font-size:11.5px;line-height:1.05;cursor:pointer;text-align:center;display:flex;align-items:center;justify-content:center}
+.nav .active{background:linear-gradient(135deg,var(--g),var(--d));color:#fff;border-color:transparent}
+.panel{display:none}.panel.active{display:block}
+.label{display:inline-flex;margin:0 0 11px;padding:7px 12px;border-radius:999px;color:#fff;background:linear-gradient(135deg,var(--d),#00551f);font-weight:1000;text-transform:uppercase;font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.grid-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.card{padding:15px;border-radius:15px;background:#fff;border:1px solid rgba(0,57,20,.16);box-shadow:0 8px 18px rgba(0,31,12,.05)}
+.card.dark{background:linear-gradient(135deg,var(--g),var(--d));color:#fff}
+.card h3{margin:0 0 7px;color:var(--d);font-size:18px;text-transform:uppercase;font-weight:1000}
+.card.dark h3{color:#fff}
+.card p{margin:0 0 12px;color:var(--muted);line-height:1.42;font-weight:650;font-size:14px}
+.card.dark p{color:rgba(255,255,255,.84)}
+.big-number{font-size:36px;font-weight:1000;color:var(--d);line-height:1}
+.card.dark .big-number{color:#fff}
+.welcome-card{padding:18px;border-radius:18px;background:linear-gradient(135deg,#fff,#f7fbf6);border:1px solid rgba(0,57,20,.16);box-shadow:0 10px 22px rgba(0,31,12,.06);margin-bottom:12px}
+.welcome-card h2{margin:0 0 8px;color:var(--d);font-size:24px;line-height:1.1;text-transform:uppercase}
+.welcome-card p{margin:0;color:var(--muted);font-weight:700;line-height:1.45}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.tools select,.tools input{border:1px solid rgba(0,57,20,.24);border-radius:12px;padding:10px;font-weight:800;min-height:42px;background:#fff}
+.tools input{min-width:240px;flex:1}
+.btn{min-height:42px;border:0;border-radius:12px;color:#fff;background:linear-gradient(135deg,var(--g),var(--d));font-size:12px;font-weight:1000;text-transform:uppercase;letter-spacing:.02em;cursor:pointer;box-shadow:0 12px 24px rgba(0,57,20,.18);display:inline-flex;align-items:center;justify-content:center;text-align:center;padding:9px 13px}
+.btn.light{color:var(--d);background:#fff;border:1px solid rgba(0,57,20,.24);box-shadow:none}
+.pill{display:inline-flex;padding:6px 9px;border-radius:999px;background:#eaf4e9;color:var(--d);font-weight:1000;font-size:11px;white-space:nowrap}
+.pill.warn{background:#fff7e6;color:#8a5a05}.pill.ko{background:#fff0ed;color:#8a1f11}.pill.blue{background:#edf4ff;color:#123b78}
+.status{display:none;margin-top:10px;padding:11px 12px;border-radius:13px;background:#eaf4e9;border:1px solid rgba(0,57,20,.16);color:var(--d);font-weight:900;line-height:1.35;font-size:13px}
+.status.visible{display:block}
+.table-wrap{overflow:auto;border:1px solid rgba(0,57,20,.14);border-radius:14px;background:#fff;margin-top:10px}
+table{width:100%;border-collapse:collapse;min-width:760px}
+th,td{padding:10px 11px;border-bottom:1px solid rgba(0,57,20,.10);text-align:left;font-size:13px}
+th{background:#003914;color:#fff;font-weight:1000;position:sticky;top:0;z-index:1}
+td{font-weight:700;color:#183726}
+tr:hover td{background:#f7fbf6}
+.notice{padding:12px;border-radius:14px;background:#fff7e6;border-left:5px solid #f0a500;color:#4d3510;font-weight:800;line-height:1.4;margin:10px 0}
+.footer{margin:17px 0 0;text-align:center;color:rgba(8,35,19,.75);font-size:14px;font-weight:900;line-height:1.35}
+@media(max-width:860px){
+  .grid,.grid-4{grid-template-columns:1fr}
+  .nav{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tools select,.tools input,.btn{width:100%}
+}
+
+.comm-dot{display:none;width:10px;height:10px;background:#d71920;border-radius:50%;margin-left:6px;box-shadow:0 0 0 3px rgba(215,25,32,.12)}
+.comm-dot.visible{display:inline-block}
+.comm-list{display:grid;gap:10px;margin-top:10px}
+.comm-card{border:1px solid rgba(0,57,20,.14);border-radius:14px;background:#fff;padding:12px}
+.comm-card strong{display:block;color:var(--d);font-weight:1000;font-size:16px}
+.comm-card span{display:block;color:var(--muted);font-size:12px;font-weight:800;margin:3px 0 8px}
+.comm-card p{margin:0;color:#183726;font-weight:700;line-height:1.4}
+
+.comm-form{display:grid;gap:10px}
+.comm-form input,.comm-form select,.comm-form textarea{width:100%;border:1px solid rgba(0,57,20,.24);border-radius:12px;padding:11px;font-weight:800;background:#fff}
+.comm-form textarea{min-height:150px;resize:vertical}
+
+.install-hint{border:1px solid rgba(0,57,20,.14);border-radius:14px;background:#f7fbf6;padding:12px;margin:10px 0;color:var(--d);font-weight:800;line-height:1.35}
+.install-hint strong{display:block;font-weight:1000;margin-bottom:4px}
+.comm-card img{width:100%;max-height:260px;object-fit:cover;border-radius:12px;margin:8px 0;border:1px solid rgba(0,57,20,.12)}
+.comm-card a.comm-link{display:inline-flex;margin-top:10px;padding:10px 12px;border-radius:12px;background:linear-gradient(135deg,var(--g),var(--d));color:#fff;font-weight:1000;text-transform:uppercase;font-size:12px;text-decoration:none}
+
+
+.alert-badge{display:inline-flex;padding:5px 8px;border-radius:999px;font-size:11px;font-weight:1000}
+.alert-badge.red{background:#fff0ed;color:#8a1f11}
+.alert-badge.orange{background:#fff7e6;color:#8a5a05}
+.alert-badge.green{background:#eaf4e9;color:#003914}
+.alert-list{display:grid;gap:8px;margin-top:10px}
+.alert-item{border:1px solid rgba(0,57,20,.14);border-radius:12px;padding:10px;background:#fff}
+.alert-item strong{display:block;color:var(--d);font-weight:1000}
+.alert-item span{display:block;color:var(--muted);font-size:12px;font-weight:800;margin-top:3px}
+
+
+.esbb-legal-footer{
+  margin:18px auto 0;
+  padding:14px 12px;
+  border-radius:16px;
+  background:rgba(255,255,255,.92);
+  border:1px solid rgba(0,57,20,.16);
+  color:#183726;
+  text-align:center;
+  font-size:12px;
+  font-weight:750;
+  line-height:1.45;
+  box-shadow:0 8px 18px rgba(0,31,12,.05);
+}
+.esbb-legal-footer strong{
+  color:#003914;
+  font-weight:1000;
+}
+.esbb-legal-footer .credit{
+  display:block;
+  margin-top:6px;
+  color:#56695c;
+  font-size:11.5px;
+}
+.esbb-legal-footer a{
+  color:#003914;
+  font-weight:1000;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+<div class="container">
+<header class="hero">
+<img class="logo" src="../assets/logo.png" alt="Logo ES Blanquefort Basket Ball" onerror="this.src='logo.png';this.onerror=null;">
+<div class="clubline"><span class="dot green"></span><span>ES Blanquefort Basket Ball</span><span class="dot white"></span></div>
+<div class="slogan">Vert et blanc un jour, Blanquefort toujours&nbsp;!</div><br>
+<div class="kicker">🏀 INTERFACE BUREAU</div>
+<h1 id="heroTitle">Pilotage club</h1>
+<p id="heroSubtitle">Vue bureau pour suivre les licenciés, les essais, les créneaux et les liens utiles de fin de saison.</p>
+</header>
+
+<main class="shell">
+<div class="nav">
+<button class="active" data-open="dashboard">Dashboard</button>
+<button data-open="licencies">Licenciés</button>
+<button data-open="essais">Essais</button>
+<button data-open="creneaux">Créneaux</button>
+<button data-open="liens">Liens</button>
+<button data-open="communication">Communication <span id="communicationDot" class="comm-dot"></span></button><button data-open="saison">Saison 26-27</button></div>
+
+<section id="panel-dashboard" class="panel active">
+<div class="label">Vue globale</div>
+<div class="welcome-card">
+<h2>Tableau de bord bureau</h2>
+<p>Choisissez une catégorie ou affichez l’ensemble des groupes test pour contrôler rapidement ce qui remonte dans l’interface.</p>
+</div>
+<div class="tools">
+<select id="globalCategory">
+<option value="ALL">Toutes les catégories</option>
+<option value="U5">U5</option>
+<option value="U7">U7</option>
+<option value="U9">U9</option>
+<option value="U11">U11</option>
+
+<option value="U13M">U13M</option>
+<option value="U13F">U13F</option>
+<option value="U15M">U15M</option>
+<option value="U18M">U18M</option>
+<option value="U21">U21</option>
+<option value="Seniors">Seniors</option>
+<option value="Loisirs">Loisirs</option>
+</select>
+<button class="btn" type="button" onclick="loadBureauData()">Actualiser</button>
+<button class="btn light" type="button" onclick="copyDashboard()">Copier résumé</button>
+</div>
+<div id="loadStatus" class="status visible">Chargement des données...</div><div class="notice" id="miniNoteBureau">Vue bureau : les catégories U5 à U11 sont visibles ici pour le suivi interne, mais ne sont pas ouvertes côté portail familles / petits licenciés.</div>
+<div class="grid-4">
+<article class="card dark"><h3>Licenciés</h3><div class="big-number" id="countLicencies">0</div><p>joueurs affichés</p></article>
+<article class="card"><h3>Essais</h3><div class="big-number" id="countEssais">0</div><p>demandes essais</p></article>
+<article class="card"><h3>Créneaux</h3><div class="big-number" id="countCreneaux">0</div><p>entraînements / groupes</p></article>
+<article class="card"><h3>Groupes</h3><div class="big-number" id="countGroupes">0</div><p>catégories suivies</p></article>
+<article class="card"><h3>Départs</h3><div class="big-number" id="countDepart">0</div><p>à surveiller</p></article>
+<article class="card"><h3>Pas répondu</h3><div class="big-number" id="countPasRepondu">0</div><p>à relancer</p></article>
+</div>
+<div class="grid" style="margin-top:12px">
+<article class="card">
+<h3>Répartition licenciés</h3>
+<div id="groupSummary"></div>
+</article>
+<article class="card">
+<h3>Points à contrôler</h3>
+<div id="controlSummary"></div>
+</article>
+</div>
+</section>
+
+<section id="panel-licencies" class="panel">
+<div class="label">Licenciés</div>
+<div class="welcome-card">
+<h2>Liste licenciés</h2>
+<p>Vue de contrôle par groupe, issue de la base club.</p>
+</div>
+<div class="tools">
+<select id="licencieCategory">
+<option value="ALL">Toutes les catégories</option>
+<option value="U5">U5</option>
+<option value="U7">U7</option>
+<option value="U9">U9</option>
+<option value="U11">U11</option>
+
+<option value="U13M">U13M</option>
+<option value="U13F">U13F</option>
+<option value="U15M">U15M</option>
+<option value="U18M">U18M</option>
+<option value="U21">U21</option>
+<option value="Seniors">Seniors</option>
+<option value="Loisirs">Loisirs</option>
+</select>
+<input id="licencieSearch" placeholder="Rechercher nom, prénom, licence">
+<button class="btn light" onclick="copyTable('licencies')">Copier liste</button>
+</div>
+<div class="table-wrap"><table><thead><tr><th>Catégorie</th><th>Nom</th><th>Prénom</th><th>Licence</th><th>Date naissance</th><th>Sexe</th></tr></thead><tbody id="licenciesBody"></tbody></table></div>
+</section>
+
+<section id="panel-essais" class="panel">
+<div class="label">Essais</div>
+<div class="welcome-card">
+<h2>Suivi essais</h2>
+<p>Contrôle des demandes d’essais reçues par catégorie.</p>
+</div>
+<div class="tools">
+<select id="essaiCategory">
+<option value="ALL">Toutes les catégories</option>
+<option value="U5">U5</option>
+<option value="U7">U7</option>
+<option value="U9">U9</option>
+<option value="U11">U11</option>
+<option value="U13M">U13M</option>
+<option value="U13F">U13F</option>
+<option value="U15M">U15M</option>
+<option value="U18M">U18M</option>
+<option value="U21">U21</option>
+<option value="Seniors">Seniors</option>
+<option value="Loisirs">Loisirs</option>
+</select>
+<input id="essaiSearch" placeholder="Rechercher joueur, créneau, statut">
+<a class="btn" href="https://es-blanquefort-basket-ball.github.io/essais-2026-2027/" target="_blank" rel="noopener">Formulaire essais</a>
+<button class="btn light" onclick="copyTable('essais')">Copier essais</button>
+</div>
+<div class="table-wrap"><table><thead><tr><th>Catégorie</th><th>Nom</th><th>Prénom</th><th>Créneau</th><th>Téléphone</th><th>Email</th><th>Statut</th></tr></thead><tbody id="essaisBody"></tbody></table></div>
+</section>
+
+<section id="panel-creneaux" class="panel">
+<div class="label">Créneaux</div>
+<div class="welcome-card">
+<h2>Créneaux entraînements</h2>
+<p>Vue de contrôle des créneaux affichés aux coachs.</p>
+</div>
+<div class="tools">
+<select id="creneauCategory">
+<option value="ALL">Toutes les catégories</option>
+<option value="U5">U5</option>
+<option value="U7">U7</option>
+<option value="U9">U9</option>
+<option value="U11">U11</option>
+
+<option value="U13M">U13M</option>
+<option value="U13F">U13F</option>
+<option value="U15M">U15M</option>
+<option value="U18M">U18M</option>
+<option value="U21">U21</option>
+<option value="Seniors">Seniors</option>
+<option value="Loisirs">Loisirs</option>
+</select>
+<input id="creneauSearch" placeholder="Rechercher jour, lieu, titre">
+<button class="btn light" onclick="copyTable('creneaux')">Copier créneaux</button>
+</div>
+<div class="table-wrap"><table><thead><tr><th>Catégorie</th><th>Titre</th><th>Jour</th><th>Date</th><th>Horaire</th><th>Lieu</th><th>Type</th></tr></thead><tbody id="creneauxBody"></tbody></table></div>
+</section>
+
+<section id="panel-liens" class="panel">
+<div class="label">Liens utiles</div>
+<div class="welcome-card">
+<h2>Diffusion</h2>
+<p>Liens à envoyer selon le public concerné.</p>
+</div>
+<div class="grid">
+<article class="card"><h3>Portail licenciés</h3><p>À diffuser aux familles déjà au club.</p><button class="btn light" onclick="copyLink('PORTAIL_LICENCIES')">Copier le lien</button></article>
+<article class="card"><h3>Formulaire essais</h3><p>À diffuser aux nouveaux joueurs / familles extérieures.</p><button class="btn light" onclick="copyLink('ESSAIS')">Copier le lien</button></article>
+<article class="card"><h3>Portail coachs</h3><p>À diffuser aux coachs pour tester la gestion par groupe.</p><button class="btn light" onclick="copyLink('COACHS')">Copier le lien</button></article>
+<article class="card"><h3>Réinscription</h3><p>À diffuser aux licenciés actuels.</p><button class="btn light" onclick="copyLink('REINSCRIPTION')">Copier le lien</button></article>
+</div>
+</section>
+
+<section id="panel-communication" class="panel">
+<div class="label">Communication club</div>
+<div class="welcome-card">
+<h2>Publier une information</h2>
+<p>Créez un message pour les licenciés, les coachs ou tout le monde. Une pastille rouge apparaîtra sur les portails tant que le message n’a pas été lu sur l’appareil.</p>
+</div>
+<div class="grid">
+<article class="card">
+<h3>Nouveau message</h3>
+<div class="comm-form">
+<input id="commTitre" placeholder="Titre">
+<select id="commCible">
+<option value="Tous">Tous</option>
+<option value="Licencies">Licenciés / parents</option>
+<option value="Coachs">Coachs</option>
+<option value="Bureau">Bureau</option>
+</select>
+<select id="commPriorite">
+<option value="Normale">Priorité normale</option>
+<option value="Importante">Important</option>
+<option value="Urgente">Urgent</option>
+</select>
+<select id="commType">
+<option value="Info">Info club</option>
+<option value="Newsletter">Newsletter</option>
+<option value="Événement">Événement</option>
+<option value="Urgent">Urgent</option>
+</select>
+<input id="commLien" placeholder="Lien optionnel : newsletter, page, document...">
+<input id="commBouton" placeholder="Texte du bouton : Lire la newsletter, Voir le document...">
+<input id="commImage" placeholder="Image optionnelle : URL du visuel">
+<textarea id="commMessage" placeholder="Message à publier..."></textarea>
+<button class="btn" type="button" onclick="saveCommunicationBureau()">Publier</button>
+</div>
+<div class="status" id="commSaveStatus">Communication publiée.</div>
+</article>
+<article class="card">
+<h3>Messages publiés</h3>
+<div class="tools">
+<button class="btn light" type="button" onclick="esbbLoadCommunications('Bureau')">Actualiser</button>
+</div>
+<div id="communicationList" class="comm-list"></div>
+</article>
+</div>
+</section>
+
+
+<section id="panel-saison" class="panel">
+<div class="label">Suivi saison 2026-2027</div>
+<div class="welcome-card">
+<h2>Questionnaire retour / saison prochaine</h2>
+<p>Suivi des réponses : continue, arrête, ne sait pas encore, pas répondu. Les départs et relances ressortent automatiquement.</p>
+</div>
+<div class="grid-4">
+<article class="card dark"><h3>Réponses</h3><div class="big-number" id="seasonReponses">0</div><p>questionnaires reçus</p></article>
+<article class="card"><h3>Continue</h3><div class="big-number" id="seasonContinue">0</div><p>reste au club</p></article>
+<article class="card"><h3>Départs</h3><div class="big-number" id="seasonArrete">0</div><p>à surveiller</p></article>
+<article class="card"><h3>À relancer</h3><div class="big-number" id="seasonRelance">0</div><p>incertains / sans réponse</p></article>
+</div>
+<div class="tools">
+<select id="seasonFilter">
+<option value="ALL">Toutes les réponses</option>
+<option value="continue">Je continue</option>
+<option value="arrete">J’arrête</option>
+<option value="ne-sait-pas">Je ne sais pas encore</option>
+<option value="pas-repondu">Pas répondu</option>
+<option value="alerte">Alertes</option>
+</select>
+<input id="seasonSearch" placeholder="Rechercher nom, prénom, catégorie">
+<button class="btn light" onclick="copySeasonTable()">Copier suivi</button>
+<button class="btn" onclick="loadSeasonData()">Actualiser</button>
+</div>
+<div class="table-wrap"><table><thead><tr><th>Alerte</th><th>Catégorie</th><th>Nom</th><th>Prénom</th><th>Décision</th><th>Pratique</th><th>Participation</th><th>Remarque</th></tr></thead><tbody id="seasonBody"></tbody></table></div>
+</section>
+
+</main>
+
+
+<footer class="esbb-legal-footer">
+  <strong>Vert et blanc un jour, Blanquefort toujours&nbsp;!</strong><br>
+  ES Blanquefort Basket Ball · <a href="mentions_legales_ESBB.html">Mentions légales</a>
+  <span class="credit">Créé par <strong>L’Rénov IA Studio</strong> · Solutions digitales clubs sur mesure</span>
+</footer>
+
+
+
+<div class="status" id="toast"></div>
+<div class="footer">ES Blanquefort Basket Ball · Interface bureau</div>
+</div>
+</div>
+
+<script>
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx2isdaOnCpljcE8I1RaBSp8Jflp8-LJjgUgHp8N0l57cV7wpkQvXV4GX01anp-6wJ6CA/exec";
+
+const GROUPS = ["U5","U7","U9","U11","U13M","U13F","U15M","U18M","U21","Seniors","Loisirs"];
+const ESSAIS_GROUPS = ["U5","U7","U9","U11","U13M","U13F","U15M","U18M","U21","Seniors","Loisirs"];
+
+const LINKS = {
+  PORTAIL_LICENCIES:"https://es-blanquefort-basket-ball.github.io/portail-licencies/",
+  ESSAIS:"https://es-blanquefort-basket-ball.github.io/essais-2026-2027/",
+  COACHS:"https://es-blanquefort-basket-ball.github.io/portail-coachs/",
+  REINSCRIPTION:"https://es-blanquefort-basket-ball.github.io/reinscription-2026-2027/"
+};
+
+let DATA = {
+  licencies: [],
+  essais: [],
+  creneaux: []
+};
+
+function openPanel(tab){
+  document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active", p.id==="panel-"+tab));
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active", b.dataset.open===tab));
+  const map={
+    dashboard:["Pilotage club","Vue bureau pour suivre les licenciés, les essais, les créneaux et les liens utiles."],
+    licencies:["Licenciés","Vue de contrôle par groupe."],
+    essais:["Essais","Demandes d’essais reçues."],
+    creneaux:["Créneaux","Entraînements affichés aux coachs."],
+    liens:["Liens utiles","Liens à diffuser selon les publics."],
+    communication:["Communication","Publier et suivre les informations club."],
+    saison:["Saison 26-27","Suivi des réponses et alertes départs / relances."]
+  };
+  heroTitle.textContent=(map[tab]||map.dashboard)[0];
+  heroSubtitle.textContent=(map[tab]||map.dashboard)[1];
+  if(tab==="communication") esbbLoadCommunications("Bureau");
+  if(tab==="saison") loadSeasonData();
+}
+document.querySelectorAll("[data-open]").forEach(el=>el.addEventListener("click",()=>openPanel(el.dataset.open)));
+
+function uniqueBy(arr, keyFn){
+  const m=new Map();
+  arr.forEach(item=>m.set(keyFn(item), item));
+  return [...m.values()];
+}
+async function fetchGroup(cat){
+  const res = await fetch(WEB_APP_URL + "?action=getCoachData&categorie=" + encodeURIComponent(cat) + "&v=" + Date.now());
+  const json = await res.json();
+  if(!json || !json.ok) return {licencies:[], essais:[], creneaux:[]};
+  return {
+    licencies:(json.licencies||[]).map(x=>({...x, categorieAffichee:cat})),
+    essais:(json.essais||[]).map(x=>({...x, categorieAffichee:cat})),
+    creneaux:(json.creneaux||[]).map(x=>({...x, categorieAffichee:cat}))
+  };
+}
+
+async function loadBureauData(){
+  loadStatus.classList.add("visible");
+  loadStatus.textContent="Chargement des données...";
+
+  const selected = globalCategory.value;
+
+  const groupsForLicencies = selected === "ALL" ? GROUPS : [selected];
+  const groupsForEssais = selected === "ALL" ? ESSAIS_GROUPS : [selected];
+
+  const licResults = [];
+  for(const g of groupsForLicencies){
+    try{ licResults.push(await fetchGroup(g)); }
+    catch(e){ licResults.push({licencies:[], essais:[], creneaux:[]}); }
+  }
+
+  const essaiResults = [];
+  for(const g of groupsForEssais){
+    try{ essaiResults.push(await fetchGroup(g)); }
+    catch(e){ essaiResults.push({licencies:[], essais:[], creneaux:[]}); }
+  }
+
+  DATA.licencies = uniqueBy(licResults.flatMap(r=>r.licencies), x => (x.licence || "") + "|" + (x.nom || "") + "|" + (x.prenom || ""));
+  DATA.creneaux = uniqueBy(licResults.flatMap(r=>r.creneaux), x => (x.id || "") + "|" + (x.categorieAffichee || ""));
+  DATA.essais = uniqueBy(essaiResults.flatMap(r=>r.essais), x => (x.id || "") + "|" + (x.nom || "") + "|" + (x.prenom || "") + "|" + (x.creneau || ""));
+
+  loadStatus.textContent = "Données chargées : " + DATA.licencies.length + " licencié(s), " + DATA.essais.length + " essai(s), " + DATA.creneaux.length + " créneau(x).";
+  renderAll();
+}
+
+function renderAll(){
+  renderDashboard();
+  renderLicencies();
+  renderEssais();
+  renderCreneaux();
+}
+
+function renderDashboard(){
+  countLicencies.textContent = DATA.licencies.length;
+  countEssais.textContent = DATA.essais.length;
+  countCreneaux.textContent = DATA.creneaux.length;
+  countGroupes.textContent = new Set(DATA.licencies.map(x=>x.categorieAffichee)).size || 0;
+
+  const byGroup = {};
+  DATA.licencies.forEach(x => byGroup[x.categorieAffichee] = (byGroup[x.categorieAffichee] || 0) + 1);
+  groupSummary.innerHTML = Object.keys(byGroup).length
+    ? Object.entries(byGroup).map(([g,n])=>`<p><span class="pill">${g}</span> ${n} licencié(s)</p>`).join("")
+    : '<p>Aucun licencié affiché.</p>';
+
+  const controls = [];
+  if(!DATA.licencies.length) controls.push("Aucun licencié remonté sur le filtre actuel.");
+  if(!DATA.creneaux.length) controls.push("Aucun créneau remonté sur le filtre actuel.");
+  if(!DATA.essais.length) controls.push("Aucun essai remonté sur le filtre actuel.");
+  controlSummary.innerHTML = controls.length
+    ? controls.map(c=>`<p class="notice">${c}</p>`).join("")
+    : '<p><span class="pill">OK</span> Les données principales remontent.</p>';
+}
+
+function filterRows(rows, cat, search, fields){
+  const s=(search||"").toLowerCase().trim();
+  return rows.filter(r=>{
+    const catOk = cat === "ALL" || r.categorieAffichee === cat || r.categorie === cat;
+    const searchOk = !s || fields.some(f => String(r[f]||"").toLowerCase().includes(s));
+    return catOk && searchOk;
+  });
+}
+
+function renderLicencies(){
+  const rows = filterRows(DATA.licencies, licencieCategory.value, licencieSearch.value, ["nom","prenom","licence","dateNaissance","sexe","categorie"]);
+  licenciesBody.innerHTML = rows.map(r=>`<tr><td>${r.categorieAffichee||r.categorie||""}</td><td>${r.nom||""}</td><td>${r.prenom||""}</td><td>${r.licence||""}</td><td>${r.dateNaissance||""}</td><td>${r.sexe||""}</td></tr>`).join("") || '<tr><td colspan="6">Aucun licencié affiché.</td></tr>';
+}
+function renderEssais(){
+  const rows = filterRows(DATA.essais, essaiCategory.value, essaiSearch.value, ["nom","prenom","creneau","telephone","email","statut","categorie"]);
+  essaisBody.innerHTML = rows.map(r=>`<tr><td>${r.categorieAffichee||r.categorie||""}</td><td>${r.nom||""}</td><td>${r.prenom||""}</td><td>${r.creneau||""}</td><td>${r.telephone||""}</td><td>${r.email||""}</td><td>${r.statut||""}</td></tr>`).join("") || '<tr><td colspan="7">Aucun essai affiché.</td></tr>';
+}
+function renderCreneaux(){
+  const rows = filterRows(DATA.creneaux, creneauCategory.value, creneauSearch.value, ["titre","jour","date","debut","fin","lieu","type"]);
+  creneauxBody.innerHTML = rows.map(r=>`<tr><td>${r.categorieAffichee||r.categorie||""}</td><td>${r.titre||""}</td><td>${r.jour||""}</td><td>${r.date||""}</td><td>${[r.debut,r.fin].filter(Boolean).join(" – ")}</td><td>${r.lieu||""}</td><td>${r.type||""}</td></tr>`).join("") || '<tr><td colspan="7">Aucun créneau affiché.</td></tr>';
+}
+[licencieCategory, licencieSearch].forEach(el=>el.addEventListener("input",renderLicencies));
+[essaiCategory, essaiSearch].forEach(el=>el.addEventListener("input",renderEssais));
+[creneauCategory, creneauSearch].forEach(el=>el.addEventListener("input",renderCreneaux));
+
+async function copyText(text,label){
+  try{await navigator.clipboard.writeText(text);toast(label||"Copié");}
+  catch(e){prompt("Copiez :", text);}
+}
+function toast(msg){
+  toastEl = document.getElementById("toast");
+  toastEl.textContent=msg;
+  toastEl.classList.add("visible");
+  setTimeout(()=>toastEl.classList.remove("visible"),1800);
+}
+function copyDashboard(){
+  copyText(`ESBB — résumé bureau
+Licenciés : ${DATA.licencies.length}
+Essais : ${DATA.essais.length}
+Créneaux : ${DATA.creneaux.length}`, "Résumé copié");
+}
+function copyTable(type){
+  let rows=[], headers=[];
+  if(type==="licencies"){headers=["Catégorie","Nom","Prénom","Licence","Date naissance","Sexe"]; rows=filterRows(DATA.licencies, licencieCategory.value, licencieSearch.value, ["nom","prenom","licence","dateNaissance","sexe","categorie"]).map(r=>[r.categorieAffichee||r.categorie||"",r.nom||"",r.prenom||"",r.licence||"",r.dateNaissance||"",r.sexe||""]);}
+  if(type==="essais"){headers=["Catégorie","Nom","Prénom","Créneau","Téléphone","Email","Statut"]; rows=filterRows(DATA.essais, essaiCategory.value, essaiSearch.value, ["nom","prenom","creneau","telephone","email","statut","categorie"]).map(r=>[r.categorieAffichee||r.categorie||"",r.nom||"",r.prenom||"",r.creneau||"",r.telephone||"",r.email||"",r.statut||""]);}
+  if(type==="creneaux"){headers=["Catégorie","Titre","Jour","Date","Horaire","Lieu","Type"]; rows=filterRows(DATA.creneaux, creneauCategory.value, creneauSearch.value, ["titre","jour","date","debut","fin","lieu","type"]).map(r=>[r.categorieAffichee||r.categorie||"",r.titre||"",r.jour||"",r.date||"",[r.debut,r.fin].filter(Boolean).join(" – "),r.lieu||"",r.type||""]);}
+  copyText([headers.join("\t"), ...rows.map(r=>r.join("\t"))].join("\n"), "Liste copiée");
+}
+function copyLink(key){
+  copyText(LINKS[key] || "", "Lien copié");
+}
+
+loadBureauData();
+</script>
+</body>
+</html>

@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#003914">
+<title>Portail coachs | ES Blanquefort Basket Ball</title>
+<style>
+:root{
+  --g:#003914;--d:#001f0c;--l:#0b6b2b;--muted:#56695c;--line:rgba(0,57,20,.20);
+  --soft:#f7fbf6;--white:#fff;--warn:#fff7e6;--ok:#eaf4e9;--ko:#fff0ed;--blue:#edf4ff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;overflow-y:auto}
+body{
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:linear-gradient(135deg,#fff 0%,#f7fbf6 58%,#eef5ed 100%);
+  color:#082313;
+}
+button,input,select,textarea{font:inherit}
+a{color:inherit;text-decoration:none}
+.page{min-height:100vh;padding:14px 8px 32px;position:relative;overflow:hidden}
+.page:before{
+  content:"";position:absolute;left:50%;top:-180px;width:560px;height:292px;transform:translateX(-50%);
+  background:linear-gradient(135deg,var(--d),var(--g));border-radius:0 0 70% 70%;z-index:0;
+  box-shadow:0 24px 60px rgba(0,31,12,.18)
+}
+.container{width:100%;max-width:1120px;margin:0 auto;position:relative;z-index:1}
+.hero{text-align:center;padding-top:4px;margin-bottom:12px}
+.logo{width:128px;max-width:44vw;height:auto;filter:drop-shadow(0 12px 16px rgba(0,31,12,.22))}
+.clubline{display:flex;align-items:center;justify-content:center;gap:7px;margin:4px 0 8px;color:var(--d);font-weight:1000;font-size:clamp(14px,3.8vw,18px);line-height:1.15}
+.dot{width:14px;height:14px;min-width:14px;border-radius:50%;display:inline-block}
+.dot.green{background:#003914}.dot.white{background:#fff;border:2px solid #003914}
+.slogan{display:inline-flex;margin:0 auto 10px;padding:7px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--d);font-weight:1000;font-size:13px;box-shadow:0 8px 18px rgba(0,31,12,.08)}
+.kicker{display:inline-flex;padding:7px 12px;border-radius:999px;color:#fff;background:linear-gradient(135deg,var(--g),var(--l));font-weight:950;font-size:12px;box-shadow:0 8px 18px rgba(0,57,20,.18)}
+h1{margin:10px 0 8px;color:var(--d);text-transform:uppercase;font-size:clamp(32px,9vw,54px);line-height:.96;letter-spacing:-.8px;font-weight:1000}
+.hero p{max-width:780px;margin:0 auto;font-size:14.5px;line-height:1.45;font-weight:700;color:#244232}
+
+.shell{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:20px;box-shadow:0 18px 46px rgba(0,31,12,.16);padding:13px}
+.panel{display:none}.panel.active{display:block}
+.label{display:inline-flex;margin:0 0 11px;padding:7px 12px;border-radius:999px;color:#fff;background:linear-gradient(135deg,var(--d),#00551f);font-weight:1000;text-transform:uppercase;font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.card{padding:15px;border-radius:15px;background:#fff;border:1px solid rgba(0,57,20,.16);box-shadow:0 8px 18px rgba(0,31,12,.05)}
+.card.dark{background:linear-gradient(135deg,var(--g),var(--d));color:#fff}
+.card h3{margin:0 0 7px;color:var(--d);font-size:18px;text-transform:uppercase;font-weight:1000}
+.card.dark h3{color:#fff}
+.card p{margin:0 0 12px;color:var(--muted);line-height:1.42;font-weight:650;font-size:14px}
+.card.dark p{color:rgba(255,255,255,.84)}
+.welcome-card{padding:18px;border-radius:18px;background:linear-gradient(135deg,#fff,#f7fbf6);border:1px solid rgba(0,57,20,.16);box-shadow:0 10px 22px rgba(0,31,12,.06);margin-bottom:12px}
+.welcome-card h2{margin:0 0 8px;color:var(--d);font-size:24px;line-height:1.1;text-transform:uppercase}
+.welcome-card p{margin:0;color:var(--muted);font-weight:700;line-height:1.45}
+
+.nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin:0 0 12px}
+.nav button{min-height:38px;border:1px solid rgba(0,57,20,.16);background:#fff;color:var(--d);font-weight:1000;border-radius:12px;padding:7px 5px;font-size:11.5px;line-height:1.05;cursor:pointer;text-align:center;display:flex;align-items:center;justify-content:center}
+.nav .active{background:linear-gradient(135deg,var(--g),var(--d));color:#fff;border-color:transparent}
+
+.btn{min-height:44px;border:0;border-radius:12px;color:#fff;background:linear-gradient(135deg,var(--g),var(--d));font-size:13px;font-weight:1000;text-transform:uppercase;letter-spacing:.02em;cursor:pointer;box-shadow:0 12px 24px rgba(0,57,20,.18);display:inline-flex;align-items:center;justify-content:center;text-align:center;margin-top:10px;padding:10px 14px}
+.btn.full{width:100%}
+.btn.light{color:var(--d);background:#fff;border:1px solid rgba(0,57,20,.24);box-shadow:none}
+.btn.warn{background:#9a6700;color:#fff}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.tools select,.tools input{border:1px solid rgba(0,57,20,.24);border-radius:12px;padding:10px;font-weight:800;min-height:42px;background:#fff}
+.tools select{min-width:160px}
+.pill{display:inline-flex;padding:6px 9px;border-radius:999px;background:#eaf4e9;color:var(--d);font-weight:1000;font-size:11px;white-space:nowrap}
+.pill.warn{background:#fff7e6;color:#8a5a05}.pill.ko{background:#fff0ed;color:#8a1f11}.pill.blue{background:#edf4ff;color:#123b78}
+.status{display:none;margin-top:10px;padding:11px 12px;border-radius:13px;background:#eaf4e9;border:1px solid rgba(0,57,20,.16);color:var(--d);font-weight:900;line-height:1.35;font-size:13px}
+.status.visible{display:block}
+
+.session-list{display:grid;gap:10px;margin-top:10px}
+.session-card{border:1px solid rgba(0,57,20,.14);border-radius:16px;background:#fff;padding:13px;display:grid;gap:8px;cursor:pointer}
+.session-card.active{border-color:#003914;box-shadow:0 0 0 3px rgba(0,57,20,.08)}
+.session-card .top{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.session-card strong{color:var(--d);font-size:17px}
+.session-card span{color:var(--muted);font-size:13px;font-weight:750}
+.session-card .metrics{display:flex;gap:6px;flex-wrap:wrap}
+
+.presence-board{display:grid;grid-template-columns:1.1fr .9fr;gap:12px;margin-top:12px}
+.player-list{display:grid;gap:8px;margin-top:10px}
+.player-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;border:1px solid rgba(0,57,20,.14);border-radius:13px;padding:10px;background:#fff}
+.player-row strong{display:block;color:var(--d);font-weight:1000}
+.player-row span{display:block;color:var(--muted);font-size:13px;font-weight:700;margin-top:2px}
+.actions{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+.actions button{border:1px solid rgba(0,57,20,.18);background:#fff;border-radius:999px;padding:7px 9px;font-size:11px;font-weight:1000;cursor:pointer;color:var(--d)}
+.actions button.selected.ok{background:var(--ok);border-color:#8bbf8c}
+.actions button.selected.ko{background:var(--ko);border-color:#e19b91}
+.actions button.selected.wait{background:var(--warn);border-color:#dfbd76}
+
+.summary-box{display:grid;gap:8px}
+.summary-row{display:flex;align-items:center;justify-content:space-between;border:1px solid rgba(0,57,20,.14);border-radius:12px;padding:10px;background:#fff}
+.summary-row strong{font-size:24px;color:var(--d)}
+.summary-row span{font-size:13px;color:var(--muted);font-weight:800}
+.message-box textarea{width:100%;min-height:130px;border:1px solid rgba(0,57,20,.24);border-radius:12px;padding:12px;font-weight:700}
+.tournament-link{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid rgba(0,57,20,.14);border-radius:14px;background:#fff;padding:12px;margin-top:8px}
+.tournament-link strong{display:block;color:var(--d);font-weight:1000}
+.tournament-link span{display:block;color:var(--muted);font-size:13px;font-weight:700}
+.notice{padding:12px;border-radius:14px;background:#fff7e6;border-left:5px solid #f0a500;color:#4d3510;font-weight:800;line-height:1.4;margin:10px 0}
+.footer{margin:17px 0 0;text-align:center;color:rgba(8,35,19,.75);font-size:14px;font-weight:900;line-height:1.35}
+
+@media(max-width:860px){
+  .grid,.grid-3,.presence-board{grid-template-columns:1fr}
+  .nav{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tools select,.tools input{width:100%}
+  .actions{justify-content:flex-start}
+}
+
+.favorite-bar{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.favorite-bar button{border:1px solid rgba(0,57,20,.22);background:#fff;border-radius:999px;padding:8px 11px;font-weight:1000;color:var(--d);cursor:pointer}
+.favorite-bar button.active{background:linear-gradient(135deg,var(--g),var(--d));color:#fff;border-color:transparent}
+.counter-line{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.counter-line .pill{font-size:12px}
+.compact-time{font-weight:1000;color:var(--d)}
+
+
+.trial-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.trial-actions button{border:1px solid rgba(0,57,20,.18);background:#fff;border-radius:999px;padding:7px 9px;font-size:11px;font-weight:1000;cursor:pointer;color:var(--d)}
+.trial-actions button.selected.ok{background:var(--ok);border-color:#8bbf8c}
+.trial-actions button.selected.ko{background:var(--ko);border-color:#e19b91}
+.trial-actions button.selected.wait{background:var(--warn);border-color:#dfbd76}
+.trial-note{width:100%;border:1px solid rgba(0,57,20,.18);border-radius:10px;padding:8px;margin-top:7px;font-size:12px;font-weight:700}
+.share-box{border:1px solid rgba(0,57,20,.14);border-radius:14px;background:#f7fbf6;padding:12px;margin-top:10px}
+.share-box strong{display:block;color:var(--d);font-weight:1000;margin-bottom:4px}
+
+.comm-dot{display:none;width:10px;height:10px;background:#d71920;border-radius:50%;margin-left:6px;box-shadow:0 0 0 3px rgba(215,25,32,.12)}
+.comm-dot.visible{display:inline-block}
+.comm-list{display:grid;gap:10px;margin-top:10px}
+.comm-card{border:1px solid rgba(0,57,20,.14);border-radius:14px;background:#fff;padding:12px}
+.comm-card strong{display:block;color:var(--d);font-weight:1000;font-size:16px}
+.comm-card span{display:block;color:var(--muted);font-size:12px;font-weight:800;margin:3px 0 8px}
+.comm-card p{margin:0;color:#183726;font-weight:700;line-height:1.4}
+
+
+.install-hint{border:1px solid rgba(0,57,20,.14);border-radius:14px;background:#f7fbf6;padding:12px;margin:10px 0;color:var(--d);font-weight:800;line-height:1.35}
+.install-hint strong{display:block;font-weight:1000;margin-bottom:4px}
+.comm-card img{width:100%;max-height:260px;object-fit:cover;border-radius:12px;margin:8px 0;border:1px solid rgba(0,57,20,.12)}
+.comm-card a.comm-link{display:inline-flex;margin-top:10px;padding:10px 12px;border-radius:12px;background:linear-gradient(135deg,var(--g),var(--d));color:#fff;font-weight:1000;text-transform:uppercase;font-size:12px;text-decoration:none}
+
+
+.esbb-legal-footer{
+  margin:18px auto 0;
+  padding:14px 12px;
+  border-radius:16px;
+  background:rgba(255,255,255,.92);
+  border:1px solid rgba(0,57,20,.16);
+  color:#183726;
+  text-align:center;
+  font-size:12px;
+  font-weight:750;
+  line-height:1.45;
+  box-shadow:0 8px 18px rgba(0,31,12,.05);
+}
+.esbb-legal-footer strong{
+  color:#003914;
+  font-weight:1000;
+}
+.esbb-legal-footer .credit{
+  display:block;
+  margin-top:6px;
+  color:#56695c;
+  font-size:11.5px;
+}
+.esbb-legal-footer a{
+  color:#003914;
+  font-weight:1000;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+<div class="container">
+<header class="hero">
+<img class="logo" src="../assets/logo.png" alt="Logo ES Blanquefort Basket Ball" onerror="this.src='logo.png';this.onerror=null;">
+<div class="clubline"><span class="dot green"></span><span>ES Blanquefort Basket Ball</span><span class="dot white"></span></div>
+<div class="slogan">Vert et blanc un jour, Blanquefort toujours&nbsp;!</div><br>
+<div class="kicker">🏀 PORTAIL COACHS</div>
+<h1 id="heroTitle">Calendrier équipe</h1>
+<p id="heroSubtitle">Choisissez un groupe pour suivre les entraînements, les présences, les essais, les tournois et les messages.</p>
+</header>
+
+<main class="shell">
+<div class="nav">
+<button class="active" data-open="calendrier">Calendrier</button>
+<button data-open="licencies">Licenciés</button>
+<button data-open="essais">Essais</button>
+<button data-open="tournois">Tournois</button>
+<button data-open="messages">Messages</button>
+<button data-open="communication">Communication <span id="communicationDot" class="comm-dot"></span></button></div>
+
+<section id="panel-calendrier" class="panel active">
+<div class="label">Calendrier entraînements</div>
+<div class="welcome-card">
+<h2>Choisir un entraînement</h2>
+<p>Choisissez un groupe, puis un entraînement. Les données affichées sont lues depuis la base club quand elle est disponible.</p><div class="status visible" id="remoteStatus">Chargement des données...</div>
+</div>
+<div class="favorite-bar" id="favoriteBar"></div>
+<div class="tools">
+<select id="calendarCategory"><option value="U5">U5</option>
+<option value="U7">U7</option>
+<option value="U9">U9</option>
+<option value="U11">U11</option>
+
+<option value="U13M">U13M</option>
+<option value="U13F">U13F</option>
+<option value="U15M">U15M</option>
+<option value="U18M">U18M</option>
+<option value="U21">U21</option>
+<option value="Seniors">Seniors</option>
+<option value="Loisirs">Loisirs</option>
+</select>
+<button class="btn light" type="button" onclick="renderSessions()">Afficher</button>
+<button class="btn light" type="button" onclick="toggleFavoriteTeam(calendarCategory.value)">Favori</button>
+<button class="btn" type="button" onclick="openPanel('licencies')">Voir licenciés</button>
+</div>
+<div id="sessionList" class="session-list"></div>
+
+<div id="sessionDetail" class="card" style="display:none;margin-top:14px">
+<h3 id="sessionTitle">Entraînement</h3>
+<p id="sessionInfo"></p>
+<div class="tools">
+<button class="btn" type="button" onclick="createPresenceRequest()">Créer / ouvrir les présences</button>
+<button class="btn light" type="button" onclick="copyReminder()">Copier rappel</button>
+<button class="btn light" type="button" onclick="copyNonResponders()">Relancer non-répondants</button>
+</div>
+
+<div class="presence-board">
+<div class="card">
+<h3>Présences du groupe</h3>
+<p>Marquez les réponses connues ou préparez une relance.</p>
+<div id="presencePlayers" class="player-list"></div>
+</div>
+<div class="card">
+<h3>Résumé</h3>
+<div class="summary-box">
+<div class="summary-row"><span>Présents</span><strong id="countPresent">0</strong></div>
+<div class="summary-row"><span>Absents</span><strong id="countAbsent">0</strong></div>
+<div class="summary-row"><span>À confirmer</span><strong id="countWait">0</strong></div>
+<div class="summary-row"><span>Pas répondu</span><strong id="countNone">0</strong></div>
+</div>
+<div class="notice" id="essaisForSession">Aucun essai affiché sur ce créneau.</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="panel-licencies" class="panel">
+<div class="label">Mes licenciés</div>
+<div class="welcome-card">
+<h2>Liste de l’équipe</h2>
+<p>Choisissez votre catégorie, sélectionnez les joueurs utiles, puis copiez la sélection si besoin.</p>
+</div>
+<div class="tools">
+<select id="coachCategory"><option value="U5">U5</option>
+<option value="U7">U7</option>
+<option value="U9">U9</option>
+<option value="U11">U11</option>
+
+<option value="U13M">U13M</option>
+<option value="U13F">U13F</option>
+<option value="U15M">U15M</option>
+<option value="U18M">U18M</option>
+<option value="U21">U21</option>
+<option value="Seniors">Seniors</option>
+<option value="Loisirs">Loisirs</option>
+</select>
+<input id="playerSearch" placeholder="Rechercher un joueur">
+<button class="btn light" type="button" onclick="selectAllPlayers()">Tout sélectionner</button>
+<button class="btn light" type="button" onclick="clearPlayers()">Tout décocher</button>
+<button class="btn" type="button" onclick="copySelectedPlayers()">Copier la sélection</button>
+</div>
+<div class="counter-line"><span class="pill" id="playerTotal">0 joueur</span><span class="pill blue" id="playerChecked">0 sélectionné</span></div><div id="playerList" class="player-list"></div>
+</section>
+
+<section id="panel-essais" class="panel">
+<div class="label">Essais</div>
+<div class="grid">
+<article class="card">
+<h3>Formulaire essais</h3>
+<p><strong>Vous connaissez un enfant, un jeune ou un adulte qui souhaite essayer le basket ?</strong></p>
+<p>Le club ouvre des créneaux d’essais pour préparer la saison 2026-2027.</p>
+<p>Merci d’utiliser le formulaire officiel afin que la demande soit bien enregistrée dans la bonne catégorie et sur le bon créneau.</p>
+<a class="btn full" href="https://es-blanquefort-basket-ball.github.io/essais-2026-2027/" target="_blank" rel="noopener">Accéder au formulaire essais</a>
+<button class="btn light full" type="button" onclick="copyEssaisLink()">Copier le lien essais</button>
+<div class="share-box">
+<strong>À transmettre aux familles</strong>
+<span>Le lien peut être copié puis envoyé par SMS, WhatsApp ou mail. Sur téléphone, la famille peut aussi ajouter la page à son écran d’accueil avec le bouton “Installer” quand il apparaît.</span>
+</div>
+</article>
+<article class="card">
+<h3>Inscrits aux essais</h3>
+<p>Retrouvez les joueurs extérieurs inscrits aux essais, y compris l’école de basket.</p>
+<div class="tools"><select id="essaisCategory"><option value="U5">U5</option><option value="U7">U7</option><option value="U9">U9</option><option value="U11">U11</option><option value="U13M">U13M</option><option value="U13F">U13F</option><option value="U15M">U15M</option><option value="U18M">U18M</option><option value="U21">U21</option><option value="Seniors">Seniors</option><option value="Loisirs">Loisirs</option></select><button class="btn light" type="button" onclick="renderEssais()">Afficher</button></div><div class="counter-line"><span class="pill" id="essaisTotal">0 essai</span></div><div id="essaisList" class="player-list"></div>
+</article>
+</div>
+</section>
+
+<section id="panel-tournois" class="panel">
+<div class="label">Tournois</div>
+<div class="welcome-card">
+<h2>Tournois transmis par le club</h2>
+<p>Consultez les liens et préparez une demande de participation aux familles.</p>
+</div>
+<div class="grid">
+<article class="card">
+<h3>Liens tournois</h3>
+<div id="tournamentList"></div>
+</article>
+<article class="card message-box">
+<h3>Message tournoi</h3>
+<textarea id="tournamentMessage" placeholder="Bonjour, merci d’indiquer si votre enfant participe au tournoi..."></textarea>
+<button class="btn full" type="button" onclick="copyTournamentMessage()">Copier le message tournoi</button>
+</article>
+</div>
+</section>
+
+<section id="panel-messages" class="panel">
+<div class="label">Messages groupe</div>
+<div class="welcome-card">
+<h2>Préparer un message</h2>
+<p>Écrivez un message clair à envoyer au groupe : entraînement, tournoi, rappel horaire ou information importante.</p>
+</div>
+<div class="grid">
+<article class="card message-box">
+<h3>Message libre</h3>
+<textarea id="freeMessage" placeholder="Message aux familles..."></textarea>
+<button class="btn full" type="button" onclick="copyFreeMessage()">Copier le message</button>
+</article>
+<article class="card">
+<h3>Modèles rapides</h3>
+<button class="btn light full" type="button" onclick="setTemplate('training')">Rappel entraînement</button>
+<button class="btn light full" type="button" onclick="setTemplate('answer')">Relance réponse</button>
+<button class="btn light full" type="button" onclick="setTemplate('tournament')">Tournoi</button>
+</article>
+</div>
+</section>
+
+<section id="panel-communication" class="panel">
+<div class="label">Communication club</div>
+<div class="welcome-card">
+<h2>Informations du club</h2>
+<p>Retrouvez ici les messages importants publiés par le club.</p><div class="install-hint"><strong>Astuce</strong> Vous pouvez installer ce portail sur l’écran d’accueil du téléphone pour l’ouvrir comme une application.</div>
+</div>
+<div class="tools">
+<button class="btn light" type="button" onclick="esbbLoadCommunications('Coachs')">Actualiser</button>
+<button class="btn" type="button" onclick="esbbMarkCommunicationsRead('Coachs')">Marquer comme lu</button>
+</div>
+<div id="communicationList" class="comm-list"></div>
+</section>
+
+</main>
+
+
+<footer class="esbb-legal-footer">
+  <strong>Vert et blanc un jour, Blanquefort toujours&nbsp;!</strong><br>
+  ES Blanquefort Basket Ball · <a href="mentions_legales_ESBB.html">Mentions légales</a>
+  <span class="credit">Créé par <strong>L’Rénov IA Studio</strong> · Solutions digitales clubs sur mesure</span>
+</footer>
+
+
+
+<div class="status" id="toast"></div>
+<div class="footer">ES Blanquefort Basket Ball · Portail coachs</div>
+</div>
+</div>
+
+<script>
+const ESSAIS_LINK="https://es-blanquefort-basket-ball.github.io/essais-2026-2027/";
+
+const PLAYERS = {
+  
+  U13M:[
+    {name:"Joueur U13M 1", info:"2014 · contact famille"},
+    {name:"Joueur U13M 2", info:"2015 · contact famille"},
+    {name:"Joueur U13M 3", info:"2014 · contact famille"},
+    {name:"Joueur U13M 4", info:"2015 · contact famille"}
+  ],
+  U13F:[
+    {name:"Joueuse U13F 1", info:"2014 · contact famille"},
+    {name:"Joueuse U13F 2", info:"2015 · contact famille"},
+    {name:"Joueuse U13F 3", info:"2014 · contact famille"}
+  ],
+  U15M:[
+    {name:"Joueur U15M 1", info:"2012 · contact famille"},
+    {name:"Joueur U15M 2", info:"2013 · contact famille"},
+    {name:"Joueur U15M 3", info:"2012 · contact famille"}
+  ],
+  U18M:[
+    {name:"Joueur U18M 1", info:"2009 · contact"},
+    {name:"Joueur U18M 2", info:"2010 · contact"},
+    {name:"Joueur U18M 3", info:"2011 · contact"}
+  ],
+  U21:[
+    {name:"Joueur U21 1", info:"2006 · contact joueur"},
+    {name:"Joueur U21 2", info:"2007 · contact joueur"}
+  ],
+  Seniors:[
+    {name:"Senior 1", info:"contact joueur"},
+    {name:"Senior 2", info:"contact joueur"}
+  ],
+  Loisirs:[
+    {name:"Loisir 1", info:"contact joueur"},
+    {name:"Loisir 2", info:"contact joueur"}
+  ]
+};
+
+const SESSIONS = {
+  
+  U13M:[
+    {id:"ENT-U13M-MER", day:"Mercredi", time:"15h00 – 16h30", place:"Fongravey", title:"Entraînement U13M"},
+    {id:"ENT-U13M-VEN", day:"Vendredi", time:"18h00 – 19h30", place:"Lycée agricole", title:"Entraînement U13M"}
+  ],
+  U13F:[
+    {id:"ENT-U13F-MAR", day:"Mardi", time:"18h30 – 20h00", place:"Lycée agricole", title:"Collectif U13F"},
+    {id:"ENT-U13F-JEU", day:"Jeudi", time:"18h30 – 20h00", place:"Lycée agricole", title:"Entraînement U13F"}
+  ],
+  U15M:[
+    {id:"ENT-U15M-LUN", day:"Lundi", time:"19h00 – 20h30", place:"Fongravey", title:"U15 / U18"},
+    {id:"ENT-U15M-MER", day:"Mercredi", time:"18h00 – 20h30", place:"Port du Roy", title:"U15 / U18"},
+    {id:"ENT-U15M-VEN", day:"Vendredi", time:"19h30 – 21h00", place:"Lycée agricole", title:"Entraînement U15M"}
+  ],
+  U18M:[
+    {id:"ENT-U18M-LUN", day:"Lundi", time:"19h00 – 20h30", place:"Fongravey", title:"U15 / U18"},
+    {id:"ENT-U18M-MER", day:"Mercredi", time:"18h00 – 20h30", place:"Port du Roy", title:"U15 / U18"},
+    {id:"ENT-U18M-JEU", day:"Jeudi", time:"20h00 – 21h30", place:"Lycée agricole", title:"Entraînement U18M"}
+  ],
+  U21:[
+    {id:"ENT-U21-LUN", day:"Lundi", time:"21h00 – 23h00", place:"Port du Roy", title:"U21 / Seniors"}
+  ],
+  Seniors:[
+    {id:"ENT-SEN-LUN", day:"Lundi", time:"21h00 – 23h00", place:"Port du Roy", title:"U21 / Seniors"},
+    {id:"ENT-SEN-MER", day:"Mercredi", time:"20h30 – 22h30", place:"Port du Roy", title:"Seniors M 1 + Seniors M 2"}
+  ],
+  Loisirs:[
+    {id:"ENT-LOISIRS-VEN", day:"Vendredi", time:"21h00 – 23h00", place:"Lycée agricole", title:"Loisirs"}
+  ]
+};
+
+const ESSAIS = {
+  U5:[
+    {name:"Essai U5", info:"Mercredi · Fongravey"},
+    {name:"Essai U5 samedi", info:"Samedi 06/06 · Fongravey"}
+  ],
+  U7:[
+    {name:"Essai U7", info:"Mercredi · Fongravey"},
+    {name:"Essai U7 samedi", info:"Samedi 06/06 · Fongravey"}
+  ],
+  U9:[
+    {name:"Essai U9", info:"Mercredi · Fongravey"},
+    {name:"Essai U9 samedi", info:"Samedi 06/06 · Fongravey"}
+  ],
+  U11:[
+    {name:"Essai U11", info:"Mercredi · Fongravey"},
+    {name:"Essai U11 samedi", info:"Samedi 06/06 · Fongravey"}
+  ],
+  U13M:[
+    {name:"Essai U13M 1", info:"Samedi 06/06 · 10h00 · Port du Roy"},
+    {name:"Essai U13M 2", info:"Vendredi · 18h00 · Lycée agricole"}
+  ],
+  U13F:[
+    {name:"Essai U13F 1", info:"Samedi 06/06 · 10h00 · Port du Roy"}
+  ],
+  U15M:[
+    {name:"Essai U15M 1", info:"Samedi 06/06 · 10h00 · Port du Roy"}
+  ],
+  U18M:[], U21:[], Seniors:[], Loisirs:[]
+};
+
+const TOURNOIS = [
+  {title:"Tournoi U13 — lien à ajouter", info:"Catégories concernées : U13M / U13F", url:"#"},
+  {title:"Tournoi U15 — lien à ajouter", info:"Catégorie concernée : U15M", url:"#"},
+  {title:"Tournoi U18 — lien à ajouter", info:"Catégorie concernée : U18M", url:"#"}
+];
+
+let currentSession = null;
+let presence = {};
+
+function openPanel(tab){
+  document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active", p.id==="panel-"+tab));
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active", b.dataset.open===tab));
+  const map={
+    calendrier:["Calendrier équipe","Suivi des entraînements, présences et rappels des groupes."],
+    licencies:["Mes licenciés","Consultez votre groupe et préparez une sélection."],
+    essais:["Essais","Lien officiel et inscrits aux essais."],
+    tournois:["Tournois","Liens tournois et demandes aux familles."],
+    messages:["Messages","Préparez un message pour votre groupe."]
+  };
+  heroTitle.textContent=(map[tab]||map.calendrier)[0];
+  heroSubtitle.textContent=(map[tab]||map.calendrier)[1];
+  if(tab==="communication"){ esbbLoadCommunications("Coachs"); esbbMarkCommunicationsRead("Coachs"); }
+  if(tab==="licencies") renderPlayers();
+  if(tab==="calendrier") renderSessions();
+  if(tab==="essais") renderEssais();
+  if(tab==="tournois") renderTournois();
+}
+document.querySelectorAll("[data-open]").forEach(el=>el.addEventListener("click",()=>openPanel(el.dataset.open)));
+
+function toast(msg){
+  const t=document.getElementById("toast");
+  t.textContent=msg;
+  t.classList.add("visible");
+  setTimeout(()=>t.classList.remove("visible"),1800);
+}
+async function copyText(text, label){
+  try{await navigator.clipboard.writeText(text);toast(label||"Copié");}
+  catch(e){prompt("Copiez le texte :", text);}
+}
+
+function renderSessions(){
+  const cat=calendarCategory.value;
+  const box=sessionList;
+  box.innerHTML="";
+  (SESSIONS[cat]||[]).forEach(s=>{
+    const metrics=getSessionMetrics(cat, s.id);
+    const div=document.createElement("div");
+    div.className="session-card"+(currentSession&&currentSession.id===s.id?" active":"");
+    div.innerHTML=`<div class="top"><strong>${s.title}</strong><span class="pill blue">${s.day}</span></div>
+      <span>${s.time} · ${s.place}</span>
+      <div class="metrics">
+        <span class="pill">${metrics.present} présents</span>
+        <span class="pill ko">${metrics.absent} absents</span>
+        <span class="pill warn">${metrics.none} sans réponse</span>
+      </div>`;
+    div.onclick=()=>selectSession(cat,s);
+    box.appendChild(div);
+  });
+}
+calendarCategory.addEventListener("change",()=>{currentSession=null;sessionDetail.style.display="none";renderSessions();});
+
+function selectSession(cat, session){
+  currentSession={cat,...session};
+  renderSessions();
+  sessionDetail.style.display="block";
+  sessionTitle.textContent=session.title;
+  sessionInfo.textContent=`${session.day} · ${session.time} · ${session.place}`;
+  renderPresenceBoard();
+}
+function createPresenceRequest(){
+  if(!currentSession){toast("Choisissez un entraînement");return;}
+  renderPresenceBoard();
+  toast("Présences ouvertes");
+}
+function playerKey(sessionId, name){return sessionId+"::"+name;}
+function setPresence(name, value){
+  if(!currentSession) return;
+  presence[playerKey(currentSession.id,name)]=value;
+  renderPresenceBoard();
+}
+function getPresence(name){
+  if(!currentSession) return "";
+  return presence[playerKey(currentSession.id,name)] || "";
+}
+function getSessionMetrics(cat, sessionId){
+  const players=PLAYERS[cat]||[];
+  let present=0, absent=0, wait=0;
+  players.forEach(p=>{
+    const v=presence[playerKey(sessionId,p.name)] || "";
+    if(v==="present") present++;
+    if(v==="absent") absent++;
+    if(v==="wait") wait++;
+  });
+  return {present, absent, wait, none:Math.max(players.length-present-absent-wait,0)};
+}
+function renderPresenceBoard(){
+  if(!currentSession) return;
+  const players=PLAYERS[currentSession.cat]||[];
+  presencePlayers.innerHTML="";
+  players.forEach(p=>{
+    const v=getPresence(p.name);
+    const row=document.createElement("div");
+    row.className="player-row";
+    row.innerHTML=`<div><strong>${p.name}</strong><span>${p.info}</span></div>
+      <div class="actions">
+        <button class="${v==='present'?'selected ok':''}" onclick="setPresence('${p.name}','present')">Présent</button>
+        <button class="${v==='absent'?'selected ko':''}" onclick="setPresence('${p.name}','absent')">Absent</button>
+        <button class="${v==='wait'?'selected wait':''}" onclick="setPresence('${p.name}','wait')">À confirmer</button>
+      </div>`;
+    presencePlayers.appendChild(row);
+  });
+  const m=getSessionMetrics(currentSession.cat,currentSession.id);
+  countPresent.textContent=m.present;
+  countAbsent.textContent=m.absent;
+  countWait.textContent=m.wait;
+  countNone.textContent=m.none;
+  const essais=ESSAIS[currentSession.cat]||[];
+  essaisForSession.innerHTML=essais.length
+    ? "<strong>Essais liés à la catégorie</strong><br>"+essais.map(e=>e.name+" · "+e.info).join("<br>")
+    : "Aucun essai affiché sur ce créneau.";
+}
+function nonResponders(){
+  if(!currentSession) return [];
+  return (PLAYERS[currentSession.cat]||[]).filter(p=>!getPresence(p.name)).map(p=>p.name);
+}
+function copyReminder(){
+  if(!currentSession){toast("Choisissez un entraînement");return;}
+  copyText(`Bonjour, rappel entraînement ${currentSession.title} : ${currentSession.day} ${currentSession.time} à ${currentSession.place}. Merci d’indiquer présent ou absent.`, "Rappel copié");
+}
+function copyNonResponders(){
+  const names=nonResponders();
+  const msg=names.length ? "Relance réponses :\n"+names.join("\n") : "Tout le monde a répondu.";
+  copyText(msg,"Relance copiée");
+}
+
+function renderPlayers(){
+  const cat=coachCategory.value;
+  const search=(playerSearch.value||"").toLowerCase();
+  playerList.innerHTML="";
+  (PLAYERS[cat]||[]).filter(p=>p.name.toLowerCase().includes(search)).forEach(p=>{
+    const row=document.createElement("label");
+    row.className="player-row";
+    row.innerHTML=`<div><strong>${p.name}</strong><span>${cat} · ${p.info}</span></div><input type="checkbox" value="${p.name}">`;
+    playerList.appendChild(row);
+  });
+}
+coachCategory.addEventListener("change",renderPlayers);
+playerSearch.addEventListener("input",renderPlayers);
+function selectAllPlayers(){document.querySelectorAll("#playerList input").forEach(i=>i.checked=true);updatePlayerCounters();}
+function clearPlayers(){document.querySelectorAll("#playerList input").forEach(i=>i.checked=false);updatePlayerCounters();}
+function copySelectedPlayers(){
+  const names=[...document.querySelectorAll("#playerList input:checked")].map(i=>i.value);
+  copyText(names.length?names.join("\n"):"Aucun joueur sélectionné.","Sélection copiée");
+}
+
+function renderEssais(){
+  const cat=(document.getElementById("essaisCategory") ? essaisCategory.value : calendarCategory.value) || "U13M";
+  essaisList.innerHTML="";
+  const data=ESSAIS[cat]||[];
+  if(!data.length){essaisList.innerHTML='<div class="notice">Aucun inscrit aux essais affiché pour cette catégorie.</div>';return;}
+  data.forEach(e=>{
+    const row=document.createElement("div");
+    row.className="player-row";
+    row.innerHTML=`<div><strong>${e.name}</strong><span>${e.info}</span></div><span class="pill">Essai</span>`;
+    essaisList.appendChild(row);
+  });
+}
+function copyEssaisLink(){copyText(ESSAIS_LINK,"Lien essais copié");}
+
+function renderTournois(){
+  tournamentList.innerHTML="";
+  TOURNOIS.forEach(t=>{
+    const div=document.createElement("div");
+    div.className="tournament-link";
+    div.innerHTML=`<div><strong>${t.title}</strong><span>${t.info}</span></div><a class="btn light" href="${t.url}" target="_blank" rel="noopener">Ouvrir</a>`;
+    tournamentList.appendChild(div);
+  });
+}
+function copyTournamentMessage(){
+  const msg=tournamentMessage.value || "Bonjour, merci d’indiquer si votre enfant participe au tournoi. Réponse souhaitée rapidement.";
+  copyText(msg,"Message tournoi copié");
+}
+function setTemplate(type){
+  const templates={
+    training:"Bonjour, rappel entraînement cette semaine. Merci d’indiquer présent ou absent.",
+    answer:"Bonjour, merci de répondre pour la présence à l’entraînement afin que nous puissions organiser la séance.",
+    tournament:"Bonjour, merci d’indiquer si votre enfant participe au tournoi. Réponse souhaitée rapidement."
+  };
+  freeMessage.value=templates[type]||"";
+}
+function copyFreeMessage(){
+  copyText(freeMessage.value || "Message vide.", "Message copié");
+}
+
+
+
+/* ===== CONFORT COACH : FAVORIS, TRI, COMPTEURS ===== */
+const DAY_ORDER = { "Lundi":1, "Mardi":2, "Mercredi":3, "Jeudi":4, "Vendredi":5, "Samedi":6, "Dimanche":7 };
+const FAVORITE_KEY = "ESBB_COACH_FAVORITES";
+
+function getFavorites(){
+  try { return JSON.parse(localStorage.getItem(FAVORITE_KEY) || "[]"); }
+  catch(e){ return []; }
+}
+function setFavorites(list){
+  localStorage.setItem(FAVORITE_KEY, JSON.stringify([...new Set(list)]));
+}
+function toggleFavoriteTeam(team){
+  if(!team) return;
+  const favs = getFavorites();
+  const idx = favs.indexOf(team);
+  if(idx >= 0) favs.splice(idx,1); else favs.push(team);
+  setFavorites(favs);
+  renderFavoriteBar();
+}
+function applyTeam(team){
+  if(document.getElementById("calendarCategory") && [...calendarCategory.options].some(o=>o.value===team)) calendarCategory.value = team;
+  if(document.getElementById("coachCategory") && [...coachCategory.options].some(o=>o.value===team)) coachCategory.value = team;
+  if(document.getElementById("essaisCategory") && [...essaisCategory.options].some(o=>o.value===team)) essaisCategory.value = team;
+  refreshConnectedCoach();
+}
+function renderFavoriteBar(){
+  const box = document.getElementById("favoriteBar");
+  if(!box) return;
+  const favs = getFavorites();
+  const current = document.getElementById("calendarCategory") ? calendarCategory.value : "";
+  box.innerHTML = "";
+  if(!favs.length){
+    box.innerHTML = '<button type="button" onclick="toggleFavoriteTeam(calendarCategory.value)">Ajouter ce groupe en favori</button>';
+    return;
+  }
+  favs.forEach(team=>{
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = "⭐ " + team;
+    btn.className = team === current ? "active" : "";
+    btn.onclick = () => applyTeam(team);
+    box.appendChild(btn);
+  });
+  const add = document.createElement("button");
+  add.type = "button";
+  add.textContent = favs.includes(current) ? "Retirer favori" : "Ajouter favori";
+  add.onclick = () => toggleFavoriteTeam(current);
+  box.appendChild(add);
+}
+function sortCreneauxCoach(list){
+  return [...(list || [])].sort((a,b)=>{
+    const da = DAY_ORDER[a.jour] || 99;
+    const db = DAY_ORDER[b.jour] || 99;
+    const ta = String(a.debut || "").replace("h",":");
+    const tb = String(b.debut || "").replace("h",":");
+    return da - db || ta.localeCompare(tb);
+  });
+}
+function compactCreneauLabel(s){
+  const jour = s.jour || "";
+  const horaire = [s.debut, s.fin].filter(Boolean).join("–");
+  const lieu = s.lieu || "";
+  return [jour, horaire, lieu].filter(Boolean).join(" · ");
+}
+function updatePlayerCounters(){
+  const total = document.querySelectorAll("#playerList input[type='checkbox']").length;
+  const checked = document.querySelectorAll("#playerList input[type='checkbox']:checked").length;
+  if(document.getElementById("playerTotal")) playerTotal.textContent = total + (total > 1 ? " joueurs" : " joueur");
+  if(document.getElementById("playerChecked")) playerChecked.textContent = checked + " sélectionné" + (checked > 1 ? "s" : "");
+}
+document.addEventListener("change", e=>{
+  if(e.target && e.target.closest && e.target.closest("#playerList")) updatePlayerCounters();
+});
+
+/* ===== CONNEXION GOOGLE SHEET — LECTURE SEULE ===== */
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx2isdaOnCpljcE8I1RaBSp8Jflp8-LJjgUgHp8N0l57cV7wpkQvXV4GX01anp-6wJ6CA/exec";
+let REMOTE = {licencies:[], essais:[], creneaux:[]};
+
+async function loadCoachRemoteData(){
+  let cat = "U13M";
+
+  const essaisPanelActive = document.getElementById("panel-essais") && document.getElementById("panel-essais").classList.contains("active");
+
+  if (essaisPanelActive && document.getElementById("essaisCategory")) {
+    cat = essaisCategory.value || "U9";
+  } else if (document.getElementById("calendarCategory") && calendarCategory.value) {
+    cat = calendarCategory.value;
+  } else if (document.getElementById("coachCategory") && coachCategory.value) {
+    cat = coachCategory.value;
+  }
+
+  const status = document.getElementById("remoteStatus");
+  if(status) status.textContent = "Chargement des données " + cat + "...";
+
+  try{
+    const res = await fetch(WEB_APP_URL + "?action=getCoachData&categorie=" + encodeURIComponent(cat) + "&v=" + Date.now());
+    const json = await res.json();
+
+    if(json && json.ok){
+      REMOTE = {
+        licencies: Array.isArray(json.licencies) ? json.licencies : [],
+        essais: Array.isArray(json.essais) ? json.essais : [],
+        creneaux: Array.isArray(json.creneaux) ? json.creneaux : []
+      };
+
+      if(status) {
+        status.textContent = "Données chargées " + cat + " : " + REMOTE.licencies.length + " licencié(s), " + REMOTE.essais.length + " essai(s), " + REMOTE.creneaux.length + " créneau(x).";
+      }
+
+      return true;
+    }
+
+    if(status) status.textContent = "Connexion active, mais aucune donnée reçue.";
+  }catch(e){
+    if(status) status.textContent = "Impossible de charger les données. Vérifier le déploiement Apps Script.";
+  }
+
+  REMOTE = {licencies:[], essais:[], creneaux:[]};
+  return false;
+}
+
+function coachPlayerName(p){
+  return [p.prenom, p.nom].filter(Boolean).join(" ").trim() || p.name || "Licencié";
+}
+
+function renderConnectedPlayers(){
+  const box = document.getElementById("playerList");
+  if(!box) return;
+  box.innerHTML = "";
+  const search = ((document.getElementById("playerSearch") && playerSearch.value) || "").toLowerCase();
+  const list = REMOTE.licencies.filter(p => coachPlayerName(p).toLowerCase().includes(search));
+  if(!list.length){
+    box.innerHTML = '<div class="notice">Aucun licencié affiché pour ce groupe.</div>';
+    updatePlayerCounters();
+    return;
+  }
+  list.forEach(p=>{
+    const row=document.createElement("label");
+    row.className="player-row";
+    const name = coachPlayerName(p);
+    row.innerHTML = `<div><strong>${name}</strong><span>${p.categorie || ""} · ${p.licence || ""} · ${p.dateNaissance || ""}</span></div><input type="checkbox" value="${name}">`;
+    box.appendChild(row);
+  });
+  updatePlayerCounters();
+}
+
+function renderConnectedSessions(){
+  const box=document.getElementById("sessionList");
+  if(!box) return;
+  box.innerHTML="";
+  const list = sortCreneauxCoach(REMOTE.creneaux);
+  if(!list.length){
+    box.innerHTML = '<div class="notice">Aucun entraînement affiché pour ce groupe.</div>';
+    return;
+  }
+  list.forEach(s=>{
+    const div=document.createElement("div");
+    div.className="session-card";
+    const info = compactCreneauLabel(s);
+    div.innerHTML=`<div class="top"><strong>${s.titre || "Entraînement"}</strong><span class="pill blue">${s.jour || "Créneau"}</span></div>
+      <span class="compact-time">${info}</span>
+      <div class="metrics"><span class="pill">${REMOTE.licencies.length} licencié(s)</span><span class="pill warn">${REMOTE.essais.length} essai(s)</span></div>`;
+    div.onclick=()=>{
+      currentSession={cat:s.categorie || (calendarCategory && calendarCategory.value), id:s.id, title:s.titre || "Entraînement", day:s.jour || "", time:[s.debut,s.fin].filter(Boolean).join(" – "), place:s.lieu || ""};
+      sessionDetail.style.display="block";
+      sessionTitle.textContent=currentSession.title;
+      sessionInfo.textContent=[currentSession.day,currentSession.time,currentSession.place].filter(Boolean).join(" · ");
+      renderConnectedPresenceBoard();
+    };
+    box.appendChild(div);
+  });
+}
+
+function renderConnectedPresenceBoard(){
+  const players = REMOTE.licencies;
+  presencePlayers.innerHTML="";
+  if(!players.length){
+    presencePlayers.innerHTML='<div class="notice">Aucun licencié affiché pour ce groupe.</div>';
+  }
+  players.forEach(p=>{
+    const name = coachPlayerName(p);
+    const v = getPresence(name);
+    const row=document.createElement("div");
+    row.className="player-row";
+    row.innerHTML=`<div><strong>${name}</strong><span>${p.categorie || ""} · ${p.licence || ""}</span></div>
+      <div class="actions">
+        <button class="${v==='present'?'selected ok':''}" onclick="setPresence('${name}','present')">Présent</button>
+        <button class="${v==='absent'?'selected ko':''}" onclick="setPresence('${name}','absent')">Absent</button>
+        <button class="${v==='wait'?'selected wait':''}" onclick="setPresence('${name}','wait')">À confirmer</button>
+      </div>`;
+    presencePlayers.appendChild(row);
+  });
+  let present=0, absent=0, wait=0;
+  players.forEach(p=>{
+    const v=getPresence(coachPlayerName(p));
+    if(v==="present") present++;
+    if(v==="absent") absent++;
+    if(v==="wait") wait++;
+  });
+  countPresent.textContent=present;
+  countAbsent.textContent=absent;
+  countWait.textContent=wait;
+  countNone.textContent=Math.max(players.length-present-absent-wait,0);
+  essaisForSession.innerHTML = REMOTE.essais.length
+    ? "<strong>Essais du groupe</strong><br>" + REMOTE.essais.map(e => [e.prenom, e.nom].filter(Boolean).join(" ") + " · " + (e.creneau || "")).join("<br>")
+    : "Aucun essai affiché sur ce groupe.";
+}
+
+function trialKey(e){
+  return "TRIAL::" + [e.id, e.prenom, e.nom, e.creneau].filter(Boolean).join("|");
+}
+function setTrialStatus(key, value, btn){
+  localStorage.setItem(key + "::status", value);
+  const wrap = btn.closest(".player-row");
+  wrap.querySelectorAll(".trial-actions button").forEach(b=>b.classList.remove("selected","ok","ko","wait"));
+  btn.classList.add("selected", value==="present"?"ok":value==="absent"?"ko":"wait");
+}
+function saveTrialNote(key, value){
+  localStorage.setItem(key + "::note", value || "");
+}
+function renderConnectedEssais(){
+  const box=document.getElementById("essaisList");
+  if(!box) return;
+  box.innerHTML="";
+  if(document.getElementById("essaisTotal")) essaisTotal.textContent = REMOTE.essais.length + " essai" + (REMOTE.essais.length > 1 ? "s" : "");
+  if(!REMOTE.essais.length){
+    box.innerHTML='<div class="notice">Aucun inscrit aux essais affiché pour ce groupe.</div>';
+    return;
+  }
+  REMOTE.essais.forEach(e=>{
+    const key = trialKey(e);
+    const status = localStorage.getItem(key + "::status") || "";
+    const note = localStorage.getItem(key + "::note") || "";
+    const row=document.createElement("div");
+    row.className="player-row";
+    const name=[e.prenom,e.nom].filter(Boolean).join(" ");
+    row.innerHTML=`<div><strong>${name}</strong><span>${e.categorie || ""} · ${e.creneau || ""}</span>
+      <input class="trial-note" placeholder="Retour essai : niveau, attitude, à rappeler..." value="${note.replace(/"/g,'&quot;')}" oninput="saveTrialNote('${key}', this.value)">
+      </div>
+      <div class="trial-actions">
+        <button class="${status==='present'?'selected ok':''}" onclick="setTrialStatus('${key}','present',this)">Présent</button>
+        <button class="${status==='absent'?'selected ko':''}" onclick="setTrialStatus('${key}','absent',this)">Absent</button>
+        <button class="${status==='follow'?'selected wait':''}" onclick="setTrialStatus('${key}','follow',this)">À rappeler</button>
+      </div>`;
+    box.appendChild(row);
+  });
+}
+
+async function refreshConnectedCoach(){
+  await loadCoachRemoteData();
+  renderConnectedSessions();
+  renderConnectedPlayers();
+  renderConnectedEssais();
+  renderFavoriteBar();
+}
+
+/* surcharge légère des rendus visuels */
+const originalOpenPanel = openPanel;
+openPanel = function(tab){
+  originalOpenPanel(tab);
+  refreshConnectedCoach();
+};
+
+document.addEventListener("change", e=>{
+  if(!e.target) return;
+
+  if(e.target.id === "essaisCategory"){
+    refreshConnectedCoach();
+    return;
+  }
+
+  if(e.target.id === "calendarCategory" || e.target.id === "coachCategory"){
+    const source = e.target.value;
+
+    if(document.getElementById("calendarCategory") && [...calendarCategory.options].some(o=>o.value===source)) {
+      calendarCategory.value = source;
+    }
+
+    if(document.getElementById("coachCategory") && [...coachCategory.options].some(o=>o.value===source)) {
+      coachCategory.value = source;
+    }
+
+    refreshConnectedCoach();
+  }
+});
+document.addEventListener("input", e=>{
+  if(e.target && e.target.id==="playerSearch") renderConnectedPlayers();
+});
+
+refreshConnectedCoach();
+
+document.addEventListener("DOMContentLoaded", () => {
+  refreshConnectedCoach();
+});
+</script>
+</body>
+</html>

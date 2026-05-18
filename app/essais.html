@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#003914">
+<title>Essais Basket 2026-2027 — ES Blanquefort Basket Ball</title>
+<style>
+:root{--green:#003914;--green2:#0b6b2b;--dark:#10251c;--muted:#6b7b73;--danger:#b42318;--line:rgba(0,57,20,.16)}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:linear-gradient(135deg,#fff 0%,#eef6f2 100%);color:var(--dark)}
+header{position:relative;overflow:hidden;padding:18px 16px 26px;text-align:center}
+header:before{content:"";position:absolute;left:50%;top:-190px;width:620px;height:305px;transform:translateX(-50%);background:linear-gradient(135deg,#001f0c,var(--green));border-radius:0 0 70% 70%;z-index:0;box-shadow:0 24px 60px rgba(0,31,12,.18)}
+header>*{position:relative;z-index:1}
+header img{max-width:112px;filter:drop-shadow(0 12px 16px rgba(0,31,12,.22))}
+.clubline{display:flex;align-items:center;justify-content:center;gap:7px;margin:5px 0 8px;font-weight:1000;color:#001f0c;font-size:clamp(14px,3.8vw,18px)}
+.dot{width:14px;height:14px;border-radius:50%;display:inline-block}.dot.green{background:#003914}.dot.white{background:#fff;border:2px solid #003914}
+.slogan{display:inline-flex;margin:0 auto 10px;padding:7px 12px;border-radius:999px;background:#fff;border:1px solid rgba(0,57,20,.22);color:#001f0c;font-weight:1000;font-size:13px;box-shadow:0 8px 18px rgba(0,31,12,.08)}
+.kicker{display:inline-flex;padding:7px 12px;border-radius:999px;color:#fff;background:linear-gradient(135deg,var(--green),var(--green2));font-weight:950;font-size:12px}
+h1{margin:10px 0 5px;font-size:clamp(30px,8vw,46px);line-height:.98;text-transform:uppercase;color:#001f0c}
+header p{margin:0 auto;max-width:760px;font-weight:700;color:#244232;line-height:1.42}
+main{width:min(980px,94vw);margin:10px auto 40px;display:grid;gap:16px}
+.card{background:#fff;border-radius:18px;box-shadow:0 14px 36px rgba(16,37,28,.13);padding:16px;border:1px solid var(--line)}
+h2{margin:0 0 12px;color:var(--green)}
+.notice{background:#eff8f3;border-left:5px solid var(--green);padding:12px;border-radius:12px;margin-top:10px;font-weight:750;line-height:1.35}
+.warning{background:#fff7e6;border-left:5px solid #f0a500;padding:12px;border-radius:12px;margin-top:10px;font-weight:750;line-height:1.35}
+label{display:block;font-weight:900;margin:12px 0 5px;color:#082313}
+input,select,textarea{width:100%;border:1px solid #cbd8d2;border-radius:12px;padding:12px;font-size:15px;background:#fff}
+input[readonly]{background:#eff8f3;color:var(--green);font-weight:900}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 14px}
+.full{grid-column:1/-1}
+.submit,.soft-btn,.cat-btn{border:0;border-radius:999px;padding:13px 20px;background:var(--green);color:white;font-weight:1000;margin-top:14px;cursor:pointer;min-height:48px}
+.soft-btn,.cat-btn{background:#fff;color:var(--green);border:1px solid rgba(0,57,20,.24);box-shadow:none;margin:4px 4px 4px 0;min-height:38px;padding:9px 13px}
+.cat-btn.active{background:var(--green);color:#fff}
+.msg{font-weight:900;margin:12px 0 0;padding:12px;border-radius:14px;display:none}
+.msg.ok{display:block;color:#003914;background:#eaf4e9;border:1px solid rgba(0,57,20,.16)}.msg.ko{display:block;color:#8a1f11;background:#fff0ed;border:1px solid rgba(180,35,24,.22)}
+.help{font-size:12px;color:var(--muted);margin-top:4px;font-weight:650}
+.hidden{display:none!important}
+.creneaux-list,.category-results{display:grid;gap:8px;margin-top:10px}
+.creneau-card{border:1px solid #dce9e3;border-radius:14px;background:#fff;padding:10px;text-align:left;cursor:pointer;font-weight:900}
+.creneau-card small{display:block;color:#56695c;margin-top:3px;font-weight:700}
+.creneau-card.pending{background:#fff8db;border-style:dashed}
+.creneau-card.active{background:#003914;color:#fff}.creneau-card.active small{color:#eaf4e9}
+.success-card{display:none;text-align:center;padding:28px;border-radius:18px;background:#eaf4e9;border:1px solid rgba(0,57,20,.16)}
+.success-card.visible{display:block}
+.success-card h2{font-size:30px;color:#003914;margin-bottom:10px}
+.success-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:16px}
+.success-actions button,.success-actions a{border:0;border-radius:999px;padding:12px 14px;background:#003914;color:#fff;font-weight:1000;text-decoration:none;cursor:pointer;display:flex;align-items:center;justify-content:center;text-align:center}
+.success-actions .light{background:#fff;color:#003914;border:1px solid rgba(0,57,20,.24)}
+@media(max-width:760px){.success-actions{grid-template-columns:1fr}}
+footer{text-align:center;color:rgba(16,37,28,.74);padding:0 18px 30px;font-weight:900}
+@media(max-width:760px){.form-grid{grid-template-columns:1fr}.full{grid-column:auto}}
+
+.esbb-legal-footer{
+  margin:18px auto 0;
+  padding:14px 12px;
+  border-radius:16px;
+  background:rgba(255,255,255,.92);
+  border:1px solid rgba(0,57,20,.16);
+  color:#183726;
+  text-align:center;
+  font-size:12px;
+  font-weight:750;
+  line-height:1.45;
+  box-shadow:0 8px 18px rgba(0,31,12,.05);
+}
+.esbb-legal-footer strong{
+  color:#003914;
+  font-weight:1000;
+}
+.esbb-legal-footer .credit{
+  display:block;
+  margin-top:6px;
+  color:#56695c;
+  font-size:11.5px;
+}
+.esbb-legal-footer a{
+  color:#003914;
+  font-weight:1000;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+
+</style>
+</head>
+<body>
+<header>
+  <img src="../assets/logo.png" alt="Logo ESBB" onerror="this.src='logo.png';this.onerror=null;">
+  <div class="clubline"><span class="dot green"></span><span>ES Blanquefort Basket Ball</span><span class="dot white"></span></div>
+  <div class="slogan">Vert et blanc un jour, Blanquefort toujours&nbsp;!</div><br>
+  <div class="kicker">🏀 ESSAIS CLUB</div>
+  <h1>Essais Basket<br>2026-2027</h1>
+  <p>Renseignez la date de naissance et le sexe : les créneaux adaptés apparaîtront ensuite.</p>
+</header>
+<main>
+<section class="card">
+  <h2>Consulter les créneaux par catégorie</h2>
+  <p class="help">Sélectionnez une catégorie pour voir les créneaux disponibles avant de vous inscrire.</p>
+  <div id="categoryButtons"></div>
+  <div id="categoryResults" class="category-results"></div>
+</section>
+
+<section class="card">
+  <h2>Inscription à un essai</h2>
+  <div class="notice">Le club ne vous recontactera que si le créneau n’est finalement pas possible ou si une information manque.</div>
+  <form id="essaiForm">
+    <div class="form-grid">
+      <div><label>Prénom *</label><input id="prenom" required autocomplete="given-name"></div>
+      <div><label>Nom *</label><input id="nom" required autocomplete="family-name"></div>
+      <div>
+        <label>Date de naissance *</label>
+        <input id="dateNaissance" type="text" inputmode="numeric" required placeholder="jjmmaaaa">
+        <div class="help">Tapez seulement les chiffres : 27102018 devient 27/10/2018.</div>
+      </div>
+      <div><label>Sexe *</label><select id="sexe" required><option value="">Choisir</option><option value="F">Féminin</option><option value="M">Masculin</option></select></div>
+      <div><label>Catégorie saison prochaine</label><input id="categorie" readonly placeholder="Indiquée après la date de naissance"><div class="help" id="categorieHelp">Renseignez la date de naissance.</div></div>
+      <div><label>Date d’essai choisie *</label><select id="creneau" required><option value="">Les créneaux apparaîtront ici</option></select></div>
+      <div class="full">
+        <div id="creneauxList" class="creneaux-list"></div>
+      </div>
+      <div id="parentBox"><label>Nom du parent / responsable légal *</label><input id="parentNom" autocomplete="name"></div>
+      <div><label id="telephoneLabel">Téléphone *</label><input id="telephone" type="tel" required autocomplete="tel"></div>
+      <div class="full"><label id="emailLabel">E-mail *</label><input id="email" type="email" required autocomplete="email"><div class="help" id="contactHelp">Pour les mineurs : mail parent. Pour U21/Seniors/Loisirs : mail du joueur possible.</div></div>
+      <div class="full"><label>Commentaire</label><textarea id="commentaire" placeholder="Précision utile : niveau, ancien club, contrainte, question..."></textarea></div>
+    </div>
+    <button class="submit" id="submitBtn" type="submit">Envoyer l’inscription à l’essai</button>
+    <div id="message" class="msg"></div>
+  </form>
+  <div id="successCard" class="success-card">
+    <h2 id="successTitle">Merci, inscription reçue.</h2>
+    <p id="successText"></p>
+    <p><strong>Le club ne vous recontactera que si le créneau n’est finalement pas possible ou si une information manque.</strong></p>
+    <div class="success-actions">
+      <button type="button" id="downloadSummaryBtn">Télécharger le récapitulatif</button>
+      <button type="button" id="copySummaryBtn" class="light">Copier les infos</button>
+      <button type="button" id="downloadCalendarBtn" class="light">Ajouter à mon agenda</button>
+    </div>
+    <div id="copyStatus" class="help" style="margin-top:10px"></div>
+  </div>
+</section>
+
+
+</main>
+
+
+<footer class="esbb-legal-footer">
+  <strong>Vert et blanc un jour, Blanquefort toujours&nbsp;!</strong><br>
+  ES Blanquefort Basket Ball · <a href="mentions_legales_ESBB.html">Mentions légales</a>
+  <span class="credit">Créé par <strong>L’Rénov IA Studio</strong> · Solutions digitales clubs sur mesure</span>
+</footer>
+
+
+<footer>ES Blanquefort Basket Ball · Saison 2026-2027</footer>
+<script>
+const WEB_APP_URL="https://script.google.com/macros/s/AKfycbx2isdaOnCpljcE8I1RaBSp8Jflp8-LJjgUgHp8N0l57cV7wpkQvXV4GX01anp-6wJ6CA/exec";
+const FALLBACK=[{"id": "ESS-U21-LUN-1805", "date": "18/05/2026", "jour": "Lundi", "categorie": "U21", "debut": "21h00", "fin": "23h00", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "Créneau U21 / Seniors"}, {"id": "ESS-SEN-LUN-1805", "date": "18/05/2026", "jour": "Lundi", "categorie": "Seniors", "debut": "21h00", "fin": "23h00", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "Créneau U21 / Seniors"}, {"id": "ESS-U13F-JEU-2105", "date": "21/05/2026", "jour": "Jeudi", "categorie": "U13F", "debut": "18h30", "fin": "20h00", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "U13 filles sur créneau habituel"}, {"id": "ESS-U18M-JEU-2105", "date": "21/05/2026", "jour": "Jeudi", "categorie": "U18M", "debut": "20h00", "fin": "21h30", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "Créneau U18M"}, {"id": "ESS-U13M-VEN-2205", "date": "22/05/2026", "jour": "Vendredi", "categorie": "U13M", "debut": "18h00", "fin": "19h30", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "Créneau U13M"}, {"id": "ESS-U15M-VEN-2205", "date": "22/05/2026", "jour": "Vendredi", "categorie": "U15M", "debut": "19h30", "fin": "21h00", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "Créneau U15M"}, {"id": "ESS-LOISIRS-VEN-2205", "date": "22/05/2026", "jour": "Vendredi", "categorie": "Loisirs", "debut": "21h00", "fin": "23h00", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "Loisirs à partir du vendredi 22 mai"}, {"id": "ESS-U21-LUN-2505", "date": "25/05/2026", "jour": "Lundi", "categorie": "U21", "debut": "21h00", "fin": "23h00", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "À confirmer", "notes": "Lundi de Pentecôte / créneau à confirmer"}, {"id": "ESS-SEN-LUN-2505", "date": "25/05/2026", "jour": "Lundi", "categorie": "Seniors", "debut": "21h00", "fin": "23h00", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "À confirmer", "notes": "Lundi de Pentecôte / créneau à confirmer"}, {"id": "ESS-U13F-JEU-2805", "date": "28/05/2026", "jour": "Jeudi", "categorie": "U13F", "debut": "18h30", "fin": "20h00", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "U13 filles sur créneau habituel"}, {"id": "ESS-U18M-JEU-2805", "date": "28/05/2026", "jour": "Jeudi", "categorie": "U18M", "debut": "20h00", "fin": "21h30", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "Créneau U18M"}, {"id": "ESS-U13M-VEN-2905", "date": "29/05/2026", "jour": "Vendredi", "categorie": "U13M", "debut": "18h00", "fin": "19h30", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "Créneau U13M"}, {"id": "ESS-U15M-VEN-2905", "date": "29/05/2026", "jour": "Vendredi", "categorie": "U15M", "debut": "19h30", "fin": "21h00", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "Créneau U15M"}, {"id": "ESS-LOISIRS-VEN-2905", "date": "29/05/2026", "jour": "Vendredi", "categorie": "Loisirs", "debut": "21h00", "fin": "23h00", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "Loisirs à partir du vendredi 22 mai"}, {"id": "ESS-U21-LUN-0106", "date": "01/06/2026", "jour": "Lundi", "categorie": "U21", "debut": "21h00", "fin": "23h00", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "Créneau U21 / Seniors"}, {"id": "ESS-SEN-LUN-0106", "date": "01/06/2026", "jour": "Lundi", "categorie": "Seniors", "debut": "21h00", "fin": "23h00", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "Créneau U21 / Seniors"}, {"id": "ESS-U13M-MER-0306", "date": "03/06/2026", "jour": "Mercredi", "categorie": "U13M", "debut": "15h00", "fin": "16h30", "lieu": "Fongravey", "adresse": "Rue Jean Moulin, Blanquefort", "statut": "Ouvert", "notes": "U13 garçons"}, {"id": "ESS-U9-0306", "date": "03/06/2026", "jour": "Mercredi", "categorie": "U9", "debut": "16h30", "fin": "17h45", "lieu": "Fongravey", "adresse": "Rue Jean Moulin, Blanquefort", "statut": "Ouvert", "notes": "École de basket"}, {"id": "ESS-U5-0306", "date": "03/06/2026", "jour": "Mercredi", "categorie": "U5", "debut": "16h45", "fin": "17h30", "lieu": "Fongravey", "adresse": "Rue Jean Moulin, Blanquefort", "statut": "Ouvert", "notes": "École de basket"}, {"id": "ESS-U7-0306", "date": "03/06/2026", "jour": "Mercredi", "categorie": "U7", "debut": "17h45", "fin": "18h30", "lieu": "Fongravey", "adresse": "Rue Jean Moulin, Blanquefort", "statut": "Ouvert", "notes": "École de basket"}, {"id": "ESS-U11-0306", "date": "03/06/2026", "jour": "Mercredi", "categorie": "U11", "debut": "17h45", "fin": "19h00", "lieu": "Fongravey", "adresse": "Rue Jean Moulin, Blanquefort", "statut": "Ouvert", "notes": "École de basket"}, {"id": "ESS-U15M-MER-0306", "date": "03/06/2026", "jour": "Mercredi", "categorie": "U15M", "debut": "18h00", "fin": "20h30", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "U15 garçons"}, {"id": "ESS-U18M-MER-0306", "date": "03/06/2026", "jour": "Mercredi", "categorie": "U18M", "debut": "18h00", "fin": "20h30", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "U18 garçons"}, {"id": "ESS-SEN-MER-0306", "date": "03/06/2026", "jour": "Mercredi", "categorie": "Seniors", "debut": "20h30", "fin": "22h30", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "Seniors M 1 + Seniors M 2"}, {"id": "ESS-U13F-JEU-0406", "date": "04/06/2026", "jour": "Jeudi", "categorie": "U13F", "debut": "18h30", "fin": "20h00", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "U13 filles sur créneau habituel"}, {"id": "ESS-U18M-JEU-0406", "date": "04/06/2026", "jour": "Jeudi", "categorie": "U18M", "debut": "20h00", "fin": "21h30", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "Créneau U18M"}, {"id": "ESS-U13M-VEN-0506", "date": "05/06/2026", "jour": "Vendredi", "categorie": "U13M", "debut": "18h00", "fin": "19h30", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "Créneau U13M"}, {"id": "ESS-U15M-VEN-0506", "date": "05/06/2026", "jour": "Vendredi", "categorie": "U15M", "debut": "19h30", "fin": "21h00", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "Créneau U15M"}, {"id": "ESS-LOISIRS-VEN-0506", "date": "05/06/2026", "jour": "Vendredi", "categorie": "Loisirs", "debut": "21h00", "fin": "23h00", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "Loisirs à partir du vendredi 22 mai"}, {"id": "ESS-U13M-0606", "date": "06/06/2026", "jour": "Samedi", "categorie": "U13M", "debut": "10h00", "fin": "12h00", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "Essai samedi U13 garçons"}, {"id": "ESS-U13F-0606", "date": "06/06/2026", "jour": "Samedi", "categorie": "U13F", "debut": "10h00", "fin": "12h00", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "Essai samedi U13 filles"}, {"id": "ESS-U15M-0606", "date": "06/06/2026", "jour": "Samedi", "categorie": "U15M", "debut": "10h00", "fin": "12h00", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "Essai samedi U15 garçons"}, {"id": "ESS-U5-0606-AM", "date": "06/06/2026", "jour": "Samedi", "categorie": "U5", "debut": "14h00", "fin": "14h45", "lieu": "Fongravey", "adresse": "Rue Jean Moulin, Blanquefort", "statut": "À confirmer", "notes": "Horaire provisoire samedi après-midi"}, {"id": "ESS-U9-0606-AM", "date": "06/06/2026", "jour": "Samedi", "categorie": "U9", "debut": "14h00", "fin": "15h15", "lieu": "Fongravey", "adresse": "Rue Jean Moulin, Blanquefort", "statut": "À confirmer", "notes": "Horaire provisoire samedi après-midi"}, {"id": "ESS-U7-0606-AM", "date": "06/06/2026", "jour": "Samedi", "categorie": "U7", "debut": "15h00", "fin": "15h45", "lieu": "Fongravey", "adresse": "Rue Jean Moulin, Blanquefort", "statut": "À confirmer", "notes": "Horaire provisoire samedi après-midi"}, {"id": "ESS-U11-0606-AM", "date": "06/06/2026", "jour": "Samedi", "categorie": "U11", "debut": "15h30", "fin": "16h45", "lieu": "Fongravey", "adresse": "Rue Jean Moulin, Blanquefort", "statut": "À confirmer", "notes": "Horaire provisoire samedi après-midi"}, {"id": "ESS-U21-LUN-0806", "date": "08/06/2026", "jour": "Lundi", "categorie": "U21", "debut": "21h00", "fin": "23h00", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "Créneau U21 / Seniors"}, {"id": "ESS-SEN-LUN-0806", "date": "08/06/2026", "jour": "Lundi", "categorie": "Seniors", "debut": "21h00", "fin": "23h00", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "Créneau U21 / Seniors"}, {"id": "ESS-U13M-MER-1006", "date": "10/06/2026", "jour": "Mercredi", "categorie": "U13M", "debut": "15h00", "fin": "16h30", "lieu": "Fongravey", "adresse": "Rue Jean Moulin, Blanquefort", "statut": "Ouvert", "notes": "U13 garçons"}, {"id": "ESS-U9-1006", "date": "10/06/2026", "jour": "Mercredi", "categorie": "U9", "debut": "16h30", "fin": "17h45", "lieu": "Fongravey", "adresse": "Rue Jean Moulin, Blanquefort", "statut": "Ouvert", "notes": "École de basket"}, {"id": "ESS-U5-1006", "date": "10/06/2026", "jour": "Mercredi", "categorie": "U5", "debut": "16h45", "fin": "17h30", "lieu": "Fongravey", "adresse": "Rue Jean Moulin, Blanquefort", "statut": "Ouvert", "notes": "École de basket"}, {"id": "ESS-U7-1006", "date": "10/06/2026", "jour": "Mercredi", "categorie": "U7", "debut": "17h45", "fin": "18h30", "lieu": "Fongravey", "adresse": "Rue Jean Moulin, Blanquefort", "statut": "Ouvert", "notes": "École de basket"}, {"id": "ESS-U11-1006", "date": "10/06/2026", "jour": "Mercredi", "categorie": "U11", "debut": "17h45", "fin": "19h00", "lieu": "Fongravey", "adresse": "Rue Jean Moulin, Blanquefort", "statut": "Ouvert", "notes": "École de basket"}, {"id": "ESS-U15M-MER-1006", "date": "10/06/2026", "jour": "Mercredi", "categorie": "U15M", "debut": "18h00", "fin": "20h30", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "U15 garçons"}, {"id": "ESS-U18M-MER-1006", "date": "10/06/2026", "jour": "Mercredi", "categorie": "U18M", "debut": "18h00", "fin": "20h30", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "U18 garçons"}, {"id": "ESS-SEN-MER-1006", "date": "10/06/2026", "jour": "Mercredi", "categorie": "Seniors", "debut": "20h30", "fin": "22h30", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "Seniors M 1 + Seniors M 2"}, {"id": "ESS-U13F-JEU-1106", "date": "11/06/2026", "jour": "Jeudi", "categorie": "U13F", "debut": "18h30", "fin": "20h00", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "U13 filles sur créneau habituel"}, {"id": "ESS-U18M-JEU-1106", "date": "11/06/2026", "jour": "Jeudi", "categorie": "U18M", "debut": "20h00", "fin": "21h30", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "Créneau U18M"}, {"id": "ESS-U13M-VEN-1206", "date": "12/06/2026", "jour": "Vendredi", "categorie": "U13M", "debut": "18h00", "fin": "19h30", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "Créneau U13M"}, {"id": "ESS-U15M-VEN-1206", "date": "12/06/2026", "jour": "Vendredi", "categorie": "U15M", "debut": "19h30", "fin": "21h00", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "Créneau U15M"}, {"id": "ESS-LOISIRS-VEN-1206", "date": "12/06/2026", "jour": "Vendredi", "categorie": "Loisirs", "debut": "21h00", "fin": "23h00", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "Loisirs à partir du vendredi 22 mai"}, {"id": "ESS-U21-LUN-1506", "date": "15/06/2026", "jour": "Lundi", "categorie": "U21", "debut": "21h00", "fin": "23h00", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "Créneau U21 / Seniors"}, {"id": "ESS-SEN-LUN-1506", "date": "15/06/2026", "jour": "Lundi", "categorie": "Seniors", "debut": "21h00", "fin": "23h00", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "Créneau U21 / Seniors"}, {"id": "ESS-U13M-MER-1706", "date": "17/06/2026", "jour": "Mercredi", "categorie": "U13M", "debut": "15h00", "fin": "16h30", "lieu": "Fongravey", "adresse": "Rue Jean Moulin, Blanquefort", "statut": "Ouvert", "notes": "U13 garçons"}, {"id": "ESS-U9-1706", "date": "17/06/2026", "jour": "Mercredi", "categorie": "U9", "debut": "16h30", "fin": "17h45", "lieu": "Fongravey", "adresse": "Rue Jean Moulin, Blanquefort", "statut": "Ouvert", "notes": "École de basket"}, {"id": "ESS-U5-1706", "date": "17/06/2026", "jour": "Mercredi", "categorie": "U5", "debut": "16h45", "fin": "17h30", "lieu": "Fongravey", "adresse": "Rue Jean Moulin, Blanquefort", "statut": "Ouvert", "notes": "École de basket"}, {"id": "ESS-U7-1706", "date": "17/06/2026", "jour": "Mercredi", "categorie": "U7", "debut": "17h45", "fin": "18h30", "lieu": "Fongravey", "adresse": "Rue Jean Moulin, Blanquefort", "statut": "Ouvert", "notes": "École de basket"}, {"id": "ESS-U11-1706", "date": "17/06/2026", "jour": "Mercredi", "categorie": "U11", "debut": "17h45", "fin": "19h00", "lieu": "Fongravey", "adresse": "Rue Jean Moulin, Blanquefort", "statut": "Ouvert", "notes": "École de basket"}, {"id": "ESS-U15M-MER-1706", "date": "17/06/2026", "jour": "Mercredi", "categorie": "U15M", "debut": "18h00", "fin": "20h30", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "U15 garçons"}, {"id": "ESS-U18M-MER-1706", "date": "17/06/2026", "jour": "Mercredi", "categorie": "U18M", "debut": "18h00", "fin": "20h30", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "U18 garçons"}, {"id": "ESS-SEN-MER-1706", "date": "17/06/2026", "jour": "Mercredi", "categorie": "Seniors", "debut": "20h30", "fin": "22h30", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "Seniors M 1 + Seniors M 2"}, {"id": "ESS-U13F-JEU-1806", "date": "18/06/2026", "jour": "Jeudi", "categorie": "U13F", "debut": "18h30", "fin": "20h00", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "U13 filles sur créneau habituel"}, {"id": "ESS-U18M-JEU-1806", "date": "18/06/2026", "jour": "Jeudi", "categorie": "U18M", "debut": "20h00", "fin": "21h30", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "Créneau U18M"}, {"id": "ESS-U13M-VEN-1906", "date": "19/06/2026", "jour": "Vendredi", "categorie": "U13M", "debut": "18h00", "fin": "19h30", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "Créneau U13M"}, {"id": "ESS-U15M-VEN-1906", "date": "19/06/2026", "jour": "Vendredi", "categorie": "U15M", "debut": "19h30", "fin": "21h00", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "Créneau U15M"}, {"id": "ESS-LOISIRS-VEN-1906", "date": "19/06/2026", "jour": "Vendredi", "categorie": "Loisirs", "debut": "21h00", "fin": "23h00", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "Loisirs à partir du vendredi 22 mai"}, {"id": "ESS-U21-LUN-2206", "date": "22/06/2026", "jour": "Lundi", "categorie": "U21", "debut": "21h00", "fin": "23h00", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "Créneau U21 / Seniors"}, {"id": "ESS-SEN-LUN-2206", "date": "22/06/2026", "jour": "Lundi", "categorie": "Seniors", "debut": "21h00", "fin": "23h00", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "Créneau U21 / Seniors"}, {"id": "ESS-U13M-MER-2406", "date": "24/06/2026", "jour": "Mercredi", "categorie": "U13M", "debut": "15h00", "fin": "16h30", "lieu": "Fongravey", "adresse": "Rue Jean Moulin, Blanquefort", "statut": "Ouvert", "notes": "U13 garçons"}, {"id": "ESS-U9-2406", "date": "24/06/2026", "jour": "Mercredi", "categorie": "U9", "debut": "16h30", "fin": "17h45", "lieu": "Fongravey", "adresse": "Rue Jean Moulin, Blanquefort", "statut": "Ouvert", "notes": "École de basket"}, {"id": "ESS-U5-2406", "date": "24/06/2026", "jour": "Mercredi", "categorie": "U5", "debut": "16h45", "fin": "17h30", "lieu": "Fongravey", "adresse": "Rue Jean Moulin, Blanquefort", "statut": "Ouvert", "notes": "École de basket"}, {"id": "ESS-U7-2406", "date": "24/06/2026", "jour": "Mercredi", "categorie": "U7", "debut": "17h45", "fin": "18h30", "lieu": "Fongravey", "adresse": "Rue Jean Moulin, Blanquefort", "statut": "Ouvert", "notes": "École de basket"}, {"id": "ESS-U11-2406", "date": "24/06/2026", "jour": "Mercredi", "categorie": "U11", "debut": "17h45", "fin": "19h00", "lieu": "Fongravey", "adresse": "Rue Jean Moulin, Blanquefort", "statut": "Ouvert", "notes": "École de basket"}, {"id": "ESS-U15M-MER-2406", "date": "24/06/2026", "jour": "Mercredi", "categorie": "U15M", "debut": "18h00", "fin": "20h30", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "U15 garçons"}, {"id": "ESS-U18M-MER-2406", "date": "24/06/2026", "jour": "Mercredi", "categorie": "U18M", "debut": "18h00", "fin": "20h30", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "U18 garçons"}, {"id": "ESS-SEN-MER-2406", "date": "24/06/2026", "jour": "Mercredi", "categorie": "Seniors", "debut": "20h30", "fin": "22h30", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "Seniors M 1 + Seniors M 2"}, {"id": "ESS-U13F-JEU-2506", "date": "25/06/2026", "jour": "Jeudi", "categorie": "U13F", "debut": "18h30", "fin": "20h00", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "U13 filles sur créneau habituel"}, {"id": "ESS-U18M-JEU-2506", "date": "25/06/2026", "jour": "Jeudi", "categorie": "U18M", "debut": "20h00", "fin": "21h30", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "Créneau U18M"}, {"id": "ESS-U13M-VEN-2606", "date": "26/06/2026", "jour": "Vendredi", "categorie": "U13M", "debut": "18h00", "fin": "19h30", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "Créneau U13M"}, {"id": "ESS-U15M-VEN-2606", "date": "26/06/2026", "jour": "Vendredi", "categorie": "U15M", "debut": "19h30", "fin": "21h00", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "Créneau U15M"}, {"id": "ESS-LOISIRS-VEN-2606", "date": "26/06/2026", "jour": "Vendredi", "categorie": "Loisirs", "debut": "21h00", "fin": "23h00", "lieu": "Lycée agricole", "adresse": "Lycée agricole, Blanquefort", "statut": "Ouvert", "notes": "Loisirs à partir du vendredi 22 mai"}, {"id": "ESS-U21-LUN-2906", "date": "29/06/2026", "jour": "Lundi", "categorie": "U21", "debut": "21h00", "fin": "23h00", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "Créneau U21 / Seniors"}, {"id": "ESS-SEN-LUN-2906", "date": "29/06/2026", "jour": "Lundi", "categorie": "Seniors", "debut": "21h00", "fin": "23h00", "lieu": "Port du Roy", "adresse": "55 avenue du Port du Roy, Blanquefort", "statut": "Ouvert", "notes": "Créneau U21 / Seniors"}];
+let CRENEAUX=[...FALLBACK];
+const CAT_ORDER=["U5","U7","U9","U11","U13M","U13F","U15M","U18M","U21","Seniors","Loisirs"];
+
+function parseDateInput(v){let s=String(v||"").trim();let fr=s.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})$/);if(fr) return new Date(+fr[3],+fr[2]-1,+fr[1]);let iso=s.match(/^(\d{4})-(\d{2})-(\d{2})$/);if(iso)return new Date(+iso[1],+iso[2]-1,+iso[3]);return null;}
+function isoDate(v){let d=parseDateInput(v);if(!d)return"";return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+function parseCreneauDate(s){let [d,m,y]=String(s).split("/").map(Number);return new Date(y,m-1,d).getTime();}
+function sortCreneaux(list){return [...list].sort((a,b)=>parseCreneauDate(a.date)-parseCreneauDate(b.date)||a.debut.localeCompare(b.debut)||CAT_ORDER.indexOf(a.categorie)-CAT_ORDER.indexOf(b.categorie));}
+function label(c){return `${c.jour} ${c.date} · ${c.debut}${c.fin?' → '+c.fin:''} · ${c.lieu}${c.statut&&c.statut!=='Ouvert'?' · '+c.statut:''}`;}
+function baseCatByBirth(v, sexe){let d=parseDateInput(v);if(!d)return"";let y=d.getFullYear();if(y===2022||y===2023)return"U5";if(y===2020||y===2021)return"U7";if(y===2018||y===2019)return"U9";if(y===2016||y===2017)return"U11";if(y===2014||y===2015)return sexe==="F"?"U13F":"U13M";if(y===2012||y===2013)return sexe==="F"?"U15F":"U15M";if(y>=2009&&y<=2011)return"U18M";if(y>=2006&&y<=2008)return"U21";if(y<=2005)return"Seniors";return"À vérifier"}
+function isMineur(cat){return ["U5","U7","U9","U11","U13M","U13F","U15M","U18M"].includes(cat)}
+function compatible(c, cat){return c.categorie === esbbCategorieCreneauxEssai(cat);}
+
+function categoriePourCreneauxEssais(cat){
+  return esbbCategorieCreneauxEssai(cat);
+}
+
+function updateCat(){let cat=baseCatByBirth(dateNaissance.value,sexe.value);categorie.value=cat;let mineur=isMineur(cat);parentBox.classList.toggle("hidden",!mineur);parentNom.required=mineur;telephoneLabel.textContent=mineur?"Téléphone parent *":"Téléphone joueur *";emailLabel.textContent=mineur?"E-mail parent *":"E-mail joueur *";categorieHelp.textContent=cat&&cat!=="À vérifier"?`Catégorie calculée : ${cat}`:"Catégorie à vérifier.";refreshCreneaux();}
+function refreshCreneaux(){let cat=categorie.value, cur=creneau.value;creneau.innerHTML='<option value="">Choisir une date d’essai</option>';creneauxList.innerHTML="";if(!cat||cat==="À vérifier")return;let list=sortCreneaux(CRENEAUX.filter(c=>compatible(c,cat)));if(!list.length){creneauxList.innerHTML='<div class="warning">Aucun créneau affiché pour cette catégorie pour le moment. Contactez le club.</div>';return;}list.forEach(c=>{let o=document.createElement("option");o.value=c.id;o.textContent=label(c);creneau.appendChild(o);let b=document.createElement("button");b.type="button";b.className="creneau-card"+(c.statut==='À confirmer'?' pending':'')+(c.id===cur?' active':'');b.innerHTML=`${c.categorie} — ${c.jour} ${c.date}<small>${c.debut}${c.fin?' → '+c.fin:''} · ${c.lieu}${c.statut==='À confirmer'?' · À confirmer':''}</small>`;b.onclick=()=>{creneau.value=c.id;refreshCreneaux();};creneauxList.appendChild(b);});if([...creneau.options].some(o=>o.value===cur))creneau.value=cur;}
+function renderCategoryButtons(){categoryButtons.innerHTML="";CAT_ORDER.forEach(cat=>{if(!CRENEAUX.some(c=>c.categorie === esbbCategorieCreneauxEssai(cat)))return;let b=document.createElement("button");b.type="button";b.className="cat-btn";b.textContent=cat;b.onclick=()=>renderCategory(cat,b);categoryButtons.appendChild(b);})}
+function renderCategory(cat,btn){document.querySelectorAll(".cat-btn").forEach(b=>b.classList.remove("active"));btn.classList.add("active");let list=sortCreneaux(CRENEAUX.filter(c=>c.categorie === esbbCategorieCreneauxEssai(cat)));categoryResults.innerHTML=`<h3>${cat}</h3>`+list.map(c=>`<div class="creneau-card ${c.statut==='À confirmer'?'pending':''}">${c.jour} ${c.date}<small>${c.debut}${c.fin?' → '+c.fin:''} · ${c.lieu}${c.statut==='À confirmer'?' · À confirmer':''}</small></div>`).join("");}
+
+function formatBirthDateLive(value){
+  const digits = String(value || "").replace(/\D/g, "").slice(0, 8);
+  if (digits.length <= 2) return digits;
+  if (digits.length <= 4) return digits.slice(0,2) + "/" + digits.slice(2);
+  return digits.slice(0,2) + "/" + digits.slice(2,4) + "/" + digits.slice(4);
+}
+function handleBirthDateInput(){
+  const before = dateNaissance.value;
+  const after = formatBirthDateLive(before);
+  if (before !== after) dateNaissance.value = after;
+  updateCat();
+}
+
+dateNaissance.addEventListener("input",handleBirthDateInput);sexe.addEventListener("change",updateCat);creneau.addEventListener("change",refreshCreneaux);
+function showMsg(text,type){message.textContent=text;message.className="msg "+type;}
+
+function buildEssaiSummary(c){
+  const joueur = `${prenom.value.trim()} ${nom.value.trim()}`.trim();
+  return [
+    "Essai basket ES Blanquefort Basket Ball",
+    "Joueur : " + joueur,
+    "Catégorie : " + categorie.value,
+    "Créneau : " + label(c),
+    "Lieu : " + (c.lieu || ""),
+    "Adresse : " + (c.adresse || ""),
+    "Info club : le club ne recontacte que si le créneau n’est pas possible ou si une information manque."
+  ].join("\\n");
+}
+function copyTextFallback(text){
+  const area = document.createElement("textarea");
+  area.value = text;
+  area.setAttribute("readonly","");
+  area.style.position = "fixed";
+  area.style.left = "-9999px";
+  document.body.appendChild(area);
+  area.select();
+  document.execCommand("copy");
+  document.body.removeChild(area);
+}
+async function copyEssaiSummary(c){
+  const text = buildEssaiSummary(c);
+  try{
+    if(navigator.clipboard && window.isSecureContext){
+      await navigator.clipboard.writeText(text);
+    }else{
+      copyTextFallback(text);
+    }
+    copyStatus.textContent = "Infos copiées. Vous pouvez les coller dans SMS, WhatsApp ou Notes.";
+  }catch(e){
+    copyStatus.textContent = text;
+  }
+}
+
+function downloadEssaiSummary(c){
+  const text = buildEssaiSummary(c);
+  const blob = new Blob([text], {type:"text/plain;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const safeName = `${prenom.value.trim()}-${nom.value.trim()}-${categorie.value}`.replace(/[^a-z0-9_-]+/gi,"-").toLowerCase();
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "recap-essai-esbb-" + safeName + ".txt";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  copyStatus.textContent = "Récapitulatif téléchargé. Vous pouvez le retrouver dans vos fichiers/téléchargements.";
+}
+
+function toICSDate(dateFr, timeFr){
+  const parts = String(dateFr || "").split("/");
+  const hm = String(timeFr || "00h00").replace("h",":").split(":");
+  const y = parts[2], m = parts[1], d = parts[0];
+  const hh = (hm[0] || "00").padStart(2,"0");
+  const mm = (hm[1] || "00").padStart(2,"0");
+  return `${y}${m}${d}T${hh}${mm}00`;
+}
+function downloadEssaiCalendar(c){
+  const uid = (c.id || "ESSAI") + "@esbb";
+  const title = "Essai basket ESBB - " + (categorie.value || c.categorie || "");
+  const description = buildEssaiSummary(c).replace(/\n/g,"\\\\n");
+  const location = [c.lieu || "", c.adresse || ""].filter(Boolean).join(" - ");
+  const ics = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//ESBB//Essais Basket//FR",
+    "BEGIN:VEVENT",
+    "UID:" + uid,
+    "DTSTAMP:" + new Date().toISOString().replace(/[-:]/g,"").replace(/\\.\\d{3}Z$/,"Z"),
+    "DTSTART:" + toICSDate(c.date, c.debut),
+    "DTEND:" + toICSDate(c.date, c.fin),
+    "SUMMARY:" + title,
+    "LOCATION:" + location,
+    "DESCRIPTION:" + description,
+    "END:VEVENT",
+    "END:VCALENDAR"
+  ].join("\\r\\n");
+  const blob = new Blob([ics], {type:"text/calendar;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "essai-basket-esbb.ics";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+let lastSelectedCreneau = null;
+
+essaiForm.addEventListener("submit",async(e)=>{e.preventDefault();let c=CRENEAUX.find(x=>x.id===creneau.value);if(!c){showMsg("Merci de choisir un créneau.", "ko");return;}updateCat();if(isMineur(categorie.value)&&!parentNom.value.trim()){showMsg("Nom du parent obligatoire pour un mineur.", "ko");return;}let dateIso=isoDate(dateNaissance.value);if(!dateIso){showMsg("Merci de saisir une date au format jj/mm/aaaa.", "ko");return;}let data={action:"saveEssaiBasket",data:{nom:nom.value.trim(),prenom:prenom.value.trim(),dateNaissance:dateIso,sexe:sexe.value,categorie:esbbCategorieCorrigeePourEssais(categorie.value),
+      groupeEssai:categoriePourCreneauxEssais(categorie.value),idEssai:c.id,creneauLabel:label(c),lieu:c.lieu,adresse:c.adresse,parentNom:parentNom.value.trim(),telephone:telephone.value.trim(),email:email.value.trim(),commentaire:commentaire.value.trim(),source:"Site public essais 2026-2027"}};submitBtn.disabled=true;showMsg("Envoi en cours...", "ok");try{await fetch(WEB_APP_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(data)});essaiForm.classList.add("hidden");successTitle.textContent=`Merci, ${prenom.value.trim()} est bien inscrit(e) aux essais.`;successText.textContent=`Créneau : ${label(c)}`;lastSelectedCreneau=c;downloadSummaryBtn.onclick=()=>downloadEssaiSummary(lastSelectedCreneau);copySummaryBtn.onclick=()=>copyEssaiSummary(lastSelectedCreneau);downloadCalendarBtn.onclick=()=>downloadEssaiCalendar(lastSelectedCreneau);successCard.classList.add("visible");}catch(err){showMsg("L’envoi n’a pas abouti. Merci de réessayer ou de contacter le club.", "ko");}finally{submitBtn.disabled=false;}});
+function mergeCreneaux(localList, remoteList){
+  const map = new Map();
+  [...localList, ...(Array.isArray(remoteList) ? remoteList : [])].forEach(c => {
+    if (c && c.id) map.set(c.id, c);
+  });
+  return sortCreneaux([...map.values()]);
+}
+async function loadCreneaux(){
+  let remote = [];
+  try{
+    let res = await fetch(WEB_APP_URL+"?action=getCreneauxEssais&v="+Date.now());
+    let json = await res.json();
+    if(json && json.ok && Array.isArray(json.data)) remote = json.data;
+  }catch(e){}
+  CRENEAUX = mergeCreneaux(FALLBACK, remote);
+  renderCategoryButtons();
+  const firstBtn = document.querySelector(".cat-btn");
+  if(firstBtn) firstBtn.click();
+  updateCat();
+}
+loadCreneaux();
+
+/* ===== CORRECTIF U15F ESSAI AVEC U13F ===== */
+function esbbGetSexeValue(){
+  const el = document.querySelector('[name="sexe"]:checked') ||
+             document.querySelector('#sexe') ||
+             document.querySelector('[name="sexe"]');
+  return el ? String(el.value || "").trim().toUpperCase() : "";
+}
+
+function esbbIsFemaleSelected(){
+  const s = esbbGetSexeValue();
+  return s === "F" || s.indexOf("FILLE") !== -1 || s.indexOf("FEMININ") !== -1 || s.indexOf("FÉMININ") !== -1;
+}
+
+function esbbBirthYearFromInput(){
+  const el = document.querySelector('#dateNaissance') || document.querySelector('[name="dateNaissance"]');
+  const v = el ? String(el.value || "").trim() : "";
+  const mFr = v.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (mFr) return Number(mFr[3]);
+  const mIso = v.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (mIso) return Number(mIso[1]);
+  const d = new Date(v);
+  return isNaN(d.getTime()) ? null : d.getFullYear();
+}
+
+function esbbCategorieCorrigeePourEssais(cat){
+  const y = esbbBirthYearFromInput();
+  if ((y === 2012 || y === 2013) && esbbIsFemaleSelected()) {
+    return "U15F";
+  }
+  return cat;
+}
+
+function esbbGroupeCreneauxEssais(cat){
+  return esbbCategorieCreneauxEssai(cat);
+}
+
+function esbbApplyU15FCorrection(){
+  const catEl = document.querySelector('#categorie') || document.querySelector('[name="categorie"]');
+  if (!catEl) return;
+  const corrected = esbbCategorieCorrigeePourEssais(catEl.value);
+  if (corrected && corrected !== catEl.value) {
+    catEl.value = corrected;
+  }
+}
+document.addEventListener("change", function(e){
+  if(e.target && (e.target.name === "sexe" || e.target.id === "sexe" || e.target.id === "dateNaissance" || e.target.name === "dateNaissance")){
+    setTimeout(esbbApplyU15FCorrection, 0);
+  }
+});
+document.addEventListener("input", function(e){
+  if(e.target && (e.target.id === "dateNaissance" || e.target.name === "dateNaissance")){
+    setTimeout(esbbApplyU15FCorrection, 0);
+  }
+});
+
+
+/* ===== FIX FINAL U15F -> CRÉNEAUX U13F ===== */
+function esbbCategorieAfficheeEssai(cat){
+  const c = String(cat || "").trim();
+  if (c.indexOf("U15F") === 0) return "U15F";
+  return c;
+}
+function esbbCategorieCreneauxEssai(cat){
+  const c = String(cat || "").trim();
+  if (c.indexOf("U15F") === 0) return "U13F";
+  return c;
+}
+function esbbValeurCategorieActuelle(){
+  const el = document.querySelector('#categorie') || document.querySelector('[name="categorie"]');
+  return el ? String(el.value || "").trim() : "";
+}
+function esbbForceRefreshCreneauxU15F(){
+  const cat = esbbValeurCategorieActuelle();
+  const group = esbbCategorieCreneauxEssai(cat);
+
+  // Force les éventuels champs cachés / variables visuelles si présents
+  const hidden = document.querySelector('#groupeEssai') || document.querySelector('[name="groupeEssai"]');
+  if (hidden) hidden.value = group;
+
+  // Si une fonction de rendu existe, on la relance
+  const candidates = [
+    "renderCreneaux",
+    "renderSlots",
+    "renderDates",
+    "afficherCreneaux",
+    "updateCreneaux",
+    "updateSlots",
+    "refreshCreneaux",
+    "renderAvailableSlots"
+  ];
+  for (const fn of candidates) {
+    if (typeof window[fn] === "function") {
+      try { window[fn](); } catch(e) {}
+    }
+  }
+}
+document.addEventListener("change", function(e){
+  if(e.target && (e.target.name === "sexe" || e.target.id === "sexe" || e.target.id === "dateNaissance" || e.target.name === "dateNaissance")){
+    setTimeout(esbbForceRefreshCreneauxU15F, 50);
+  }
+});
+document.addEventListener("input", function(e){
+  if(e.target && (e.target.id === "dateNaissance" || e.target.name === "dateNaissance")){
+    setTimeout(esbbForceRefreshCreneauxU15F, 50);
+  }
+});
+
+
+(function(){
+  const names = ["CRENEAUX_ESSAIS","creneauxEssais","CRENEAUX","creneaux"];
+  names.forEach(function(n){
+    try{
+      const arr = window[n];
+      if(Array.isArray(arr) && !arr.__u15fDone){
+        const extra = arr.filter(x => String(x.categorie || "").trim() === "U13F").map(x => Object.assign({}, x, {categorie:"U15F"}));
+        extra.forEach(x => arr.push(x));
+        arr.__u15fDone = true;
+      }
+    }catch(e){}
+  });
+})();
+
+</script>
+</body>
+</html>

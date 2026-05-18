@@ -1,0 +1,239 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Contact — ES Blanquefort Basket-Ball</title><meta name="description" content="Contacter l’ES Blanquefort Basket-Ball."><meta name="theme-color" content="#1f5a3f"><link rel="icon" type="image/png" href="images/favicon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><style>
+
+/* === ESBB V14 CLEAN REBASE === */
+
+/* 1. Suppression définitive du faux ballon orange / formes moches */
+.decor-ball,
+.basketball-bg,
+.floating-ball,
+.bg-ball,
+.fake-ball,
+.page-ball,
+.header-ball,
+.hero-ball,
+[class*="decor-ball"],
+[class*="basketball-bg"],
+[class*="floating-ball"],
+[class*="bg-ball"],
+[class*="fake-ball"],
+[class*="page-ball"],
+[class*="header-ball"],
+[class*="hero-ball"]{
+  display:none!important;
+  opacity:0!important;
+  visibility:hidden!important;
+}
+
+.hero::after,
+.page-hero::after,
+.inner-hero::after,
+.sub-hero::after,
+.hero-small::after,
+.page-header::after,
+section.hero::after,
+header.hero::after{
+  content:none!important;
+  display:none!important;
+}
+
+/* 2. Hero accueil : photo + logo une seule fois */
+.hero{
+  position:relative!important;
+  background:
+    linear-gradient(90deg, rgba(0,31,12,.92) 0%, rgba(0,31,12,.80) 40%, rgba(0,31,12,.42) 72%, rgba(0,31,12,.20) 100%),
+    url("images/hero-basket-bg.png")!important;
+  background-size:cover!important;
+  background-position:center right!important;
+  background-repeat:no-repeat!important;
+  overflow:hidden!important;
+}
+
+/* on garde seulement le logo placé à droite dans l'accueil */
+.hero .hero-brand-logo{
+  position:absolute!important;
+  right:clamp(70px,11vw,180px)!important;
+  top:52%!important;
+  transform:translateY(-50%)!important;
+  width:clamp(240px,28vw,410px)!important;
+  height:auto!important;
+  z-index:1!important;
+  opacity:.95!important;
+  filter:drop-shadow(0 24px 44px rgba(0,0,0,.42))!important;
+}
+.hero .hero-content,
+.hero .container{
+  position:relative!important;
+  z-index:2!important;
+}
+
+/* 3. Headers pages internes : fond image sombre, plus d'écriture verte invisible */
+.page-hero,
+.inner-hero,
+.sub-hero,
+.hero-small,
+.page-header{
+  position:relative!important;
+  background:
+    linear-gradient(90deg, rgba(0,31,12,.94) 0%, rgba(0,31,12,.86) 48%, rgba(0,31,12,.66) 100%),
+    url("images/hero-basket-bg.png")!important;
+  background-size:cover!important;
+  background-position:center right!important;
+  background-repeat:no-repeat!important;
+  overflow:hidden!important;
+}
+.page-hero .kicker,
+.inner-hero .kicker,
+.sub-hero .kicker,
+.hero-small .kicker,
+.page-header .kicker,
+.page-hero .eyebrow,
+.inner-hero .eyebrow,
+.sub-hero .eyebrow,
+.hero-small .eyebrow,
+.page-header .eyebrow{
+  color:#dff5e8!important;
+  opacity:1!important;
+  text-shadow:0 2px 10px rgba(0,0,0,.55)!important;
+}
+.page-hero h1,
+.inner-hero h1,
+.sub-hero h1,
+.hero-small h1,
+.page-header h1,
+.page-hero p,
+.inner-hero p,
+.sub-hero p,
+.hero-small p,
+.page-header p{
+  color:#fff!important;
+  text-shadow:0 2px 14px rgba(0,0,0,.45)!important;
+}
+
+/* 4. Boutons catégorie */
+.team-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:18px;
+}
+.team-actions a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:34px;
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid rgba(0,57,20,.20);
+  background:#fff;
+  color:#003914;
+  text-decoration:none;
+  font-size:11px;
+  font-weight:1000;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+.team-actions a.primary{
+  background:#003914;
+  color:#fff;
+  border-color:#003914;
+}
+
+/* 5. Footer restauré, lisible et complet */
+.site-footer{
+  background:#071d12!important;
+  color:rgba(255,255,255,.78)!important;
+  padding:56px 0 26px!important;
+  border-top:1px solid rgba(255,255,255,.08)!important;
+}
+.site-footer .footer-grid{
+  display:grid!important;
+  grid-template-columns:1.05fr .8fr .95fr .95fr!important;
+  gap:34px!important;
+  align-items:start!important;
+}
+.site-footer .footer-logo{
+  width:92px!important;
+  height:auto!important;
+  display:block!important;
+  margin-bottom:14px!important;
+  filter:drop-shadow(0 12px 20px rgba(0,0,0,.25))!important;
+}
+.site-footer h3,
+.site-footer h4{
+  color:#fff!important;
+  margin:0 0 14px!important;
+  text-transform:uppercase!important;
+  letter-spacing:.12em!important;
+  font-size:14px!important;
+}
+.site-footer p,
+.site-footer li,
+.site-footer a{
+  color:rgba(255,255,255,.74)!important;
+  font-weight:650!important;
+  line-height:1.65!important;
+  text-decoration:none!important;
+}
+.site-footer a:hover{color:#fff!important}
+.site-footer ul{
+  list-style:none!important;
+  padding:0!important;
+  margin:0!important;
+}
+.site-footer .footer-bottom{
+  margin-top:38px!important;
+  padding-top:18px!important;
+  border-top:1px solid rgba(255,255,255,.10)!important;
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:12px!important;
+  justify-content:space-between!important;
+  align-items:center!important;
+  font-size:13px!important;
+}
+.site-footer .studio,
+.site-footer .legal-link{
+  color:#fff!important;
+  font-weight:900!important;
+}
+.site-footer .legal-link{
+  text-decoration:underline!important;
+  text-underline-offset:4px!important;
+}
+
+.section-essais-app,
+.extra-bridge,
+.notice-duplicate,
+.esbb-added-bottom,
+.section-added{
+  display:none!important;
+}
+
+/* Hide any accidental duplicated big bridge section after home */
+body .section-essais-app{
+  display:none!important;
+}
+
+@media(max-width:1000px){
+  .site-footer .footer-grid{grid-template-columns:1fr 1fr!important}
+}
+@media(max-width:700px){
+  .hero .hero-brand-logo{opacity:.15!important;right:18px!important;width:300px!important}
+  .site-footer .footer-grid{grid-template-columns:1fr!important}
+}
+
+</style>
+</head><body>
+<header id="hdr"><div class="wrap nav"><a class="brand" href="index.html"><img src="images/logo.png" alt="Logo ES Blanquefort Basket Ball"><span class="brand-text"><span class="brand-name">ES Blanquefort</span><span class="brand-sub">Basket-Ball</span></span></a><button class="burger" aria-label="Menu">☰</button><nav class="navlinks"><a class="" href="index.html">Accueil</a>
+<a class="" href="le-club.html">Le club</a>
+<a class="" href="equipes.html">Équipes</a>
+<a class="" href="planning.html">Planning</a>
+<a class="" href="matchs.html">Matchs</a>
+<a class="" href="partenaires.html">Partenaires</a>
+<a class="btn btn-primary" href="essais.html">S’inscrire</a></nav></div></header>
+<div class="sponsor-strip">Partenaires du club : plusieurs offres pour soutenir l’ES Blanquefort Basket-Ball · <a href="https://es-blanquefort-basket-ball.github.io/partenariat-club/" target="_blank" rel="noopener">Voir le dossier partenaire</a></div>
+<section class="page-head"><div class="wrap"><div class="eyebrow">ES Blanquefort Basket-Ball</div><h1 class="section-title">Contact</h1><p class="lead">Une question, une inscription, une proposition de partenariat ou une information à transmettre au club ?</p></div></section><section><div class="wrap grid-2"><div class="card"><h3>Coordonnées</h3><p><strong>Email :</strong><br>contact@es-blanquefort-basketball.fr</p><br><p><strong>Adresse :</strong><br>Gymnase du Port du Roy<br>Avenue du Port du Roy<br>33290 Blanquefort</p></div><div class="formbox"><div class="formgrid"><div class="field"><label>Nom</label><input type="text" placeholder="Votre nom"></div><div class="field"><label>Email</label><input type="email" placeholder="votre@email.fr"></div><div class="field full"><label>Sujet</label><select><option>Information club</option><option>Inscription / essai</option><option>Sponsoring</option><option>Autre demande</option></select></div><div class="field full"><label>Message</label><textarea placeholder="Votre message"></textarea></div><div class="full"><a class="btn btn-primary" href="mailto:contact@es-blanquefort-basketball.fr">Envoyer par email</a></div></div></div></div></section>
+<script src="script.js"></script>
+<footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand-block"><img class="footer-logo" src="images/logo.png" alt="Logo ES Blanquefort Basket-Ball"><h3>ES Blanquefort Basket-Ball</h3><p>Club familial de basket à Blanquefort, porté par les joueurs, les familles, les bénévoles et les partenaires.</p></div><div><h4>Navigation</h4><ul><li><a href="index.html">Accueil</a></li><li><a href="le-club.html">Le club</a></li><li><a href="equipes.html">Équipes</a></li><li><a href="planning.html">Planning</a></li><li><a href="matchs.html">Matchs</a></li><li><a href="partenaires.html">Partenaires</a></li><li><a href="sponsors.html">Mur des verts et blancs</a></li></ul></div><div><h4>Contact</h4><p><strong>ES Blanquefort Basket-Ball</strong><br>Tél. 06 10 16 60 16<br><a href="mailto:contact@es-blanquefort-basketball.fr">contact@es-blanquefort-basketball.fr</a><br><a class="legal-link" href="mentions_legales_ESBB.html">Mentions légales</a></p></div><div><h4>Partenaires</h4><p>Entreprises locales, commerçants, artisans et familles partenaires : plusieurs façons de soutenir le club.</p><a class="legal-link" href="https://es-blanquefort-basket-ball.github.io/partenariat-club/" target="_blank" rel="noopener">Devenir partenaire</a></div></div><div class="footer-bottom"><span>© 2026 ES Blanquefort Basket-Ball</span><span>Site club développé par L’Rénov IA Studio · Mai 2026</span><span>Club affilié FFBB · Ligue Nouvelle-Aquitaine · Comité de Gironde · NAQ 0033-034</span></div></div></footer>
+
+</body></html>
