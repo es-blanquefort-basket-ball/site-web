@@ -1,240 +1,2167 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Inscriptions — ES Blanquefort Basket-Ball</title><meta name="description" content="Inscriptions et séances d’essai."><meta name="theme-color" content="#1f5a3f"><link rel="icon" type="image/png" href="images/favicon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S’inscrire — Saison 2026-2027 — ES Blanquefort Basket-Ball</title>
+  <meta name="description" content="Pré-inscription, catégories, tarifs, essais et renouvellement pour rejoindre l’ES Blanquefort Basket-Ball en 2026-2027.">
+  <meta name="theme-color" content="#1f5a3f">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 
-/* === ESBB V14 CLEAN REBASE === */
+  <!--
+    FIL 01-C — prototype local.
+    style.css n'est PAS modifié.
+    Ces styles restent locaux à inscriptions.html pendant la phase de validation.
+  -->
+  <style>
+    :root{
+      --ins-green-950:#071b12;
+      --ins-green-900:#0f2d20;
+      --ins-green-800:#173d2d;
+      --ins-green-700:#1f5a3f;
+      --ins-green-600:#2f7b52;
+      --ins-green-100:#eaf3ec;
+      --ins-green-50:#f6faf7;
+      --ins-white:#fff;
+      --ins-ink:#102117;
+      --ins-muted:#627267;
+      --ins-line:rgba(31,90,63,.15);
+      --ins-shadow:0 18px 50px rgba(7,27,18,.10);
+      --ins-title:'Bebas Neue',system-ui,sans-serif;
+      --ins-body:'Barlow',system-ui,sans-serif;
+      --ins-cond:'Barlow Condensed',system-ui,sans-serif;
+    }
 
-/* 1. Suppression définitive du faux ballon orange / formes moches */
-.decor-ball,
-.basketball-bg,
-.floating-ball,
-.bg-ball,
-.fake-ball,
-.page-ball,
-.header-ball,
-.hero-ball,
-[class*="decor-ball"],
-[class*="basketball-bg"],
-[class*="floating-ball"],
-[class*="bg-ball"],
-[class*="fake-ball"],
-[class*="page-ball"],
-[class*="header-ball"],
-[class*="hero-ball"]{
-  display:none!important;
-  opacity:0!important;
-  visibility:hidden!important;
-}
+    .ins-page{font-family:var(--ins-body);background:linear-gradient(180deg,#f3f8f4 0%,#eef5f0 45%,#fff 100%);color:var(--ins-ink)}
+    .ins-page *{box-sizing:border-box}
+    .ins-page a{text-decoration:none}
+    .ins-wrap{max-width:1180px;margin:0 auto;padding:0 24px}
 
-.hero::after,
-.page-hero::after,
-.inner-hero::after,
-.sub-hero::after,
-.hero-small::after,
-.page-header::after,
-section.hero::after,
-header.hero::after{
-  content:none!important;
-  display:none!important;
-}
+    .ins-hero{position:relative;overflow:hidden;padding:84px 0 68px;background:linear-gradient(135deg,var(--ins-green-950),var(--ins-green-800));color:#fff}
+    .ins-hero:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 20%,rgba(255,255,255,.12),transparent 25%);pointer-events:none}
+    .ins-hero .ins-wrap{position:relative;z-index:1}
+    .ins-kicker{font-family:var(--ins-cond);text-transform:uppercase;letter-spacing:2.8px;font-weight:700;font-size:13px;color:#cfe2d4}
+    .ins-hero h1{font-family:var(--ins-title);font-size:clamp(58px,9vw,100px);line-height:.9;text-transform:uppercase;margin:10px 0 0}
+    .ins-hero h1 span{display:block;color:#dceee1}
+    .ins-hero p{max-width:760px;margin:20px 0 0;font-size:18px;line-height:1.65;color:rgba(255,255,255,.80)}
+    .ins-hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .ins-btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 20px;border-radius:999px;font-family:var(--ins-cond);font-weight:700;text-transform:uppercase;letter-spacing:1.3px;font-size:13px;border:1px solid transparent}
+    .ins-btn-primary{background:#fff;color:var(--ins-green-800)}
+    .ins-btn-secondary{border-color:rgba(255,255,255,.36);color:#fff;background:rgba(255,255,255,.06)}
 
-/* 2. Hero accueil : photo + logo une seule fois */
-.hero{
-  position:relative!important;
-  background:
-    linear-gradient(90deg, rgba(0,31,12,.92) 0%, rgba(0,31,12,.80) 40%, rgba(0,31,12,.42) 72%, rgba(0,31,12,.20) 100%),
-    url("images/hero-basket-bg.png")!important;
-  background-size:cover!important;
-  background-position:center right!important;
-  background-repeat:no-repeat!important;
-  overflow:hidden!important;
-}
+    .ins-orient{margin-top:-28px;position:relative;z-index:4}
+    .ins-orient-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .ins-orient-card{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:25px 26px;border-radius:22px;background:#fff;border:1px solid var(--ins-line);box-shadow:var(--ins-shadow);color:inherit}
+    .ins-orient-card strong{display:block;font-family:var(--ins-title);font-size:31px;line-height:1;text-transform:uppercase;color:var(--ins-green-900)}
+    .ins-orient-card span{display:block;margin-top:7px;color:var(--ins-muted);line-height:1.4}
+    .ins-arrow{width:42px;height:42px;flex:0 0 42px;border-radius:50%;display:grid;place-items:center;background:var(--ins-green-100);color:var(--ins-green-700);font-size:28px}
 
-/* on garde seulement le logo placé à droite dans l'accueil */
-.hero .hero-brand-logo{
-  position:absolute!important;
-  right:clamp(70px,11vw,180px)!important;
-  top:52%!important;
-  transform:translateY(-50%)!important;
-  width:clamp(240px,28vw,410px)!important;
-  height:auto!important;
-  z-index:1!important;
-  opacity:.95!important;
-  filter:drop-shadow(0 24px 44px rgba(0,0,0,.42))!important;
-}
-.hero .hero-content,
-.hero .container{
-  position:relative!important;
-  z-index:2!important;
-}
+    .ins-section{padding:70px 0 0}
+    .ins-section-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:28px}
+    .ins-section-head h2{font-family:var(--ins-title);font-size:clamp(44px,6vw,66px);line-height:.93;text-transform:uppercase;color:var(--ins-green-900);margin:6px 0 0}
+    .ins-section-head p{max-width:590px;color:var(--ins-muted);line-height:1.6;margin:0}
 
-/* 3. Headers pages internes : fond image sombre, plus d'écriture verte invisible */
-.page-hero,
-.inner-hero,
-.sub-hero,
-.hero-small,
-.page-header{
-  position:relative!important;
-  background:
-    linear-gradient(90deg, rgba(0,31,12,.94) 0%, rgba(0,31,12,.86) 48%, rgba(0,31,12,.66) 100%),
-    url("images/hero-basket-bg.png")!important;
-  background-size:cover!important;
-  background-position:center right!important;
-  background-repeat:no-repeat!important;
-  overflow:hidden!important;
-}
-.page-hero .kicker,
-.inner-hero .kicker,
-.sub-hero .kicker,
-.hero-small .kicker,
-.page-header .kicker,
-.page-hero .eyebrow,
-.inner-hero .eyebrow,
-.sub-hero .eyebrow,
-.hero-small .eyebrow,
-.page-header .eyebrow{
-  color:#dff5e8!important;
-  opacity:1!important;
-  text-shadow:0 2px 10px rgba(0,0,0,.55)!important;
-}
-.page-hero h1,
-.inner-hero h1,
-.sub-hero h1,
-.hero-small h1,
-.page-header h1,
-.page-hero p,
-.inner-hero p,
-.sub-hero p,
-.hero-small p,
-.page-header p{
-  color:#fff!important;
-  text-shadow:0 2px 14px rgba(0,0,0,.45)!important;
-}
+    .ins-categories{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+    .ins-category{background:#fff;border:1px solid var(--ins-line);border-radius:22px;padding:22px;box-shadow:0 10px 28px rgba(7,27,18,.055)}
+    .ins-category-top{display:flex;justify-content:space-between;align-items:start;gap:16px}
+    .ins-category h3{font-family:var(--ins-title);font-size:36px;line-height:1;text-transform:uppercase;color:var(--ins-green-800);margin:0}
+    .ins-years{font-family:var(--ins-cond);font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--ins-muted);font-size:12px;margin-top:5px}
+    .ins-price{font-family:var(--ins-title);font-size:34px;line-height:1;color:var(--ins-green-700);white-space:nowrap}
+    .ins-category-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:19px}
+    .ins-small-btn{display:flex;align-items:center;justify-content:center;text-align:center;min-height:42px;padding:10px 12px;border-radius:12px;font-family:var(--ins-cond);font-weight:700;text-transform:uppercase;letter-spacing:.9px;font-size:12px}
+    .ins-small-btn.hello{background:var(--ins-green-700);color:#fff}
+    .ins-small-btn.trial{background:var(--ins-green-100);color:var(--ins-green-800)}
+    .ins-category-note{margin-top:11px;font-size:12px;color:var(--ins-muted);line-height:1.45}
 
-/* 4. Boutons catégorie */
-.team-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:18px;
-}
-.team-actions a{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:34px;
-  padding:8px 12px;
-  border-radius:999px;
-  border:1px solid rgba(0,57,20,.20);
-  background:#fff;
-  color:#003914;
-  text-decoration:none;
-  font-size:11px;
-  font-weight:1000;
-  text-transform:uppercase;
-  letter-spacing:.04em;
-}
-.team-actions a.primary{
-  background:#003914;
-  color:#fff;
-  border-color:#003914;
-}
+    .ins-paths{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .ins-path{border-radius:25px;padding:30px;background:#fff;border:1px solid var(--ins-line);box-shadow:0 12px 34px rgba(7,27,18,.06)}
+    .ins-path.dark{background:linear-gradient(135deg,var(--ins-green-900),var(--ins-green-700));color:#fff;border-color:transparent}
+    .ins-path .tag{font-family:var(--ins-cond);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;font-size:12px;color:var(--ins-green-600)}
+    .ins-path.dark .tag{color:#cfe2d4}
+    .ins-path h3{font-family:var(--ins-title);font-size:42px;line-height:.95;text-transform:uppercase;margin:8px 0 18px}
+    .ins-path ol{margin:0;padding-left:20px}
+    .ins-path li{margin:10px 0;line-height:1.5;color:var(--ins-muted)}
+    .ins-path.dark li{color:rgba(255,255,255,.82)}
+    .ins-path-note{margin-top:20px;padding:15px 16px;border-radius:14px;background:var(--ins-green-50);color:var(--ins-green-900);font-size:14px;line-height:1.5}
+    .ins-path.dark .ins-path-note{background:rgba(255,255,255,.10);color:#fff}
 
-/* 5. Footer restauré, lisible et complet */
-.site-footer{
-  background:#071d12!important;
-  color:rgba(255,255,255,.78)!important;
-  padding:56px 0 26px!important;
-  border-top:1px solid rgba(255,255,255,.08)!important;
-}
-.site-footer .footer-grid{
-  display:grid!important;
-  grid-template-columns:1.05fr .8fr .95fr .95fr!important;
-  gap:34px!important;
-  align-items:start!important;
-}
-.site-footer .footer-logo{
-  width:92px!important;
-  height:auto!important;
-  display:block!important;
-  margin-bottom:14px!important;
-  filter:drop-shadow(0 12px 20px rgba(0,0,0,.25))!important;
-}
-.site-footer h3,
-.site-footer h4{
-  color:#fff!important;
-  margin:0 0 14px!important;
-  text-transform:uppercase!important;
-  letter-spacing:.12em!important;
-  font-size:14px!important;
-}
-.site-footer p,
-.site-footer li,
-.site-footer a{
-  color:rgba(255,255,255,.74)!important;
-  font-weight:650!important;
-  line-height:1.65!important;
-  text-decoration:none!important;
-}
-.site-footer a:hover{color:#fff!important}
-.site-footer ul{
-  list-style:none!important;
-  padding:0!important;
-  margin:0!important;
-}
-.site-footer .footer-bottom{
-  margin-top:38px!important;
-  padding-top:18px!important;
-  border-top:1px solid rgba(255,255,255,.10)!important;
-  display:flex!important;
-  flex-wrap:wrap!important;
-  gap:12px!important;
-  justify-content:space-between!important;
-  align-items:center!important;
-  font-size:13px!important;
-}
-.site-footer .studio,
-.site-footer .legal-link{
-  color:#fff!important;
-  font-weight:900!important;
-}
-.site-footer .legal-link{
-  text-decoration:underline!important;
-  text-underline-offset:4px!important;
-}
+    .ins-info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .ins-info{background:#fff;border:1px solid var(--ins-line);border-radius:20px;padding:22px}
+    .ins-info h3{font-family:var(--ins-title);font-size:29px;text-transform:uppercase;color:var(--ins-green-800);margin:0 0 10px}
+    .ins-info p,.ins-info li{color:var(--ins-muted);line-height:1.55}
+    .ins-info ul{padding-left:18px;margin:0}
+    .ins-info li{margin:6px 0}
+    .ins-status{display:inline-block;margin-top:13px;padding:7px 9px;border-radius:999px;background:var(--ins-green-100);font-family:var(--ins-cond);font-weight:700;text-transform:uppercase;letter-spacing:.8px;font-size:11px;color:var(--ins-green-800)}
 
-.section-essais-app,
-.extra-bridge,
-.notice-duplicate,
-.esbb-added-bottom,
-.section-added{
-  display:none!important;
-}
+    .ins-help{margin:70px 0 0;padding:32px;border-radius:25px;background:linear-gradient(135deg,var(--ins-green-900),var(--ins-green-700));color:#fff;display:flex;justify-content:space-between;align-items:center;gap:28px}
+    .ins-help h2{font-family:var(--ins-title);font-size:42px;line-height:.95;text-transform:uppercase;margin:0}
+    .ins-help p{margin:9px 0 0;color:rgba(255,255,255,.78)}
+    .ins-help .ins-btn{background:#fff;color:var(--ins-green-800);white-space:nowrap}
 
-/* Hide any accidental duplicated big bridge section after home */
-body .section-essais-app{
-  display:none!important;
-}
+    .ins-footnote{padding:26px 0 70px;color:var(--ins-muted);font-size:13px;line-height:1.55}
 
-@media(max-width:1000px){
-  .site-footer .footer-grid{grid-template-columns:1fr 1fr!important}
-}
-@media(max-width:700px){
-  .hero .hero-brand-logo{opacity:.15!important;right:18px!important;width:300px!important}
-  .site-footer .footer-grid{grid-template-columns:1fr!important}
-}
+    @media(max-width:900px){
+      .ins-orient-grid,.ins-paths,.ins-categories{grid-template-columns:1fr}
+      .ins-info-grid{grid-template-columns:1fr 1fr}
+      .ins-section-head{display:block}
+      .ins-section-head p{margin-top:12px}
+    }
+    @media(max-width:620px){
+      .ins-wrap{padding:0 17px}
+      .ins-hero{padding:66px 0 54px}
+      .ins-hero-actions{display:grid}
+      .ins-orient{margin-top:-20px}
+      .ins-orient-card{padding:21px 19px;border-radius:18px}
+      .ins-section{padding-top:55px}
+      .ins-category{padding:19px 17px}
+      .ins-category-actions{grid-template-columns:1fr}
+      .ins-info-grid{grid-template-columns:1fr}
+      .ins-help{display:block;padding:24px}
+      .ins-help .ins-btn{width:100%;margin-top:19px}
+    }
+    .ins-category{cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+    .ins-category:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(7,27,18,.09);border-color:rgba(31,90,63,.28)}
+    .ins-category:focus-visible{outline:3px solid rgba(47,123,82,.28);outline-offset:3px}
 
-</style>
-</head><body>
-<header id="hdr"><div class="wrap nav"><a class="brand" href="index.html"><img src="images/logo.png" alt="Logo ES Blanquefort Basket Ball"><span class="brand-text"><span class="brand-name">ES Blanquefort</span><span class="brand-sub">Basket-Ball</span></span></a><button class="burger" aria-label="Menu">☰</button><nav class="navlinks"><a class="" href="index.html">Accueil</a>
-<a class="" href="le-club.html">Le club</a>
-<a class="" href="equipes.html">Équipes</a>
-<a class="" href="planning.html">Planning</a>
-<a class="" href="matchs.html">Matchs</a>
-<a class="" href="partenaires.html">Partenaires</a>
-<a class="btn btn-primary" href="inscriptions.html">S’inscrire</a></nav></div></header>
-<div class="sponsor-strip">Partenaires du club : plusieurs offres pour soutenir l’ES Blanquefort Basket-Ball · <a href="https://es-blanquefort-basket-ball.github.io/partenariat-club/" target="_blank" rel="noopener">Voir le dossier partenaire</a></div>
-<section class="page-head"><div class="wrap"><div class="eyebrow">ES Blanquefort Basket-Ball</div><h1 class="section-title">Inscriptions</h1><p class="lead">Les liens utiles pour demander une séance d’essai ou préparer la réinscription 2026-2027.</p></div></section>
-<section class="signup-section"><div class="wrap"><div class="signup-intro card"><div><div class="eyebrow">Rejoindre le club</div><h2 class="section-title">Essais & <span>réinscriptions</span></h2><p class="lead">Choisissez le bon formulaire : les essais concernent les nouveaux joueurs, la réinscription concerne les licenciés du club qui préparent la saison prochaine.</p></div></div><div class="signup-cards"><article class="card signup-card"><div class="signup-icon">🏀</div><div><div class="eyebrow">Nouveaux joueurs</div><h3>Séance d’essai</h3><p>Demander une séance d’essai pour découvrir le club et être orienté vers la bonne catégorie.</p><a class="btn btn-primary" href="https://es-blanquefort-basket-ball.github.io/essais-2026-2027/" target="_blank" rel="noopener">Ouvrir le formulaire essais</a></div></article><article class="card signup-card"><div class="signup-icon">✓</div><div><div class="eyebrow">Licenciés du club</div><h3>Réinscription 2026-2027</h3><p>Répondre au questionnaire de préparation de saison : je continue, j’arrête ou je ne sais pas encore.</p><a class="btn btn-primary" href="https://es-blanquefort-basket-ball.github.io/reinscription-2026-2027/" target="_blank" rel="noopener">Ouvrir la réinscription</a></div></article></div><div class="card signup-note"><strong>À retenir :</strong> les informations sportives seront ajustées par le club au fil de la préparation de saison. En cas de doute, contactez le club avant de remplir le mauvais formulaire.</div></div></section>
-<script src="script.js"></script>
-<footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand-block"><img class="footer-logo" src="images/logo.png" alt="Logo ES Blanquefort Basket-Ball"><h3>ES Blanquefort Basket-Ball</h3><p>Club familial de basket à Blanquefort, porté par les joueurs, les familles, les bénévoles et les partenaires.</p></div><div><h4>Navigation</h4><ul><li><a href="index.html">Accueil</a></li><li><a href="le-club.html">Le club</a></li><li><a href="equipes.html">Équipes</a></li><li><a href="planning.html">Planning</a></li><li><a href="matchs.html">Matchs</a></li><li><a href="partenaires.html">Partenaires</a></li><li><a href="sponsors.html">Mur des verts et blancs</a></li></ul></div><div><h4>Contact</h4><p><strong>ES Blanquefort Basket-Ball</strong><br>Tél. 06 10 16 60 16<br><a href="mailto:contact@es-blanquefort-basketball.fr">contact@es-blanquefort-basketball.fr</a><br><a class="legal-link" href="mentions_legales_ESBB.html">Mentions légales</a></p></div><div><h4>Partenaires</h4><p>Entreprises locales, commerçants, artisans et familles partenaires : plusieurs façons de soutenir le club.</p><a class="legal-link" href="https://es-blanquefort-basket-ball.github.io/partenariat-club/" target="_blank" rel="noopener">Devenir partenaire</a></div></div><div class="footer-bottom"><span>© 2026 ES Blanquefort Basket-Ball</span><span>Site club développé par L’Rénov IA Studio · Mai 2026</span><span>Club affilié FFBB · Ligue Nouvelle-Aquitaine · Comité de Gironde · NAQ 0033-034</span></div></div></footer>
+    .ins-modal[hidden]{display:none}
+    .ins-modal{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:20px;background:rgba(7,27,18,.66);backdrop-filter:blur(4px)}
+    .ins-modal-panel{width:min(640px,100%);max-height:min(86vh,760px);overflow:auto;background:#fff;border-radius:24px;border:1px solid var(--ins-line);box-shadow:0 30px 80px rgba(7,27,18,.28)}
+    .ins-modal-head{display:flex;justify-content:space-between;align-items:start;gap:20px;padding:24px 24px 18px;border-bottom:1px solid var(--ins-line)}
+    .ins-modal-title{font-family:var(--ins-title);font-size:42px;line-height:.95;text-transform:uppercase;color:var(--ins-green-900);margin:0}
+    .ins-modal-years{margin-top:6px;color:var(--ins-muted);font-family:var(--ins-cond);font-size:13px;text-transform:uppercase;letter-spacing:1px}
+    .ins-modal-close{border:0;background:var(--ins-green-100);color:var(--ins-green-800);width:42px;height:42px;border-radius:50%;font-size:28px;line-height:1;cursor:pointer}
+    .ins-modal-body{padding:22px 24px 26px}
+    .ins-modal-price{font-family:var(--ins-title);font-size:38px;color:var(--ins-green-700);margin-bottom:18px}
+    .ins-modal-label{font-family:var(--ins-cond);font-weight:700;text-transform:uppercase;letter-spacing:1.3px;font-size:12px;color:var(--ins-green-700);margin:20px 0 10px}
+    .ins-modal-hello{display:flex;align-items:center;justify-content:center;min-height:48px;padding:12px 18px;border-radius:14px;background:var(--ins-green-700);color:#fff;font-family:var(--ins-cond);font-weight:700;text-transform:uppercase;letter-spacing:1.1px}
+    .ins-training-list{display:grid;gap:9px}
+    .ins-training-link{display:flex;justify-content:space-between;gap:18px;align-items:center;padding:14px 15px;border-radius:14px;background:var(--ins-green-50);border:1px solid var(--ins-line);color:var(--ins-ink)}
+    .ins-training-link:hover{background:var(--ins-green-100)}
+    .ins-training-main{font-weight:700}
+    .ins-training-place{color:var(--ins-muted);font-size:13px;text-align:right}
+    .ins-modal-note{margin-top:18px;color:var(--ins-muted);font-size:13px;line-height:1.5}
 
-</body></html>
+
+    body.ins-modal-open{overflow:hidden}
+
+    .ins-category .ins-price{
+      max-width:190px;
+      font-family:var(--ins-cond);
+      font-size:14px;
+      line-height:1.25;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      text-align:right;
+    }
+
+    .preins-modal[hidden]{display:none}
+    .preins-modal{
+      position:fixed;
+      inset:0;
+      z-index:10000;
+      display:grid;
+      place-items:center;
+      padding:20px;
+      background:rgba(7,27,18,.68);
+      backdrop-filter:blur(4px);
+    }
+    .preins-panel{
+      width:min(680px,100%);
+      max-height:88vh;
+      overflow:auto;
+      background:#fff;
+      border-radius:24px;
+      border:1px solid var(--ins-line);
+      box-shadow:0 30px 80px rgba(7,27,18,.28);
+    }
+    .preins-head{
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      align-items:start;
+      padding:24px 24px 18px;
+      border-bottom:1px solid var(--ins-line);
+    }
+    .preins-title{
+      margin:0;
+      font-family:var(--ins-title);
+      font-size:42px;
+      line-height:.95;
+      text-transform:uppercase;
+      color:var(--ins-green-900);
+    }
+    .preins-sub{
+      margin:7px 0 0;
+      color:var(--ins-muted);
+      line-height:1.45;
+      font-size:14px;
+    }
+    .preins-close{
+      border:0;
+      background:var(--ins-green-100);
+      color:var(--ins-green-800);
+      width:42px;
+      height:42px;
+      flex:0 0 42px;
+      border-radius:50%;
+      font-size:28px;
+      cursor:pointer;
+    }
+    .preins-body{padding:22px 24px 26px}
+    .preins-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+    .preins-field{display:grid;gap:7px}
+    .preins-field.full{grid-column:1/-1}
+    .preins-field label,
+    .preins-legend{
+      font-family:var(--ins-cond);
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      font-size:12px;
+      color:var(--ins-green-800);
+    }
+    .preins-field input,
+    .preins-field select{
+      width:100%;
+      border:1px solid var(--ins-line);
+      border-radius:12px;
+      padding:12px 13px;
+      font:inherit;
+      color:var(--ins-ink);
+      background:#fff;
+    }
+    .preins-field input:focus,
+    .preins-field select:focus{
+      outline:3px solid rgba(47,123,82,.18);
+      border-color:var(--ins-green-600);
+    }
+    .preins-help{
+      margin-top:14px;
+      padding:13px 14px;
+      border-radius:12px;
+      background:var(--ins-green-50);
+      color:var(--ins-muted);
+      font-size:13px;
+      line-height:1.5;
+    }
+    .preins-submit{
+      width:100%;
+      margin-top:18px;
+      border:0;
+      border-radius:14px;
+      min-height:48px;
+      padding:12px 18px;
+      background:var(--ins-green-700);
+      color:#fff;
+      font-family:var(--ins-cond);
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:1.1px;
+      cursor:pointer;
+    }
+    .preins-submit:hover{background:var(--ins-green-800)}
+
+    .preins-category-result{
+      grid-column:1/-1;
+      padding:14px 15px;
+      border-radius:13px;
+      background:var(--ins-green-50);
+      border:1px solid var(--ins-line);
+    }
+    .preins-category-result strong{
+      display:block;
+      font-family:var(--ins-cond);
+      text-transform:uppercase;
+      letter-spacing:1px;
+      font-size:12px;
+      color:var(--ins-green-700);
+      margin-bottom:4px;
+    }
+    .preins-category-value{
+      font-family:var(--ins-title);
+      font-size:29px;
+      line-height:1;
+      text-transform:uppercase;
+      color:var(--ins-green-900);
+    }
+    .preins-category-help{
+      margin-top:5px;
+      color:var(--ins-muted);
+      font-size:12px;
+      line-height:1.4;
+    }
+
+    @media(max-width:620px){
+      .preins-modal{padding:12px}
+      .preins-panel{border-radius:20px}
+      .preins-head,.preins-body{padding-left:18px;padding-right:18px}
+      .preins-grid{grid-template-columns:1fr}
+      .preins-field.full{grid-column:auto}
+      .ins-category .ins-price{max-width:150px;font-size:12px}
+    }
+
+
+    .ins-modal-actions{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+      margin-top:18px;
+    }
+    .ins-modal-action{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:46px;
+      padding:11px 14px;
+      border-radius:13px;
+      font-family:var(--ins-cond);
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      font-size:12px;
+      text-align:center;
+    }
+    .ins-modal-action.primary{
+      background:var(--ins-green-700);
+      color:#fff;
+    }
+    .ins-modal-action.secondary{
+      background:var(--ins-green-100);
+      color:var(--ins-green-800);
+      border:1px solid var(--ins-line);
+    }
+    .ins-training-group{
+      margin-top:14px;
+      padding-top:14px;
+      border-top:1px solid var(--ins-line);
+    }
+    .ins-training-group:first-child{
+      margin-top:0;
+      padding-top:0;
+      border-top:0;
+    }
+    .ins-training-group-title{
+      margin:0 0 8px;
+      font-family:var(--ins-cond);
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:1.1px;
+      color:var(--ins-green-800);
+      font-size:12px;
+    }
+    .ins-map-link{
+      display:inline-flex;
+      align-items:center;
+      gap:5px;
+      margin-top:4px;
+      font-size:12px;
+      color:var(--ins-green-700);
+      font-weight:700;
+      text-decoration:underline;
+      text-underline-offset:2px;
+    }
+    @media(max-width:620px){
+      .ins-modal-actions{grid-template-columns:1fr}
+    }
+
+
+    @media(max-width:620px){
+      .ins-modal{padding:12px}
+      .ins-modal-panel{border-radius:20px;max-height:88vh}
+      .ins-modal-head,.ins-modal-body{padding-left:18px;padding-right:18px}
+      .ins-training-link{display:block}
+      .ins-training-place{text-align:left;margin-top:4px}
+    }
+
+
+
+
+    .ins-category-detail{
+      margin-top:14px;
+      display:inline-flex;
+      align-items:center;
+      min-height:30px;
+      padding:7px 10px;
+      border-radius:999px;
+      background:var(--ins-green-100);
+      color:var(--ins-green-800);
+      font-family:var(--ins-cond);
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.9px;
+      font-size:11px;
+    }
+
+    .ins-category-actions .ins-small-btn{
+      justify-content:flex-start;
+      background:transparent;
+      color:var(--ins-green-700);
+      padding-left:0;
+      padding-right:0;
+      min-height:auto;
+      text-align:left;
+      border-radius:0;
+    }
+
+    .ins-category-actions .ins-small-btn:hover{
+      color:var(--ins-green-900);
+    }
+
+
+    #category-modal-preins{
+      font-size:15px;
+      letter-spacing:1.15px;
+    }
+    @media(max-width:620px){
+      #category-modal-preins{font-size:14px}
+    }
+
+
+    /* =========================================================
+       FIL 01-C — PASSE ESTHÉTIQUE PREMIUM
+       CSS local de maquette uniquement — style.css inchangé
+       ========================================================= */
+
+    .ins-page{
+      position:relative;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 8% 14%,rgba(47,123,82,.10),transparent 24%),
+        radial-gradient(circle at 92% 42%,rgba(31,90,63,.08),transparent 26%),
+        linear-gradient(180deg,#f7fbf8 0%,#edf5ef 36%,#f8fbf9 68%,#ffffff 100%);
+    }
+
+    /* HERO */
+    .ins-hero{
+      min-height:520px;
+      display:flex;
+      align-items:center;
+      padding:92px 0 118px;
+      isolation:isolate;
+      background:
+        linear-gradient(90deg,rgba(7,27,18,.96) 0%,rgba(15,45,32,.90) 48%,rgba(23,61,45,.72) 100%),
+        url('images/hero-basket-bg.png') center 42%/cover no-repeat;
+    }
+    .ins-hero:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      background:
+        linear-gradient(90deg,transparent 0 49.7%,rgba(255,255,255,.055) 49.7% 50.3%,transparent 50.3% 100%),
+        radial-gradient(circle at 74% 51%,transparent 0 102px,rgba(255,255,255,.07) 103px 105px,transparent 106px),
+        radial-gradient(circle at 74% 51%,transparent 0 210px,rgba(255,255,255,.04) 211px 213px,transparent 214px);
+      opacity:.95;
+    }
+    .ins-hero:after{
+      content:"";
+      position:absolute;
+      width:460px;
+      height:460px;
+      right:-100px;
+      top:-115px;
+      border-radius:50%;
+      background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.13),rgba(47,123,82,.08) 45%,transparent 70%);
+      filter:blur(1px);
+      pointer-events:none;
+    }
+    .ins-hero .ins-wrap{
+      width:100%;
+    }
+    .ins-hero .ins-kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 12px;
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:999px;
+      background:rgba(255,255,255,.07);
+      backdrop-filter:blur(10px);
+      color:#e2efe6;
+    }
+    .ins-hero h1{
+      max-width:760px;
+      font-size:clamp(72px,9vw,118px);
+      letter-spacing:1.5px;
+      text-shadow:0 12px 36px rgba(0,0,0,.18);
+    }
+    .ins-hero h1 span{
+      color:#fff;
+      opacity:.94;
+    }
+    .ins-hero p{
+      max-width:680px;
+      font-size:19px;
+      color:rgba(255,255,255,.82);
+    }
+    .ins-hero-actions{
+      gap:10px;
+      margin-top:30px;
+    }
+    .ins-hero .ins-btn{
+      min-height:50px;
+      padding:13px 23px;
+      transition:transform .2s ease,box-shadow .2s ease,background .2s ease;
+    }
+    .ins-hero .ins-btn:hover{
+      transform:translateY(-2px);
+    }
+    .ins-hero .ins-btn-primary{
+      box-shadow:0 14px 36px rgba(0,0,0,.20);
+    }
+    .ins-hero .ins-btn-secondary{
+      backdrop-filter:blur(10px);
+      background:rgba(255,255,255,.08);
+    }
+
+    /* ORIENTATION — cartes en surplomb du hero */
+    .ins-orient{
+      margin-top:-58px;
+    }
+    .ins-orient-grid{
+      gap:18px;
+    }
+    .ins-orient-card{
+      position:relative;
+      overflow:hidden;
+      min-height:148px;
+      padding:29px 30px;
+      border-radius:26px;
+      border:1px solid rgba(31,90,63,.13);
+      background:rgba(255,255,255,.91);
+      backdrop-filter:blur(16px);
+      box-shadow:0 22px 60px rgba(7,27,18,.14);
+      transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+    }
+    .ins-orient-card:before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:0;
+      bottom:0;
+      width:5px;
+      background:linear-gradient(180deg,var(--ins-green-600),var(--ins-green-800));
+    }
+    .ins-orient-card:after{
+      content:"";
+      position:absolute;
+      width:150px;
+      height:150px;
+      right:-72px;
+      bottom:-84px;
+      border-radius:50%;
+      border:20px solid rgba(31,90,63,.045);
+      pointer-events:none;
+    }
+    .ins-orient-card:hover{
+      transform:translateY(-4px);
+      border-color:rgba(31,90,63,.24);
+      box-shadow:0 28px 72px rgba(7,27,18,.17);
+    }
+    .ins-orient-card strong{
+      font-size:35px;
+      letter-spacing:.5px;
+    }
+    .ins-orient-card span:not(.ins-arrow){
+      max-width:420px;
+      font-size:15px;
+    }
+    .ins-arrow{
+      width:50px;
+      height:50px;
+      flex-basis:50px;
+      color:#fff;
+      background:linear-gradient(135deg,var(--ins-green-700),var(--ins-green-600));
+      box-shadow:0 10px 28px rgba(31,90,63,.20);
+    }
+
+    /* TITRES / RYTHME GLOBAL */
+    .ins-section{
+      position:relative;
+      padding-top:92px;
+    }
+    .ins-section-head{
+      margin-bottom:34px;
+    }
+    .ins-section-head h2{
+      font-size:clamp(52px,6.2vw,74px);
+      letter-spacing:.5px;
+    }
+    .ins-section-head p{
+      font-size:16px;
+      line-height:1.7;
+    }
+    #categories{
+      padding-bottom:90px;
+    }
+    #categories:before{
+      content:"";
+      position:absolute;
+      width:520px;
+      height:520px;
+      left:-280px;
+      top:130px;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(47,123,82,.09),transparent 68%);
+      pointer-events:none;
+    }
+
+    /* CATÉGORIES — plus vivantes, moins "cartes blanches" */
+    .ins-categories{
+      gap:18px;
+    }
+    .ins-category{
+      min-height:214px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      position:relative;
+      overflow:hidden;
+      padding:26px 27px 23px;
+      border-radius:26px;
+      border:1px solid rgba(31,90,63,.13);
+      background:
+        linear-gradient(145deg,rgba(255,255,255,.96),rgba(238,246,240,.84));
+      box-shadow:0 14px 34px rgba(7,27,18,.065);
+      transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+    }
+    .ins-category:nth-child(4n+2),
+    .ins-category:nth-child(4n+3){
+      background:
+        linear-gradient(145deg,rgba(235,244,238,.96),rgba(255,255,255,.92));
+    }
+    .ins-category:before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:0;
+      bottom:0;
+      width:5px;
+      background:linear-gradient(180deg,var(--ins-green-600),var(--ins-green-800));
+    }
+    .ins-category:after{
+      content:"";
+      position:absolute;
+      width:150px;
+      height:150px;
+      right:-70px;
+      top:-78px;
+      border-radius:50%;
+      border:18px solid rgba(31,90,63,.04);
+      pointer-events:none;
+    }
+    .ins-category:hover{
+      transform:translateY(-4px);
+      border-color:rgba(31,90,63,.24);
+      box-shadow:0 22px 48px rgba(7,27,18,.10);
+    }
+    .ins-category h3{
+      font-size:42px;
+      letter-spacing:.7px;
+    }
+    .ins-years{
+      font-size:12px;
+      color:#6c7c71;
+    }
+    .ins-category .ins-price{
+      max-width:175px;
+      padding:8px 11px;
+      border-radius:999px;
+      background:rgba(31,90,63,.075);
+      color:var(--ins-green-800);
+      text-align:center;
+      white-space:normal;
+      font-family:var(--ins-cond);
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:1px;
+      line-height:1.2;
+    }
+    .ins-category-detail{
+      margin-top:17px;
+      padding:8px 11px;
+      background:rgba(255,255,255,.68);
+      border:1px solid rgba(31,90,63,.12);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.8);
+    }
+    .ins-category-actions{
+      margin-top:20px;
+      border-top:1px solid rgba(31,90,63,.12);
+      padding-top:14px;
+    }
+    .ins-category-actions .ins-small-btn{
+      position:relative;
+      width:max-content;
+      max-width:100%;
+      font-size:12px;
+      letter-spacing:1.05px;
+      transition:color .18s ease,transform .18s ease;
+    }
+    .ins-category:hover .ins-category-actions .ins-small-btn{
+      transform:translateX(3px);
+    }
+
+    /* PARCOURS — vraie zone forte */
+    .ins-path-section{
+      margin-top:0;
+      padding:96px 0 102px;
+      background:
+        linear-gradient(90deg,transparent 0 49.7%,rgba(255,255,255,.035) 49.7% 50.3%,transparent 50.3%),
+        radial-gradient(circle at 80% 20%,rgba(255,255,255,.07),transparent 26%),
+        linear-gradient(135deg,var(--ins-green-950),var(--ins-green-800));
+      color:#fff;
+      overflow:hidden;
+    }
+    .ins-path-section:after{
+      content:"";
+      position:absolute;
+      width:420px;
+      height:420px;
+      right:-180px;
+      bottom:-210px;
+      border-radius:50%;
+      border:54px solid rgba(255,255,255,.035);
+      pointer-events:none;
+    }
+    .ins-path-section .ins-kicker{
+      color:#bfd6c6 !important;
+    }
+    .ins-path-section .ins-section-head h2{
+      color:#fff;
+    }
+    .ins-path-section .ins-section-head p{
+      color:rgba(255,255,255,.68);
+    }
+    .ins-paths{
+      gap:20px;
+    }
+    .ins-path{
+      position:relative;
+      overflow:hidden;
+      padding:34px 34px 32px;
+      border-radius:28px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.93);
+      box-shadow:0 24px 64px rgba(0,0,0,.18);
+    }
+    .ins-path:after{
+      content:"";
+      position:absolute;
+      width:190px;
+      height:190px;
+      right:-100px;
+      bottom:-100px;
+      border-radius:50%;
+      border:26px solid rgba(31,90,63,.04);
+      pointer-events:none;
+    }
+    .ins-path.dark{
+      background:
+        linear-gradient(145deg,rgba(47,123,82,.96),rgba(23,61,45,.96));
+      border-color:rgba(255,255,255,.13);
+      box-shadow:0 26px 68px rgba(0,0,0,.22);
+    }
+    .ins-path h3{
+      font-size:48px;
+      letter-spacing:.5px;
+    }
+    .ins-path li{
+      margin:12px 0;
+    }
+    .ins-path-note{
+      border:1px solid rgba(31,90,63,.10);
+    }
+    .ins-path.dark .ins-path-note{
+      border-color:rgba(255,255,255,.12);
+      background:rgba(255,255,255,.09);
+      backdrop-filter:blur(8px);
+    }
+
+    /* DOCUMENTS / AIDES / ASSURANCES — calme, mais cohérent */
+    .ins-info-section{
+      padding-top:96px;
+    }
+    .ins-info-grid{
+      gap:18px;
+    }
+    .ins-info{
+      position:relative;
+      overflow:hidden;
+      padding:25px 25px 23px;
+      border-radius:22px;
+      border:1px solid rgba(31,90,63,.12);
+      background:rgba(255,255,255,.78);
+      backdrop-filter:blur(8px);
+      box-shadow:0 12px 30px rgba(7,27,18,.05);
+    }
+    .ins-info:before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:0;
+      right:0;
+      height:4px;
+      background:linear-gradient(90deg,var(--ins-green-700),rgba(47,123,82,.30));
+    }
+    .ins-info h3{
+      font-size:32px;
+    }
+    .ins-status{
+      border:1px solid rgba(31,90,63,.10);
+      background:rgba(234,243,236,.88);
+    }
+
+    /* BESOIN D'AIDE */
+    .ins-help{
+      position:relative;
+      overflow:hidden;
+      margin-top:78px;
+      padding:38px 40px;
+      border-radius:30px;
+      background:
+        radial-gradient(circle at 86% 28%,rgba(255,255,255,.09),transparent 24%),
+        linear-gradient(135deg,var(--ins-green-900),var(--ins-green-600));
+      box-shadow:0 24px 58px rgba(7,27,18,.16);
+    }
+    .ins-help:after{
+      content:"";
+      position:absolute;
+      width:190px;
+      height:190px;
+      right:-84px;
+      bottom:-100px;
+      border-radius:50%;
+      border:28px solid rgba(255,255,255,.055);
+      pointer-events:none;
+    }
+    .ins-help h2{
+      font-size:50px;
+    }
+    .ins-help .ins-btn{
+      min-height:50px;
+      padding:13px 24px;
+      box-shadow:0 12px 30px rgba(0,0,0,.14);
+    }
+
+    /* POP-UP CATÉGORIE — profondeur et hiérarchie */
+    .ins-modal{
+      background:rgba(5,20,13,.76);
+      backdrop-filter:blur(9px);
+    }
+    .ins-modal-panel{
+      overflow:hidden;
+      border-radius:30px;
+      border:1px solid rgba(255,255,255,.18);
+      background:
+        linear-gradient(180deg,#ffffff 0%,#f4f9f5 100%);
+      box-shadow:0 38px 110px rgba(0,0,0,.36);
+    }
+    .ins-modal-head{
+      position:relative;
+      overflow:hidden;
+      padding:27px 28px 22px;
+      border-bottom:0;
+      background:
+        radial-gradient(circle at 90% 10%,rgba(255,255,255,.10),transparent 30%),
+        linear-gradient(135deg,var(--ins-green-900),var(--ins-green-700));
+      color:#fff;
+    }
+    .ins-modal-head:after{
+      content:"";
+      position:absolute;
+      width:160px;
+      height:160px;
+      right:-72px;
+      bottom:-94px;
+      border-radius:50%;
+      border:22px solid rgba(255,255,255,.055);
+      pointer-events:none;
+    }
+    .ins-modal-title{
+      color:#fff;
+      font-size:48px;
+    }
+    .ins-modal-years{
+      color:rgba(255,255,255,.72);
+    }
+    .ins-modal-close{
+      position:relative;
+      z-index:2;
+      background:rgba(255,255,255,.12);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.16);
+      backdrop-filter:blur(6px);
+    }
+    .ins-modal-body{
+      padding:26px 28px 30px;
+    }
+    .ins-modal-label{
+      margin-top:22px;
+      margin-bottom:10px;
+      color:var(--ins-green-800);
+      letter-spacing:1.45px;
+    }
+    .ins-modal-label:first-child{
+      margin-top:0;
+    }
+    .ins-training-group{
+      padding:14px 0 0;
+      margin-top:14px;
+    }
+    .ins-training-group-title{
+      color:var(--ins-green-700);
+    }
+    .ins-training-link{
+      padding:15px 16px;
+      background:rgba(255,255,255,.82);
+      border-color:rgba(31,90,63,.12);
+      box-shadow:0 6px 18px rgba(7,27,18,.045);
+      transition:transform .18s ease,background .18s ease,box-shadow .18s ease;
+    }
+    .ins-training-link:hover{
+      transform:translateX(2px);
+      background:#fff;
+      box-shadow:0 10px 24px rgba(7,27,18,.075);
+    }
+    .ins-modal-actions{
+      margin:22px 0 2px;
+    }
+    #category-modal-preins{
+      min-height:52px;
+      border:0;
+      border-radius:14px;
+      background:linear-gradient(135deg,var(--ins-green-700),var(--ins-green-600));
+      color:#fff;
+      box-shadow:0 12px 28px rgba(31,90,63,.20);
+    }
+    .ins-modal-price{
+      display:inline-flex;
+      align-items:center;
+      min-height:58px;
+      padding:8px 18px;
+      margin-bottom:4px;
+      border-radius:16px;
+      background:var(--ins-green-100);
+      color:var(--ins-green-800);
+      font-size:44px;
+    }
+    .ins-modal-hello{
+      min-height:50px;
+      border-radius:14px;
+      background:var(--ins-green-900);
+      box-shadow:0 10px 25px rgba(7,27,18,.16);
+    }
+
+    /* POP-UP PRÉ-INSCRIPTION */
+    .preins-modal{
+      background:rgba(5,20,13,.76);
+      backdrop-filter:blur(9px);
+    }
+    .preins-panel{
+      overflow:hidden;
+      border-radius:30px;
+      background:linear-gradient(180deg,#fff,#f6faf7);
+      box-shadow:0 38px 110px rgba(0,0,0,.36);
+    }
+    .preins-head{
+      padding:27px 28px 23px;
+      border-bottom:0;
+      background:
+        radial-gradient(circle at 90% 10%,rgba(255,255,255,.10),transparent 28%),
+        linear-gradient(135deg,var(--ins-green-900),var(--ins-green-700));
+      color:#fff;
+    }
+    .preins-title{
+      color:#fff;
+      font-size:48px;
+    }
+    .preins-sub{
+      color:rgba(255,255,255,.72);
+    }
+    .preins-close{
+      background:rgba(255,255,255,.12);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.16);
+    }
+    .preins-body{
+      padding:27px 28px 30px;
+    }
+    .preins-field input,
+    .preins-field select{
+      min-height:48px;
+      border-radius:13px;
+      background:rgba(255,255,255,.92);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.8);
+    }
+    .preins-category-result{
+      border-radius:16px;
+      background:
+        linear-gradient(135deg,var(--ins-green-100),rgba(255,255,255,.9));
+    }
+    .preins-submit{
+      min-height:52px;
+      border-radius:14px;
+      background:linear-gradient(135deg,var(--ins-green-700),var(--ins-green-600));
+      box-shadow:0 12px 28px rgba(31,90,63,.18);
+    }
+
+    /* Footer spacing of the page content */
+    .ins-footnote{
+      padding-top:30px;
+      padding-bottom:82px;
+    }
+
+    /* Responsive local minimum only — no global mobile pass here */
+    @media(max-width:900px){
+      .ins-hero{min-height:auto}
+      .ins-path-section{padding-top:82px;padding-bottom:88px}
+    }
+
+
+    /* FIL 01-C — architecture sans doublon */
+    .ins-orient-grid-3{
+      grid-template-columns:repeat(3,minmax(0,1fr));
+    }
+    .ins-orient-grid-3 .ins-orient-card{
+      min-height:166px;
+    }
+
+    .ins-category{
+      min-height:165px;
+      padding:21px 24px 19px;
+    }
+    .ins-category h3{font-size:37px}
+    .ins-category-detail{
+      margin-top:11px;
+      padding:6px 10px;
+    }
+    .ins-category-actions{
+      margin-top:13px;
+      padding-top:10px;
+    }
+
+    .renewal-modal[hidden]{display:none}
+    .renewal-modal{
+      position:fixed;
+      inset:0;
+      z-index:10001;
+      display:grid;
+      place-items:center;
+      padding:20px;
+      background:rgba(5,20,13,.76);
+      backdrop-filter:blur(9px);
+    }
+    .renewal-panel{
+      width:min(640px,100%);
+      max-height:88vh;
+      overflow:auto;
+      border-radius:30px;
+      background:linear-gradient(180deg,#fff,#f6faf7);
+      box-shadow:0 38px 110px rgba(0,0,0,.36);
+    }
+    .renewal-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:start;
+      gap:20px;
+      padding:27px 28px 23px;
+      background:
+        radial-gradient(circle at 90% 10%,rgba(255,255,255,.10),transparent 28%),
+        linear-gradient(135deg,var(--ins-green-900),var(--ins-green-700));
+      color:#fff;
+    }
+    .renewal-title{
+      margin:0;
+      font-family:var(--ins-title);
+      font-size:48px;
+      line-height:.95;
+      text-transform:uppercase;
+      color:#fff;
+    }
+    .renewal-sub{
+      margin:7px 0 0;
+      color:rgba(255,255,255,.72);
+      line-height:1.45;
+    }
+    .renewal-close{
+      width:42px;
+      height:42px;
+      flex:0 0 42px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.12);
+      color:#fff;
+      font-size:28px;
+      cursor:pointer;
+    }
+    .renewal-body{padding:27px 28px 30px}
+    .renewal-body ol{
+      margin:0;
+      padding-left:22px;
+    }
+    .renewal-body li{
+      margin:12px 0;
+      color:var(--ins-muted);
+      line-height:1.55;
+    }
+    .renewal-note{
+      margin-top:20px;
+      padding:15px 16px;
+      border-radius:14px;
+      background:var(--ins-green-100);
+      color:var(--ins-green-900);
+      line-height:1.5;
+      font-size:14px;
+    }
+    .renewal-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:20px;
+    }
+    .renewal-actions .ins-btn{
+      background:var(--ins-green-700);
+      color:#fff;
+    }
+    @media(max-width:900px){
+      .ins-orient-grid-3{grid-template-columns:1fr}
+    }
+
+
+    /* FIL 01-C — hiérarchie couleur V22 */
+    .ins-orient-grid-2{
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:20px;
+    }
+    .ins-orient-grid-2 .ins-orient-card{
+      min-height:184px;
+    }
+
+    .ins-orient-card-primary{
+      background:
+        radial-gradient(circle at 88% 18%,rgba(255,255,255,.10),transparent 25%),
+        linear-gradient(135deg,var(--ins-green-900),var(--ins-green-700));
+      color:#fff;
+      border-color:rgba(255,255,255,.10);
+      box-shadow:0 24px 64px rgba(7,27,18,.20);
+    }
+    .ins-orient-card-primary strong,
+    .ins-orient-card-primary span:not(.ins-arrow){
+      color:#fff;
+    }
+    .ins-orient-card-primary span:not(.ins-arrow){
+      opacity:.78;
+    }
+    .ins-orient-card-primary:before{
+      background:rgba(255,255,255,.55);
+    }
+
+    .ins-orient-card-renew{
+      background:
+        linear-gradient(145deg,#eef6f0,#dcebe1);
+      border-color:rgba(31,90,63,.16);
+    }
+    .ins-orient-card-renew .ins-arrow{
+      background:var(--ins-green-800);
+    }
+
+    .ins-contact-strip{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:auto 1fr auto;
+      align-items:center;
+      gap:24px;
+      padding:20px 24px;
+      border-radius:20px;
+      background:
+        linear-gradient(90deg,rgba(31,90,63,.10),rgba(255,255,255,.78));
+      border:1px solid rgba(31,90,63,.14);
+      box-shadow:0 10px 28px rgba(7,27,18,.06);
+      color:inherit;
+    }
+    .ins-contact-kicker{
+      display:block;
+      margin-bottom:3px;
+      font-family:var(--ins-cond);
+      text-transform:uppercase;
+      letter-spacing:1.2px;
+      font-size:11px;
+      font-weight:700;
+      color:var(--ins-green-600);
+    }
+    .ins-contact-strip strong{
+      display:block;
+      font-family:var(--ins-title);
+      font-size:28px;
+      line-height:1;
+      text-transform:uppercase;
+      color:var(--ins-green-900);
+    }
+    .ins-contact-text{
+      color:var(--ins-muted);
+      line-height:1.45;
+    }
+    .ins-contact-arrow{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:var(--ins-green-700);
+      color:#fff;
+      font-size:28px;
+    }
+
+    .ins-categories-section{
+      margin-top:70px;
+      padding:86px 0 96px;
+      background:
+        radial-gradient(circle at 8% 14%,rgba(47,123,82,.10),transparent 28%),
+        radial-gradient(circle at 92% 88%,rgba(31,90,63,.08),transparent 26%),
+        linear-gradient(180deg,#eaf3ec 0%,#f6faf7 48%,#edf5ef 100%);
+      border-top:1px solid rgba(31,90,63,.08);
+      border-bottom:1px solid rgba(31,90,63,.08);
+    }
+    .ins-categories-section .ins-section-head{
+      margin-bottom:38px;
+    }
+    .ins-categories-section .ins-section-head h2{
+      color:var(--ins-green-950);
+    }
+
+    .ins-category{
+      background:
+        linear-gradient(145deg,rgba(255,255,255,.88),rgba(225,239,229,.88));
+      box-shadow:0 15px 38px rgba(7,27,18,.07);
+    }
+    .ins-category:nth-child(3n+2){
+      background:
+        linear-gradient(145deg,rgba(232,243,235,.96),rgba(255,255,255,.86));
+    }
+    .ins-category:nth-child(3n){
+      background:
+        linear-gradient(145deg,rgba(244,249,245,.96),rgba(219,235,224,.86));
+    }
+
+    .ins-info-section-colored{
+      padding:96px 0 104px;
+      background:
+        linear-gradient(180deg,#ffffff 0%,#f1f7f3 100%);
+    }
+    .ins-info-section-colored .ins-info:nth-child(2){
+      background:
+        linear-gradient(145deg,rgba(234,243,236,.92),rgba(255,255,255,.86));
+    }
+
+    @media(max-width:900px){
+      .ins-orient-grid-2{grid-template-columns:1fr}
+      .ins-contact-strip{grid-template-columns:1fr auto}
+      .ins-contact-text{grid-column:1/-1}
+    }
+
+
+    /* FIL 01-C — étape explicative avant pré-inscription */
+    .preins-info-modal[hidden]{display:none}
+    .preins-info-modal{
+      position:fixed;
+      inset:0;
+      z-index:10002;
+      display:grid;
+      place-items:center;
+      padding:20px;
+      background:rgba(5,20,13,.76);
+      backdrop-filter:blur(9px);
+    }
+    .preins-info-panel{
+      width:min(640px,100%);
+      max-height:88vh;
+      overflow:auto;
+      border-radius:30px;
+      background:linear-gradient(180deg,#fff,#f6faf7);
+      box-shadow:0 38px 110px rgba(0,0,0,.36);
+    }
+    .preins-info-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:start;
+      gap:20px;
+      padding:27px 28px 23px;
+      background:
+        radial-gradient(circle at 90% 10%,rgba(255,255,255,.10),transparent 28%),
+        linear-gradient(135deg,var(--ins-green-900),var(--ins-green-700));
+      color:#fff;
+    }
+    .preins-info-title{
+      margin:0;
+      font-family:var(--ins-title);
+      font-size:48px;
+      line-height:.95;
+      text-transform:uppercase;
+      color:#fff;
+    }
+    .preins-info-sub{
+      margin:7px 0 0;
+      color:rgba(255,255,255,.72);
+      line-height:1.45;
+    }
+    .preins-info-close{
+      width:42px;
+      height:42px;
+      flex:0 0 42px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.12);
+      color:#fff;
+      font-size:28px;
+      cursor:pointer;
+    }
+    .preins-info-body{
+      padding:27px 28px 30px;
+    }
+    .preins-info-body ol{
+      margin:0;
+      padding-left:22px;
+    }
+    .preins-info-body li{
+      margin:12px 0;
+      color:var(--ins-muted);
+      line-height:1.55;
+    }
+    .preins-info-note{
+      margin-top:20px;
+      padding:15px 16px;
+      border-radius:14px;
+      background:var(--ins-green-100);
+      color:var(--ins-green-900);
+      line-height:1.5;
+      font-size:14px;
+    }
+    .preins-info-action{
+      width:100%;
+      min-height:52px;
+      margin-top:20px;
+      border:0;
+      border-radius:14px;
+      background:linear-gradient(135deg,var(--ins-green-700),var(--ins-green-600));
+      color:#fff;
+      font-family:var(--ins-cond);
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:1.1px;
+      font-size:15px;
+      cursor:pointer;
+      box-shadow:0 12px 28px rgba(31,90,63,.18);
+    }
+
+
+    /* FIL 01-C — V24 : grilles PC */
+    @media(min-width:901px){
+      #categories .ins-categories{
+        grid-template-columns:repeat(3,minmax(0,1fr));
+        gap:16px;
+      }
+      #categories .ins-category{
+        min-height:145px;
+        padding:18px 20px 16px;
+      }
+      #categories .ins-category h3{
+        font-size:34px;
+      }
+      #categories .ins-category-detail{
+        margin-top:8px;
+        padding:5px 9px;
+      }
+      #categories .ins-category-actions{
+        margin-top:10px;
+        padding-top:9px;
+      }
+
+      .ins-info-grid{
+        grid-template-columns:repeat(3,minmax(0,1fr));
+        align-items:stretch;
+      }
+      .ins-info-grid .ins-info{
+        height:100%;
+      }
+    }
+
+    /* Documents → Aides → Assurances : crescendo de vert */
+    .ins-info-grid .ins-info:nth-child(1){
+      background:linear-gradient(145deg,#f7fbf8,#eaf3ec);
+      border-color:rgba(31,90,63,.12);
+    }
+    .ins-info-grid .ins-info:nth-child(2){
+      background:linear-gradient(145deg,#e4f0e7,#cfe3d5);
+      border-color:rgba(31,90,63,.18);
+    }
+    .ins-info-grid .ins-info:nth-child(3){
+      background:linear-gradient(145deg,var(--ins-green-700),var(--ins-green-900));
+      border-color:rgba(255,255,255,.10);
+      color:#fff;
+    }
+    .ins-info-grid .ins-info:nth-child(3) h3{
+      color:#fff;
+    }
+    .ins-info-grid .ins-info:nth-child(3) p{
+      color:rgba(255,255,255,.82);
+    }
+    .ins-info-grid .ins-info:nth-child(3) .ins-status{
+      background:rgba(255,255,255,.12);
+      border-color:rgba(255,255,255,.15);
+      color:#fff;
+    }
+
+
+    /* V25 — image générée intégrée au hero pour prévisualisation autonome */
+    .ins-hero{
+      background:
+        linear-gradient(90deg,rgba(7,27,18,.92) 0%,rgba(15,45,32,.76) 46%,rgba(23,61,45,.42) 100%),
+        url("images/inscriptions-hero-2026.png") center 52%/cover no-repeat;
+    }
+
+  </style>
+</head>
+
+<body>
+  <!-- Header/navigation existants à conserver dans le repository -->
+  <header id="hdr">
+    <div class="wrap nav">
+      <a class="brand" href="index.html">
+        <img src="images/logo.png" alt="Logo ES Blanquefort Basket-Ball">
+        <span class="brand-text"><span class="brand-name">ES Blanquefort</span><span class="brand-sub">Basket-Ball</span></span>
+      </a>
+      <button class="burger" aria-label="Menu">☰</button>
+      <nav class="navlinks">
+        <a href="index.html">Accueil</a>
+        <a href="le-club.html">Le club</a>
+        <a href="equipes.html">Équipes</a>
+        <a href="planning.html">Planning</a>
+        <a href="matchs.html">Matchs</a>
+        <a href="partenaires.html">Partenaires</a>
+        <a class="btn btn-primary active" href="inscriptions.html">S’inscrire</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="ins-page">
+    <section class="ins-hero">
+      <div class="ins-wrap">
+        <div class="ins-kicker">Saison 2026-2027</div>
+        <h1>Rejoindre <span>le club</span></h1>
+        <p>Nouveau licencié ou renouvellement : trouvez votre catégorie, consultez le tarif et accédez directement à la bonne démarche.</p>
+        <div class="ins-hero-actions">
+          <a class="ins-btn ins-btn-primary" href="#categories">Choisir ma catégorie</a>
+          <a class="ins-btn ins-btn-secondary" href="essais.html">Informations essais</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="ins-wrap ins-orient">
+      <div class="ins-orient-grid ins-orient-grid-2">
+        <button class="ins-orient-card ins-orient-card-primary" id="open-preins-info" type="button" style="text-align:left;width:100%;">
+          <div>
+            <strong>Demander une pré-inscription</strong>
+            <span>Nouveau licencié : transmettre les informations utiles au club avant les essais.</span>
+          </div>
+          <span class="ins-arrow" aria-hidden="true">›</span>
+        </button>
+
+        <button class="ins-orient-card ins-orient-card-renew" id="open-renewal-modal" type="button" style="text-align:left;width:100%;">
+          <div>
+            <strong>Renouveler sa licence</strong>
+            <span>Déjà licencié au club : retrouver les étapes essentielles pour la saison 2026-2027.</span>
+          </div>
+          <span class="ins-arrow" aria-hidden="true">›</span>
+        </button>
+      </div>
+
+      <a class="ins-contact-strip" href="mailto:contact@es-blanquefort-basketball.fr?subject=Demande%20de%20renseignements%20-%20Saison%202026-2027">
+        <div>
+          <span class="ins-contact-kicker">Besoin d’aide ?</span>
+          <strong>Demander des renseignements</strong>
+        </div>
+        <span class="ins-contact-text">Une question sur une équipe, une catégorie, un essai ou une inscription.</span>
+        <span class="ins-contact-arrow" aria-hidden="true">›</span>
+      </a>
+    </div>
+
+    <section class="ins-section ins-categories-section" id="categories">
+      <div class="ins-wrap">
+        <div class="ins-section-head">
+          <div>
+            <div class="ins-kicker" style="color:var(--ins-green-600)">Saison 2026-2027</div>
+            <h2>Choisir sa catégorie</h2>
+          </div>
+          <p>Les catégories, années de naissance et tarifs ci-dessous sont issus de la grille 2026-2027 du club. Pour un nouveau licencié, le règlement intervient après les essais ou la confirmation du club.</p>
+        </div>
+
+        <div class="ins-categories">
+          <article class="ins-category" data-category="u5" role="button" tabindex="0" aria-haspopup="dialog">
+            <div class="ins-category-top"><div><h3>U5</h3><div class="ins-years">Nés en 2022 et 2023</div></div><div class="ins-category-detail">Micro-basket</div><div class="ins-price">1 entraînement / semaine</div></div>
+            <div class="ins-category-actions"><span class="ins-small-btn trial">Horaires, gymnases et inscription →</span></div>
+          </article>
+
+          <article class="ins-category" data-category="u7" role="button" tabindex="0" aria-haspopup="dialog">
+            <div class="ins-category-top"><div><h3>U7</h3><div class="ins-years">Nés en 2020 et 2021</div></div><div class="ins-category-detail">École de basket</div><div class="ins-price">1 entraînement / semaine</div></div>
+            <div class="ins-category-actions"><span class="ins-small-btn trial">Horaires, gymnases et inscription →</span></div>
+          </article>
+
+          <article class="ins-category" data-category="u9" role="button" tabindex="0" aria-haspopup="dialog">
+            <div class="ins-category-top"><div><h3>U9</h3><div class="ins-years">Nés en 2018 et 2019</div></div><div class="ins-category-detail">U9F • U9M</div><div class="ins-price">2 entraînements / semaine</div></div>
+            <div class="ins-category-actions"><span class="ins-small-btn trial">Horaires, gymnases et inscription →</span></div>
+          </article>
+
+          <article class="ins-category" data-category="u11" role="button" tabindex="0" aria-haspopup="dialog">
+            <div class="ins-category-top"><div><h3>U11</h3><div class="ins-years">Nés en 2016 et 2017</div></div><div class="ins-category-detail">U11F • U11M</div><div class="ins-price">2 entraînements / semaine</div></div>
+            <div class="ins-category-actions"><span class="ins-small-btn trial">Horaires, gymnases et inscription →</span></div>
+          </article>
+
+          <article class="ins-category" data-category="u13" role="button" tabindex="0" aria-haspopup="dialog">
+            <div class="ins-category-top"><div><h3>U13</h3><div class="ins-years">Nés en 2014 et 2015</div></div><div class="ins-category-detail">U13F • U13M</div><div class="ins-price">2 entraînements / semaine</div></div>
+            <div class="ins-category-actions"><span class="ins-small-btn trial">Horaires, gymnases et inscription →</span></div>
+          </article>
+
+          <article class="ins-category" data-category="u15" role="button" tabindex="0" aria-haspopup="dialog">
+            <div class="ins-category-top"><div><h3>U15</h3><div class="ins-years">Nés en 2012 et 2013</div></div><div class="ins-category-detail">U15 M1 • U15 M2</div><div class="ins-price">2 entraînements / semaine</div></div>
+            <div class="ins-category-actions"><span class="ins-small-btn trial">Horaires, gymnases et inscription →</span></div>
+          </article>
+
+          <article class="ins-category" data-category="u18" role="button" tabindex="0" aria-haspopup="dialog">
+            <div class="ins-category-top"><div><h3>U18</h3><div class="ins-years">Nés en 2009, 2010 et 2011</div></div><div class="ins-category-detail">U18M</div><div class="ins-price">2 entraînements / semaine</div></div>
+            <div class="ins-category-actions"><span class="ins-small-btn trial">Horaires, gymnases et inscription →</span></div>
+          </article>
+<article class="ins-category" data-category="seniors" role="button" tabindex="0" aria-haspopup="dialog">
+            <div class="ins-category-top"><div><h3>Seniors</h3><div class="ins-years">Nés en 2005 et avant</div></div><div class="ins-category-detail">SG1 • SG2</div><div class="ins-price">2 entraînements / semaine</div></div>
+            <div class="ins-category-actions"><span class="ins-small-btn trial">Horaires, gymnases et inscription →</span></div>
+          </article>
+
+          <article class="ins-category" data-category="loisirs" role="button" tabindex="0" aria-haspopup="dialog">
+            <div class="ins-category-top"><div><h3>Loisirs</h3><div class="ins-years">Nés en 2005 et avant</div></div><div class="ins-category-detail">Loisirs</div><div class="ins-price">1 entraînement / semaine</div></div>
+            <div class="ins-category-actions"><span class="ins-small-btn trial">Horaires, gymnases et inscription →</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="ins-section ins-info-section ins-info-section-colored" id="infos">
+      <div class="ins-wrap">
+        <div class="ins-section-head">
+          <div>
+            <div class="ins-kicker" style="color:var(--ins-green-600)">À savoir</div>
+            <h2>Documents, aides et assurances</h2>
+          </div>
+          <p>Uniquement les informations utiles à la rentrée sont affichées ici. Le parcours fédéral indique ensuite les pièces réellement nécessaires selon chaque situation.</p>
+        </div>
+
+        <div class="ins-info-grid">
+          <article class="ins-info">
+            <h3>Documents</h3>
+            <p>La FFBB adapte les pièces demandées à la situation du licencié. Le formulaire 2026-2027 prévoit notamment un questionnaire relatif à l’état de santé ; un certificat médical peut être requis selon les réponses ou la situation.</p>
+            <span class="ins-status">Vérifié FFBB 2026-2027</span>
+          </article>
+
+          <article class="ins-info">
+            <h3>Aides</h3>
+            <ul>
+              <li>Carte Clé : selon éligibilité et justificatifs.</li>
+              <li>Pass’Sport : campagne 2026-2027 annoncée mais paramètres définitifs à confirmer avant publication.</li>
+            </ul>
+            <span class="ins-status">À actualiser dès publication officielle</span>
+          </article>
+
+          <article class="ins-info">
+            <h3>Assurances</h3>
+            <p>Les choix d’assurance sont traités dans le parcours fédéral. La page publique ne doit pas imposer une pièce ou une option non confirmée par la réglementation et le dossier du licencié.</p>
+            <span class="ins-status">Information volontairement synthétique</span>
+          </article>
+        </div>
+
+        <div class="ins-help">
+          <div>
+            <h2>Besoin d’aide ?</h2>
+            <p>Une question sur la catégorie, les essais, la pré-inscription ou le renouvellement ?</p>
+          </div>
+          <a class="ins-btn" href="contact.html">Contacter le club</a>
+        </div>
+
+        <div class="ins-footnote">
+          Tarifs affichés : tarif classique 2026-2027, hors options complémentaires et hors cartes premium. Les éventuelles aides sont appliquées selon les conditions d’éligibilité et justificatifs. Le libellé global « S’inscrire » dans la navigation est conservé dans cette maquette ; son éventuel remplacement par « Rejoindre le club » reste à valider.
+        </div>
+      </div>
+    </section>
+
+
+
+    <div class="preins-info-modal" id="preins-info-modal" role="dialog" aria-modal="true" aria-labelledby="preins-info-title" hidden>
+      <div class="preins-info-panel" role="document">
+        <div class="preins-info-head">
+          <div>
+            <h2 class="preins-info-title" id="preins-info-title">Demander une pré-inscription</h2>
+            <p class="preins-info-sub">Nouveau licencié — saison 2026-2027.</p>
+          </div>
+          <button class="preins-info-close" type="button" aria-label="Fermer la fenêtre">×</button>
+        </div>
+
+        <div class="preins-info-body">
+          <ol>
+            <li>Transmettre au club les informations nécessaires à la création de la demande fédérale de pré-inscription.</li>
+            <li>Le club génère ensuite le lien fédéral nécessaire.</li>
+            <li>Compléter le parcours fédéral reçu par mail.</li>
+            <li>Participer aux essais selon les modalités indiquées par le club.</li>
+            <li>Régler uniquement après les essais ou confirmation du club.</li>
+          </ol>
+
+          <div class="preins-info-note">
+            La demande de pré-inscription est non engageante tant que l’inscription n’est pas réglée.
+          </div>
+
+          <button class="preins-info-action" id="open-preins-form-from-info" type="button">Je fais ma demande</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="renewal-modal" id="renewal-modal" role="dialog" aria-modal="true" aria-labelledby="renewal-title" hidden>
+      <div class="renewal-panel" role="document">
+        <div class="renewal-head">
+          <div>
+            <h2 class="renewal-title" id="renewal-title">Renouveler sa licence</h2>
+            <p class="renewal-sub">Déjà licencié au club — saison 2026-2027.</p>
+          </div>
+          <button class="renewal-close" type="button" aria-label="Fermer la fenêtre">×</button>
+        </div>
+        <div class="renewal-body">
+          <ol>
+            <li>Vous avez reçu dans le courant du mois de juillet un lien fédéral transmis pour la saison 2026-2027.</li>
+            <li>Ouvrir ce lien pour accéder à votre renouvellement de licence.</li>
+            <li>Actualiser les informations et fournir les pièces demandées selon la situation du licencié.</li>
+            <li>Utiliser ensuite le lien HelloAsso correspondant à votre catégorie pour le règlement.</li>
+          </ol>
+
+          <div class="renewal-note">
+            En cas de doute sur la catégorie ou le dossier, contacter le club avant le règlement.
+          </div>
+
+          <div class="renewal-actions">
+            <a class="ins-btn" href="#categories">Voir les catégories</a>
+            <a class="ins-btn" href="mailto:contact@es-blanquefort-basketball.fr?subject=Question%20renouvellement%20licence%202026-2027">Contacter le club</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="preins-modal" id="preins-modal" role="dialog" aria-modal="true" aria-labelledby="preins-title" hidden>
+      <div class="preins-panel" role="document">
+        <div class="preins-head">
+          <div>
+            <h2 class="preins-title" id="preins-title">Demande de pré-inscription</h2>
+            <p class="preins-sub">Nouveau licencié — saison 2026-2027. Cette demande reste non engageante tant que l’inscription n’est pas réglée.</p>
+          </div>
+          <button class="preins-close" type="button" aria-label="Fermer le formulaire">×</button>
+        </div>
+        <div class="preins-body">
+          <form id="preins-form">
+            <div class="preins-grid">
+              <div class="preins-field">
+                <label for="preins-nom">Nom</label>
+                <input id="preins-nom" name="nom" type="text" autocomplete="family-name" required>
+              </div>
+
+              <div class="preins-field">
+                <label for="preins-prenom">Prénom</label>
+                <input id="preins-prenom" name="prenom" type="text" autocomplete="given-name" required>
+              </div>
+
+              <div class="preins-field">
+                <label for="preins-naissance">Date de naissance</label>
+                <input id="preins-naissance" name="naissance" type="date" required>
+              </div>
+
+              <div class="preins-field">
+                <label for="preins-sexe">Sexe</label>
+                <select id="preins-sexe" name="sexe" required>
+                  <option value="">Choisir</option>
+                  <option value="Féminin">Féminin</option>
+                  <option value="Masculin">Masculin</option>
+                </select>
+              </div>
+
+              <div class="preins-field full">
+                <label for="preins-email">Adresse mail</label>
+                <input id="preins-email" name="email" type="email" autocomplete="email" required>
+              </div>
+
+              <div class="preins-category-result" aria-live="polite">
+                <strong>Catégorie 2026-2027</strong>
+                <div class="preins-category-value" id="preins-category">À déterminer</div>
+                <div class="preins-category-help" id="preins-category-help">Renseignez la date de naissance pour afficher automatiquement la catégorie.</div>
+              </div>
+            </div>
+
+            <div class="preins-help">
+              Après vérification des informations, le bouton Envoyer prépare la demande à destination de l’adresse de contact du club.
+            </div>
+
+            <button class="preins-submit" type="submit">Envoyer</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="ins-modal" id="category-modal" role="dialog" aria-modal="true" aria-labelledby="category-modal-title" hidden>
+      <div class="ins-modal-panel" role="document">
+        <div class="ins-modal-head">
+          <div>
+            <h2 class="ins-modal-title" id="category-modal-title">Catégorie</h2>
+            <div class="ins-modal-years" id="category-modal-years"></div>
+          </div>
+          <button class="ins-modal-close" type="button" aria-label="Fermer la fenêtre">×</button>
+        </div>
+        <div class="ins-modal-body">
+          <div class="ins-modal-label">Horaires d’entraînement</div>
+          <div class="ins-training-list" id="category-modal-trainings"></div>
+
+          <p class="ins-modal-note">Cliquez sur un créneau pour consulter le planning complet 2026-2027.</p>
+
+          <div class="ins-modal-actions">
+            <button class="ins-modal-action primary" id="category-modal-preins" type="button">Demande de pré-inscription</button>
+          </div>
+
+          <div class="ins-modal-label">Tarif 2026-2027</div>
+          <div class="ins-modal-price" id="category-modal-price"></div>
+
+          <div class="ins-modal-label">Inscription / règlement</div>
+          <a class="ins-modal-hello" id="category-modal-hello" href="#" target="_blank" rel="noopener">Accéder au formulaire HelloAsso</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+
+  <script src="script.js"></script>
+  <script>
+    (() => {
+      const categoryData = {
+        u5: {
+          title: "U5 / Micro-basket",
+          years: "Nés en 2022 et 2023",
+          price: "135 €",
+          hello: "https://www.helloasso.com/associations/e-s-blanquefort-basket-ball/adhesions/licence-2026-2027-u5-micro-basket-nes-en-2022-et-2023",
+          groups: [{name:"U5 / Micro-basket", trainings:[
+            {day:"Lundi", time:"17h30 – 18h30", place:"Fongravey"}
+          ]}]
+        },
+        u7: {
+          title: "U7",
+          years: "Nés en 2020 et 2021",
+          price: "135 €",
+          hello: "https://www.helloasso.com/associations/e-s-blanquefort-basket-ball/adhesions/licence-2026-2027-u7-nes-en-2020-et-2021",
+          groups: [{name:"U7", trainings:[
+            {day:"Lundi", time:"17h30 – 18h30", place:"Fongravey"}
+          ]}]
+        },
+        u9: {
+          title: "U9",
+          years: "Nés en 2018 et 2019",
+          price: "155 €",
+          hello: "https://www.helloasso.com/associations/e-s-blanquefort-basket-ball/adhesions/licence-2026-2027-u9-nes-en-2018-et-2019",
+          groups: [{name:"U9", trainings:[
+            {day:"Mardi", time:"17h30 – 19h00", place:"Dupaty"},
+            {day:"Mercredi", time:"17h00 – 18h15", place:"Port du Roy"}
+          ]}]
+        },
+        u11: {
+          title: "U11",
+          years: "Nés en 2016 et 2017",
+          price: "165 €",
+          hello: "https://www.helloasso.com/associations/e-s-blanquefort-basket-ball/adhesions/licence-2026-2027-u11-nes-en-2016-et-2017",
+          groups: [{name:"U11", trainings:[
+            {day:"Mardi", time:"17h30 – 19h00", place:"Dupaty"},
+            {day:"Mercredi", time:"18h15 – 19h30", place:"Port du Roy"}
+          ]}]
+        },
+        u13: {
+          title: "U13",
+          years: "Nés en 2014 et 2015",
+          price: "195 €",
+          hello: "https://www.helloasso.com/associations/e-s-blanquefort-basket-ball/adhesions/licence-2026-2027-u13-nes-en-2014-et-2015",
+          groups: [
+            {name:"U13M", trainings:[
+              {day:"Mercredi", time:"14h00 – 15h30", place:"Port du Roy"},
+              {day:"Vendredi", time:"18h00 – 19h30", place:"Béchon"}
+            ]},
+            {name:"U13F", trainings:[
+              {day:"Mercredi", time:"15h30 – 17h00", place:"Port du Roy"},
+              {day:"Jeudi", time:"18h30 – 20h00", place:"Béchon"}
+            ]}
+          ]
+        },
+        u15: {
+          title: "U15",
+          years: "Nés en 2012 et 2013",
+          price: "200 €",
+          hello: "https://www.helloasso.com/associations/e-s-blanquefort-basket-ball/adhesions/licence-2026-2027-u15-nes-en-2012-et-2013",
+          groups: [
+            {name:"U15 M1", trainings:[
+              {day:"Mardi", time:"19h00 – 20h30", place:"Dupaty"},
+              {day:"Jeudi", time:"20h00 – 21h30", place:"Béchon"}
+            ]},
+            {name:"U15 M2", trainings:[
+              {day:"Mardi", time:"19h00 – 20h30", place:"Dupaty"},
+              {day:"Vendredi", time:"19h30 – 21h00", place:"Béchon"}
+            ]},
+            {name:"Créneau complémentaire", trainings:[
+              {day:"Mercredi", time:"12h30 – 14h00", place:"Port du Roy", extra:"Accès libre — U15 / U18 / Seniors"}
+            ]}
+          ]
+        },
+        u18: {
+          title: "U18",
+          years: "Nés en 2009, 2010 et 2011",
+          price: "215 €",
+          hello: "https://www.helloasso.com/associations/e-s-blanquefort-basket-ball/adhesions/licence-2026-2027-u18-cadets-nes-en-2009-2010-2011",
+          groups: [
+            {name:"U18", trainings:[
+              {day:"Mercredi", time:"19h30 – 21h00", place:"Port du Roy"},
+              {day:"Vendredi", time:"21h00 – 22h30", place:"Béchon"}
+            ]},
+            {name:"Créneau complémentaire", trainings:[
+              {day:"Mercredi", time:"12h30 – 14h00", place:"Port du Roy", extra:"Accès libre — U15 / U18 / Seniors"}
+            ]}
+          ]
+        },
+        seniors: {
+          title: "Seniors",
+          years: "Nés en 2005 et avant",
+          price: "225 €",
+          hello: "https://www.helloasso.com/associations/e-s-blanquefort-basket-ball/adhesions/licence-2026-2027-seniors-nes-en-2005-et-avant",
+          groups: [
+            {name:"SG1", trainings:[
+              {day:"Mardi", time:"20h30 – 22h30", place:"Dupaty"},
+              {day:"Vendredi", time:"20h30 – 22h30", place:"Port du Roy"}
+            ]},
+            {name:"SG2", trainings:[
+              {day:"Mardi", time:"20h30 – 22h30", place:"Dupaty"},
+              {day:"Mercredi", time:"19h30 – 21h00", place:"Port du Roy"}
+            ]},
+            {name:"Créneau complémentaire", trainings:[
+              {day:"Mercredi", time:"12h30 – 14h00", place:"Port du Roy", extra:"Accès libre — U15 / U18 / Seniors"}
+            ]}
+          ]
+        },
+        loisirs: {
+          title: "Loisirs",
+          years: "Nés en 2005 et avant",
+          price: "165 €",
+          hello: "https://www.helloasso.com/associations/e-s-blanquefort-basket-ball/adhesions/licence-2026-2027-loisirs-nes-en-2005-et-avant",
+          groups: [{name:"Loisirs", trainings:[
+            {day:"Jeudi", time:"21h30 – 23h00", place:"Béchon"}
+          ]}]
+        }
+      };
+
+      const gymMaps = {
+        "Fongravey": "https://www.google.com/maps/place/Complexe+sportif+de+Fongravey/@44.9144573,-0.631101,17z/data=!3m1!5s0xd54d670f1b02a17:0x53f1f56b727545!4m14!1m7!3m6!1s0xd54d77a811a8077:0x1aa76de7951981fe!2sParc+de+Fongravey!8m2!3d44.9144573!4d-0.631101!16s%2Fg%2F11f60xvy1x!3m5!1s0xd54d66fadf24acd:0x103b09b17bbbf047!8m2!3d44.916825!4d-0.62829!16s%2Fg%2F1tkr0ljm?entry=ttu&g_ep=EgoyMDI2MDgxNy4wIKXMDSoASAFQAw%3D%3D",
+        "Dupaty": "https://www.google.com/maps/place/Gymnase+Dupaty/@44.909473,-0.6306504,17z/data=!4m14!1m7!3m6!1s0xd54d77a811a8077:0x1aa76de7951981fe!2sParc+de+Fongravey!8m2!3d44.9144573!4d-0.631101!16s%2Fg%2F11f60xvy1x!3m5!1s0xd54d668e4a90d79:0x85d9ce9c7766ca7f!8m2!3d44.9078738!4d-0.6278307!16s%2Fg%2F11c14mh338?entry=ttu&g_ep=EgoyMDI2MDgxNy4wIKXMDSoASAFQAw%3D%3D",
+        "Port du Roy": "https://www.google.com/maps/place/Complexe+Sportif+Le+Port+du+Roy/@44.9109166,-0.6229042,17z/data=!4m14!1m7!3m6!1s0xd54d77a811a8077:0x1aa76de7951981fe!2sParc+de+Fongravey!8m2!3d44.9144573!4d-0.631101!16s%2Fg%2F11f60xvy1x!3m5!1s0xd54d61169b2148b:0xe1dab987b66822c4!8m2!3d44.9109268!4d-0.6149733!16s%2Fg%2F11bccd211b?entry=ttu&g_ep=EgoyMDI2MDgxNy4wIKXMDSoASAFQAw%3D%3D",
+        "Béchon": "https://www.google.com/maps/@44.9157398,-0.6376453,19z?entry=ttu&g_ep=EgoyMDI2MDgxNy4wIKXMDSoASAFQAw%3D%3D"
+      };
+
+
+
+
+      const preinsInfoModal = document.getElementById("preins-info-modal");
+      const preinsInfoTrigger = document.getElementById("open-preins-info");
+      const preinsInfoClose = preinsInfoModal.querySelector(".preins-info-close");
+      const preinsInfoAction = document.getElementById("open-preins-form-from-info");
+
+      function openPreinsInfoModal() {
+        preinsInfoModal.hidden = false;
+        document.body.classList.add("ins-modal-open");
+        preinsInfoClose.focus();
+      }
+
+      function closePreinsInfoModal() {
+        preinsInfoModal.hidden = true;
+        document.body.classList.remove("ins-modal-open");
+        preinsInfoTrigger.focus();
+      }
+
+      preinsInfoTrigger.addEventListener("click", openPreinsInfoModal);
+      preinsInfoClose.addEventListener("click", closePreinsInfoModal);
+
+      preinsInfoModal.addEventListener("click", event => {
+        if (event.target === preinsInfoModal) closePreinsInfoModal();
+      });
+
+      preinsInfoAction.addEventListener("click", () => {
+        preinsInfoModal.hidden = true;
+        openPreinsModal(preinsInfoAction);
+      });
+
+      const renewalModal = document.getElementById("renewal-modal");
+      const renewalTrigger = document.getElementById("open-renewal-modal");
+      const renewalClose = renewalModal.querySelector(".renewal-close");
+
+      function openRenewalModal() {
+        renewalModal.hidden = false;
+        document.body.classList.add("ins-modal-open");
+        renewalClose.focus();
+      }
+
+      function closeRenewalModal() {
+        renewalModal.hidden = true;
+        document.body.classList.remove("ins-modal-open");
+        renewalTrigger.focus();
+      }
+
+      renewalTrigger.addEventListener("click", openRenewalModal);
+      renewalClose.addEventListener("click", closeRenewalModal);
+
+      renewalModal.addEventListener("click", event => {
+        if (event.target === renewalModal) closeRenewalModal();
+      });
+
+      const preinsModal = document.getElementById("preins-modal");
+      const preinsForm = document.getElementById("preins-form");
+      const preinsClose = preinsModal.querySelector(".preins-close");
+      const preinsTriggers = [
+        document.getElementById("open-preins-form"),
+        document.getElementById("category-modal-preins")
+      ].filter(Boolean);
+      let preinsLastTrigger = null;
+
+      function openPreinsModal(trigger) {
+        preinsLastTrigger = trigger;
+        preinsModal.hidden = false;
+        document.body.classList.add("ins-modal-open");
+        document.getElementById("preins-nom").focus();
+      }
+
+      function closePreinsModal() {
+        preinsModal.hidden = true;
+        document.body.classList.remove("ins-modal-open");
+        if (preinsLastTrigger) preinsLastTrigger.focus();
+      }
+
+      preinsTriggers.forEach(trigger => {
+        trigger.addEventListener("click", () => {
+          if (trigger.id === "category-modal-preins" && !modal.hidden) {
+            modal.hidden = true;
+          }
+          openPreinsModal(trigger);
+        });
+      });
+
+      preinsClose.addEventListener("click", closePreinsModal);
+
+      preinsModal.addEventListener("click", event => {
+        if (event.target === preinsModal) closePreinsModal();
+      });
+
+
+      const birthInput = document.getElementById("preins-naissance");
+      const categoryValue = document.getElementById("preins-category");
+      const categoryHelp = document.getElementById("preins-category-help");
+
+      function categoryFromBirthDate(value) {
+        if (!value) return {label:"À déterminer", help:"Renseignez la date de naissance pour afficher automatiquement la catégorie."};
+
+        const year = Number(value.slice(0, 4));
+
+        if (year === 2022 || year === 2023) return {label:"U5 / Micro-basket", help:"Catégorie calculée à partir de l’année de naissance."};
+        if (year === 2020 || year === 2021) return {label:"U7", help:"Catégorie calculée à partir de l’année de naissance."};
+        if (year === 2018 || year === 2019) return {label:"U9", help:"Catégorie calculée à partir de l’année de naissance."};
+        if (year === 2016 || year === 2017) return {label:"U11", help:"Catégorie calculée à partir de l’année de naissance."};
+        if (year === 2014 || year === 2015) return {label:"U13", help:"Catégorie calculée à partir de l’année de naissance."};
+        if (year === 2012 || year === 2013) return {label:"U15", help:"Catégorie calculée à partir de l’année de naissance."};
+        if (year >= 2009 && year <= 2011) return {label:"U18", help:"Catégorie calculée à partir de l’année de naissance."};
+
+        if (year >= 2006 && year <= 2008) {
+          return {
+            label:"À confirmer avec le club",
+            help:"Aucune catégorie d’entraînement correspondante n’est publiée sur cette page pour les années 2006 à 2008."
+          };
+        }
+
+        if (year <= 2005) {
+          return {
+            label:"Seniors / Loisirs",
+            help:"La date de naissance seule ne permet pas de choisir entre Seniors et Loisirs. Le club confirmera le groupe adapté."
+          };
+        }
+
+        return {
+          label:"À confirmer avec le club",
+          help:"Cette année de naissance ne correspond pas aux catégories actuellement publiées sur cette page."
+        };
+      }
+
+      function updatePreinsCategory() {
+        const result = categoryFromBirthDate(birthInput.value);
+        categoryValue.textContent = result.label;
+        categoryHelp.textContent = result.help;
+        return result;
+      }
+
+      birthInput.addEventListener("change", updatePreinsCategory);
+      birthInput.addEventListener("input", updatePreinsCategory);
+
+      preinsForm.addEventListener("submit", event => {
+        event.preventDefault();
+
+        const formData = new FormData(preinsForm);
+        const nom = formData.get("nom");
+        const prenom = formData.get("prenom");
+        const naissance = formData.get("naissance");
+        const sexe = formData.get("sexe");
+        const email = formData.get("email");
+        const category = updatePreinsCategory();
+
+        const subject = encodeURIComponent(`Demande de pré-inscription 2026-2027 — ${prenom} ${nom}`);
+        const body = encodeURIComponent(
+          `Bonjour,
+
+` +
+          `Nouvelle demande de pré-inscription pour la saison 2026-2027.
+
+` +
+          `Nom : ${nom}
+` +
+          `Prénom : ${prenom}
+` +
+          `Date de naissance : ${naissance}
+` +
+          `Sexe : ${sexe}
+` +
+          `Adresse mail : ${email}
+` +
+          `Catégorie calculée : ${category.label}
+
+` +
+          `Merci.`
+        );
+
+        window.location.href = `mailto:contact@es-blanquefort-basketball.fr?subject=${subject}&body=${body}`;
+      });
+
+      const modal = document.getElementById("category-modal");
+      const title = document.getElementById("category-modal-title");
+      const years = document.getElementById("category-modal-years");
+      const price = document.getElementById("category-modal-price");
+      const hello = document.getElementById("category-modal-hello");
+      const trainings = document.getElementById("category-modal-trainings");
+      const closeButton = modal.querySelector(".ins-modal-close");
+      let lastTrigger = null;
+
+      function openModal(key, trigger) {
+        const data = categoryData[key];
+        if (!data) return;
+
+        lastTrigger = trigger;
+        title.textContent = data.title;
+        years.textContent = data.years;
+        price.textContent = data.price;
+        hello.href = data.hello;
+
+        trainings.innerHTML = "";
+
+        data.groups.forEach(group => {
+          const groupEl = document.createElement("section");
+          groupEl.className = "ins-training-group";
+
+          const groupTitle = document.createElement("h3");
+          groupTitle.className = "ins-training-group-title";
+          groupTitle.textContent = group.name;
+          groupEl.appendChild(groupTitle);
+
+          group.trainings.forEach(slot => {
+            const a = document.createElement("a");
+            a.className = "ins-training-link";
+            a.href = "planning.html";
+
+            const main = document.createElement("span");
+            main.className = "ins-training-main";
+            main.textContent = `${slot.day} — ${slot.time}`;
+
+            const place = document.createElement("span");
+            place.className = "ins-training-place";
+
+            const gymName = document.createElement("span");
+            gymName.textContent = slot.place;
+            place.appendChild(gymName);
+
+            const br = document.createElement("br");
+            place.appendChild(br);
+
+            const gymLink = document.createElement("a");
+            gymLink.className = "ins-map-link";
+            gymLink.href = gymMaps[slot.place] || "planning.html";
+            gymLink.target = "_blank";
+            gymLink.rel = "noopener";
+            gymLink.textContent = "Itinéraire Google Maps";
+            gymLink.setAttribute("aria-label", `Ouvrir l’itinéraire Google Maps vers ${slot.place}`);
+            gymLink.addEventListener("click", event => event.stopPropagation());
+            place.appendChild(gymLink);
+
+            if (slot.extra) {
+              const extra = document.createElement("div");
+              extra.style.marginTop = "4px";
+              extra.style.fontSize = "12px";
+              extra.textContent = slot.extra;
+              place.appendChild(extra);
+            }
+
+            a.append(main, place);
+            groupEl.appendChild(a);
+          });
+
+          trainings.appendChild(groupEl);
+        });
+
+        modal.hidden = false;
+        document.body.classList.add("ins-modal-open");
+        closeButton.focus();
+      }
+
+      function closeModal() {
+        modal.hidden = true;
+        document.body.classList.remove("ins-modal-open");
+        if (lastTrigger) lastTrigger.focus();
+      }
+
+      document.querySelectorAll(".ins-category[data-category]").forEach(card => {
+        card.addEventListener("click", () => openModal(card.dataset.category, card));
+        card.addEventListener("keydown", event => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openModal(card.dataset.category, card);
+          }
+        });
+      });
+
+      closeButton.addEventListener("click", closeModal);
+
+      modal.addEventListener("click", event => {
+        if (event.target === modal) closeModal();
+      });
+
+      document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && !modal.hidden) closeModal();
+        if (event.key === "Escape" && !preinsModal.hidden) closePreinsModal();
+        if (event.key === "Escape" && !renewalModal.hidden) closeRenewalModal();
+        if (event.key === "Escape" && !preinsInfoModal.hidden) closePreinsInfoModal();
+      });
+    })();
+  </script>
+
+</body>
+</html>
