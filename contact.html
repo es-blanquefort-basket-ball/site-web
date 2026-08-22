@@ -223,6 +223,57 @@ body .section-essais-app{
 }
 
 </style>
+
+<style>
+  :root{
+    --venue-fongravey:#8f4f78;
+    --venue-dupaty:#d9822b;
+    --venue-port:#287da8;
+    --venue-bechon:#7c62a3;
+  }
+  .contact-main{padding:64px 0 82px;background:linear-gradient(180deg,#f4f8f5,#eef5f0 55%,#fff)}
+  .contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:20px;align-items:start}
+  .contact-card,.gym-card{
+    background:#fff;border:1px solid rgba(31,90,63,.14);border-radius:22px;
+    box-shadow:0 14px 36px rgba(7,27,18,.07)
+  }
+  .contact-card{padding:28px}
+  .contact-card h2,.gyms-title{
+    margin:0 0 16px;font-family:'Bebas Neue',sans-serif;
+    text-transform:uppercase;color:#0f2d20;letter-spacing:.5px
+  }
+  .contact-card h2{font-size:40px}
+  .contact-lines{display:grid;gap:14px}
+  .contact-line{padding:14px 15px;border-radius:14px;background:#f6faf7;border:1px solid rgba(31,90,63,.10)}
+  .contact-line strong{display:block;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:1px;color:#1f5a3f;font-size:12px;margin-bottom:3px}
+  .contact-line a{color:#102117;font-weight:700}
+  .gyms-wrap{margin-top:28px}
+  .gyms-title{font-size:46px}
+  .gyms-intro{color:#627267;line-height:1.55;margin:-6px 0 18px}
+  .gyms-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .gym-card{position:relative;overflow:hidden;padding:22px 22px 20px}
+  .gym-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--venue-color)}
+  .gym-chip{
+    display:inline-flex;padding:7px 10px;border-radius:999px;background:var(--venue-color);color:#fff;
+    font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-weight:700;letter-spacing:.9px;font-size:12px
+  }
+  .gym-card h3{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:27px;color:#0f2d20;margin:14px 0 7px}
+  .gym-card address{font-style:normal;color:#627267;line-height:1.5}
+  .gym-map{
+    display:inline-flex;align-items:center;justify-content:center;margin-top:16px;min-height:39px;padding:9px 14px;
+    border-radius:999px;background:#173d2d;color:#fff!important;font-family:'Barlow Condensed',sans-serif;
+    text-transform:uppercase;letter-spacing:.8px;font-weight:700;font-size:12px
+  }
+  .gym-fongravey{--venue-color:var(--venue-fongravey)}
+  .gym-dupaty{--venue-color:var(--venue-dupaty)}
+  .gym-port{--venue-color:var(--venue-port)}
+  .gym-bechon{--venue-color:var(--venue-bechon)}
+  .contact-form-card{padding:28px;background:linear-gradient(145deg,#fff,#eef6f0);border:1px solid rgba(31,90,63,.14);border-radius:22px;box-shadow:0 14px 36px rgba(7,27,18,.07)}
+  .contact-form-card h2{font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:40px;color:#0f2d20;margin:0 0 8px}
+  .contact-form-card>p{color:#627267;margin:0 0 20px;line-height:1.5}
+  @media(max-width:900px){.contact-grid{grid-template-columns:1fr}.gyms-grid{grid-template-columns:1fr}}
+</style>
+
 </head><body>
 <header id="hdr"><div class="wrap nav"><a class="brand" href="index.html"><img src="images/logo.png" alt="Logo ES Blanquefort Basket Ball"><span class="brand-text"><span class="brand-name">ES Blanquefort</span><span class="brand-sub">Basket-Ball</span></span></a><button class="burger" aria-label="Menu">☰</button><nav class="navlinks"><a class="" href="index.html">Accueil</a>
 <a class="" href="le-club.html">Le club</a>
@@ -232,7 +283,78 @@ body .section-essais-app{
 <a class="" href="partenaires.html">Partenaires</a>
 <a class="btn btn-primary" href="inscriptions.html">S’inscrire</a></nav></div></header>
 <div class="sponsor-strip">Partenaires du club : plusieurs offres pour soutenir l’ES Blanquefort Basket-Ball · <a href="https://es-blanquefort-basket-ball.github.io/partenariat-club/" target="_blank" rel="noopener">Voir le dossier partenaire</a></div>
-<section class="page-head"><div class="wrap"><div class="eyebrow">ES Blanquefort Basket-Ball</div><h1 class="section-title">Contact</h1><p class="lead">Une question, une inscription, une proposition de partenariat ou une information à transmettre au club ?</p></div></section><section><div class="wrap grid-2"><div class="card"><h3>Coordonnées</h3><p><strong>Email :</strong><br>contact@es-blanquefort-basketball.fr</p><br><p><strong>Adresse :</strong><br>Gymnase du Port du Roy<br>Avenue du Port du Roy<br>33290 Blanquefort</p></div><div class="formbox"><div class="formgrid"><div class="field"><label>Nom</label><input type="text" placeholder="Votre nom"></div><div class="field"><label>Email</label><input type="email" placeholder="votre@email.fr"></div><div class="field full"><label>Sujet</label><select><option>Information club</option><option>Inscription / essai</option><option>Sponsoring</option><option>Autre demande</option></select></div><div class="field full"><label>Message</label><textarea placeholder="Votre message"></textarea></div><div class="full"><a class="btn btn-primary" href="mailto:contact@es-blanquefort-basketball.fr">Envoyer par email</a></div></div></div></div></section>
+<section class="page-head"><div class="wrap"><div class="eyebrow">ES Blanquefort Basket-Ball</div><h1 class="section-title">Contact</h1><p class="lead">Une question, une inscription, une proposition de partenariat ou une information à transmettre au club ?</p></div></section>
+<section class="contact-main">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <div class="contact-card">
+          <h2>Contacter le club</h2>
+          <div class="contact-lines">
+            <div class="contact-line">
+              <strong>Téléphone</strong>
+              <a href="tel:+33610166016">06 10 16 60 16</a>
+            </div>
+            <div class="contact-line">
+              <strong>Email</strong>
+              <a href="mailto:contact@es-blanquefort-basketball.fr">contact@es-blanquefort-basketball.fr</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="gyms-wrap">
+          <h2 class="gyms-title">Nos gymnases</h2>
+          <p class="gyms-intro">Les entraînements du club sont répartis sur plusieurs équipements à Blanquefort. Retrouvez ici les adresses et l’accès Google Maps.</p>
+
+          <div class="gyms-grid">
+            <article class="gym-card gym-fongravey">
+              <span class="gym-chip">Fongravey</span>
+              <h3>Complexe sportif de Fongravey</h3>
+              <address>10 rue Jean Moulin<br>33290 Blanquefort</address>
+              <a class="gym-map" href="https://www.google.com/maps/place/Complexe+sportif+de+Fongravey/@44.9144573,-0.631101,17z/data=!3m1!5s0xd54d670f1b02a17:0x53f1f56b727545!4m14!1m7!3m6!1s0xd54d77a811a8077:0x1aa76de7951981fe!2sParc+de+Fongravey!8m2!3d44.9144573!4d-0.631101!16s%2Fg%2F11f60xvy1x!3m5!1s0xd54d66fadf24acd:0x103b09b17bbbf047!8m2!3d44.916825!4d-0.62829!16s%2Fg%2F1tkr0ljm?entry=ttu&g_ep=EgoyMDI2MDgxNy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Google Maps</a>
+            </article>
+
+            <article class="gym-card gym-dupaty">
+              <span class="gym-chip">Dupaty</span>
+              <h3>Gymnase Dupaty</h3>
+              <address>19 rue Dupaty<br>33290 Blanquefort</address>
+              <a class="gym-map" href="https://www.google.com/maps/place/Gymnase+Dupaty/@44.909473,-0.6306504,17z/data=!4m14!1m7!3m6!1s0xd54d77a811a8077:0x1aa76de7951981fe!2sParc+de+Fongravey!8m2!3d44.9144573!4d-0.631101!16s%2Fg%2F11f60xvy1x!3m5!1s0xd54d668e4a90d79:0x85d9ce9c7766ca7f!8m2!3d44.9078738!4d-0.6278307!16s%2Fg%2F11c14mh338?entry=ttu&g_ep=EgoyMDI2MDgxNy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Google Maps</a>
+            </article>
+
+            <article class="gym-card gym-port">
+              <span class="gym-chip">Port du Roy</span>
+              <h3>Gymnase du Port du Roy</h3>
+              <address>55 avenue du Port du Roy<br>33290 Blanquefort</address>
+              <a class="gym-map" href="https://www.google.com/maps/place/Complexe+Sportif+Le+Port+du+Roy/@44.9109166,-0.6229042,17z/data=!4m14!1m7!3m6!1s0xd54d77a811a8077:0x1aa76de7951981fe!2sParc+de+Fongravey!8m2!3d44.9144573!4d-0.631101!16s%2Fg%2F11f60xvy1x!3m5!1s0xd54d61169b2148b:0xe1dab987b66822c4!8m2!3d44.9109268!4d-0.6149733!16s%2Fg%2F11bccd211b?entry=ttu&g_ep=EgoyMDI2MDgxNy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Google Maps</a>
+            </article>
+
+            <article class="gym-card gym-bechon">
+              <span class="gym-chip">Béchon</span>
+              <h3>Gymnase Le Béchon</h3>
+              <address>Lycée Jean Monnet<br>84 avenue du Général de Gaulle<br>33290 Blanquefort</address>
+              <a class="gym-map" href="https://www.google.com/maps/@44.9157398,-0.6376453,19z?entry=ttu&g_ep=EgoyMDI2MDgxNy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Google Maps</a>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form-card">
+        <h2>Écrire au club</h2>
+        <p>Une question sur une inscription, un essai, la vie du club ou un partenariat ?</p>
+        <div class="formbox" style="box-shadow:none;border:0;background:transparent;padding:0">
+          <div class="formgrid">
+            <div class="field"><label>Nom</label><input type="text" placeholder="Votre nom"></div>
+            <div class="field"><label>Email</label><input type="email" placeholder="votre@email.fr"></div>
+            <div class="field full"><label>Sujet</label><select><option>Information club</option><option>Inscription / essai</option><option>Sponsoring</option><option>Autre demande</option></select></div>
+            <div class="field full"><label>Message</label><textarea placeholder="Votre message"></textarea></div>
+            <div class="full"><a class="btn btn-primary" href="mailto:contact@es-blanquefort-basketball.fr">Envoyer par email</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <script src="script.js"></script>
 <footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand-block"><img class="footer-logo" src="images/logo.png" alt="Logo ES Blanquefort Basket-Ball"><h3>ES Blanquefort Basket-Ball</h3><p>Club familial de basket à Blanquefort, porté par les joueurs, les familles, les bénévoles et les partenaires.</p></div><div><h4>Navigation</h4><ul><li><a href="index.html">Accueil</a></li><li><a href="le-club.html">Le club</a></li><li><a href="equipes.html">Équipes</a></li><li><a href="planning.html">Planning</a></li><li><a href="matchs.html">Matchs</a></li><li><a href="partenaires.html">Partenaires</a></li><li><a href="sponsors.html">Mur des verts et blancs</a></li></ul></div><div><h4>Contact</h4><p><strong>ES Blanquefort Basket-Ball</strong><br>Tél. 06 10 16 60 16<br><a href="mailto:contact@es-blanquefort-basketball.fr">contact@es-blanquefort-basketball.fr</a><br><a class="legal-link" href="mentions_legales_ESBB.html">Mentions légales</a></p></div><div><h4>Partenaires</h4><p>Entreprises locales, commerçants, artisans et familles partenaires : plusieurs façons de soutenir le club.</p><a class="legal-link" href="https://es-blanquefort-basket-ball.github.io/partenariat-club/" target="_blank" rel="noopener">Devenir partenaire</a></div></div><div class="footer-bottom"><span>© 2026 ES Blanquefort Basket-Ball</span><span>Site club développé par L’Rénov IA Studio · Mai 2026</span><span>Club affilié FFBB · Ligue Nouvelle-Aquitaine · Comité de Gironde · NAQ 0033-034</span></div></div></footer>
 
