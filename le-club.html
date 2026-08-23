@@ -244,6 +244,246 @@
 }
 </style>
 
+
+<style id="esb-responsive-v1">
+/* =========================================================
+   PASSE RESPONSIVE ESB — TEST GITHUB
+   Desktop harmonisé + tablette + téléphone
+   ========================================================= */
+html{overflow-x:hidden}
+body{overflow-x:hidden}
+img,video,iframe{max-width:100%;height:auto}
+.wrap,.container{width:min(1180px,calc(100% - 40px));margin-inline:auto}
+
+/* ---------- Desktop : harmonisation des grands headers ---------- */
+.teams-hero,
+.matches-hero,
+.club-hero{
+  min-height:430px !important;
+}
+.teams-copy,
+.matches-copy{
+  padding:28px 0 !important;
+}
+.teams-hero h1{
+  font-size:clamp(62px,7vw,92px) !important;
+}
+.matches-hero h1{
+  font-size:clamp(60px,6.5vw,88px) !important;
+}
+.club-hero{
+  padding:64px 0 58px !important;
+}
+.club-hero h1{
+  font-size:clamp(58px,7vw,88px) !important;
+}
+
+/* ---------- Tablette ---------- */
+@media (max-width: 1024px){
+  .wrap,.container{width:min(100% - 32px,1180px)}
+
+  /* header/nav */
+  #hdr .nav{min-height:68px;position:relative}
+  #hdr .brand-text{display:none}
+  #hdr .burger{display:inline-flex!important;align-items:center;justify-content:center}
+  #hdr .navlinks{
+    position:absolute;
+    left:16px;right:16px;top:calc(100% + 8px);
+    display:none!important;
+    flex-direction:column;
+    align-items:stretch!important;
+    gap:4px!important;
+    padding:14px;
+    border-radius:18px;
+    background:rgba(255,255,255,.98);
+    box-shadow:0 18px 48px rgba(7,27,18,.18);
+    z-index:9999;
+  }
+  #hdr.open .navlinks,
+  #hdr .navlinks.open{display:flex!important}
+  #hdr .navlinks a{width:100%;text-align:center}
+
+  /* équipes */
+  .teams-hero{min-height:390px!important;background-position:center!important}
+  .teams-copy{width:62%!important}
+  .teams-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .teams-card:last-child{grid-column:1/-1}
+  .teams-join{align-items:flex-start!important}
+
+  /* matchs */
+  .matches-hero{min-height:390px!important;background-position:center!important}
+  .matches-copy{width:62%!important}
+  .matches-tools{grid-template-columns:1fr 1fr!important}
+  .matches-tools .matches-tool:last-child{grid-column:1/-1}
+  .matches-grid{grid-template-columns:1fr!important}
+
+  /* club */
+  .club-hero .wrap{grid-template-columns:1fr!important}
+  .club-hero-logo{display:none!important}
+  .timeline{grid-template-columns:1fr!important}
+  .feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .invest-layout{grid-template-columns:1fr!important}
+  .invest-form{position:static!important}
+  .docs{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+
+  /* contact */
+  .contact-grid{grid-template-columns:1fr!important}
+  .gyms-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+
+  /* accueil */
+  .rentree-top,
+  .news-feature{grid-template-columns:1fr!important}
+  .rentree-visual{min-height:260px!important}
+  .reprise-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .action-row{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .essential-row{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .partner-strip{grid-template-columns:repeat(3,minmax(160px,1fr))!important}
+
+  /* inscriptions */
+  .category-grid,
+  [class*="category-grid"]{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+
+  /* planning */
+  table{max-width:100%}
+  .table-wrap,[class*="table-wrap"]{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+  /* footer */
+  .footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+
+/* ---------- Téléphone ---------- */
+@media (max-width: 680px){
+  .wrap,.container{width:min(100% - 24px,1180px)}
+  body{font-size:15px}
+  .btn{min-height:44px;padding:11px 15px!important;font-size:13px!important}
+
+  /* hero équipes */
+  .teams-hero{
+    min-height:0!important;
+    padding:48px 0 44px!important;
+    background-position:60% center!important;
+  }
+  .teams-hero:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(6,22,15,.34);
+    pointer-events:none;
+  }
+  .teams-copy{width:100%!important;padding:0!important}
+  .teams-hero h1{font-size:58px!important;line-height:.9!important}
+  .teams-script{font-size:18px!important}
+  .teams-hero p{font-size:15px!important;max-width:100%!important}
+  .teams-actions{display:grid!important;grid-template-columns:1fr!important}
+  .teams-grid{grid-template-columns:1fr!important}
+  .teams-card:last-child{grid-column:auto}
+  .section-brush-title{gap:9px!important}
+  .section-brush-title h2{font-size:34px!important;text-align:center}
+  .section-brush-title:before,.section-brush-title:after{width:28px!important}
+  .teams-join{display:block!important;padding:24px!important;border-radius:20px!important}
+  .teams-join h2{font-size:38px!important}
+  .teams-join .btn{display:flex;margin-top:18px;width:100%;justify-content:center}
+
+  /* hero matchs */
+  .matches-hero{
+    min-height:0!important;
+    padding:48px 0 44px!important;
+    background-position:66% center!important;
+  }
+  .matches-hero:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(6,22,15,.28);
+    pointer-events:none;
+  }
+  .matches-copy{width:100%!important;padding:0!important}
+  .matches-hero h1{font-size:54px!important;line-height:.92!important}
+  .matches-hero h1 span{font-size:.62em!important}
+  .matches-hero p{font-size:15px!important;max-width:100%!important}
+  .matches-actions{display:grid!important;grid-template-columns:1fr!important}
+  .matches-tools{grid-template-columns:1fr!important}
+  .matches-tools .matches-tool:last-child{grid-column:auto}
+  .matches-tool,.matches-panel,.newsletter-box{padding:20px!important;border-radius:18px!important}
+  .matches-panel h2{font-size:39px!important}
+
+  /* club */
+  .club-hero{padding:48px 0 44px!important}
+  .club-hero h1{font-size:54px!important}
+  .club-hero p{font-size:15px!important}
+  .club-head{display:block!important}
+  .club-head h2{font-size:44px!important}
+  .club-head p{margin-top:10px!important}
+  .feature-grid,.committee-grid,.docs{grid-template-columns:1fr!important}
+  .club-card,.timeline-card,.feature-card,.committee-card,.doc-link{border-radius:18px!important}
+  .label-band{grid-template-columns:1fr!important}
+  .club-final{display:block!important;padding:24px!important;border-radius:20px!important}
+  .club-final h2{font-size:38px!important}
+  .club-final-actions,.club-final .club-actions{display:grid!important;grid-template-columns:1fr!important;margin-top:18px!important}
+
+  /* accueil */
+  .app-section-head{padding-inline:12px!important;min-height:58px!important}
+  .app-icon{width:38px!important;height:38px!important;flex-basis:38px!important}
+  .app-section-head h2{font-size:25px!important}
+  .app-head-link{font-size:12px!important}
+  .rentree-panel{border-radius:18px!important}
+  .rentree-copy{padding:24px!important}
+  .rentree-copy h3{font-size:44px!important}
+  .rentree-copy p{font-size:15px!important}
+  .rentree-visual{min-height:210px!important}
+  .rentree-visual:after{font-size:26px!important}
+  .reprise-grid{grid-template-columns:1fr!important}
+  .reprise-item{min-height:auto!important;border-right:0!important;border-bottom:1px solid var(--line)!important}
+  .action-row{grid-template-columns:1fr!important}
+  .event-band{grid-template-columns:1fr!important;padding:20px!important}
+  .event-date{border-right:0!important;border-bottom:1px solid rgba(255,255,255,.22);padding:0 0 12px!important}
+  .news-photo{min-height:210px!important}
+  .news-content{padding:24px!important}
+  .news-mini-row{grid-template-columns:1fr!important}
+  .essential-row{grid-template-columns:1fr!important}
+  .essential-link{border-right:0!important;border-bottom:1px solid var(--line)!important}
+  .newsletter-band{display:block!important}
+  .newsletter-band .outline-btn{display:inline-flex;margin-top:14px}
+  .partner-strip{display:flex!important;overflow-x:auto!important}
+  .partner-card{flex:0 0 160px}
+
+  /* inscriptions */
+  .category-grid,[class*="category-grid"]{grid-template-columns:1fr!important}
+  [role="dialog"],.modal-content,[class*="modal-content"]{
+    width:calc(100% - 20px)!important;
+    max-width:none!important;
+    max-height:90vh!important;
+    overflow:auto!important;
+  }
+
+  /* planning */
+  .planning-hero,.training-hero,[class*="planning-hero"]{min-height:auto!important}
+  .venue-tabs,.filters,[class*="tabs"]{
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    overflow-x:auto!important;
+    gap:8px!important;
+    -webkit-overflow-scrolling:touch;
+    padding-bottom:6px;
+  }
+  .venue-tabs>*,
+  .filters>*,
+  [class*="tabs"]>*{flex:0 0 auto!important}
+  table{min-width:680px}
+  .table-wrap,[class*="table-wrap"]{overflow-x:auto!important}
+
+  /* contact */
+  .contact-main{padding:36px 0 54px!important}
+  .contact-card,.contact-form-card,.gym-card{padding:20px!important;border-radius:18px!important}
+  .gyms-grid{grid-template-columns:1fr!important}
+  .gyms-title{font-size:38px!important}
+
+  /* footer */
+  .footer-grid{grid-template-columns:1fr!important}
+  .footer-bottom{display:grid!important;gap:8px!important;text-align:center}
+}
+</style>
+
 </head><body class="">
 <header id="hdr"><div class="wrap nav"><a class="brand" href="index.html"><img src="images/logo.png" alt="Logo ES Blanquefort Basket Ball"><span class="brand-text"><span class="brand-name">ES Blanquefort</span><span class="brand-sub">Basket-Ball</span></span></a><button class="burger" aria-label="Menu">☰</button><nav class="navlinks"><a class="" href="index.html">Accueil</a>
 <a class="active" href="le-club.html">Le club</a>
