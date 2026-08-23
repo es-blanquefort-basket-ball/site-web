@@ -379,6 +379,38 @@ img,video,iframe{max-width:100%;height:auto}
 }
 </style>
 
+
+<style id="esb-mobile-interactions-fix">
+/* Correctif uniquement fonctionnel : burger + liens de gymnases */
+.burger{
+  position:relative;
+  z-index:10001;
+  cursor:pointer;
+  touch-action:manipulation;
+}
+#hdr .navlinks{
+  z-index:10000;
+}
+a.venue-chip{
+  position:relative;
+  z-index:5;
+  pointer-events:auto !important;
+  cursor:pointer;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:rgba(31,90,63,.16);
+}
+.schedule-card::before,
+.schedule-card::after{
+  pointer-events:none !important;
+}
+@media(max-width:1024px){
+  #hdr.open .navlinks,
+  #hdr .navlinks.open{
+    display:flex !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <header id="hdr">
