@@ -1,36 +1,63 @@
 <!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Équipes — ES Blanquefort Basket-ball</title><meta name="description" content="Catégories et équipes du club."><meta name="theme-color" content="#1f5a3f"><link rel="icon" type="image/png" href="images/favicon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css">
 <style>
-:root{--g900:#0f2d20;--g700:#1f5a3f;--g500:#2f7b52;--soft:#eef5f0;--line:rgba(31,90,63,.14)}
-.teams-page{background:linear-gradient(180deg,#eef5f0 0,#f8fbf9 48%,#fff 100%);padding-bottom:84px}
+:root{--g900:#0f2d20;--g800:#173d2d;--g700:#1f5a3f;--g500:#2f7b52;--line:rgba(31,90,63,.14)}
+.teams-page{background:linear-gradient(180deg,#f7faf8 0%,#edf5f0 48%,#fff 100%);padding-bottom:82px}
 .teams-hero{
-  min-height:520px;display:flex;align-items:center;color:#fff;
+  position:relative;
+  overflow:hidden;
+  min-height:575px;
+  display:flex;
+  align-items:center;
+  color:#fff;
   background:
-    linear-gradient(90deg,rgba(6,22,15,.95),rgba(15,45,32,.78) 56%,rgba(15,45,32,.42)),
-    url('images/hero-basket-bg.png') center/cover no-repeat
+    linear-gradient(90deg,rgba(6,22,15,.95),rgba(15,45,32,.78) 52%,rgba(15,45,32,.28)),
+    url('assets/equipes-photo-hero.jpg') center/cover no-repeat;
 }
-.teams-kicker{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:2.5px;font-weight:700;color:#d9ebe0}
-.teams-hero h1{margin:10px 0 0;font-family:'Bebas Neue',sans-serif;font-size:clamp(74px,10vw,118px);line-height:.9;text-transform:uppercase}
-.teams-hero p{max-width:700px;margin:20px 0 0;color:rgba(255,255,255,.84);font-size:18px;line-height:1.62}
+
+.teams-hero .wrap{position:relative;z-index:2}
+.teams-copy{width:48%;padding:42px 0}
+.teams-kicker{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:2.4px;font-weight:700;color:var(--g700);font-size:13px}
+.teams-hero h1{margin:6px 0 0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:clamp(76px,9vw,118px);line-height:.82;color:#111}
+.teams-hero h1 span{display:block;color:var(--g700)}
+.teams-script{margin:14px 0 0;font-size:23px;font-style:italic;color:var(--g700)}
+.teams-hero p{max-width:620px;margin:22px 0 0;color:#44584d;font-size:17px;line-height:1.62}
 .teams-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
-.teams-section{padding:58px 0 0}
-.teams-title{font-family:'Bebas Neue',sans-serif;text-transform:uppercase;color:var(--g900);font-size:56px;margin:0 0 22px}
-.teams-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+
+.teams-section{padding:56px 0 0}
+.section-brush-title{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:26px}
+.section-brush-title::before,.section-brush-title::after{content:"";height:3px;width:52px;background:var(--g700);border-radius:99px}
+.section-brush-title h2{margin:0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;color:#111;font-size:44px}
+
+.teams-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
 .teams-card{
-  padding:28px;border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.90),rgba(233,244,236,.64));
-  border:1px solid rgba(255,255,255,.82);box-shadow:0 20px 44px rgba(7,27,18,.11),inset 0 1px 0 rgba(255,255,255,.9)
+  position:relative;overflow:hidden;padding:28px;border-radius:26px;
+  background:linear-gradient(145deg,rgba(255,255,255,.90),rgba(231,242,235,.68));
+  border:1px solid rgba(255,255,255,.82);
+  box-shadow:0 22px 54px rgba(7,27,18,.12),inset 0 1px 0 rgba(255,255,255,.90);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)
 }
-.teams-card:nth-child(2){background:linear-gradient(145deg,rgba(216,235,221,.92),rgba(244,249,246,.72))}
+.teams-card::before{content:"";position:absolute;inset:0 0 auto;height:7px;background:linear-gradient(90deg,var(--g700),var(--g500),transparent)}
+.teams-card:nth-child(2){background:linear-gradient(145deg,rgba(220,236,224,.92),rgba(245,250,247,.74))}
 .teams-card:nth-child(3){background:linear-gradient(145deg,rgba(15,45,32,.97),rgba(31,90,63,.92));color:#fff}
-.teams-card h3{margin:0 0 10px;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:30px;color:var(--g900)}
+.teams-card h3{margin:0 0 9px;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:31px;color:var(--g900)}
 .teams-card:nth-child(3) h3,.teams-card:nth-child(3) p,.teams-card:nth-child(3) strong{color:#fff}
 .teams-card p{margin:0;color:#627267;line-height:1.55}
-.teams-card strong{display:block;margin-top:14px;color:var(--g700);font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.8px}
+.teams-card strong{display:block;margin-top:15px;color:var(--g700);font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.8px}
+
 .teams-join{
-  margin-top:22px;padding:30px;border-radius:26px;background:linear-gradient(135deg,var(--g900),var(--g500));color:#fff;
-  display:flex;align-items:center;justify-content:space-between;gap:24px;box-shadow:0 24px 58px rgba(7,27,18,.18)
+  position:relative;overflow:hidden;margin-top:24px;padding:34px;border-radius:26px;color:#fff;
+  background:linear-gradient(120deg,rgba(8,31,21,.98),rgba(31,90,63,.94));
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  box-shadow:0 24px 58px rgba(7,27,18,.18)
 }
-.teams-join h2{margin:0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:44px}
-.teams-join p{margin:7px 0 0;color:rgba(255,255,255,.78)}
+.teams-join::after{
+  content:"";position:absolute;right:-5%;top:-40%;width:42%;height:180%;
+  background:repeating-linear-gradient(-14deg,rgba(255,255,255,.08) 0 5px,transparent 5px 16px);
+  transform:rotate(5deg)
+}
+.teams-join> *{position:relative;z-index:1}
+.teams-join h2{margin:0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:48px}
+.teams-join p{margin:7px 0 0;color:rgba(255,255,255,.80)}
 </style>
 
 </head><body class="">
@@ -42,44 +69,26 @@
 <a class="" href="partenaires.html">Partenaires</a><a class="btn btn-primary" href="inscriptions.html">S’inscrire</a></nav></div></header>
 
 <main class="teams-page">
-<section class="teams-hero"><div class="wrap">
+<section class="teams-hero"><div class="wrap"><div class="teams-copy">
   <div class="teams-kicker">Saison 2026-2027</div>
-  <h1>Nos équipes</h1>
-  <p>
-    Les équipes, les coachs et les photos de la saison seront publiés dès que l’organisation sportive sera finalisée.
-    En attendant, vous pouvez déjà rejoindre le club et consulter les créneaux d’entraînement.
-  </p>
+  <h1>Nos <span>équipes</span></h1>
+  <div class="teams-script">Un club, 2 couleurs, une passion.</div>
+  <p>Les équipes, les coachs et les photos seront publiés dès que l’organisation sportive sera finalisée. Pour nous rejoindre, commencez simplement par la pré-inscription.</p>
   <div class="teams-actions">
     <a class="btn btn-primary" href="inscriptions.html">Rejoindre le club</a>
     <a class="btn btn-ghost" href="planning.html">Voir les créneaux</a>
   </div>
-</div></section>
+</div></div></section>
 
 <section class="teams-section"><div class="wrap">
-  <h2 class="teams-title">Des équipes pour tous les âges</h2>
+  <div class="section-brush-title"><h2>Des équipes pour tous les âges</h2></div>
   <div class="teams-grid">
-    <article class="teams-card">
-      <h3>École de basket</h3>
-      <p>Découverte, apprentissage et plaisir du jeu pour les plus jeunes.</p>
-      <strong>Dès 3 ans</strong>
-    </article>
-    <article class="teams-card">
-      <h3>Jeunes</h3>
-      <p>Les groupes et l’encadrement 2026-2027 seront publiés ici après validation.</p>
-      <strong>À venir</strong>
-    </article>
-    <article class="teams-card">
-      <h3>Seniors & loisirs</h3>
-      <p>Les équipes adultes et loisirs seront présentées avec leurs coachs et leurs informations de saison.</p>
-      <strong>À venir</strong>
-    </article>
+    <article class="teams-card"><h3>École de basket</h3><p>Découvrir, apprendre et prendre plaisir à jouer ensemble.</p><strong>Dès 3 ans</strong></article>
+    <article class="teams-card"><h3>Jeunes</h3><p>Les groupes et l’encadrement 2026-2027 seront publiés ici après validation.</p><strong>À venir</strong></article>
+    <article class="teams-card"><h3>Seniors & loisirs</h3><p>Les équipes adultes et loisirs seront présentées avec leurs coachs et leurs informations de saison.</p><strong>À venir</strong></article>
   </div>
-
   <div class="teams-join">
-    <div>
-      <h2>Envie de nous rejoindre ?</h2>
-      <p>Faites votre pré-inscription et nous vous orienterons vers la catégorie adaptée.</p>
-    </div>
+    <div><h2>Envie de nous rejoindre ?</h2><p>Faites votre pré-inscription et nous vous orienterons vers la catégorie adaptée.</p></div>
     <a class="btn btn-primary" href="inscriptions.html">Faire une pré-inscription</a>
   </div>
 </div></section>
@@ -88,3 +97,11 @@
 <script src="script.js"></script>
 <footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand-block"><img class="footer-logo" src="images/logo.png" alt="Logo ES Blanquefort Basket-Ball"><h3>ES Blanquefort Basket-Ball</h3><p>Club familial de basket à Blanquefort, porté par les joueurs, les familles, les bénévoles et les partenaires.</p></div><div><h4>Navigation</h4><ul><li><a href="index.html">Accueil</a></li><li><a href="le-club.html">Le club</a></li><li><a href="equipes.html">Équipes</a></li><li><a href="planning.html">Planning</a></li><li><a href="matchs.html">Matchs</a></li><li><a href="partenaires.html">Partenaires</a></li><li><a href="sponsors.html">Mur des verts et blancs</a></li></ul></div><div><h4>Contact</h4><p><strong>ES Blanquefort Basket-Ball</strong><br>Tél. 06 10 16 60 16<br><a href="mailto:contact@es-blanquefort-basketball.fr">contact@es-blanquefort-basketball.fr</a><br><a class="legal-link" href="mentions_legales_ESBB.html">Mentions légales</a></p></div><div><h4>Partenaires</h4><p>Entreprises locales, commerçants, artisans et familles partenaires : plusieurs façons de soutenir le club.</p><a class="legal-link" href="https://es-blanquefort-basket-ball.github.io/partenariat-club/" target="_blank" rel="noopener">Devenir partenaire</a></div></div><div class="footer-bottom"><span>© 2026 ES Blanquefort Basket-Ball</span><span>Site club développé par L’Rénov IA Studio · Mai 2026</span><span>Club affilié FFBB · Ligue Nouvelle-Aquitaine · Comité de Gironde · NAQ 0033-034</span></div></div></footer>
 </body></html>
+<style>
+.teams-hero .teams-copy{width:52%;padding:42px 0}
+.teams-hero h1{color:#fff!important}
+.teams-hero h1 span{color:#b9dec3!important}
+.teams-hero .teams-kicker{color:#dceee1!important}
+.teams-hero .teams-script{color:#b9dec3!important}
+.teams-hero p{color:rgba(255,255,255,.84)!important}
+</style>
