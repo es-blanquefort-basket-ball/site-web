@@ -1,37 +1,56 @@
 <!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Matchs — ES Blanquefort Basket-ball</title><meta name="description" content="Matchs et résultats du club."><meta name="theme-color" content="#1f5a3f"><link rel="icon" type="image/png" href="images/favicon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css">
 <style>
-:root{--g900:#0f2d20;--g700:#1f5a3f;--g500:#2f7b52;--soft:#eef5f0;--line:rgba(31,90,63,.14)}
-.matches-page{background:linear-gradient(180deg,#eef5f0 0,#f8fbf9 48%,#fff 100%);padding-bottom:84px}
+:root{--g900:#0f2d20;--g800:#173d2d;--g700:#1f5a3f;--g500:#2f7b52;--line:rgba(31,90,63,.14)}
+.matches-page{background:linear-gradient(180deg,#f7faf8 0%,#edf5f0 48%,#fff 100%);padding-bottom:82px}
 .matches-hero{
-  min-height:520px;display:flex;align-items:center;color:#fff;
+  position:relative;
+  overflow:hidden;
+  min-height:575px;
+  display:flex;
+  align-items:center;
+  color:#fff;
   background:
-    linear-gradient(90deg,rgba(6,22,15,.96),rgba(15,45,32,.80) 55%,rgba(15,45,32,.40)),
-    url('images/hero-basket-bg.png') center 38%/cover no-repeat
+    linear-gradient(90deg,rgba(6,22,15,.96),rgba(15,45,32,.82) 52%,rgba(15,45,32,.30)),
+    url('assets/matchs-photo-hero.jpg') center/cover no-repeat;
 }
-.matches-kicker{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:2.5px;font-weight:700;color:#d9ebe0}
-.matches-hero h1{margin:10px 0 0;font-family:'Bebas Neue',sans-serif;font-size:clamp(74px,10vw,118px);line-height:.9;text-transform:uppercase}
-.matches-hero p{max-width:720px;margin:20px 0 0;color:rgba(255,255,255,.84);font-size:18px;line-height:1.62}
+
+.matches-hero .wrap{position:relative;z-index:2}
+.matches-copy{width:49%;padding:42px 0}
+.matches-kicker{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:2.4px;font-weight:700;color:#d9ebe0;font-size:13px}
+.matches-hero h1{margin:6px 0 0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:clamp(72px,8vw,110px);line-height:.86}
+.matches-hero h1 span{display:block;color:#9fd0ad;font-size:.58em;font-style:italic;letter-spacing:1px}
+.matches-hero p{max-width:650px;margin:22px 0 0;color:rgba(255,255,255,.82);font-size:17px;line-height:1.62}
 .matches-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
-.matches-section{padding:58px 0 0}
-.matches-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}
-.matches-panel{
-  padding:30px;border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.90),rgba(234,244,237,.64));
-  border:1px solid rgba(255,255,255,.80);box-shadow:0 20px 44px rgba(7,27,18,.11),inset 0 1px 0 rgba(255,255,255,.9)
+
+.matches-section{padding:56px 0 0}
+.matches-tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.matches-tool{
+  padding:24px;border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.90),rgba(232,243,236,.66));
+  border:1px solid rgba(255,255,255,.82);box-shadow:0 18px 44px rgba(7,27,18,.10),inset 0 1px 0 rgba(255,255,255,.9)
 }
-.matches-panel.dark{background:linear-gradient(145deg,rgba(15,45,32,.97),rgba(31,90,63,.92));color:#fff}
+.matches-tool h3{margin:0 0 8px;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:25px;color:var(--g900)}
+.matches-tool p{margin:0;color:#627267;line-height:1.5}
+.matches-tool .btn{margin-top:14px}
+
+.matches-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;margin-top:24px}
+.matches-panel{
+  padding:30px;border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(234,244,237,.66));
+  border:1px solid rgba(255,255,255,.82);box-shadow:0 22px 50px rgba(7,27,18,.12),inset 0 1px 0 rgba(255,255,255,.9)
+}
+.matches-panel.dark{background:linear-gradient(145deg,rgba(15,45,32,.98),rgba(31,90,63,.94));color:#fff}
 .matches-panel h2{margin:0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:50px;color:var(--g900)}
 .matches-panel.dark h2,.matches-panel.dark p,.matches-panel.dark strong{color:#fff}
 .matches-panel p{color:#627267;line-height:1.62}
-.matches-slot{margin-top:20px;padding:22px;border-radius:20px;border:1px dashed rgba(31,90,63,.28);background:rgba(255,255,255,.58)}
+.matches-slot{margin-top:20px;padding:22px;border-radius:20px;border:1px dashed rgba(31,90,63,.30);background:rgba(255,255,255,.58)}
 .matches-slot strong{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:22px;color:var(--g900)}
-.matches-tools{display:grid;gap:12px;margin-top:18px}
-.matches-tool{padding:20px;border-radius:20px;background:#fff;border:1px solid var(--line);box-shadow:0 12px 28px rgba(7,27,18,.06)}
-.matches-tool h3{margin:0;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:24px;color:var(--g900)}
-.matches-tool p{margin:7px 0 0;color:#627267}
-.matches-tool .btn{margin-top:14px}
-.newsletter-box{margin-top:18px;padding:26px;border-radius:24px;background:linear-gradient(135deg,var(--g900),var(--g500));color:#fff;box-shadow:0 20px 48px rgba(7,27,18,.16)}
-.newsletter-box h3{margin:0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:38px}
-.newsletter-box p{margin:7px 0 0;color:rgba(255,255,255,.78)}
+.matches-panel.dark .matches-slot{border-color:rgba(255,255,255,.26);background:rgba(255,255,255,.08)}
+
+.newsletter-box{
+  margin-top:18px;padding:28px;border-radius:24px;background:linear-gradient(135deg,#fff,#eaf3ec);
+  border:1px solid rgba(255,255,255,.82);box-shadow:0 18px 44px rgba(7,27,18,.10)
+}
+.newsletter-box h3{margin:0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:40px;color:var(--g900)}
+.newsletter-box p{margin:7px 0 0;color:#627267}
 .newsletter-box .btn{margin-top:16px}
 </style>
 
@@ -44,58 +63,42 @@
 <a class="" href="partenaires.html">Partenaires</a><a class="btn btn-primary" href="inscriptions.html">S’inscrire</a></nav></div></header>
 
 <main class="matches-page">
-<section class="matches-hero"><div class="wrap">
+<section class="matches-hero"><div class="wrap"><div class="matches-copy">
   <div class="matches-kicker">Saison 2026-2027</div>
-  <h1>Les matchs de la saison</h1>
-  <p>
-    Retrouvez ici les calendriers, les prochains matchs et les résultats de nos équipes dès leur publication.
-    Les données seront ajoutées uniquement lorsqu’elles seront validées.
-  </p>
+  <h1>Les matchs <span>de la saison</span></h1>
+  <p>Retrouvez ici les calendriers, les prochains matchs et les résultats de nos équipes dès leur publication. Aucune donnée ne sera affichée tant qu’elle n’est pas validée.</p>
   <div class="matches-actions">
     <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034" target="_blank" rel="noopener">Voir la fiche FFBB</a>
     <a class="btn btn-ghost" href="equipes.html">Voir nos équipes</a>
   </div>
-</div></section>
+</div></div></section>
 
 <section class="matches-section"><div class="wrap">
+  <div class="matches-tools">
+    <article class="matches-tool"><h3>Calendriers FFBB</h3><p>Retrouvez les compétitions et calendriers publiés par la Fédération.</p><a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034" target="_blank" rel="noopener">Ouvrir la FFBB</a></article>
+    <article class="matches-tool"><h3>Nos équipes</h3><p>Les groupes et l’encadrement seront publiés progressivement.</p><a class="btn btn-primary" href="equipes.html">Voir les équipes</a></article>
+    <article class="matches-tool"><h3>Se rendre aux gymnases</h3><p>Retrouvez les adresses et les accès Google Maps sur la page Contact.</p><a class="btn btn-primary" href="contact.html">Voir les gymnases</a></article>
+  </div>
+
   <div class="matches-grid">
     <section class="matches-panel">
       <div class="eyebrow">Prochains matchs</div>
       <h2>Calendrier du club</h2>
-      <p>Les rencontres 2026-2027 apparaîtront ici au fur et à mesure de la validation des calendriers.</p>
-      <div class="matches-slot">
-        <strong>Calendrier en préparation</strong>
-        <p>Cette zone accueillera date, heure, équipe, adversaire, salle et lien vers la compétition fédérale.</p>
-      </div>
-      <div class="matches-tools">
-        <div class="matches-tool">
-          <h3>Calendriers & résultats FFBB</h3>
-          <p>Consultez la fiche fédérale du club pour retrouver les compétitions publiées.</p>
-          <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034" target="_blank" rel="noopener">Ouvrir la FFBB</a>
-        </div>
-        <div class="matches-tool">
-          <h3>Nos équipes</h3>
-          <p>Retrouvez les équipes et leurs informations dès leur publication.</p>
-          <a class="btn btn-primary" href="equipes.html">Voir les équipes</a>
-        </div>
-      </div>
+      <p>Les rencontres 2026-2027 apparaîtront ici dès validation des calendriers.</p>
+      <div class="matches-slot"><strong>Calendrier en préparation</strong><p>Cette zone accueillera date, heure, équipe, adversaire, salle et lien fédéral.</p></div>
     </section>
 
     <div>
       <section class="matches-panel dark">
-        <div class="eyebrow">Résultats & informations</div>
+        <div class="eyebrow">Résultats & classements</div>
         <h2>Suivre la saison</h2>
-        <p>Les résultats et changements importants seront affichés ici dès qu’ils seront disponibles.</p>
-        <div class="matches-slot">
-          <strong>Résultats à venir</strong>
-          <p>Aucune donnée ne sera publiée tant qu’elle n’est pas validée.</p>
-        </div>
+        <p>Résultats, classements et changements importants seront ajoutés au fil de la saison.</p>
+        <div class="matches-slot"><strong>Résultats à venir</strong><p>Aucune information non validée ne sera publiée.</p></div>
       </section>
-
       <section class="newsletter-box">
-        <h3>Recevoir les infos matchs</h3>
+        <h3>Restez informés</h3>
         <p>Inscrivez-vous à la newsletter pour recevoir les calendriers mensuels et les informations importantes du club.</p>
-        <a class="btn btn-ghost" href="mailto:contact@es-blanquefort-basketball.fr?subject=Inscription%20newsletter%20ESB%20Basket">S’inscrire à la newsletter</a>
+        <a class="btn btn-primary" href="mailto:contact@es-blanquefort-basketball.fr?subject=Inscription%20newsletter%20ESB%20Basket">S’inscrire à la newsletter</a>
       </section>
     </div>
   </div>
