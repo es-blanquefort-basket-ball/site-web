@@ -1,17 +1,387 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Le club — ES Blanquefort Basket-Ball</title><meta name="description" content="Présentation du club ES Blanquefort Basket-Ball."><meta name="theme-color" content="#1f5a3f"><link rel="icon" type="image/png" href="images/favicon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body class="">
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Le club — ES Blanquefort Basket-ball</title><meta name="description" content="Présentation du club ES Blanquefort Basket-Ball."><meta name="theme-color" content="#1f5a3f"><link rel="icon" type="image/png" href="images/favicon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css">
+<style>
+:root{
+  --club-green:#1f5a3f;
+  --club-green-dark:#0f2d20;
+  --club-green-mid:#2f7b52;
+  --club-soft:#eef5f0;
+  --club-line:rgba(31,90,63,.14);
+}
+.club-page{background:linear-gradient(180deg,#f4f8f5 0%,#eef5f0 44%,#fff 100%);color:#102117}
+.club-hero{
+  position:relative;overflow:hidden;padding:86px 0 78px;color:#fff;
+  background:
+    linear-gradient(90deg,rgba(7,27,18,.94),rgba(15,45,32,.82) 50%,rgba(23,61,45,.55)),
+    url('images/hero-basket-bg.png') center 48%/cover no-repeat;
+}
+.club-hero .wrap{display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:36px}
+.club-kicker{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:2.4px;font-weight:700;font-size:13px;color:#cfe2d4}
+.club-hero h1{margin:10px 0 0;font-family:'Bebas Neue',sans-serif;font-size:clamp(62px,9vw,108px);line-height:.9;text-transform:uppercase}
+.club-hero h1 span{display:block;color:#dceee1}
+.club-hero p{max-width:720px;margin:22px 0 0;color:rgba(255,255,255,.82);font-size:18px;line-height:1.65}
+.club-hero-logo{display:flex;justify-content:center}
+.club-hero-logo img{
+  width:min(340px,80%);filter:drop-shadow(0 18px 30px rgba(0,0,0,.35));
+}
+.club-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+
+.club-section{padding:76px 0 0}.club-section:last-of-type{padding-bottom:90px}
+.club-head{display:flex;justify-content:space-between;align-items:end;gap:28px;margin-bottom:26px}
+.club-head h2{margin:4px 0 0;font-family:'Bebas Neue',sans-serif;font-size:clamp(46px,6vw,72px);line-height:.94;text-transform:uppercase;color:var(--club-green-dark)}
+.club-head p{max-width:620px;color:#627267;line-height:1.62}
+
+.timeline{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.timeline-card{
+  position:relative;padding:24px;border-radius:22px;background:#fff;border:1px solid var(--club-line);
+  box-shadow:0 12px 32px rgba(7,27,18,.07)
+}
+.timeline-year{display:inline-flex;padding:7px 11px;border-radius:999px;background:var(--club-green);color:#fff;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-weight:700;letter-spacing:1px;font-size:12px}
+.timeline-card h3{margin:14px 0 8px;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:26px;color:var(--club-green-dark)}
+.timeline-card p{color:#627267;line-height:1.55}
+
+.feature-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.feature-card{
+  overflow:hidden;border-radius:22px;background:#fff;border:1px solid var(--club-line);
+  box-shadow:0 14px 34px rgba(7,27,18,.08);transition:transform .18s ease,box-shadow .18s ease
+}
+.feature-card:hover{transform:translateY(-4px);box-shadow:0 20px 42px rgba(7,27,18,.12)}
+.feature-card img{width:100%;height:150px;object-fit:cover;display:block}
+.feature-card-body{padding:20px}
+.feature-card h3{margin:0 0 8px;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:24px;color:var(--club-green-dark)}
+.feature-card p{margin:0;color:#627267;line-height:1.5}
+.feature-card .mini-link{display:inline-flex;margin-top:14px;color:var(--club-green);font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-weight:700;letter-spacing:.8px}
+
+.label-band{
+  margin-top:18px;padding:24px;border-radius:24px;background:linear-gradient(135deg,var(--club-green-dark),var(--club-green-mid));color:#fff;
+  display:grid;grid-template-columns:90px 1fr;gap:18px;align-items:center;box-shadow:0 18px 44px rgba(7,27,18,.14)
+}
+.label-band img{width:86px;height:86px;object-fit:contain;background:#fff;border-radius:20px;padding:8px}
+.label-band h3{margin:0;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:30px}
+.label-band p{margin:8px 0 0;color:rgba(255,255,255,.78);line-height:1.55}
+
+.invest-layout{display:grid;grid-template-columns:1.45fr .55fr;gap:18px;align-items:start}
+.committee-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.committee-card{
+  overflow:hidden;border-radius:22px;background:#fff;border:1px solid var(--club-line);
+  box-shadow:0 12px 32px rgba(7,27,18,.07)
+}
+.committee-card img{width:100%;height:145px;object-fit:cover;display:block}
+.committee-body{padding:20px}
+.committee-card h3{margin:0 0 8px;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:24px;color:var(--club-green-dark)}
+.committee-card p{margin:0;color:#627267;line-height:1.5}
+.committee-card .role-note{margin-top:10px;padding-top:10px;border-top:1px solid var(--club-line);font-size:13px}
+
+.invest-form{
+  position:sticky;top:96px;padding:26px;border-radius:24px;background:linear-gradient(150deg,#0b2230,#0f2d20 64%,#1f5a3f);
+  color:#fff;box-shadow:0 18px 46px rgba(7,27,18,.18)
+}
+.invest-form h3{margin:0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:40px}
+.invest-form p{margin:8px 0 18px;color:rgba(255,255,255,.76);line-height:1.5}
+.invest-field{display:grid;gap:6px;margin-top:11px}
+.invest-field label{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:1px;font-size:12px;font-weight:700;color:#dceee1}
+.invest-field input,.invest-field select,.invest-field textarea{
+  width:100%;padding:12px 13px;border:1px solid rgba(255,255,255,.18);border-radius:12px;background:rgba(255,255,255,.09);color:#fff;font:inherit
+}
+.invest-field select option{color:#102117;background:#fff}
+.invest-field textarea{min-height:100px;resize:vertical}
+.invest-submit{margin-top:16px;width:100%;min-height:46px;border:0;border-radius:999px;background:#fff;color:var(--club-green-dark);font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:1px;font-weight:700;cursor:pointer}
+
+.docs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.doc-link{
+  min-height:112px;padding:20px;border-radius:18px;background:#fff;border:1px solid var(--club-line);
+  box-shadow:0 10px 28px rgba(7,27,18,.05);color:inherit
+}
+.doc-link strong{display:block;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;color:var(--club-green-dark);font-size:20px}
+.doc-link span{display:block;margin-top:7px;color:#627267;font-size:13px;line-height:1.45}
+
+.club-final{
+  margin-top:62px;padding:32px 34px;border-radius:28px;display:flex;align-items:center;justify-content:space-between;gap:24px;color:#fff;
+  background:linear-gradient(135deg,var(--club-green-dark),var(--club-green-mid));box-shadow:0 22px 58px rgba(7,27,18,.16)
+}
+.club-final h2{margin:0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:44px;line-height:.95}
+.club-final p{margin:8px 0 0;color:rgba(255,255,255,.78)}
+
+@media(max-width:980px){
+  .club-hero .wrap,.invest-layout{grid-template-columns:1fr}
+  .club-hero-logo{display:none}
+  .feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .timeline,.docs{grid-template-columns:1fr}
+  .invest-form{position:static}
+}
+@media(max-width:680px){
+  .feature-grid,.committee-grid{grid-template-columns:1fr}
+  .club-head{display:block}.club-head p{margin-top:12px}
+  .label-band{grid-template-columns:1fr}.label-band img{width:76px;height:76px}
+  .club-final{display:block}
+}
+</style>
+
+
+<style>
+/* V2 — relief, glassmorphism et rythme vert/blanc */
+.club-page{
+  background:
+    radial-gradient(circle at 8% 10%, rgba(47,123,82,.18), transparent 22%),
+    radial-gradient(circle at 90% 32%, rgba(31,90,63,.13), transparent 24%),
+    linear-gradient(180deg,#eef5ef 0%,#f7faf8 38%,#e8f1eb 72%,#ffffff 100%);
+}
+.club-section{
+  position:relative;
+}
+.club-section:nth-of-type(even)::before{
+  content:"";
+  position:absolute;
+  inset:22px 0 auto;
+  height:58%;
+  background:linear-gradient(90deg,rgba(255,255,255,.22),rgba(31,90,63,.06),rgba(255,255,255,.16));
+  pointer-events:none;
+  z-index:0;
+}
+.club-section .wrap{position:relative;z-index:1}
+
+.timeline-card{
+  backdrop-filter:blur(18px) saturate(135%);
+  -webkit-backdrop-filter:blur(18px) saturate(135%);
+  border:1px solid rgba(255,255,255,.55);
+  box-shadow:
+    0 18px 40px rgba(7,27,18,.12),
+    inset 0 1px 0 rgba(255,255,255,.65);
+}
+.timeline-card:nth-child(1){
+  background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,255,255,.56));
+}
+.timeline-card:nth-child(2){
+  background:linear-gradient(145deg,rgba(207,226,212,.88),rgba(232,244,235,.66));
+}
+.timeline-card:nth-child(3){
+  background:linear-gradient(145deg,rgba(15,45,32,.95),rgba(31,90,63,.90));
+  border-color:rgba(255,255,255,.18);
+}
+.timeline-card:nth-child(3) h3,
+.timeline-card:nth-child(3) p{color:#fff}
+.timeline-card:nth-child(3) .timeline-year{
+  background:#fff;color:#173d2d;
+}
+
+.feature-card,
+.committee-card,
+.doc-link{
+  background:linear-gradient(145deg,rgba(255,255,255,.76),rgba(238,245,240,.52));
+  backdrop-filter:blur(18px) saturate(140%);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);
+  border:1px solid rgba(255,255,255,.68);
+  box-shadow:
+    0 18px 44px rgba(7,27,18,.12),
+    inset 0 1px 0 rgba(255,255,255,.78);
+}
+.feature-card:hover,
+.committee-card:hover,
+.doc-link:hover{
+  transform:translateY(-5px);
+  box-shadow:
+    0 24px 54px rgba(7,27,18,.16),
+    inset 0 1px 0 rgba(255,255,255,.82);
+}
+
+.feature-card img,
+.committee-card img{
+  filter:saturate(.96) contrast(1.04);
+}
+
+.feature-card-body,
+.committee-body{
+  background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,.04));
+}
+
+.label-band{
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:
+    0 24px 60px rgba(7,27,18,.20),
+    inset 0 1px 0 rgba(255,255,255,.12);
+}
+
+.invest-form{
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+
+.doc-link{
+  min-height:120px;
+}
+.docs .doc-link:nth-child(2n){
+  background:linear-gradient(145deg,rgba(225,240,230,.86),rgba(255,255,255,.58));
+}
+
+.club-final{
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:
+    0 26px 64px rgba(7,27,18,.22),
+    inset 0 1px 0 rgba(255,255,255,.14);
+}
+
+@media(max-width:680px){
+  .timeline-card,
+  .feature-card,
+  .committee-card,
+  .doc-link{
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+  }
+}
+</style>
+
+
+<style>
+/* Icônes de la page Club : blanc uniquement */
+.club-page svg,
+.club-page svg *,
+.club-page .card-icon,
+.club-page .card-icon *{
+  color:#fff !important;
+  fill:#fff !important;
+  stroke:#fff !important;
+}
+</style>
+
+</head><body class="">
 <header id="hdr"><div class="wrap nav"><a class="brand" href="index.html"><img src="images/logo.png" alt="Logo ES Blanquefort Basket Ball"><span class="brand-text"><span class="brand-name">ES Blanquefort</span><span class="brand-sub">Basket-Ball</span></span></a><button class="burger" aria-label="Menu">☰</button><nav class="navlinks"><a class="" href="index.html">Accueil</a>
 <a class="active" href="le-club.html">Le club</a>
 <a class="" href="equipes.html">Équipes</a>
 <a class="" href="planning.html">Planning</a>
 <a class="" href="matchs.html">Matchs</a>
 <a class="" href="partenaires.html">Partenaires</a><a class="btn btn-primary" href="inscriptions.html">S’inscrire</a></nav></div></header>
-<div class="sponsor-strip">Partenaires du club : plusieurs offres pour soutenir l’ES Blanquefort Basket-Ball · <a href="https://es-blanquefort-basket-ball.github.io/partenariat-club/" target="_blank" rel="noopener">Voir le dossier partenaire</a></div>
 
-<section class="page-head"><div class="wrap"><div class="eyebrow">ES Blanquefort Basket-Ball</div><h1 class="section-title">Le club</h1><p class="lead">Un club de basket historique à Blanquefort, porté par les bénévoles, les entraîneurs, les familles et les partenaires locaux.</p></div></section>
-<section><div class="wrap grid-2"><div class="card"><div class="eyebrow">Identité</div><h2 class="section-title">Passion, formation <span>et collectif</span></h2><p class="lead">L’ES Blanquefort Basket-Ball rassemble les joueurs dès les premières catégories jusqu’aux seniors et loisirs. Le club avance avec une priorité : garder une ambiance familiale tout en structurant son organisation.</p></div><div class="card"><h3>Club local vivant</h3><p>Le club se construit avec ses équipes, ses coachs, ses bénévoles, ses familles et ses partenaires locaux. La page sera enrichie progressivement avec les photos et informations de la saison.</p></div></div></section>
-<section class="mini-banner"><div class="wrap"><div class="card banner-card notice-green"><div><div class="eyebrow">Info site</div><h3>Site en cours de finalisation</h3><p>Le site club est en cours d’ajustement. Les pages seront enrichies progressivement avec les actualités, les photos, les informations sportives, les annonces de la saison et les informations de l’AG.</p></div><a class="btn btn-primary" href="index.html">Retour accueil</a></div></div></section>
-<section class="soft"><div class="wrap grid-3"><div class="card"><h3>Former</h3><p>Accompagner les jeunes dans l’apprentissage du basket et de la vie collective.</p></div><div class="card"><h3>Rassembler</h3><p>Créer du lien entre joueurs, parents, entraîneurs, bénévoles et partenaires.</p></div><div class="card"><h3>Structurer</h3><p>Organiser les week-ends, les matchs et les communications avec des outils simples.</p></div></div></section>
+<main class="club-page">
+  <section class="club-hero">
+    <div class="wrap">
+      <div>
+        <div class="club-kicker">ES Blanquefort Basket-ball</div>
+        <h1>Le club <span>Plus qu’un club, une famille.</span></h1>
+        <p>
+          Depuis plus de 50 ans, le basket vit à Blanquefort. Aujourd’hui, l’ES Blanquefort Basket-ball
+          accueille les pratiquants dès 3 ans, de l’école de basket aux seniors, en compétition et en loisir.
+        </p>
+        <div class="club-actions">
+          <a class="btn btn-primary" href="inscriptions.html">Rejoindre le club</a>
+          <a class="btn btn-ghost" href="contact.html">Nous contacter</a>
+        </div>
+      </div>
+      <div class="club-hero-logo">
+        <img src="images/logo.png" alt="Logo ES Blanquefort Basket-ball">
+      </div>
+    </div>
+  </section>
+
+  <section class="club-section">
+    <div class="wrap">
+      <div class="club-head">
+        <div><div class="eyebrow">Notre histoire</div><h2>Plus de 50 ans de basket à Blanquefort</h2></div>
+        <p>Le basket blanquefortais est historiquement issu de la structure omnisports locale avant de devenir une association autonome en 1993.</p>
+      </div>
+      <div class="timeline">
+        <article class="timeline-card"><span class="timeline-year">1972</span><h3>Les origines omnisports</h3><p>Le basket fait historiquement partie de l’USBO omnisports, fondée en 1972, aux côtés des autres disciplines sportives de Blanquefort.</p></article>
+        <article class="timeline-card"><span class="timeline-year">1993</span><h3>Le basket devient autonome</h3><p>Comme les autres sections, le basket devient une association juridiquement et financièrement indépendante.</p></article>
+        <article class="timeline-card"><span class="timeline-year">Aujourd’hui</span><h3>Un club pour tous</h3><p>Dès 3 ans, en loisir ou en compétition, filles et garçons partagent la même passion du basket et de la vie associative.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="club-section">
+    <div class="wrap">
+      <div class="club-head"><div><div class="eyebrow">Découvrir</div><h2>Les piliers du club</h2></div><p>Des portes d’entrée simples pour comprendre ce qui fait vivre l’ES Blanquefort Basket-ball.</p></div>
+      <div class="feature-grid">
+        <article class="feature-card"><img src="assets/club-ecole-basket.jpg" alt="École de basket ES Blanquefort"><div class="feature-card-body"><h3>L’école de basket</h3><p>Découvrir le Mini-Basket dès 3 ans, apprendre les valeurs du jeu et progresser ensemble.</p></div></article>
+        <article class="feature-card"><img src="assets/club-benevoles.jpg" alt="Bénévoles du club"><div class="feature-card-body"><h3>Le club & ses bénévoles</h3><p>Bureau, entraîneurs, parents, officiels et bénévoles : le club avance grâce à l’engagement collectif.</p></div></article>
+        <article class="feature-card"><img src="assets/club-engagements.jpg" alt="Engagement collectif du club"><div class="feature-card-body"><h3>Nos engagements</h3><p>Respect, fair-play, assiduité, esprit d’équipe et participation à la vie associative.</p><a class="mini-link" href="documents/charte-engagement-esb-basket.pdf" target="_blank">Lire la charte</a></div></article>
+        <article class="feature-card"><img src="assets/club-labels.jpg" alt="Labels et développement du club"><div class="feature-card-body"><h3>Nos labels</h3><p>Les reconnaissances obtenues par le club et les démarches qui structurent son développement.</p></div></article>
+      </div>
+
+      <div class="label-band">
+        <img src="images/logo.png" alt="Logo ES Blanquefort Basket-ball">
+        <div><h3>École départementale de MiniBasket</h3><p>L’ES Blanquefort fait partie des clubs girondins reconnus par le Comité départemental dans le cadre du label École départementale de MiniBasket.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="club-section">
+    <div class="wrap">
+      <div class="club-head">
+        <div><div class="eyebrow">Bénévolat</div><h2>S’investir dans le club</h2></div>
+        <p>Chacun peut trouver sa place : aider ponctuellement, rejoindre une commission ou devenir parent référent d’équipe.</p>
+      </div>
+
+      <div class="invest-layout">
+        <div class="committee-grid">
+          <article class="committee-card"><img src="assets/club-animation.jpg" alt="Commission animation"><div class="committee-body"><h3>Commission animation</h3><p>Participer à l’organisation des événements du club et aux moments conviviaux de la saison.</p></div></article>
+          <article class="committee-card"><img src="assets/club-mini-basket.jpg" alt="Commission Mini-Basket"><div class="committee-body"><h3>Commission Mini-Basket</h3><p>Accompagner la vie de l’école de basket et les actions destinées aux plus jeunes.</p></div></article>
+          <article class="committee-card"><img src="assets/club-parent-referent.jpg" alt="Parent référent d’équipe"><div class="committee-body"><h3>Parent référent d’équipe</h3><p>Être un relais entre le coach, les familles et le club : organisation, covoiturage, informations pratiques et accompagnement de l’équipe.</p><p class="role-note">Le parent référent est un bénévole licencié du club, identifié auprès des familles. Il peut également être sollicité pour représenter le club lors des déplacements ou assurer certaines fonctions bénévoles lors des rencontres à domicile, toujours dans le respect du fair-play et des règles applicables.</p></div></article>
+          <article class="committee-card"><img src="assets/club-autres-besoins.jpg" alt="Autres besoins bénévoles du club"><div class="committee-body"><h3>Autres besoins du club</h3><p>Communication, partenaires, buvette, logistique, arbitrage, table de marque ou simple coup de main : toutes les bonnes volontés sont utiles.</p></div></article>
+        </div>
+
+        <form class="invest-form" id="invest-form">
+          <h3>Je veux m’investir</h3>
+          <p>Choisissez le rôle qui vous intéresse : un mail prérempli sera préparé pour le club.</p>
+          <div class="invest-field"><label for="invest-name">Nom et prénom</label><input id="invest-name" type="text" required></div>
+          <div class="invest-field"><label for="invest-email">Email</label><input id="invest-email" type="email" required></div>
+          <div class="invest-field"><label for="invest-role">Je souhaite rejoindre</label>
+            <select id="invest-role" required>
+              <option value="Commission animation">Commission animation</option>
+              <option value="Commission Mini-Basket">Commission Mini-Basket</option>
+              <option value="Parent référent d’équipe">Parent référent d’équipe</option>
+              <option value="Autre / proposer mon aide">Autre / proposer mon aide</option>
+            </select>
+          </div>
+          <div class="invest-field"><label for="invest-message">Message</label><textarea id="invest-message" placeholder="Équipe concernée, disponibilités, compétences, proposition..."></textarea></div>
+          <button class="invest-submit" type="submit">Envoyer ma proposition</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="club-section">
+    <div class="wrap">
+      <div class="club-head"><div><div class="eyebrow">Saison 2026-2027</div><h2>Documents & informations</h2></div><p>Les documents utiles du club sont regroupés ici. Les liens sont déjà prêts pour les PDF que vous déposerez dans le dossier <code>documents/</code>.</p></div>
+      <div class="docs">
+        <a class="doc-link" href="documents/tarifs-licences-2026-2027.pdf" target="_blank"><strong>Tarifs licences 2026-2027</strong><span>Tarifs et informations de règlement.</span></a>
+        <a class="doc-link" href="documents/charte-engagement-esb-basket.pdf" target="_blank"><strong>Charte d’engagement</strong><span>Valeurs et engagements du licencié, de la famille et du club.</span></a>
+        <a class="doc-link" href="documents/statuts-es-blanquefort-basket.pdf" target="_blank"><strong>Statuts de l’association</strong><span>Document statutaire du club.</span></a>
+        <a class="doc-link" href="documents/compte-rendu-ag-2026.pdf" target="_blank"><strong>Compte rendu AG 2026</strong><span>Bilan et compte rendu de la dernière Assemblée générale.</span></a>
+        <a class="doc-link" href="documents/reglement-interieur-esb-basket.pdf" target="_blank"><strong>Règlement intérieur</strong><span>Règles de fonctionnement du club.</span></a>
+        <a class="doc-link" href="documents/organigramme-esb-basket-2026-2027.pdf" target="_blank"><strong>Organigramme 2026-2027</strong><span>Bureau, responsables et organisation du club.</span></a>
+      </div>
+
+      <div class="club-final">
+        <div><h2>Envie de rejoindre les verts & blancs ?</h2><p>Découvrez les catégories et les modalités de pré-inscription pour la saison 2026-2027.</p></div>
+        <div class="club-actions"><a class="btn btn-primary" href="inscriptions.html">S’inscrire</a><a class="btn btn-ghost" href="contact.html">Nous contacter</a></div>
+      </div>
+    </div>
+  </section>
+</main>
 
 <script src="script.js"></script>
 <footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand-block"><img class="footer-logo" src="images/logo.png" alt="Logo ES Blanquefort Basket-Ball"><h3>ES Blanquefort Basket-Ball</h3><p>Club familial de basket à Blanquefort, porté par les joueurs, les familles, les bénévoles et les partenaires.</p></div><div><h4>Navigation</h4><ul><li><a href="index.html">Accueil</a></li><li><a href="le-club.html">Le club</a></li><li><a href="equipes.html">Équipes</a></li><li><a href="planning.html">Planning</a></li><li><a href="matchs.html">Matchs</a></li><li><a href="partenaires.html">Partenaires</a></li><li><a href="sponsors.html">Mur des verts et blancs</a></li></ul></div><div><h4>Contact</h4><p><strong>ES Blanquefort Basket-Ball</strong><br>Tél. 06 10 16 60 16<br><a href="mailto:contact@es-blanquefort-basketball.fr">contact@es-blanquefort-basketball.fr</a><br><a class="legal-link" href="mentions_legales_ESBB.html">Mentions légales</a></p></div><div><h4>Partenaires</h4><p>Entreprises locales, commerçants, artisans et familles partenaires : plusieurs façons de soutenir le club.</p><a class="legal-link" href="https://es-blanquefort-basket-ball.github.io/partenariat-club/" target="_blank" rel="noopener">Devenir partenaire</a></div></div><div class="footer-bottom"><span>© 2026 ES Blanquefort Basket-Ball</span><span>Site club développé par L’Rénov IA Studio · Mai 2026</span><span>Club affilié FFBB · Ligue Nouvelle-Aquitaine · Comité de Gironde · NAQ 0033-034</span></div></div></footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const form = document.getElementById('invest-form');
+  if(!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    const name = document.getElementById('invest-name').value.trim();
+    const email = document.getElementById('invest-email').value.trim();
+    const role = document.getElementById('invest-role').value;
+    const message = document.getElementById('invest-message').value.trim();
+    const subject = encodeURIComponent('Je souhaite m’investir dans le club — ' + role);
+    const body = encodeURIComponent(
+      'Nom et prénom : ' + name + '\n' +
+      'Email : ' + email + '\n' +
+      'Rôle / commission : ' + role + '\n\n' +
+      'Message :\n' + (message || '')
+    );
+    window.location.href='mailto:contact@es-blanquefort-basketball.fr?subject='+subject+'&body='+body;
+  });
+});
+</script>
+
 </body></html>
