@@ -411,6 +411,37 @@ a.venue-chip{
 }
 </style>
 
+
+<style id="planning-mobile-urgent-final">
+@media(max-width:680px){
+  .page-head{padding:38px 0 30px!important}
+  .page-head h1{font-size:44px!important;line-height:.94!important}
+  .page-head .lead{font-size:13px!important;line-height:1.4!important;margin-top:10px!important}
+  main{padding:34px 0 52px!important}
+  .section-intro{margin-bottom:14px!important}
+  .section-intro h2{font-size:34px!important}
+  .section-intro p{font-size:12px!important;line-height:1.4!important}
+  .schedule-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+  .schedule-card{padding:14px 11px 13px 14px!important;border-radius:17px!important;min-width:0!important}
+  .schedule-card-head{gap:6px!important;margin-bottom:8px!important}
+  .category-line{gap:5px!important;min-width:0!important}
+  .basket-ball{width:18px!important;height:18px!important;flex:0 0 18px!important}
+  .category{font-size:20px!important;line-height:1!important;letter-spacing:.2px!important}
+  .count{font-size:7px!important;padding:4px 5px!important;white-space:nowrap!important}
+  .slot{display:grid!important;grid-template-columns:45px minmax(0,1fr)!important;gap:3px 5px!important;padding:7px 0!important}
+  .day{font-size:9px!important;letter-spacing:.4px!important}
+  .time{font-size:12px!important;white-space:nowrap!important}
+  .place{grid-column:1/-1!important;padding-left:50px!important;margin-top:-1px!important}
+  a.venue-chip{font-size:8px!important;padding:5px 6px!important;position:relative!important;z-index:4!important;pointer-events:auto!important;touch-action:manipulation!important}
+  .schedule-card.special{grid-column:1/-1!important}
+  .schedule-card.special .category{white-space:normal!important}
+  .bottom-note{margin-top:14px!important;padding:15px!important}
+  .bottom-note p{font-size:11px!important;line-height:1.35!important}
+}
+@media(max-width:360px){
+  .schedule-grid{grid-template-columns:1fr!important}
+}
+</style>
 </head>
 <body>
 <header id="hdr">
@@ -551,5 +582,6 @@ a.venue-chip{
     <span>Un club, 2 couleurs, une passion.</span>
   </div>
 </footer>
+<script src="script.js"></script>
 </body>
 </html>
