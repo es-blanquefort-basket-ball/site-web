@@ -1674,6 +1674,49 @@ img,video,iframe{max-width:100%;height:auto}
 }
 </style>
 
+
+<style id="reprise-update-v17-css">
+.reprise-v10{position:relative}
+.reprise-update-v17{
+  position:absolute;
+  right:22px;
+  top:20px;
+  z-index:4;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 11px 8px 8px;
+  border-radius:999px;
+  background:rgba(255,255,255,.94);
+  border:1px solid rgba(31,90,63,.16);
+  box-shadow:0 8px 22px rgba(7,27,18,.12);
+  color:#173d2d;
+  font-family:"Barlow Condensed",sans-serif;
+  line-height:1.05;
+}
+.reprise-update-v17 span:last-child{display:flex;flex-direction:column;font-size:11px;letter-spacing:.35px}
+.reprise-update-v17 strong{text-transform:uppercase;font-size:11px;letter-spacing:1px}
+.reprise-update-icon-v17{
+  width:26px;height:26px;flex:0 0 26px;
+  display:grid;place-items:center;
+  border-radius:50%;
+  background:#1f5a3f;color:#fff;
+  font-family:"Barlow",sans-serif;
+  font-weight:800;font-size:16px;
+  box-shadow:0 0 0 5px rgba(31,90,63,.10);
+}
+@media(max-width:620px){
+  .reprise-update-v17{
+    position:relative;
+    right:auto;top:auto;
+    width:max-content;
+    margin:14px 18px 0 auto;
+    padding:7px 10px 7px 7px;
+  }
+  .reprise-update-icon-v17{width:23px;height:23px;flex-basis:23px;font-size:14px}
+}
+</style>
+
 </head>
 <body class="home">
 
@@ -1762,6 +1805,10 @@ img,video,iframe{max-width:100%;height:auto}
             <button type="button" id="open-reprises-v10">Voir les reprises par catégorie</button>
           </div>
           <div class="shadow-v10" aria-hidden="true"></div>
+          <div class="reprise-update-v17" aria-label="Dernière mise à jour le 24 août 2026">
+            <span class="reprise-update-icon-v17" aria-hidden="true">!</span>
+            <span><strong>Mise à jour</strong>24 août 2026</span>
+          </div>
           <img class="ball-v10" src="images/ballon-basket.png" alt="" aria-hidden="true">
         </article>
 
@@ -1872,126 +1919,8 @@ img,video,iframe{max-width:100%;height:auto}
 
 
   <div class="home-modal-backdrop" id="reprise-modal" aria-hidden="true">
-    <div class="home-modal" role="dialog" aria-modal="true" aria-labelledby="reprise-modal-title">
-      <div class="home-modal-head">
-        <h3 id="reprise-modal-title">Reprise</h3>
-        <button class="modal-close" type="button" aria-label="Fermer">×</button>
-      </div>
-      <div class="home-modal-body">
-        <div class="modal-detail"><strong>Date</strong><span>[À COMPLÉTER]</span></div>
-        <div class="modal-detail"><strong>Horaire</strong><span>[À COMPLÉTER]</span></div>
-        <div class="modal-detail"><strong>Gymnase</strong><span>[À COMPLÉTER]</span></div>
-        <span class="solid-btn modal-map">Localiser le gymnase</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- MUR -->
-  <section class="wall-band last-wall">
-    <div class="wrap">
-      <h2>Le Mur des Verts et Blancs</h2>
-      <p>Découvrez les partenaires qui accompagnent l’ES Blanquefort Basket-Ball.</p>
-      <a class="light-btn" href="sponsors.html">Voir le Mur</a>
-    </div>
-  </section>
-
-
-  <div class="home-modal-backdrop" id="reprise-modal" aria-hidden="true">
-    <div class="home-modal" role="dialog" aria-modal="true" aria-labelledby="reprise-modal-title">
-      <div class="home-modal-head">
-        <h3 id="reprise-modal-title">Reprise</h3>
-        <button class="modal-close" type="button" aria-label="Fermer">×</button>
-      </div>
-      <div class="home-modal-body" id="reprise-modal-body"></div>
-    </div>
-  </div>
-
 </main>
 
-
-<script>
-  </script>
-
-
-<script>
-(function(){
-  const data = {
-    "École de basket": [
-      { title: "Reprise", detail: "Mercredi 9 septembre 2026", place: "Port du Roy — horaires détaillés selon la catégorie dans le planning annuel", link: "https://www.google.com/maps/place/Complexe+Sportif+Le+Port+du+Roy/@44.9109166,-0.6229042,17z/data=!4m14!1m7!3m6!1s0xd54d77a811a8077:0x1aa76de7951981fe!2sParc+de+Fongravey!8m2!3d44.9144573!4d-0.631101!16s%2Fg%2F11f60xvy1x!3m5!1s0xd54d61169b2148b:0xe1dab987b66822c4!8m2!3d44.9109268!4d-0.6149733!16s%2Fg%2F11bccd211b?entry=ttu&g_ep=EgoyMDI2MDgxNy4wIKXMDSoASAFQAw%3D%3D", linkLabel: "Localiser Port du Roy" }
-    ],
-    "U13": [
-      { title: "Reprise", detail: "À partir du mercredi 2 septembre 2026", place: "Port du Roy — reprise sur les créneaux habituels U13 de la saison", link: "https://www.google.com/maps/place/Complexe+Sportif+Le+Port+du+Roy/@44.9109166,-0.6229042,17z/data=!4m14!1m7!3m6!1s0xd54d77a811a8077:0x1aa76de7951981fe!2sParc+de+Fongravey!8m2!3d44.9144573!4d-0.631101!16s%2Fg%2F11f60xvy1x!3m5!1s0xd54d61169b2148b:0xe1dab987b66822c4!8m2!3d44.9109268!4d-0.6149733!16s%2Fg%2F11bccd211b?entry=ttu&g_ep=EgoyMDI2MDgxNy4wIKXMDSoASAFQAw%3D%3D", linkLabel: "Localiser Port du Roy" }
-    ],
-    "U15": [
-      { title: "Lundi 24 août", detail: "20h à 22h", place: "Port du Roy", link: "https://www.google.com/maps/place/Complexe+Sportif+Le+Port+du+Roy/@44.9109166,-0.6229042,17z/data=!4m14!1m7!3m6!1s0xd54d77a811a8077:0x1aa76de7951981fe!2sParc+de+Fongravey!8m2!3d44.9144573!4d-0.631101!16s%2Fg%2F11f60xvy1x!3m5!1s0xd54d61169b2148b:0xe1dab987b66822c4!8m2!3d44.9109268!4d-0.6149733!16s%2Fg%2F11bccd211b?entry=ttu&g_ep=EgoyMDI2MDgxNy4wIKXMDSoASAFQAw%3D%3D", linkLabel: "Localiser Port du Roy" },
-      { title: "Mercredi 26 août", detail: "14h à 18h30", place: "Port du Roy", link: "https://www.google.com/maps/place/Complexe+Sportif+Le+Port+du+Roy/@44.9109166,-0.6229042,17z/data=!4m14!1m7!3m6!1s0xd54d77a811a8077:0x1aa76de7951981fe!2sParc+de+Fongravey!8m2!3d44.9144573!4d-0.631101!16s%2Fg%2F11f60xvy1x!3m5!1s0xd54d61169b2148b:0xe1dab987b66822c4!8m2!3d44.9109268!4d-0.6149733!16s%2Fg%2F11bccd211b?entry=ttu&g_ep=EgoyMDI2MDgxNy4wIKXMDSoASAFQAw%3D%3D", linkLabel: "Localiser Port du Roy" }
-    ],
-    "U18": [
-      { title: "Lundi 24 août", detail: "20h à 22h", place: "Port du Roy", link: "https://www.google.com/maps/place/Complexe+Sportif+Le+Port+du+Roy/@44.9109166,-0.6229042,17z/data=!4m14!1m7!3m6!1s0xd54d77a811a8077:0x1aa76de7951981fe!2sParc+de+Fongravey!8m2!3d44.9144573!4d-0.631101!16s%2Fg%2F11f60xvy1x!3m5!1s0xd54d61169b2148b:0xe1dab987b66822c4!8m2!3d44.9109268!4d-0.6149733!16s%2Fg%2F11bccd211b?entry=ttu&g_ep=EgoyMDI2MDgxNy4wIKXMDSoASAFQAw%3D%3D", linkLabel: "Localiser Port du Roy" },
-      { title: "Mercredi 26 août", detail: "14h à 18h30", place: "Port du Roy", link: "https://www.google.com/maps/place/Complexe+Sportif+Le+Port+du+Roy/@44.9109166,-0.6229042,17z/data=!4m14!1m7!3m6!1s0xd54d77a811a8077:0x1aa76de7951981fe!2sParc+de+Fongravey!8m2!3d44.9144573!4d-0.631101!16s%2Fg%2F11f60xvy1x!3m5!1s0xd54d61169b2148b:0xe1dab987b66822c4!8m2!3d44.9109268!4d-0.6149733!16s%2Fg%2F11bccd211b?entry=ttu&g_ep=EgoyMDI2MDgxNy4wIKXMDSoASAFQAw%3D%3D", linkLabel: "Localiser Port du Roy" }
-    ],
-    "Seniors": [
-      { title: "Lundi 24 août", detail: "20h à 22h", place: "Port du Roy", link: "https://www.google.com/maps/place/Complexe+Sportif+Le+Port+du+Roy/@44.9109166,-0.6229042,17z/data=!4m14!1m7!3m6!1s0xd54d77a811a8077:0x1aa76de7951981fe!2sParc+de+Fongravey!8m2!3d44.9144573!4d-0.631101!16s%2Fg%2F11f60xvy1x!3m5!1s0xd54d61169b2148b:0xe1dab987b66822c4!8m2!3d44.9109268!4d-0.6149733!16s%2Fg%2F11bccd211b?entry=ttu&g_ep=EgoyMDI2MDgxNy4wIKXMDSoASAFQAw%3D%3D", linkLabel: "Localiser Port du Roy" },
-      { title: "Mercredi 26 août", detail: "20h à 22h", place: "Port du Roy", link: "https://www.google.com/maps/place/Complexe+Sportif+Le+Port+du+Roy/@44.9109166,-0.6229042,17z/data=!4m14!1m7!3m6!1s0xd54d77a811a8077:0x1aa76de7951981fe!2sParc+de+Fongravey!8m2!3d44.9144573!4d-0.631101!16s%2Fg%2F11f60xvy1x!3m5!1s0xd54d61169b2148b:0xe1dab987b66822c4!8m2!3d44.9109268!4d-0.6149733!16s%2Fg%2F11bccd211b?entry=ttu&g_ep=EgoyMDI2MDgxNy4wIKXMDSoASAFQAw%3D%3D", linkLabel: "Localiser Port du Roy" },
-      { title: "Vendredi 28 août", detail: "20h à 22h", place: "Port du Roy", link: "https://www.google.com/maps/place/Complexe+Sportif+Le+Port+du+Roy/@44.9109166,-0.6229042,17z/data=!4m14!1m7!3m6!1s0xd54d77a811a8077:0x1aa76de7951981fe!2sParc+de+Fongravey!8m2!3d44.9144573!4d-0.631101!16s%2Fg%2F11f60xvy1x!3m5!1s0xd54d61169b2148b:0xe1dab987b66822c4!8m2!3d44.9109268!4d-0.6149733!16s%2Fg%2F11bccd211b?entry=ttu&g_ep=EgoyMDI2MDgxNy4wIKXMDSoASAFQAw%3D%3D", linkLabel: "Localiser Port du Roy" }
-    ],
-    "Loisirs": [
-      { title: "Reprise", detail: "Jeudi 10 septembre 2026", place: "Béchon — créneau habituel 21h30 à 23h", link: "https://www.google.com/maps/@44.9157398,-0.6376453,19z?entry=ttu&g_ep=EgoyMDI2MDgxNy4wIKXMDSoASAFQAw%3D%3D", linkLabel: "Localiser Béchon" }
-    ]
-  };
-
-  const modal = document.getElementById("reprise-modal");
-  const title = document.getElementById("reprise-modal-title");
-  const body = document.getElementById("reprise-modal-body");
-  const close = modal.querySelector(".modal-close");
-
-  document.querySelectorAll(".reprise-item").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const cat = btn.dataset.cat;
-      title.textContent = "Reprise — " + cat;
-      body.innerHTML = (data[cat] || []).map(item => `
-        <div class="modal-session">
-          <strong>${item.title}</strong>
-          <span>${item.detail}</span>
-          <span>${item.place}</span>
-          <a href="${item.link}" ${item.link.startsWith("http") ? 'target="_blank" rel="noopener"' : ''}>${item.linkLabel}</a>
-        </div>
-      `).join("") + `
-        <div class="modal-annual-link">
-          <a href="planning.html">Voir les créneaux annuels</a>
-        </div>
-      `;
-      modal.classList.add("open");
-      modal.setAttribute("aria-hidden","false");
-      close.focus();
-    });
-  });
-
-  function closeModal(){
-    modal.classList.remove("open");
-    modal.setAttribute("aria-hidden","true");
-  }
-  close.addEventListener("click", closeModal);
-  modal.addEventListener("click", e => { if(e.target === modal) closeModal(); });
-  document.addEventListener("keydown", e => { if(e.key === "Escape") closeModal(); });
-})();
-</script>
-
-
-<script>
-  const btnReprisesV10 = document.getElementById('open-reprises-v10');
-  if (btnReprisesV10) {
-    btnReprisesV10.addEventListener('click', () => {
-      const modal = document.getElementById('reprise-modal');
-      if (modal) {
-        modal.classList.add('open');
-        modal.setAttribute('aria-hidden','false');
-        const title = document.getElementById('reprise-modal-title');
-        if (title) title.textContent = 'Reprises par catégorie';
-      }
-    });
-  }
-  </script>
 
 <script src="script.js"></script>
 
@@ -2043,7 +1972,7 @@ img,video,iframe{max-width:100%;height:auto}
     <div class="reprise-head-v16">
       <div>
         <h3 id="reprise-title-v16">Reprise des entraînements</h3>
-        <p>Dates de reprise et accès direct aux informations utiles.</p>
+        <p>Créneaux de reprise confirmés et accès direct aux informations utiles.</p>
       </div>
       <button class="reprise-close-v16" type="button" aria-label="Fermer">×</button>
     </div>
@@ -2051,7 +1980,7 @@ img,video,iframe{max-width:100%;height:auto}
     <div class="reprise-grid-v16">
       <article class="reprise-item-v16">
         <h4>École de basket</h4>
-        <p><strong>Reprise :</strong> mercredi 9 septembre 2026.</p>
+        <p><strong>U5, U7, U9 et U11 :</strong> reprise à partir du mercredi 9 septembre 2026.</p>
         <div class="reprise-actions-v16">
           <a class="primary" href="planning.html">Voir le planning annuel</a>
         </div>
@@ -2059,37 +1988,44 @@ img,video,iframe{max-width:100%;height:auto}
 
       <article class="reprise-item-v16">
         <h4>U13</h4>
-        <p><strong>Reprise :</strong> à partir du mercredi 2 septembre 2026, sur les créneaux de la saison.</p>
+        <p><strong>Mercredi 2 septembre :</strong> 14h–15h30 — Port du Roy.</p>
         <div class="reprise-actions-v16">
           <a class="primary" href="planning.html">Voir les créneaux U13</a>
+          <a class="secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/place/Complexe+Sportif+Le+Port+du+Roy/">Localiser Port du Roy</a>
         </div>
       </article>
 
       <article class="reprise-item-v16">
         <h4>U15</h4>
-        <p><strong>Lundi 24 août :</strong> 20h–22h — Port du Roy.</p>
-        <p><strong>Mercredi 26 août :</strong> 14h–18h30 — Port du Roy.</p>
+        <p><strong>Mercredi 26 août :</strong> 17h–19h — Port du Roy.</p>
+        <p><strong>Vendredi 28 août :</strong> 17h–19h — Fongravey.</p>
+        <p><strong>Lundi 31 août :</strong> 17h–18h30 — Fongravey.</p>
+        <p><strong>Mercredi 2 septembre :</strong> 15h30–17h — Port du Roy.</p>
         <div class="reprise-actions-v16">
           <a class="primary" href="planning.html">Planning annuel</a>
-          <a class="secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/place/Complexe+Sportif+Le+Port+du+Roy/">Localiser Port du Roy</a>
+          <a class="secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/place/Complexe+Sportif+Le+Port+du+Roy/">Port du Roy</a>
+          <a class="secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/place/Complexe+sportif+de+Fongravey/">Fongravey</a>
         </div>
       </article>
 
       <article class="reprise-item-v16">
         <h4>U18</h4>
-        <p><strong>Lundi 24 août :</strong> 20h–22h — Port du Roy.</p>
-        <p><strong>Mercredi 26 août :</strong> 14h–18h30 — Port du Roy.</p>
+        <p><strong>Mercredi 26 août :</strong> 20h–22h — Port du Roy.</p>
+        <p><strong>Vendredi 28 août :</strong> 20h–22h — Port du Roy.</p>
+        <p><strong>Lundi 31 août :</strong> 17h–18h30 — Fongravey.</p>
+        <p><strong>Mercredi 2 septembre :</strong> 17h–18h30 — Port du Roy.</p>
         <div class="reprise-actions-v16">
           <a class="primary" href="planning.html">Planning annuel</a>
-          <a class="secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/place/Complexe+Sportif+Le+Port+du+Roy/">Localiser Port du Roy</a>
+          <a class="secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/place/Complexe+Sportif+Le+Port+du+Roy/">Port du Roy</a>
+          <a class="secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/place/Complexe+sportif+de+Fongravey/">Fongravey</a>
         </div>
       </article>
 
       <article class="reprise-item-v16">
         <h4>Seniors</h4>
-        <p><strong>Lundi 24 août :</strong> 20h–22h — Port du Roy.</p>
         <p><strong>Mercredi 26 août :</strong> 20h–22h — Port du Roy.</p>
         <p><strong>Vendredi 28 août :</strong> 20h–22h — Port du Roy.</p>
+        <p><strong>Mercredi 2 septembre :</strong> 18h30–20h30 — Port du Roy.</p>
         <div class="reprise-actions-v16">
           <a class="primary" href="planning.html">Planning annuel</a>
           <a class="secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/place/Complexe+Sportif+Le+Port+du+Roy/">Localiser Port du Roy</a>
