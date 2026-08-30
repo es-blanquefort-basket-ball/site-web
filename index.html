@@ -1717,6 +1717,52 @@ img,video,iframe{max-width:100%;height:auto}
 }
 </style>
 
+
+<style id="asso-location-v18-css">
+.asso-location-v18{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:4px;
+}
+.asso-location-name-v18{
+  font-family:"Barlow Condensed",sans-serif;
+  font-weight:700;
+  color:var(--g900);
+}
+.asso-route-chip-v18{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:30px;
+  padding:6px 11px;
+  border-radius:999px;
+  background:var(--g800);
+  color:#fff !important;
+  font-family:"Barlow Condensed",sans-serif;
+  font-size:12px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.7px;
+  box-shadow:0 6px 16px rgba(7,27,18,.12);
+}
+.asso-route-chip-v18:hover{
+  background:var(--g700);
+  transform:translateY(-1px);
+}
+@media(max-width:620px){
+  .asso-location-v18{
+    gap:8px;
+  }
+  .asso-route-chip-v18{
+    min-height:28px;
+    padding:5px 10px;
+    font-size:11px;
+  }
+}
+</style>
+
 </head>
 <body class="home">
 
@@ -1821,6 +1867,10 @@ img,video,iframe{max-width:100%;height:auto}
             <div class="asso-v10-meta">
               <span>Mercredi 2 septembre 2026 · 13h à 21h</span>
               <span>Mercredi 9 septembre 2026 · 13h à 21h</span>
+              <div class="asso-location-v18">
+                <span class="asso-location-name-v18">Gymnase du Port du Roy</span>
+                <a class="asso-route-chip-v18" href="https://www.google.com/maps/place/Complexe+Sportif+Le+Port+du+Roy/" target="_blank" rel="noopener">Itinéraire</a>
+              </div>
               <a href="inscriptions.html">Toutes les informations d’inscription</a>
             </div>
           </div>
