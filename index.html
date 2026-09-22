@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Accueil — ES Blanquefort Basket-ball</title>
-  <meta name="description" content="Maquette de travail de la page d’accueil ES Blanquefort Basket-Ball pour la rentrée 2026-2027.">
+  <meta name="description" content="Site officiel de l’ES Blanquefort Basket-Ball : actualités, équipes, planning, matchs et inscriptions pour la saison 2026-2027.">
   <meta name="theme-color" content="#1f5a3f">
   <link rel="icon" type="image/png" href="https://es-blanquefort-basketball.fr/images/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -950,6 +950,7 @@
       align-items:stretch;
     }
     .reprise-v10{
+      position:relative;
       min-height:315px;
       border-radius:20px;
       overflow:hidden;
@@ -985,18 +986,19 @@
       color:rgba(255,255,255,.80);
       line-height:1.45;
     }
-    .reprise-v10-copy button{
+    .reprise-v10-copy button,.reprise-v10-copy .reprise-link{
       margin-top:18px;
-      border:0;
       border-radius:999px;
       background:#fff;
       color:var(--g900);
       padding:10px 15px;
+      display:inline-flex;
       font-family:"Barlow Condensed",sans-serif;
       text-transform:uppercase;
       letter-spacing:.8px;
       font-weight:700;
       cursor:pointer;
+      text-decoration:none;
     }
     .ball-v10{
       position:absolute;
@@ -1382,59 +1384,6 @@
     }
   </style>
 
-<style>
-  .reprise-modal-v16[hidden]{display:none}
-  .reprise-modal-v16{
-    position:fixed;inset:0;z-index:10050;
-    display:grid;place-items:center;padding:20px;
-    background:rgba(5,20,13,.78);backdrop-filter:blur(8px)
-  }
-  .reprise-panel-v16{
-    width:min(900px,100%);max-height:88vh;overflow:auto;
-    background:#fff;border-radius:26px;
-    box-shadow:0 30px 90px rgba(0,0,0,.35)
-  }
-  .reprise-head-v16{
-    display:flex;justify-content:space-between;gap:20px;align-items:start;
-    padding:24px 26px;
-    background:linear-gradient(135deg,#0f2d20,#1f5a3f);color:#fff
-  }
-  .reprise-head-v16 h3{
-    margin:0;font-family:"Barlow Condensed",sans-serif;
-    text-transform:uppercase;font-size:34px;line-height:1
-  }
-  .reprise-head-v16 p{margin:8px 0 0;color:rgba(255,255,255,.75)}
-  .reprise-close-v16{
-    border:0;width:42px;height:42px;border-radius:50%;
-    background:rgba(255,255,255,.12);color:#fff;font-size:28px;cursor:pointer
-  }
-  .reprise-grid-v16{
-    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:12px;padding:18px
-  }
-  .reprise-item-v16{
-    border:1px solid rgba(31,90,63,.14);
-    border-radius:16px;padding:17px;background:#f8fbf9
-  }
-  .reprise-item-v16 h4{
-    margin:0 0 7px;font-family:"Barlow Condensed",sans-serif;
-    text-transform:uppercase;font-size:22px;color:#0f2d20
-  }
-  .reprise-item-v16 p{margin:4px 0;color:#627267;line-height:1.45}
-  .reprise-actions-v16{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-  .reprise-actions-v16 a{
-    display:inline-flex;align-items:center;justify-content:center;
-    min-height:38px;padding:8px 12px;border-radius:999px;
-    font-family:"Barlow Condensed",sans-serif;font-weight:700;
-    text-transform:uppercase;letter-spacing:.7px;font-size:11px
-  }
-  .reprise-actions-v16 .primary{background:#1f5a3f;color:#fff}
-  .reprise-actions-v16 .secondary{background:#eaf3ec;color:#173d2d}
-  .reprise-foot-v16{padding:0 18px 20px;color:#627267;font-size:13px}
-  @media(max-width:700px){.reprise-grid-v16{grid-template-columns:1fr}}
-</style>
-
-
 <style id="esb-responsive-v1">
 /* =========================================================
    PASSE RESPONSIVE ESB — TEST GITHUB
@@ -1675,49 +1624,6 @@ img,video,iframe{max-width:100%;height:auto}
 </style>
 
 
-<style id="reprise-update-v17-css">
-.reprise-v10{position:relative}
-.reprise-update-v17{
-  position:absolute;
-  right:22px;
-  top:20px;
-  z-index:4;
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 11px 8px 8px;
-  border-radius:999px;
-  background:rgba(255,255,255,.94);
-  border:1px solid rgba(31,90,63,.16);
-  box-shadow:0 8px 22px rgba(7,27,18,.12);
-  color:#173d2d;
-  font-family:"Barlow Condensed",sans-serif;
-  line-height:1.05;
-}
-.reprise-update-v17 span:last-child{display:flex;flex-direction:column;font-size:11px;letter-spacing:.35px}
-.reprise-update-v17 strong{text-transform:uppercase;font-size:11px;letter-spacing:1px}
-.reprise-update-icon-v17{
-  width:26px;height:26px;flex:0 0 26px;
-  display:grid;place-items:center;
-  border-radius:50%;
-  background:#1f5a3f;color:#fff;
-  font-family:"Barlow",sans-serif;
-  font-weight:800;font-size:16px;
-  box-shadow:0 0 0 5px rgba(31,90,63,.10);
-}
-@media(max-width:620px){
-  .reprise-update-v17{
-    position:relative;
-    right:auto;top:auto;
-    width:max-content;
-    margin:14px 18px 0 auto;
-    padding:7px 10px 7px 7px;
-  }
-  .reprise-update-icon-v17{width:23px;height:23px;flex-basis:23px;font-size:14px}
-}
-</style>
-
-
 <style id="asso-location-v18-css">
 .asso-location-v18{
   display:flex;
@@ -1815,8 +1721,8 @@ img,video,iframe{max-width:100%;height:auto}
   <!-- SAISON 2026-2027 -->
   <section id="saison" class="app-section">
     <div class="season-head-v10">
-      <h2>La saison 2026-2027 se prépare</h2>
-      <a href="planning.html">Planning saison régulière</a>
+      <h2>La saison 2026-2027 est lancée</h2>
+      <a href="planning.html">Voir le planning</a>
     </div>
 
     <div class="wrap">
@@ -1824,20 +1730,20 @@ img,video,iframe{max-width:100%;height:auto}
         <div class="season-photo-v10" role="img" aria-label="Terrain de basket éclairé de nuit"></div>
         <div class="season-copy-v10">
           <span class="badge">À la une</span>
-          <h3>On se retrouve sur les terrains</h3>
+          <h3>La saison est lancée</h3>
           <div class="season-highlights-v15">
-            <div class="season-highlight-v15">
-              <strong>Les entraînements reprennent</strong>
-              <span>Retrouvez les dates et créneaux de reprise par catégorie.</span>
-            </div>
-            <div class="season-highlight-v15">
-              <strong>La Rentrée du basket</strong>
-              <span>Rendez-vous les mercredis 2 et 9 septembre pour les inscriptions, réinscriptions et renseignements.</span>
-            </div>
-            <div class="season-highlight-v15">
-              <strong>L’application du club arrive</strong>
-              <span>Un nouvel espace pour les licenciés, familles et entraîneurs est en préparation.</span>
-            </div>
+            <a class="season-highlight-v15" href="planning.html">
+              <strong>Les entraînements ont commencé</strong>
+              <span>Retrouvez les créneaux à jour par catégorie.</span>
+            </a>
+            <a class="season-highlight-v15" href="equipes.html">
+              <strong>Les équipes sont engagées</strong>
+              <span>Retrouvez les équipes du club pour la saison 2026-2027.</span>
+            </a>
+            <a class="season-highlight-v15" href="matchs.html">
+              <strong>Les matchs arrivent</strong>
+              <span>Retrouvez les rencontres et les informations de la saison.</span>
+            </a>
           </div>
         </div>
       </article>
@@ -1845,33 +1751,23 @@ img,video,iframe{max-width:100%;height:auto}
       <div class="subgrid-v10">
         <article class="reprise-v10">
           <div class="reprise-v10-copy">
-            <div class="kicker">Reprise</div>
-            <h3>Reprise des entraînements</h3>
-            <p>Consultez les dates et créneaux spécifiques de reprise par catégorie.</p>
-            <button type="button" id="open-reprises-v10">Voir les reprises par catégorie</button>
+            <div class="kicker">Planning</div>
+            <h3>Créneaux d’entraînement 2026-2027</h3>
+            <p>Retrouvez les horaires et les gymnases de chaque catégorie.</p>
+            <a class="reprise-link" href="planning.html">Voir le planning</a>
           </div>
           <div class="shadow-v10" aria-hidden="true"></div>
-          <div class="reprise-update-v17" aria-label="Dernière mise à jour le 29 août 2026">
-            <span class="reprise-update-icon-v17" aria-hidden="true">!</span>
-            <span><strong>Mise à jour</strong>29 août 2026</span>
-          </div>
           <img class="ball-v10" src="images/ballon-basket.png" alt="" aria-hidden="true">
         </article>
 
         <article class="asso-v10 asso-v11">
-          <img src="images/rentree-basket-2026.png" alt="Affiche Rentrée du basket — mercredis 2 et 9 septembre 2026, de 13h à 21h">
+          <img src="images/loisirs-recrutement-2026.png" alt="Section Loisirs de l’ES Blanquefort Basket-Ball">
           <div class="asso-v10-copy">
-            <div class="kicker">Événement</div>
-            <h3>Rentrée du basket</h3>
-            <p>Le club vous accueille pour les inscriptions, réinscriptions et renseignements sur la saison 2026-2027.</p>
+            <div class="kicker">Loisirs</div>
+            <h3>La section Loisirs recrute</h3>
+            <p>Équipe mixte, tous niveaux, ambiance conviviale. Entraînement le jeudi de 20h à 22h30 au gymnase du Béchon.</p>
             <div class="asso-v10-meta">
-              <span>Mercredi 2 septembre 2026 · 13h à 21h</span>
-              <span>Mercredi 9 septembre 2026 · 13h à 21h</span>
-              <div class="asso-location-v18">
-                <span class="asso-location-name-v18">Gymnase du Port du Roy</span>
-                <a class="asso-route-chip-v18" href="https://www.google.com/maps/dir/?api=1&destination=Complexe%20sportif%20Le%20Port%20du%20Roy%2C%2055%20avenue%20du%20Port%20du%20Roy%2C%2033290%20Blanquefort" target="_blank" rel="noopener">Itinéraire</a>
-              </div>
-              <a href="inscriptions.html">Toutes les informations d’inscription</a>
+              <a href="planning.html">Voir le planning</a>
             </div>
           </div>
         </article>
@@ -1965,10 +1861,6 @@ img,video,iframe{max-width:100%;height:auto}
     </div>
   </section>
 
-
-
-
-  <div class="home-modal-backdrop" id="reprise-modal" aria-hidden="true">
 </main>
 
 
@@ -2016,116 +1908,6 @@ img,video,iframe{max-width:100%;height:auto}
   </div>
 </footer>
 
-
-<div class="reprise-modal-v16" id="reprise-modal-v16" hidden>
-  <div class="reprise-panel-v16" role="dialog" aria-modal="true" aria-labelledby="reprise-title-v16">
-    <div class="reprise-head-v16">
-      <div>
-        <h3 id="reprise-title-v16">Reprise des entraînements</h3>
-        <p>Créneaux de reprise confirmés et accès direct aux informations utiles.</p>
-      </div>
-      <button class="reprise-close-v16" type="button" aria-label="Fermer">×</button>
-    </div>
-
-    <div class="reprise-grid-v16">
-      <article class="reprise-item-v16">
-        <h4>École de basket</h4>
-        <p><strong>U5, U7, U9 et U11 :</strong> reprise à partir du mercredi 9 septembre 2026.</p>
-        <div class="reprise-actions-v16">
-          <a class="primary" href="planning.html">Voir le planning annuel</a>
-        </div>
-      </article>
-
-      <article class="reprise-item-v16">
-        <h4>U13</h4>
-        <p><strong>Mercredi 2 septembre :</strong> 14h–15h30 — Port du Roy.</p>
-        <div class="reprise-actions-v16">
-          <a class="primary" href="planning.html">Voir les créneaux U13</a>
-          <a class="secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/place/Complexe+Sportif+Le+Port+du+Roy/">Localiser Port du Roy</a>
-        </div>
-      </article>
-
-      <article class="reprise-item-v16">
-        <h4>U15</h4>
-        <p><strong>Mercredi 26 août :</strong> 17h–19h — Port du Roy.</p>
-        <p><strong>Vendredi 28 août :</strong> 17h–19h — Fongravey.</p>
-        <p><strong>Lundi 31 août :</strong> 17h–18h30 — Fongravey.</p>
-        <p><strong>Mercredi 2 septembre :</strong> 15h30–17h — Port du Roy.</p>
-        <div class="reprise-actions-v16">
-          <a class="primary" href="planning.html">Planning annuel</a>
-          <a class="secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/place/Complexe+Sportif+Le+Port+du+Roy/">Port du Roy</a>
-          <a class="secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/place/Complexe+sportif+de+Fongravey/">Fongravey</a>
-        </div>
-      </article>
-
-      <article class="reprise-item-v16">
-        <h4>U18</h4>
-        <p><strong>Mercredi 26 août :</strong> 20h–22h — Port du Roy.</p>
-        <p><strong>Vendredi 28 août :</strong> 20h–22h — Port du Roy.</p>
-        <p><strong>Lundi 31 août :</strong> 17h–18h30 — Fongravey.</p>
-        <p><strong>Mercredi 2 septembre :</strong> 17h–18h30 — Port du Roy.</p>
-        <div class="reprise-actions-v16">
-          <a class="primary" href="planning.html">Planning annuel</a>
-          <a class="secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/place/Complexe+Sportif+Le+Port+du+Roy/">Port du Roy</a>
-          <a class="secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/place/Complexe+sportif+de+Fongravey/">Fongravey</a>
-        </div>
-      </article>
-
-      <article class="reprise-item-v16">
-        <h4>Seniors</h4>
-        <p><strong>Mercredi 26 août :</strong> 20h–22h — Port du Roy.</p>
-        <p><strong>Vendredi 28 août :</strong> 20h–22h — Port du Roy.</p>
-        <p><strong>Mercredi 2 septembre :</strong> 18h30–20h30 — Port du Roy.</p>
-        <div class="reprise-actions-v16">
-          <a class="primary" href="planning.html">Planning annuel</a>
-          <a class="secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/place/Complexe+Sportif+Le+Port+du+Roy/">Localiser Port du Roy</a>
-        </div>
-      </article>
-
-      <article class="reprise-item-v16">
-        <h4>Loisirs</h4>
-        <p><strong>Reprise :</strong> jeudi 10 septembre 2026, sur le créneau de la saison.</p>
-        <div class="reprise-actions-v16">
-          <a class="primary" href="planning.html">Voir le planning annuel</a>
-        </div>
-      </article>
-    </div>
-
-    <div class="reprise-foot-v16">
-      Les créneaux réguliers de la saison restent accessibles à tout moment depuis la page Planning.
-    </div>
-  </div>
-</div>
-
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const btn = document.getElementById('open-reprises-v10');
-  const modal = document.getElementById('reprise-modal-v16');
-  const close = modal ? modal.querySelector('.reprise-close-v16') : null;
-
-  if (btn && modal) {
-    btn.addEventListener('click', function () {
-      modal.hidden = false;
-      document.body.style.overflow = 'hidden';
-    });
-  }
-  if (close && modal) {
-    close.addEventListener('click', function () {
-      modal.hidden = true;
-      document.body.style.overflow = '';
-    });
-  }
-  if (modal) {
-    modal.addEventListener('click', function (e) {
-      if (e.target === modal) {
-        modal.hidden = true;
-        document.body.style.overflow = '';
-      }
-    });
-  }
-});
-</script>
 
 </body>
 </html>
