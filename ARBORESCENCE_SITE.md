@@ -38,7 +38,8 @@ public_html/
 ├── le-club.html
 ├── equipes.html
 ├── planning.html
-├── matchs.html
+├── calendrier.html
+├── matchs.html (redirection vers calendrier.html)
 ├── partenaires.html
 ├── sponsors.html
 ├── inscriptions.html
@@ -49,6 +50,7 @@ public_html/
 │
 ├── style.css
 ├── script.js
+├── calendrier.js
 │
 ├── images/
 │   ├── logo.png
@@ -92,7 +94,7 @@ Accueil
 Le club
 Équipes
 Planning
-Matchs
+Calendrier
 Partenaires
 S’inscrire
 ```
@@ -129,8 +131,8 @@ ACCUEIL
 ├── PLANNING
 │   └── Horaires / salles / entraînements
 │
-├── MATCHS
-│   └── Calendrier / résultats
+├── CALENDRIER
+│   └── Matchs / événements / temps forts
 │
 ├── PARTENAIRES
 │   ├── Offre de partenariat
@@ -257,18 +259,21 @@ informations essentielles.
 
 ------------------------------------------------------------------------
 
-## `matchs.html` --- Matchs
+## `calendrier.html` --- Calendrier
 
 ### Rôle
 
-Présenter :
+Présenter dynamiquement :
 
--   le calendrier ;
--   les rencontres ;
--   les résultats lorsque ces informations sont disponibles.
+-   les rencontres du club issues de la vue publique Supabase ;
+-   leur détail lorsqu'il est disponible ;
+-   les accès aux calendriers, classements et poules FFBB.
 
 Cette page peut évoluer au cours de la saison sans modifier
 l'arborescence générale du site.
+
+`matchs.html` est conservé comme redirection vers `calendrier.html` afin
+de préserver les anciens liens.
 
 ------------------------------------------------------------------------
 
@@ -567,6 +572,13 @@ Fonctions actuellement identifiées :
 Ne pas introduire de framework ou de dépendance JavaScript importante
 sans besoin explicite et validation préalable.
 
+## `calendrier.js`
+
+JavaScript propre à `calendrier.html`. Il interroge en lecture la vue
+publique Supabase `public.public_calendar`, construit la vue mensuelle et
+affiche le détail des rencontres. Il utilise uniquement la clé
+publishable destinée au navigateur.
+
 ------------------------------------------------------------------------
 
 # 8. Ressources graphiques
@@ -700,7 +712,7 @@ Les chantiers connus comprennent notamment :
 -   amélioration progressive de certains composants visuels ;
 -   application du Design System ES Blanquefort Basket ;
 -   évolution des contenus de saison ;
--   alimentation de la page Matchs ;
+-   alimentation du Calendrier du club ;
 -   maintien des horaires publics ;
 -   amélioration progressive sans nouvelle refonte globale non demandée.
 

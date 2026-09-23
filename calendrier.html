@@ -1,0 +1,487 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Calendrier — ES Blanquefort Basket-ball</title><meta name="description" content="Calendrier des matchs, événements et temps forts de l’ES Blanquefort Basket-Ball pour la saison 2026-2027."><meta name="theme-color" content="#1f5a3f"><link rel="icon" type="image/png" href="images/favicon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css">
+<style>
+:root{--g900:#0f2d20;--g800:#173d2d;--g700:#1f5a3f;--g500:#2f7b52;--line:rgba(31,90,63,.14)}
+.matches-page{background:linear-gradient(180deg,#f7faf8 0%,#edf5f0 48%,#fff 100%);padding-bottom:82px}
+.matches-hero{
+  position:relative;
+  overflow:hidden;
+  min-height:575px;
+  display:flex;
+  align-items:center;
+  color:#fff;
+  background:
+    linear-gradient(90deg,rgba(6,22,15,.96),rgba(15,45,32,.82) 52%,rgba(15,45,32,.30)),
+    url('assets/matchs-photo-hero.jpg') center/cover no-repeat;
+}
+
+.matches-hero .wrap{position:relative;z-index:2}
+.matches-copy{width:49%;padding:42px 0}
+.matches-kicker{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:2.4px;font-weight:700;color:#d9ebe0;font-size:13px}
+.matches-hero h1{margin:6px 0 0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:clamp(72px,8vw,110px);line-height:.86}
+.matches-hero h1 span{display:block;color:#9fd0ad;font-size:.58em;font-style:italic;letter-spacing:1px}
+.matches-hero p{max-width:650px;margin:22px 0 0;color:rgba(255,255,255,.82);font-size:17px;line-height:1.62}
+.matches-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.matches-updated{display:inline-flex;margin-top:18px;padding:6px 11px;border:1px solid rgba(255,255,255,.24);border-radius:999px;background:rgba(255,255,255,.09);color:rgba(255,255,255,.78);font-size:12px;font-weight:600;letter-spacing:.2px}
+
+.matches-section{padding:56px 0 0}
+.matches-panel{
+  padding:30px;border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(234,244,237,.66));
+  border:1px solid rgba(255,255,255,.82);box-shadow:0 22px 50px rgba(7,27,18,.12),inset 0 1px 0 rgba(255,255,255,.9)
+}
+.matches-panel h2{margin:0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:50px;color:var(--g900)}
+.matches-panel p{color:#627267;line-height:1.62}
+.calendar-intro{display:flex;align-items:end;justify-content:space-between;gap:28px}
+.calendar-intro p{max-width:610px;margin:0}
+.calendar-toolbar{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-top:24px;padding:16px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.72)}
+.calendar-navigation{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.calendar-navigation button,.calendar-date-form button{min-height:42px;border:1px solid rgba(31,90,63,.22);border-radius:12px;background:#fff;color:var(--g800);font-family:'Barlow',sans-serif;font-weight:700;cursor:pointer;padding:9px 13px}
+.calendar-navigation button:hover,.calendar-navigation button:focus-visible,.calendar-date-form button:hover,.calendar-date-form button:focus-visible{border-color:var(--g500);background:#edf5f0;outline:3px solid rgba(47,123,82,.16);outline-offset:1px}
+.calendar-date-form{display:flex;align-items:end;gap:8px}
+.calendar-date-field{display:grid;gap:5px;color:var(--g800);font-size:12px;font-weight:700}
+.calendar-date-field input{min-height:42px;max-width:180px;border:1px solid rgba(31,90,63,.22);border-radius:12px;background:#fff;color:var(--g900);font:inherit;padding:8px 10px}
+.calendar-current-month{margin:26px 0 12px;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:36px;line-height:1;color:var(--g900)}
+.calendar-weekdays,.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
+.calendar-weekdays{margin-bottom:8px}
+.calendar-weekdays span{text-align:center;color:#66746b;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase}
+.calendar-day{min-width:0;min-height:132px;padding:10px;border:1px solid rgba(31,90,63,.13);border-radius:15px;background:rgba(255,255,255,.78)}
+.calendar-day.is-outside{background:rgba(237,245,240,.34);opacity:.55}
+.calendar-day.is-today{border-color:var(--g500);box-shadow:0 0 0 2px rgba(47,123,82,.13)}
+.calendar-day.is-selected{border-color:var(--g700);box-shadow:0 0 0 3px rgba(31,90,63,.16)}
+.calendar-day-number{display:inline-grid;place-items:center;min-width:28px;height:28px;border-radius:9px;color:var(--g800);font-size:13px;font-weight:700}
+.calendar-day.is-today .calendar-day-number{background:var(--g700);color:#fff}
+.calendar-events{display:grid;gap:6px;margin-top:7px}
+.calendar-event{display:grid;width:100%;gap:2px;border:0;border-left:4px solid var(--g500);border-radius:9px;background:#e7f2ea;color:var(--g900);cursor:pointer;padding:7px 8px;text-align:left;font:inherit}
+.calendar-event:hover,.calendar-event:focus-visible{background:#d8eadf;outline:2px solid var(--g500);outline-offset:1px}
+.calendar-event-top{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:12px;font-weight:700}
+.calendar-event-opponent{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;color:#52635a}
+.calendar-event-place{font-size:10px;color:#66746b}
+.calendar-status{min-height:24px;margin:12px 0 0!important;color:#66746b!important;font-size:13px}
+.calendar-status.is-error{color:#8a2d23!important}
+.calendar-empty-month{display:none;margin-top:12px;padding:18px;border:1px dashed rgba(31,90,63,.28);border-radius:14px;background:rgba(237,245,240,.58);color:#627267;text-align:center}
+.calendar-empty-month.is-visible{display:block}
+.calendar-note{margin:16px 0 0!important;font-size:13px;color:#748078!important}
+.calendar-dialog{width:min(520px,calc(100% - 28px));border:0;border-radius:22px;background:#fff;color:var(--g900);box-shadow:0 28px 80px rgba(7,27,18,.28);padding:0}
+.calendar-dialog::backdrop{background:rgba(5,20,13,.62)}
+.calendar-dialog-head{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px 22px;border-bottom:1px solid var(--line)}
+.calendar-dialog-head h3{margin:0;font-family:'Bebas Neue',sans-serif;font-size:32px;font-weight:400}
+.calendar-dialog-close{display:grid;place-items:center;width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:#f4f8f5;color:var(--g900);cursor:pointer;font-size:22px}
+.calendar-dialog-body{display:grid;gap:10px;padding:22px}
+.calendar-detail-row{display:grid;grid-template-columns:120px minmax(0,1fr);gap:12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.calendar-detail-row:last-child{border-bottom:0;padding-bottom:0}
+.calendar-detail-label{color:#6a776f;font-size:13px;font-weight:700}
+.calendar-detail-value{min-width:0;overflow-wrap:anywhere;font-weight:600}
+.calendar-detail-link{color:var(--g700);text-decoration:underline;text-underline-offset:3px}
+
+.matches-heading{margin:48px 0 18px}
+.matches-heading h2{margin:0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:50px;line-height:1;color:var(--g900)}
+.matches-heading p{max-width:720px;margin:8px 0 0;color:#627267;line-height:1.55}
+.competition-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.competition-card{display:flex;align-items:center;justify-content:space-between;gap:22px;padding:22px 24px;border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(234,244,237,.66));border:1px solid rgba(255,255,255,.82);box-shadow:0 16px 38px rgba(7,27,18,.09),inset 0 1px 0 rgba(255,255,255,.9)}
+.competition-card:last-child{grid-column:1/-1}
+.competition-card h3{flex:0 0 auto;margin:0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:34px;color:var(--g900)}
+.competition-links{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.competition-links .btn{min-height:40px;padding:9px 13px;font-size:12px}
+
+.matches-tools{display:grid;grid-template-columns:1fr .85fr;gap:18px;margin-top:48px}
+.matches-tool{padding:28px;border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.90),rgba(232,243,236,.66));border:1px solid rgba(255,255,255,.82);box-shadow:0 18px 44px rgba(7,27,18,.10),inset 0 1px 0 rgba(255,255,255,.9)}
+.matches-tool h3{margin:0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:40px;color:var(--g900)}
+.matches-tool p{margin:7px 0 0;color:#627267;line-height:1.55}
+.matches-tool .btn{margin-top:16px}
+
+.newsletter-box{
+  padding:28px;border-radius:24px;background:linear-gradient(135deg,#fff,#eaf3ec);
+  border:1px solid rgba(255,255,255,.82);box-shadow:0 18px 44px rgba(7,27,18,.10)
+}
+.newsletter-box h3{margin:0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:40px;color:var(--g900)}
+.newsletter-box p{margin:7px 0 0;color:#627267}
+.newsletter-box .btn{margin-top:16px}
+</style>
+
+
+<style id="esb-responsive-v1">
+/* =========================================================
+   PASSE RESPONSIVE ESB — TEST GITHUB
+   Desktop harmonisé + tablette + téléphone
+   ========================================================= */
+html{overflow-x:hidden}
+body{overflow-x:hidden}
+img,video,iframe{max-width:100%;height:auto}
+.wrap,.container{width:min(1180px,calc(100% - 40px));margin-inline:auto}
+
+/* ---------- Desktop : harmonisation des grands headers ---------- */
+.teams-hero,
+.matches-hero,
+.club-hero{
+  min-height:430px !important;
+}
+.teams-copy,
+.matches-copy{
+  padding:28px 0 !important;
+}
+.teams-hero h1{
+  font-size:clamp(62px,7vw,92px) !important;
+}
+.matches-hero h1{
+  font-size:clamp(60px,6.5vw,88px) !important;
+}
+.club-hero{
+  padding:64px 0 58px !important;
+}
+.club-hero h1{
+  font-size:clamp(58px,7vw,88px) !important;
+}
+
+/* ---------- Tablette ---------- */
+@media (max-width: 1024px){
+  .wrap,.container{width:min(100% - 32px,1180px)}
+
+  /* header/nav */
+  #hdr .nav{min-height:68px;position:relative}
+  #hdr .brand-text{display:none}
+  #hdr .burger{display:inline-flex!important;align-items:center;justify-content:center}
+  #hdr .navlinks{
+    position:absolute;
+    left:16px;right:16px;top:calc(100% + 8px);
+    display:none!important;
+    flex-direction:column;
+    align-items:stretch!important;
+    gap:4px!important;
+    padding:14px;
+    border-radius:18px;
+    background:rgba(255,255,255,.98);
+    box-shadow:0 18px 48px rgba(7,27,18,.18);
+    z-index:9999;
+  }
+  #hdr.open .navlinks,
+  #hdr .navlinks.open{display:flex!important}
+  #hdr .navlinks a{width:100%;text-align:center}
+
+  /* équipes */
+  .teams-hero{min-height:390px!important;background-position:center!important}
+  .teams-copy{width:62%!important}
+  .teams-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .teams-card:last-child{grid-column:1/-1}
+  .teams-join{align-items:flex-start!important}
+
+  /* matchs */
+  .matches-hero{min-height:390px!important;background-position:center!important}
+  .matches-copy{width:62%!important}
+  .matches-tools{grid-template-columns:1fr!important}
+  .competition-card{align-items:flex-start;flex-direction:column}
+  .competition-links{justify-content:flex-start}
+
+  /* club */
+  .club-hero .wrap{grid-template-columns:1fr!important}
+  .club-hero-logo{display:none!important}
+  .timeline{grid-template-columns:1fr!important}
+  .feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .invest-layout{grid-template-columns:1fr!important}
+  .invest-form{position:static!important}
+  .docs{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+
+  /* contact */
+  .contact-grid{grid-template-columns:1fr!important}
+  .gyms-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+
+  /* accueil */
+  .rentree-top,
+  .news-feature{grid-template-columns:1fr!important}
+  .rentree-visual{min-height:260px!important}
+  .reprise-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .action-row{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .essential-row{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .partner-strip{grid-template-columns:repeat(3,minmax(160px,1fr))!important}
+
+  /* inscriptions */
+  .category-grid,
+  [class*="category-grid"]{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+
+  /* planning */
+  table{max-width:100%}
+  .table-wrap,[class*="table-wrap"]{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+  /* footer */
+  .footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+
+/* ---------- Téléphone ---------- */
+@media (max-width: 680px){
+  .wrap,.container{width:min(100% - 24px,1180px)}
+  body{font-size:15px}
+  .btn{min-height:44px;padding:11px 15px!important;font-size:13px!important}
+
+  /* hero équipes */
+  .teams-hero{
+    min-height:0!important;
+    padding:48px 0 44px!important;
+    background-position:60% center!important;
+  }
+  .teams-hero:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(6,22,15,.34);
+    pointer-events:none;
+  }
+  .teams-copy{width:100%!important;padding:0!important}
+  .teams-hero h1{font-size:58px!important;line-height:.9!important}
+  .teams-script{font-size:18px!important}
+  .teams-hero p{font-size:15px!important;max-width:100%!important}
+  .teams-actions{display:grid!important;grid-template-columns:1fr!important}
+  .teams-grid{grid-template-columns:1fr!important}
+  .teams-card:last-child{grid-column:auto}
+  .section-brush-title{gap:9px!important}
+  .section-brush-title h2{font-size:34px!important;text-align:center}
+  .section-brush-title:before,.section-brush-title:after{width:28px!important}
+  .teams-join{display:block!important;padding:24px!important;border-radius:20px!important}
+  .teams-join h2{font-size:38px!important}
+  .teams-join .btn{display:flex;margin-top:18px;width:100%;justify-content:center}
+
+  /* hero matchs */
+  .matches-hero{
+    min-height:0!important;
+    padding:48px 0 44px!important;
+    background-position:66% center!important;
+  }
+  .matches-hero:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(6,22,15,.28);
+    pointer-events:none;
+  }
+  .matches-copy{width:100%!important;padding:0!important}
+  .matches-hero h1{font-size:54px!important;line-height:.92!important}
+  .matches-hero h1 span{font-size:.62em!important}
+  .matches-hero p{font-size:15px!important;max-width:100%!important}
+  .matches-actions{display:grid!important;grid-template-columns:1fr!important}
+  .matches-tools{grid-template-columns:1fr!important}
+  .matches-tool,.matches-panel,.newsletter-box{padding:20px!important;border-radius:18px!important}
+  .matches-panel h2{font-size:39px!important}
+  .calendar-intro{display:block}
+  .calendar-intro p{margin-top:8px}
+  .calendar-toolbar{display:grid;padding:13px}
+  .calendar-navigation{display:grid;grid-template-columns:1fr 1fr 1fr;width:100%}
+  .calendar-navigation button{padding-inline:8px}
+  .calendar-date-form{display:grid;grid-template-columns:minmax(0,1fr) auto;width:100%}
+  .calendar-date-field input{width:100%;max-width:none}
+  .calendar-current-month{font-size:31px}
+  .calendar-weekdays{display:none}
+  .calendar-grid{display:block}
+  .calendar-day{display:block;min-height:0;margin-top:10px;padding:12px}
+  .calendar-day.is-outside,.calendar-day.is-empty:not(.is-selected){display:none}
+  .calendar-day-number{font-size:14px}
+  .calendar-event-opponent{white-space:normal}
+  .calendar-dialog-head,.calendar-dialog-body{padding:17px}
+  .calendar-detail-row{grid-template-columns:1fr;gap:4px}
+  .matches-heading h2{font-size:39px!important}
+  .competition-grid{grid-template-columns:1fr!important}
+  .competition-card,.competition-card:last-child{grid-column:auto;padding:20px;border-radius:18px}
+  .competition-links{display:grid;width:100%;grid-template-columns:1fr}
+  .competition-links .btn{display:flex;width:100%;justify-content:center}
+
+  /* club */
+  .club-hero{padding:48px 0 44px!important}
+  .club-hero h1{font-size:54px!important}
+  .club-hero p{font-size:15px!important}
+  .club-head{display:block!important}
+  .club-head h2{font-size:44px!important}
+  .club-head p{margin-top:10px!important}
+  .feature-grid,.committee-grid,.docs{grid-template-columns:1fr!important}
+  .club-card,.timeline-card,.feature-card,.committee-card,.doc-link{border-radius:18px!important}
+  .label-band{grid-template-columns:1fr!important}
+  .club-final{display:block!important;padding:24px!important;border-radius:20px!important}
+  .club-final h2{font-size:38px!important}
+  .club-final-actions,.club-final .club-actions{display:grid!important;grid-template-columns:1fr!important;margin-top:18px!important}
+
+  /* accueil */
+  .app-section-head{padding-inline:12px!important;min-height:58px!important}
+  .app-icon{width:38px!important;height:38px!important;flex-basis:38px!important}
+  .app-section-head h2{font-size:25px!important}
+  .app-head-link{font-size:12px!important}
+  .rentree-panel{border-radius:18px!important}
+  .rentree-copy{padding:24px!important}
+  .rentree-copy h3{font-size:44px!important}
+  .rentree-copy p{font-size:15px!important}
+  .rentree-visual{min-height:210px!important}
+  .rentree-visual:after{font-size:26px!important}
+  .reprise-grid{grid-template-columns:1fr!important}
+  .reprise-item{min-height:auto!important;border-right:0!important;border-bottom:1px solid var(--line)!important}
+  .action-row{grid-template-columns:1fr!important}
+  .event-band{grid-template-columns:1fr!important;padding:20px!important}
+  .event-date{border-right:0!important;border-bottom:1px solid rgba(255,255,255,.22);padding:0 0 12px!important}
+  .news-photo{min-height:210px!important}
+  .news-content{padding:24px!important}
+  .news-mini-row{grid-template-columns:1fr!important}
+  .essential-row{grid-template-columns:1fr!important}
+  .essential-link{border-right:0!important;border-bottom:1px solid var(--line)!important}
+  .newsletter-band{display:block!important}
+  .newsletter-band .outline-btn{display:inline-flex;margin-top:14px}
+  .partner-strip{display:flex!important;overflow-x:auto!important}
+  .partner-card{flex:0 0 160px}
+
+  /* inscriptions */
+  .category-grid,[class*="category-grid"]{grid-template-columns:1fr!important}
+  [role="dialog"],.modal-content,[class*="modal-content"]{
+    width:calc(100% - 20px)!important;
+    max-width:none!important;
+    max-height:90vh!important;
+    overflow:auto!important;
+  }
+
+  /* planning */
+  .planning-hero,.training-hero,[class*="planning-hero"]{min-height:auto!important}
+  .venue-tabs,.filters,[class*="tabs"]{
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    overflow-x:auto!important;
+    gap:8px!important;
+    -webkit-overflow-scrolling:touch;
+    padding-bottom:6px;
+  }
+  .venue-tabs>*,
+  .filters>*,
+  [class*="tabs"]>*{flex:0 0 auto!important}
+  table{min-width:680px}
+  .table-wrap,[class*="table-wrap"]{overflow-x:auto!important}
+
+  /* contact */
+  .contact-main{padding:36px 0 54px!important}
+  .contact-card,.contact-form-card,.gym-card{padding:20px!important;border-radius:18px!important}
+  .gyms-grid{grid-template-columns:1fr!important}
+  .gyms-title{font-size:38px!important}
+
+  /* footer */
+  .footer-grid{grid-template-columns:1fr!important}
+  .footer-bottom{display:grid!important;gap:8px!important;text-align:center}
+}
+</style>
+
+</head><body class="">
+<header id="hdr"><div class="wrap nav"><a class="brand" href="index.html"><img src="images/logo.png" alt="Logo ES Blanquefort Basket Ball"><span class="brand-text"><span class="brand-name">ES Blanquefort</span><span class="brand-sub">Basket-Ball</span></span></a><button class="burger" aria-label="Menu">☰</button><nav class="navlinks"><a class="" href="index.html">Accueil</a>
+<a class="" href="le-club.html">Le club</a>
+<a class="" href="equipes.html">Équipes</a>
+<a class="" href="planning.html">Planning</a>
+<a class="active" href="calendrier.html">Calendrier</a>
+<a class="" href="partenaires.html">Partenaires</a><a class="btn btn-primary" href="inscriptions.html">S’inscrire</a></nav></div></header>
+
+<main class="matches-page">
+<section class="matches-hero"><div class="wrap"><div class="matches-copy">
+  <div class="matches-kicker">Saison 2026-2027</div>
+  <h1>Calendrier <span>du club</span></h1>
+  <p>Retrouvez les matchs, événements et temps forts de l’ES Blanquefort Basket-Ball tout au long de la saison.</p>
+  <div class="matches-actions">
+    <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034" target="_blank" rel="noopener">Voir la fiche FFBB</a>
+    <a class="btn btn-ghost" href="equipes.html">Voir nos équipes</a>
+  </div>
+  <div class="matches-updated">Mis à jour le 23 septembre 2026</div>
+</div></div></section>
+
+<section class="matches-section"><div class="wrap">
+  <section class="matches-panel matches-calendar" id="calendrier-club" aria-labelledby="calendrier-club-title" data-calendar-source="supabase">
+    <div class="calendar-intro">
+      <div>
+        <div class="eyebrow">Saison 2026-2027</div>
+        <h2 id="calendrier-club-title">Calendrier du club</h2>
+      </div>
+      <p>Parcourez les rencontres du club mois par mois. Sélectionnez un match pour afficher toutes les informations disponibles.</p>
+    </div>
+
+    <div class="calendar-toolbar">
+      <div class="calendar-navigation" aria-label="Navigation mensuelle">
+        <button type="button" id="calendar-prev" aria-label="Afficher le mois précédent">Mois précédent</button>
+        <button type="button" id="calendar-today">Aujourd’hui</button>
+        <button type="button" id="calendar-next" aria-label="Afficher le mois suivant">Mois suivant</button>
+      </div>
+      <form class="calendar-date-form" id="calendar-date-form">
+        <label class="calendar-date-field" for="calendar-date">Choisir une date
+          <input type="date" id="calendar-date" name="date">
+        </label>
+        <button type="submit">Afficher</button>
+      </form>
+    </div>
+
+    <h3 class="calendar-current-month" id="calendar-current-month" aria-live="polite"></h3>
+    <div class="calendar-weekdays" role="row" aria-hidden="true"><span role="columnheader">Lundi</span><span role="columnheader">Mardi</span><span role="columnheader">Mercredi</span><span role="columnheader">Jeudi</span><span role="columnheader">Vendredi</span><span role="columnheader">Samedi</span><span role="columnheader">Dimanche</span></div>
+    <div class="calendar-grid" id="club-calendar" role="grid" aria-label="Calendrier mensuel"></div>
+    <div class="calendar-empty-month" id="calendar-empty-month">Aucune rencontre publiée pour ce mois.</div>
+    <p class="calendar-status" id="calendar-status" role="status" aria-live="polite">Chargement du calendrier…</p>
+    <p class="calendar-note">Données issues de la vue publique Supabase du club. Les horaires affichés intègrent les éventuelles corrections du club.</p>
+  </section>
+
+  <dialog class="calendar-dialog" id="calendar-dialog" aria-labelledby="calendar-dialog-title">
+    <div class="calendar-dialog-head">
+      <h3 id="calendar-dialog-title">Détail de la rencontre</h3>
+      <form method="dialog"><button class="calendar-dialog-close" type="submit" aria-label="Fermer le détail">×</button></form>
+    </div>
+    <div class="calendar-dialog-body" id="calendar-dialog-body"></div>
+  </dialog>
+
+  <div class="matches-heading">
+    <div class="eyebrow">Compétitions 2026-2027</div>
+    <h2>Suivre les équipes engagées</h2>
+    <p>Consultez le calendrier, le classement et le détail de la poule de chaque équipe engagée.</p>
+  </div>
+
+  <div class="competition-grid">
+    <article class="competition-card">
+      <h3>U13F</h3>
+      <div class="competition-links">
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005370982" target="_blank" rel="noopener" aria-label="Calendrier FFBB de l’équipe U13F">Calendrier</a>
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005370982/classement" target="_blank" rel="noopener" aria-label="Classement FFBB de l’équipe U13F">Classement</a>
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dfu13-3?phase=200000002899469&amp;poule=200000003059588&amp;journee=1" target="_blank" rel="noopener" aria-label="Poule et journée FFBB de l’équipe U13F">Poule / journée</a>
+      </div>
+    </article>
+    <article class="competition-card">
+      <h3>U13M</h3>
+      <div class="competition-links">
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005371520" target="_blank" rel="noopener" aria-label="Calendrier FFBB de l’équipe U13M">Calendrier</a>
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005371520/classement" target="_blank" rel="noopener" aria-label="Classement FFBB de l’équipe U13M">Classement</a>
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu13-5?phase=200000002899490&amp;poule=200000003059648&amp;journee=1" target="_blank" rel="noopener" aria-label="Poule et journée FFBB de l’équipe U13M">Poule / journée</a>
+      </div>
+    </article>
+    <article class="competition-card">
+      <h3>U15M</h3>
+      <div class="competition-links">
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005371206" target="_blank" rel="noopener" aria-label="Calendrier FFBB de l’équipe U15M">Calendrier</a>
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005371206/classement" target="_blank" rel="noopener" aria-label="Classement FFBB de l’équipe U15M">Classement</a>
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu15-3?phase=200000002899480&amp;poule=200000003059626&amp;journee=1" target="_blank" rel="noopener" aria-label="Poule et journée FFBB de l’équipe U15M">Poule / journée</a>
+      </div>
+    </article>
+    <article class="competition-card">
+      <h3>SG1</h3>
+      <div class="competition-links">
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005338623" target="_blank" rel="noopener" aria-label="Calendrier FFBB de l’équipe SG1">Calendrier</a>
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005338623/classement" target="_blank" rel="noopener" aria-label="Classement FFBB de l’équipe SG1">Classement</a>
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm2?phase=200000002897490&amp;poule=200000003055085&amp;journee=1" target="_blank" rel="noopener" aria-label="Poule et journée FFBB de l’équipe SG1">Poule / journée</a>
+      </div>
+    </article>
+    <article class="competition-card">
+      <h3>SG2</h3>
+      <div class="competition-links">
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005365625" target="_blank" rel="noopener" aria-label="Calendrier FFBB de l’équipe SG2">Calendrier</a>
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005365625/classement" target="_blank" rel="noopener" aria-label="Classement FFBB de l’équipe SG2">Classement</a>
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm4?phase=200000002899174&amp;poule=200000003058836&amp;journee=1" target="_blank" rel="noopener" aria-label="Poule et journée FFBB de l’équipe SG2">Poule / journée</a>
+      </div>
+    </article>
+  </div>
+
+  <div class="matches-tools">
+    <article class="matches-tool">
+      <h3>Se rendre aux gymnases</h3>
+      <p>Retrouvez les adresses et accès aux gymnases. Les futurs matchs affichés sur cette page permettront également d’ouvrir directement l’itinéraire.</p>
+      <a class="btn btn-primary" href="contact.html">Voir les gymnases</a>
+    </article>
+    <section class="newsletter-box">
+      <h3>Restez informés</h3>
+      <p>Inscrivez-vous à la newsletter pour recevoir les calendriers mensuels et les informations importantes du club.</p>
+      <a class="btn btn-primary" href="mailto:contact@es-blanquefort-basketball.fr?subject=Inscription%20newsletter%20ESB%20Basket">S’inscrire à la newsletter</a>
+    </section>
+  </div>
+</div></section>
+</main>
+
+<script src="script.js"></script>
+<script src="calendrier.js"></script>
+<footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand-block"><img class="footer-logo" src="images/logo.png" alt="Logo ES Blanquefort Basket-Ball"><h3>ES Blanquefort Basket-Ball</h3><p>Club familial de basket à Blanquefort, porté par les joueurs, les familles, les bénévoles et les partenaires.</p></div><div><h4>Navigation</h4><ul><li><a href="index.html">Accueil</a></li><li><a href="le-club.html">Le club</a></li><li><a href="equipes.html">Équipes</a></li><li><a href="planning.html">Planning</a></li><li><a href="calendrier.html">Calendrier</a></li><li><a href="partenaires.html">Partenaires</a></li><li><a href="sponsors.html">Mur des verts et blancs</a></li></ul></div><div><h4>Contact</h4><p><strong>ES Blanquefort Basket-Ball</strong><br>Tél. 06 10 16 60 16<br><a href="mailto:contact@es-blanquefort-basketball.fr">contact@es-blanquefort-basketball.fr</a><br><a class="legal-link" href="mentions_legales_ESBB.html">Mentions légales</a></p></div><div><h4>Partenaires</h4><p>Entreprises locales, commerçants, artisans et familles partenaires : plusieurs façons de soutenir le club.</p><a class="legal-link" href="https://es-blanquefort-basket-ball.github.io/partenariat-club/" target="_blank" rel="noopener">Devenir partenaire</a></div></div><div class="footer-bottom"><span>© 2026 ES Blanquefort Basket-Ball</span><span>Site club développé par L’Rénov IA Studio · Mai 2026</span><span>Club affilié FFBB · Ligue Nouvelle-Aquitaine · Comité de Gironde · NAQ 0033-034</span></div></div></footer>
+</body></html>

@@ -103,6 +103,7 @@ public_html/
 ├── le-club.html
 ├── equipes.html
 ├── planning.html
+├── calendrier.html
 ├── matchs.html
 ├── partenaires.html
 ├── sponsors.html
@@ -114,6 +115,7 @@ public_html/
 │
 ├── style.css
 ├── script.js
+├── calendrier.js
 │
 ├── images/
 │   ├── logo.png
@@ -161,7 +163,8 @@ gouvernance.
   `le-club.html`                 Présentation du club et de ses valeurs
   `equipes.html`                 Présentation des équipes et catégories
   `planning.html`                Horaires, salles et entraînements
-  `matchs.html`                  Calendrier, rencontres et résultats
+  `calendrier.html`              Calendrier dynamique du club
+  `matchs.html`                  Redirection vers `calendrier.html`
   `partenaires.html`             Offre et démarche de partenariat
   `sponsors.html`                Présentation des partenaires existants
   `inscriptions.html`            Parcours inscriptions / licences
@@ -184,7 +187,7 @@ Accueil
 Le club
 Équipes
 Planning
-Matchs
+Calendrier
 Partenaires
 S’inscrire
 ```
@@ -250,6 +253,12 @@ Avant d'ajouter un script, vérifier si le comportement peut être ajouté
 proprement à `script.js`.
 
 Ne pas introduire de framework pour une fonction simple.
+
+## `calendrier.js`
+
+Script dédié au calendrier public. Il charge les rencontres depuis la
+vue Supabase `public.public_calendar` avec la clé publishable et assure la
+navigation mensuelle, le rendu responsive et l'affichage des détails.
 
 ------------------------------------------------------------------------
 
