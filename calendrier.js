@@ -4,12 +4,12 @@
   const SUPABASE_URL = 'https://fgswygeqstgagmipltpq.supabase.co';
   const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_dsoHXhS222GToiMUIpGkCA_lFPAJm-A';
   const CALENDAR_VIEW = 'public_calendar';
-  const TIME_ZONE = 'Europe/Paris';
   const SELECT_FIELDS = [
     'team_code',
     'opponent_name',
     'home_away',
-    'starts_at',
+    'local_date',
+    'local_time',
     'venue_name',
     'round_label',
     'ffbb_team_url'
@@ -35,27 +35,22 @@
     return;
   }
 
-  const monthFormatter = new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric', timeZone: TIME_ZONE });
-  const fullDateFormatter = new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: TIME_ZONE });
-  const timeFormatter = new Intl.DateTimeFormat('fr-FR', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone: TIME_ZONE });
+  const monthFormatter = new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric' });
+  const fullDateFormatter = new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 
   const pad = value => String(value).padStart(2, '0');
   const capitalize = value => value.charAt(0).toUpperCase() + value.slice(1);
 
-  const zonedParts = date => {
-    const parts = new Intl.DateTimeFormat('fr-FR', { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: TIME_ZONE }).formatToParts(date);
-    const values = Object.fromEntries(parts.map(part => [part.type, part.value]));
-    return { year: Number(values.year), month: Number(values.month), day: Number(values.day) };
-  };
-
-  const dateKeyInParis = date => {
-    const parts = zonedParts(date);
-    return `${parts.year}-${pad(parts.month)}-${pad(parts.day)}`;
-  };
+  const dateKeyFromDate = date => `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
 
   const dateFromKey = dateKey => {
     const [year, month, day] = dateKey.split('-').map(Number);
-    return new Date(Date.UTC(year, month - 1, day, 12));
+    return new Date(year, month - 1, day, 12);
+  };
+
+  const displayLocalTime = value => {
+    const match = /^(\d{2}):(\d{2})/.exec(value);
+    return match ? `${match[1]}h${match[2]}` : value;
   };
 
   const safeFfbbUrl = value => {
@@ -75,23 +70,25 @@
   };
 
   const normalizeCalendarEntry = item => {
-    const startsAt = new Date(item.starts_at);
-    if (Number.isNaN(startsAt.getTime())) return null;
+    const localDate = String(item.local_date || '').trim();
+    const localTime = String(item.local_time || '').trim();
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(localDate) || !/^\d{2}:\d{2}/.test(localTime)) return null;
     return {
       type: 'match',
       teamCode: String(item.team_code || 'Équipe').trim(),
       opponentName: String(item.opponent_name || 'Adversaire à confirmer').trim(),
       homeAway: item.home_away,
-      startsAt,
+      localDate,
+      localTime,
       venueName: item.venue_name ? String(item.venue_name).trim() : '',
       roundLabel: item.round_label ? String(item.round_label).trim() : '',
       ffbbTeamUrl: safeFfbbUrl(item.ffbb_team_url)
     };
   };
 
-  const todayParts = zonedParts(new Date());
-  let displayedYear = todayParts.year;
-  let displayedMonth = todayParts.month - 1;
+  const today = new Date();
+  let displayedYear = today.getFullYear();
+  let displayedMonth = today.getMonth();
   let selectedDateKey = null;
   let requestSequence = 0;
   let openDrawerAfterRender = false;
@@ -114,7 +111,7 @@
   const groupEventsByDate = events => {
     const groups = new Map();
     events.forEach(event => {
-      const key = dateKeyInParis(event.startsAt);
+      const key = event.localDate;
       if (!groups.has(key)) groups.set(key, []);
       groups.get(key).push(event);
     });
@@ -148,7 +145,7 @@
     const heading = createElement('h5', 'calendar-day-item-title');
     heading.append(
       createElement('span', '', event.teamCode),
-      createElement('time', 'calendar-day-item-time', timeFormatter.format(event.startsAt).replace(':', 'h'))
+      createElement('time', 'calendar-day-item-time', displayLocalTime(event.localTime))
     );
     const details = createElement('div', 'calendar-day-item-details');
     appendDetailRow(details, 'Adversaire', event.opponentName);
@@ -234,12 +231,12 @@
 
   const renderCalendar = events => {
     const groupedEvents = groupEventsByDate(events);
-    const monthDate = new Date(Date.UTC(displayedYear, displayedMonth, 15, 12));
-    const firstDay = new Date(Date.UTC(displayedYear, displayedMonth, 1, 12));
-    const mondayOffset = (firstDay.getUTCDay() + 6) % 7;
+    const monthDate = new Date(displayedYear, displayedMonth, 15, 12);
+    const firstDay = new Date(displayedYear, displayedMonth, 1, 12);
+    const mondayOffset = (firstDay.getDay() + 6) % 7;
     const gridStart = new Date(firstDay);
-    gridStart.setUTCDate(firstDay.getUTCDate() - mondayOffset);
-    const todayKey = dateKeyInParis(new Date());
+    gridStart.setDate(firstDay.getDate() - mondayOffset);
+    const todayKey = dateKeyFromDate(new Date());
     let currentMonthEventCount = 0;
 
     monthTitle.textContent = capitalize(monthFormatter.format(monthDate));
@@ -247,10 +244,10 @@
 
     for (let index = 0; index < 42; index += 1) {
       const cellDate = new Date(gridStart);
-      cellDate.setUTCDate(gridStart.getUTCDate() + index);
-      const dayKey = cellDate.toISOString().slice(0, 10);
+      cellDate.setDate(gridStart.getDate() + index);
+      const dayKey = dateKeyFromDate(cellDate);
       const dayEvents = groupedEvents.get(dayKey) || [];
-      const isCurrentMonth = cellDate.getUTCMonth() === displayedMonth;
+      const isCurrentMonth = cellDate.getMonth() === displayedMonth;
       const groups = groupEventsByType(dayEvents);
       if (isCurrentMonth) currentMonthEventCount += dayEvents.length;
 
@@ -266,7 +263,7 @@
       dayButton.type = 'button';
       if (dayKey === todayKey) dayButton.setAttribute('aria-current', 'date');
       dayButton.setAttribute('aria-label', `${capitalize(fullDateFormatter.format(cellDate))}, ${pluralLabel(groups.match.length, 'match', 'matchs')}, ${pluralLabel(groups.training.length, 'entraînement', 'entraînements')}, ${pluralLabel(groups.event.length, 'événement', 'événements')}`);
-      const dayNumber = createElement('time', 'calendar-day-number', String(cellDate.getUTCDate()));
+      const dayNumber = createElement('time', 'calendar-day-number', String(cellDate.getDate()));
       dayNumber.dateTime = dayKey;
       dayButton.append(dayNumber);
       if (dayEvents.length) dayButton.append(createDaySummary(dayEvents));
@@ -294,13 +291,14 @@
     const requestId = ++requestSequence;
     setStatus('Chargement du calendrier…');
     emptyMonth.classList.remove('is-visible');
-    const rangeStart = new Date(Date.UTC(displayedYear, displayedMonth, 0, 0, 0, 0));
-    const rangeEnd = new Date(Date.UTC(displayedYear, displayedMonth + 1, 2, 0, 0, 0));
+    const rangeStart = `${displayedYear}-${pad(displayedMonth + 1)}-01`;
+    const nextMonth = new Date(displayedYear, displayedMonth + 1, 1);
+    const rangeEnd = dateKeyFromDate(nextMonth);
     const url = new URL(`${SUPABASE_URL}/rest/v1/${CALENDAR_VIEW}`);
     url.searchParams.set('select', SELECT_FIELDS);
-    url.searchParams.append('starts_at', `gte.${rangeStart.toISOString()}`);
-    url.searchParams.append('starts_at', `lt.${rangeEnd.toISOString()}`);
-    url.searchParams.set('order', 'starts_at.asc');
+    url.searchParams.append('local_date', `gte.${rangeStart}`);
+    url.searchParams.append('local_date', `lt.${rangeEnd}`);
+    url.searchParams.set('order', 'local_date.asc,local_time.asc');
 
     try {
       const response = await fetch(url, { headers: { apikey: SUPABASE_PUBLISHABLE_KEY, Accept: 'application/json' } });
@@ -318,9 +316,9 @@
   };
 
   const changeMonth = offset => {
-    const nextMonth = new Date(Date.UTC(displayedYear, displayedMonth + offset, 1, 12));
-    displayedYear = nextMonth.getUTCFullYear();
-    displayedMonth = nextMonth.getUTCMonth();
+    const nextMonth = new Date(displayedYear, displayedMonth + offset, 1, 12);
+    displayedYear = nextMonth.getFullYear();
+    displayedMonth = nextMonth.getMonth();
     selectedDateKey = null;
     closeDayDrawer();
     fetchMonthEvents();
@@ -329,10 +327,10 @@
   previousButton.addEventListener('click', () => changeMonth(-1));
   nextButton.addEventListener('click', () => changeMonth(1));
   todayButton.addEventListener('click', () => {
-    const parts = zonedParts(new Date());
-    displayedYear = parts.year;
-    displayedMonth = parts.month - 1;
-    selectedDateKey = `${parts.year}-${pad(parts.month)}-${pad(parts.day)}`;
+    const currentDate = new Date();
+    displayedYear = currentDate.getFullYear();
+    displayedMonth = currentDate.getMonth();
+    selectedDateKey = dateKeyFromDate(currentDate);
     dateInput.value = selectedDateKey;
     openDrawerAfterRender = true;
     fetchMonthEvents();
