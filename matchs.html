@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Matchs — ES Blanquefort Basket-ball</title><meta name="description" content="Matchs et résultats du club."><meta name="theme-color" content="#1f5a3f"><link rel="icon" type="image/png" href="images/favicon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css">
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Matchs — ES Blanquefort Basket-ball</title><meta name="description" content="Calendriers, classements et rencontres des équipes de l’ES Blanquefort Basket-Ball pour la saison 2026-2027."><meta name="theme-color" content="#1f5a3f"><link rel="icon" type="image/png" href="images/favicon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css">
 <style>
 :root{--g900:#0f2d20;--g800:#173d2d;--g700:#1f5a3f;--g500:#2f7b52;--line:rgba(31,90,63,.14)}
 .matches-page{background:linear-gradient(180deg,#f7faf8 0%,#edf5f0 48%,#fff 100%);padding-bottom:82px}
@@ -21,32 +21,37 @@
 .matches-hero h1 span{display:block;color:#9fd0ad;font-size:.58em;font-style:italic;letter-spacing:1px}
 .matches-hero p{max-width:650px;margin:22px 0 0;color:rgba(255,255,255,.82);font-size:17px;line-height:1.62}
 .matches-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.matches-updated{display:inline-flex;margin-top:18px;padding:6px 11px;border:1px solid rgba(255,255,255,.24);border-radius:999px;background:rgba(255,255,255,.09);color:rgba(255,255,255,.78);font-size:12px;font-weight:600;letter-spacing:.2px}
 
 .matches-section{padding:56px 0 0}
-.matches-tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.matches-tool{
-  padding:24px;border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.90),rgba(232,243,236,.66));
-  border:1px solid rgba(255,255,255,.82);box-shadow:0 18px 44px rgba(7,27,18,.10),inset 0 1px 0 rgba(255,255,255,.9)
-}
-.matches-tool h3{margin:0 0 8px;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:25px;color:var(--g900)}
-.matches-tool p{margin:0;color:#627267;line-height:1.5}
-.matches-tool .btn{margin-top:14px}
-
-.matches-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;margin-top:24px}
 .matches-panel{
   padding:30px;border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(234,244,237,.66));
   border:1px solid rgba(255,255,255,.82);box-shadow:0 22px 50px rgba(7,27,18,.12),inset 0 1px 0 rgba(255,255,255,.9)
 }
-.matches-panel.dark{background:linear-gradient(145deg,rgba(15,45,32,.98),rgba(31,90,63,.94));color:#fff}
 .matches-panel h2{margin:0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:50px;color:var(--g900)}
-.matches-panel.dark h2,.matches-panel.dark p,.matches-panel.dark strong{color:#fff}
 .matches-panel p{color:#627267;line-height:1.62}
 .matches-slot{margin-top:20px;padding:22px;border-radius:20px;border:1px dashed rgba(31,90,63,.30);background:rgba(255,255,255,.58)}
 .matches-slot strong{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:22px;color:var(--g900)}
-.matches-panel.dark .matches-slot{border-color:rgba(255,255,255,.26);background:rgba(255,255,255,.08)}
+.matches-slot p{margin:5px 0 0}
+
+.matches-heading{margin:48px 0 18px}
+.matches-heading h2{margin:0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:50px;line-height:1;color:var(--g900)}
+.matches-heading p{max-width:720px;margin:8px 0 0;color:#627267;line-height:1.55}
+.competition-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.competition-card{display:flex;align-items:center;justify-content:space-between;gap:22px;padding:22px 24px;border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(234,244,237,.66));border:1px solid rgba(255,255,255,.82);box-shadow:0 16px 38px rgba(7,27,18,.09),inset 0 1px 0 rgba(255,255,255,.9)}
+.competition-card:last-child{grid-column:1/-1}
+.competition-card h3{flex:0 0 auto;margin:0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:34px;color:var(--g900)}
+.competition-links{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.competition-links .btn{min-height:40px;padding:9px 13px;font-size:12px}
+
+.matches-tools{display:grid;grid-template-columns:1fr .85fr;gap:18px;margin-top:48px}
+.matches-tool{padding:28px;border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.90),rgba(232,243,236,.66));border:1px solid rgba(255,255,255,.82);box-shadow:0 18px 44px rgba(7,27,18,.10),inset 0 1px 0 rgba(255,255,255,.9)}
+.matches-tool h3{margin:0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:40px;color:var(--g900)}
+.matches-tool p{margin:7px 0 0;color:#627267;line-height:1.55}
+.matches-tool .btn{margin-top:16px}
 
 .newsletter-box{
-  margin-top:18px;padding:28px;border-radius:24px;background:linear-gradient(135deg,#fff,#eaf3ec);
+  padding:28px;border-radius:24px;background:linear-gradient(135deg,#fff,#eaf3ec);
   border:1px solid rgba(255,255,255,.82);box-shadow:0 18px 44px rgba(7,27,18,.10)
 }
 .newsletter-box h3{margin:0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:40px;color:var(--g900)}
@@ -123,9 +128,9 @@ img,video,iframe{max-width:100%;height:auto}
   /* matchs */
   .matches-hero{min-height:390px!important;background-position:center!important}
   .matches-copy{width:62%!important}
-  .matches-tools{grid-template-columns:1fr 1fr!important}
-  .matches-tools .matches-tool:last-child{grid-column:1/-1}
-  .matches-grid{grid-template-columns:1fr!important}
+  .matches-tools{grid-template-columns:1fr!important}
+  .competition-card{align-items:flex-start;flex-direction:column}
+  .competition-links{justify-content:flex-start}
 
   /* club */
   .club-hero .wrap{grid-template-columns:1fr!important}
@@ -213,9 +218,13 @@ img,video,iframe{max-width:100%;height:auto}
   .matches-hero p{font-size:15px!important;max-width:100%!important}
   .matches-actions{display:grid!important;grid-template-columns:1fr!important}
   .matches-tools{grid-template-columns:1fr!important}
-  .matches-tools .matches-tool:last-child{grid-column:auto}
   .matches-tool,.matches-panel,.newsletter-box{padding:20px!important;border-radius:18px!important}
   .matches-panel h2{font-size:39px!important}
+  .matches-heading h2{font-size:39px!important}
+  .competition-grid{grid-template-columns:1fr!important}
+  .competition-card,.competition-card:last-child{grid-column:auto;padding:20px;border-radius:18px}
+  .competition-links{display:grid;width:100%;grid-template-columns:1fr}
+  .competition-links .btn{display:flex;width:100%;justify-content:center}
 
   /* club */
   .club-hero{padding:48px 0 44px!important}
@@ -306,41 +315,84 @@ img,video,iframe{max-width:100%;height:auto}
 <section class="matches-hero"><div class="wrap"><div class="matches-copy">
   <div class="matches-kicker">Saison 2026-2027</div>
   <h1>Les matchs <span>de la saison</span></h1>
-  <p>Retrouvez ici les calendriers, les prochains matchs et les résultats de nos équipes dès leur publication. Aucune donnée ne sera affichée tant qu’elle n’est pas validée.</p>
+  <p>Retrouvez les calendriers, classements et informations de compétition des équipes de l’ES Blanquefort Basket-Ball.</p>
   <div class="matches-actions">
     <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034" target="_blank" rel="noopener">Voir la fiche FFBB</a>
     <a class="btn btn-ghost" href="equipes.html">Voir nos équipes</a>
   </div>
+  <div class="matches-updated">Mis à jour le 23 septembre 2026</div>
 </div></div></section>
 
 <section class="matches-section"><div class="wrap">
-  <div class="matches-tools">
-    <article class="matches-tool"><h3>Calendriers FFBB</h3><p>Retrouvez les compétitions et calendriers publiés par la Fédération.</p><a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034" target="_blank" rel="noopener">Ouvrir la FFBB</a></article>
-    <article class="matches-tool"><h3>Nos équipes</h3><p>Les groupes et l’encadrement seront publiés progressivement.</p><a class="btn btn-primary" href="equipes.html">Voir les équipes</a></article>
-    <article class="matches-tool"><h3>Se rendre aux gymnases</h3><p>Retrouvez les adresses et les accès Google Maps sur la page Contact.</p><a class="btn btn-primary" href="contact.html">Voir les gymnases</a></article>
+  <section class="matches-panel" id="matchs-semaine" aria-labelledby="matchs-semaine-title">
+    <div class="eyebrow">Prochaines rencontres</div>
+    <h2 id="matchs-semaine-title">Matchs de la semaine</h2>
+    <div class="matches-slot" id="weekly-matches" aria-live="polite">
+      <strong>Bientôt disponible</strong>
+      <p>Les rencontres de la semaine seront bientôt affichées ici automatiquement.</p>
+    </div>
+  </section>
+
+  <div class="matches-heading">
+    <div class="eyebrow">Compétitions 2026-2027</div>
+    <h2>Suivre les équipes engagées</h2>
+    <p>Consultez le calendrier, le classement et le détail de la poule de chaque équipe engagée.</p>
   </div>
 
-  <div class="matches-grid">
-    <section class="matches-panel">
-      <div class="eyebrow">Prochains matchs</div>
-      <h2>Calendrier du club</h2>
-      <p>Les rencontres 2026-2027 apparaîtront ici dès validation des calendriers.</p>
-      <div class="matches-slot"><strong>Calendrier en préparation</strong><p>Cette zone accueillera date, heure, équipe, adversaire, salle et lien fédéral.</p></div>
-    </section>
+  <div class="competition-grid">
+    <article class="competition-card">
+      <h3>U13F</h3>
+      <div class="competition-links">
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005370982" target="_blank" rel="noopener" aria-label="Calendrier FFBB de l’équipe U13F">Calendrier</a>
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005370982/classement" target="_blank" rel="noopener" aria-label="Classement FFBB de l’équipe U13F">Classement</a>
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dfu13-3?phase=200000002899469&amp;poule=200000003059588&amp;journee=1" target="_blank" rel="noopener" aria-label="Poule et journée FFBB de l’équipe U13F">Poule / journée</a>
+      </div>
+    </article>
+    <article class="competition-card">
+      <h3>U13M</h3>
+      <div class="competition-links">
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005371520" target="_blank" rel="noopener" aria-label="Calendrier FFBB de l’équipe U13M">Calendrier</a>
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005371520/classement" target="_blank" rel="noopener" aria-label="Classement FFBB de l’équipe U13M">Classement</a>
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu13-5?phase=200000002899490&amp;poule=200000003059648&amp;journee=1" target="_blank" rel="noopener" aria-label="Poule et journée FFBB de l’équipe U13M">Poule / journée</a>
+      </div>
+    </article>
+    <article class="competition-card">
+      <h3>U15M</h3>
+      <div class="competition-links">
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005371206" target="_blank" rel="noopener" aria-label="Calendrier FFBB de l’équipe U15M">Calendrier</a>
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005371206/classement" target="_blank" rel="noopener" aria-label="Classement FFBB de l’équipe U15M">Classement</a>
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu15-3?phase=200000002899480&amp;poule=200000003059626&amp;journee=1" target="_blank" rel="noopener" aria-label="Poule et journée FFBB de l’équipe U15M">Poule / journée</a>
+      </div>
+    </article>
+    <article class="competition-card">
+      <h3>SG1</h3>
+      <div class="competition-links">
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005338623" target="_blank" rel="noopener" aria-label="Calendrier FFBB de l’équipe SG1">Calendrier</a>
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005338623/classement" target="_blank" rel="noopener" aria-label="Classement FFBB de l’équipe SG1">Classement</a>
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm2?phase=200000002897490&amp;poule=200000003055085&amp;journee=1" target="_blank" rel="noopener" aria-label="Poule et journée FFBB de l’équipe SG1">Poule / journée</a>
+      </div>
+    </article>
+    <article class="competition-card">
+      <h3>SG2</h3>
+      <div class="competition-links">
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005365625" target="_blank" rel="noopener" aria-label="Calendrier FFBB de l’équipe SG2">Calendrier</a>
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005365625/classement" target="_blank" rel="noopener" aria-label="Classement FFBB de l’équipe SG2">Classement</a>
+        <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm4?phase=200000002899174&amp;poule=200000003058836&amp;journee=1" target="_blank" rel="noopener" aria-label="Poule et journée FFBB de l’équipe SG2">Poule / journée</a>
+      </div>
+    </article>
+  </div>
 
-    <div>
-      <section class="matches-panel dark">
-        <div class="eyebrow">Résultats & classements</div>
-        <h2>Suivre la saison</h2>
-        <p>Résultats, classements et changements importants seront ajoutés au fil de la saison.</p>
-        <div class="matches-slot"><strong>Résultats à venir</strong><p>Aucune information non validée ne sera publiée.</p></div>
-      </section>
-      <section class="newsletter-box">
-        <h3>Restez informés</h3>
-        <p>Inscrivez-vous à la newsletter pour recevoir les calendriers mensuels et les informations importantes du club.</p>
-        <a class="btn btn-primary" href="mailto:contact@es-blanquefort-basketball.fr?subject=Inscription%20newsletter%20ESB%20Basket">S’inscrire à la newsletter</a>
-      </section>
-    </div>
+  <div class="matches-tools">
+    <article class="matches-tool">
+      <h3>Se rendre aux gymnases</h3>
+      <p>Retrouvez les adresses et accès aux gymnases. Les futurs matchs affichés sur cette page permettront également d’ouvrir directement l’itinéraire.</p>
+      <a class="btn btn-primary" href="contact.html">Voir les gymnases</a>
+    </article>
+    <section class="newsletter-box">
+      <h3>Restez informés</h3>
+      <p>Inscrivez-vous à la newsletter pour recevoir les calendriers mensuels et les informations importantes du club.</p>
+      <a class="btn btn-primary" href="mailto:contact@es-blanquefort-basketball.fr?subject=Inscription%20newsletter%20ESB%20Basket">S’inscrire à la newsletter</a>
+    </section>
   </div>
 </div></section>
 </main>
