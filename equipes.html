@@ -28,21 +28,33 @@
 .section-brush-title::before,.section-brush-title::after{content:"";height:3px;width:52px;background:var(--g700);border-radius:99px}
 .section-brush-title h2{margin:0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;color:#111;font-size:44px}
 
-.teams-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.teams-update{display:flex;justify-content:center;margin:0 0 28px}
+.teams-update span{display:inline-flex;padding:6px 10px;border-radius:999px;background:var(--green-100);color:var(--green-700);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.teams-group+.teams-group{margin-top:48px}
+.teams-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
 .teams-card{
-  position:relative;overflow:hidden;padding:28px;border-radius:26px;
+  position:relative;overflow:hidden;padding:24px;border-radius:26px;
   background:linear-gradient(145deg,rgba(255,255,255,.90),rgba(231,242,235,.68));
   border:1px solid rgba(255,255,255,.82);
   box-shadow:0 22px 54px rgba(7,27,18,.12),inset 0 1px 0 rgba(255,255,255,.90);
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)
 }
 .teams-card::before{content:"";position:absolute;inset:0 0 auto;height:7px;background:linear-gradient(90deg,var(--g700),var(--g500),transparent)}
-.teams-card:nth-child(2){background:linear-gradient(145deg,rgba(220,236,224,.92),rgba(245,250,247,.74))}
-.teams-card:nth-child(3){background:linear-gradient(145deg,rgba(15,45,32,.97),rgba(31,90,63,.92));color:#fff}
-.teams-card h3{margin:0 0 9px;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:31px;color:var(--g900)}
-.teams-card:nth-child(3) h3,.teams-card:nth-child(3) p,.teams-card:nth-child(3) strong{color:#fff}
-.teams-card p{margin:0;color:#627267;line-height:1.55}
-.teams-card strong{display:block;margin-top:15px;color:var(--g700);font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.8px}
+.teams-card.pending{background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(245,249,246,.82))}
+.team-photo-slot{min-height:82px;margin:-24px -24px 22px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(15,45,32,.96),rgba(47,123,82,.88));color:rgba(255,255,255,.78);font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+.pending .team-photo-slot{background:linear-gradient(135deg,rgba(23,61,45,.92),rgba(99,132,112,.82))}
+.team-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px}
+.teams-card h3{margin:0;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:35px;line-height:1;color:var(--g900)}
+.team-status{flex:0 0 auto;display:inline-flex;padding:6px 9px;border-radius:999px;background:#e7f1ea;color:#0b4b2b;border:1px solid rgba(11,75,43,.10);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase}
+.team-status.pending-status{background:#fff4e7;color:#8a4513;border-color:rgba(199,101,34,.18)}
+.team-detail{margin-top:17px}
+.team-detail h4{margin:0 0 7px;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:1.2px;font-size:13px;color:var(--g700)}
+.team-detail ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.team-detail li,.team-detail p{margin:0;color:#44584d;line-height:1.5}
+.team-note{margin:12px 0 0;color:#6b4a2e;line-height:1.5;font-style:italic}
+.team-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.team-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:9px 13px;border-radius:999px;background:#e3f0e8;color:#0b4b2b;border:1px solid rgba(11,75,43,.18);font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;transition:.2s}
+.team-actions a:hover{transform:translateY(-1px);background:#d8eadf}
 
 .teams-join{
   position:relative;overflow:hidden;margin-top:24px;padding:34px;border-radius:26px;color:#fff;
@@ -123,7 +135,6 @@ img,video,iframe{max-width:100%;height:auto}
   .teams-hero{min-height:390px!important;background-position:center!important}
   .teams-copy{width:62%!important}
   .teams-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-  .teams-card:last-child{grid-column:1/-1}
   .teams-join{align-items:flex-start!important}
 
   /* matchs */
@@ -313,7 +324,7 @@ img,video,iframe{max-width:100%;height:auto}
   <div class="teams-kicker">Saison 2026-2027</div>
   <h1>Nos <span>équipes</span></h1>
   <div class="teams-script">Un club, 2 couleurs, une passion.</div>
-  <p>Les équipes, les coachs et les photos seront publiés dès que l’organisation sportive sera finalisée. Pour nous rejoindre, commencez simplement par la pré-inscription.</p>
+  <p>Découvrez les équipes de l’ES Blanquefort Basket-Ball pour la saison 2026-2027, leurs coachs, leurs créneaux et les accès aux compétitions FFBB lorsqu’elles sont engagées.</p>
   <div class="teams-actions">
     <a class="btn btn-primary" href="inscriptions.html">Rejoindre le club</a>
     <a class="btn btn-ghost" href="planning.html">Voir les créneaux</a>
@@ -321,11 +332,109 @@ img,video,iframe{max-width:100%;height:auto}
 </div></div></section>
 
 <section class="teams-section"><div class="wrap">
-  <div class="section-brush-title"><h2>Des équipes pour tous les âges</h2></div>
-  <div class="teams-grid">
-    <article class="teams-card"><h3>École de basket</h3><p>Découvrir, apprendre et prendre plaisir à jouer ensemble.</p><strong>Dès 3 ans</strong></article>
-    <article class="teams-card"><h3>Jeunes</h3><p>Les groupes et l’encadrement 2026-2027 seront publiés ici après validation.</p><strong>À venir</strong></article>
-    <article class="teams-card"><h3>Seniors & loisirs</h3><p>Les équipes adultes et loisirs seront présentées avec leurs coachs et leurs informations de saison.</p><strong>À venir</strong></article>
+  <div class="teams-update"><span>Mis à jour le 23 septembre 2026</span></div>
+
+  <div class="teams-group">
+    <div class="section-brush-title"><h2>Équipes engagées en compétition</h2></div>
+    <div class="teams-grid">
+      <article class="teams-card">
+        <div class="team-photo-slot">Photo d’équipe à venir</div>
+        <div class="team-heading"><h3>U13F</h3><span class="team-status">Compétition</span></div>
+        <div class="team-detail"><h4>Coachs</h4><ul><li>Nicolas DAMBA</li><li>Mickael DUPUIS</li></ul></div>
+        <div class="team-detail"><h4>Entraînements</h4><ul><li>Mardi 19h00–20h30 — Du Paty</li><li>Jeudi 18h30–20h00 — Béchon</li></ul></div>
+        <div class="team-actions">
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005370982" target="_blank" rel="noopener" aria-label="Calendrier FFBB de l’équipe U13F">Calendrier</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005370982/classement" target="_blank" rel="noopener" aria-label="Classement FFBB de l’équipe U13F">Classement</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dfu13-3?phase=200000002899469&amp;poule=200000003059588&amp;journee=1" target="_blank" rel="noopener" aria-label="Poule et journée FFBB de l’équipe U13F">Poule / journée</a>
+        </div>
+      </article>
+
+      <article class="teams-card">
+        <div class="team-photo-slot">Photo d’équipe à venir</div>
+        <div class="team-heading"><h3>U13M</h3><span class="team-status">Compétition</span></div>
+        <div class="team-detail"><h4>Coach</h4><ul><li>Thomas RICHARD</li></ul></div>
+        <div class="team-detail"><h4>Entraînements</h4><ul><li>Mercredi 15h00–16h30 — Port du Roy</li><li>Vendredi 18h00–19h30 — Béchon</li></ul></div>
+        <div class="team-actions">
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005371520" target="_blank" rel="noopener" aria-label="Calendrier FFBB de l’équipe U13M">Calendrier</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005371520/classement" target="_blank" rel="noopener" aria-label="Classement FFBB de l’équipe U13M">Classement</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu13-5?phase=200000002899490&amp;poule=200000003059648&amp;journee=1" target="_blank" rel="noopener" aria-label="Poule et journée FFBB de l’équipe U13M">Poule / journée</a>
+        </div>
+      </article>
+
+      <article class="teams-card">
+        <div class="team-photo-slot">Photo d’équipe à venir</div>
+        <div class="team-heading"><h3>U15M</h3><span class="team-status">Compétition</span></div>
+        <div class="team-detail"><h4>Coach</h4><ul><li>Vincent VILLARD</li></ul></div>
+        <div class="team-detail"><h4>Entraînements</h4><ul><li>Mardi 19h00–20h30 — Du Paty</li><li>Vendredi 19h30–21h00 — Béchon</li></ul></div>
+        <div class="team-actions">
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005371206" target="_blank" rel="noopener" aria-label="Calendrier FFBB de l’équipe U15M">Calendrier</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005371206/classement" target="_blank" rel="noopener" aria-label="Classement FFBB de l’équipe U15M">Classement</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu15-3?phase=200000002899480&amp;poule=200000003059626&amp;journee=1" target="_blank" rel="noopener" aria-label="Poule et journée FFBB de l’équipe U15M">Poule / journée</a>
+        </div>
+      </article>
+
+      <article class="teams-card">
+        <div class="team-photo-slot">Photo d’équipe à venir</div>
+        <div class="team-heading"><h3>SG1</h3><span class="team-status">Compétition</span></div>
+        <div class="team-detail"><h4>Coach</h4><ul><li>Mickael DUPUIS</li></ul></div>
+        <div class="team-detail"><h4>Entraînements</h4><ul><li>Mardi 20h30–22h00 — Port du Roy</li><li>Vendredi 20h30–22h30 — Port du Roy</li></ul></div>
+        <div class="team-actions">
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005338623" target="_blank" rel="noopener" aria-label="Calendrier FFBB de l’équipe SG1">Calendrier</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005338623/classement" target="_blank" rel="noopener" aria-label="Classement FFBB de l’équipe SG1">Classement</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm2?phase=200000002897490&amp;poule=200000003055085&amp;journee=1" target="_blank" rel="noopener" aria-label="Poule et journée FFBB de l’équipe SG1">Poule / journée</a>
+        </div>
+      </article>
+
+      <article class="teams-card">
+        <div class="team-photo-slot">Photo d’équipe à venir</div>
+        <div class="team-heading"><h3>SG2</h3><span class="team-status">Compétition</span></div>
+        <div class="team-detail"><h4>Coachs</h4><ul><li>Vincent VILLARD</li><li>Lucas MIRANDA DE SUZA</li></ul></div>
+        <div class="team-detail"><h4>Entraînements</h4><ul><li>Mercredi 19h00–20h30 — Port du Roy</li><li>Vendredi 21h00–22h30 — Béchon</li></ul></div>
+        <div class="team-actions">
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005365625" target="_blank" rel="noopener" aria-label="Calendrier FFBB de l’équipe SG2">Calendrier</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005365625/classement" target="_blank" rel="noopener" aria-label="Classement FFBB de l’équipe SG2">Classement</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm4?phase=200000002899174&amp;poule=200000003058836&amp;journee=1" target="_blank" rel="noopener" aria-label="Poule et journée FFBB de l’équipe SG2">Poule / journée</a>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <div class="teams-group">
+    <div class="section-brush-title"><h2>Groupes en cours de constitution / essais</h2></div>
+    <div class="teams-grid">
+      <article class="teams-card pending">
+        <div class="team-photo-slot">Photo de groupe à venir</div>
+        <div class="team-heading"><h3>U5</h3><span class="team-status pending-status">Essais en cours</span></div>
+        <div class="team-detail"><h4>Créneau</h4><ul><li>Lundi 17h30–18h30 — Fongravey</li></ul></div>
+      </article>
+
+      <article class="teams-card pending">
+        <div class="team-photo-slot">Photo de groupe à venir</div>
+        <div class="team-heading"><h3>U7</h3><span class="team-status pending-status">Essais en cours</span></div>
+        <div class="team-detail"><h4>Créneau</h4><ul><li>Lundi 17h30–18h30 — Fongravey</li></ul></div>
+      </article>
+
+      <article class="teams-card pending">
+        <div class="team-photo-slot">Photo de groupe à venir</div>
+        <div class="team-heading"><h3>U9</h3><span class="team-status pending-status">Essais en cours</span></div>
+        <p class="team-note">Matchs à partir d’après les vacances de Toussaint.</p>
+        <div class="team-detail"><h4>Créneaux</h4><ul><li>Mardi 17h30–19h00 — Du Paty</li><li>Mercredi 16h30–17h45 — Port du Roy</li></ul></div>
+      </article>
+
+      <article class="teams-card pending">
+        <div class="team-photo-slot">Photo de groupe à venir</div>
+        <div class="team-heading"><h3>U11</h3><span class="team-status pending-status">Essais en cours</span></div>
+        <p class="team-note">Matchs à partir d’après les vacances de Toussaint.</p>
+        <div class="team-detail"><h4>Créneaux</h4><ul><li>Mardi 17h30–19h00 — Du Paty</li><li>Mercredi 17h45–19h00 — Port du Roy</li></ul></div>
+      </article>
+
+      <article class="teams-card pending">
+        <div class="team-photo-slot">Photo de groupe à venir</div>
+        <div class="team-heading"><h3>U18</h3><span class="team-status pending-status">Équipe en création</span></div>
+        <p class="team-note">Engagement à venir.</p>
+        <div class="team-detail"><h4>Créneaux</h4><ul><li>Mercredi 19h00–20h30 — Port du Roy</li><li>Vendredi 21h00–22h30 — Béchon</li></ul></div>
+      </article>
+    </div>
   </div>
   <div class="teams-join">
     <div><h2>Envie de nous rejoindre ?</h2><p>Faites votre pré-inscription et nous vous orienterons vers la catégorie adaptée.</p></div>
