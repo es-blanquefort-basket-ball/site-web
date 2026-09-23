@@ -166,10 +166,11 @@
   const createDayGroup = (title, events, type) => {
     const section = createElement('section', 'calendar-day-group');
     const heading = createElement('h4', 'calendar-day-group-title');
-    heading.append(createElement('span', '', title), createElement('span', 'calendar-group-count', String(events.length)));
+    const countLabel = !events.length && type !== 'match' ? 'À venir' : String(events.length);
+    heading.append(createElement('span', '', title), createElement('span', 'calendar-group-count', countLabel));
     section.append(heading);
     if (!events.length) {
-      section.append(createElement('p', 'calendar-group-empty', 'Aucun élément publié.'));
+      if (type === 'match') section.append(createElement('p', 'calendar-group-empty', 'Aucun élément publié.'));
       return section;
     }
     events.forEach(event => {
