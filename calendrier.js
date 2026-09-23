@@ -11,7 +11,9 @@
     'local_date',
     'local_time',
     'venue_name',
+    'venue_address',
     'round_label',
+    'ffbb_match_url',
     'ffbb_team_url'
   ].join(',');
 
@@ -81,7 +83,9 @@
       localDate,
       localTime,
       venueName: item.venue_name ? String(item.venue_name).trim() : '',
+      venueAddress: item.venue_address ? String(item.venue_address).trim() : '',
       roundLabel: item.round_label ? String(item.round_label).trim() : '',
+      ffbbMatchUrl: safeFfbbUrl(item.ffbb_match_url),
       ffbbTeamUrl: safeFfbbUrl(item.ffbb_team_url)
     };
   };
@@ -151,8 +155,11 @@
     appendDetailRow(details, 'Adversaire', event.opponentName);
     appendDetailRow(details, 'Rencontre', locationLabel(event.homeAway));
     appendDetailRow(details, 'Gymnase', event.venueName);
+    appendDetailRow(details, 'Adresse', event.venueAddress);
     appendDetailRow(details, 'Journée', event.roundLabel);
-    appendDetailRow(details, 'FFBB', event.ffbbTeamUrl ? 'Voir la fiche de l’équipe' : '', event.ffbbTeamUrl);
+    const ffbbUrl = event.ffbbMatchUrl || event.ffbbTeamUrl;
+    const ffbbLabel = event.ffbbMatchUrl ? 'Voir la fiche du match' : 'Voir la fiche de l’équipe';
+    appendDetailRow(details, 'FFBB', ffbbUrl ? ffbbLabel : '', ffbbUrl);
     card.append(heading, details);
     return card;
   };
