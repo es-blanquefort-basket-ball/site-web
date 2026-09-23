@@ -141,7 +141,7 @@
   };
 
   const createMatchCard = event => {
-    const card = createElement('article', `calendar-day-item ${event.homeAway === 'away' ? 'is-away' : 'is-home'}`);
+    const card = createElement('article', `calendar-day-item is-match ${event.homeAway === 'away' ? 'is-away' : 'is-home'}`);
     const heading = createElement('h5', 'calendar-day-item-title');
     heading.append(
       createElement('span', '', event.teamCode),
@@ -164,15 +164,11 @@
   };
 
   const createDayGroup = (title, events, type) => {
+    if (!events.length) return null;
     const section = createElement('section', 'calendar-day-group');
     const heading = createElement('h4', 'calendar-day-group-title');
-    const countLabel = !events.length && type !== 'match' ? 'À venir' : String(events.length);
-    heading.append(createElement('span', '', title), createElement('span', 'calendar-group-count', countLabel));
+    heading.append(createElement('span', '', title), createElement('span', 'calendar-group-count', String(events.length)));
     section.append(heading);
-    if (!events.length) {
-      if (type === 'match') section.append(createElement('p', 'calendar-group-empty', 'Aucun élément publié.'));
-      return section;
-    }
     events.forEach(event => {
       if (type === 'match') section.append(createMatchCard(event));
       if (type === 'training') section.append(createGenericCard(event, 'is-training'));
@@ -196,11 +192,12 @@
     calendar.querySelectorAll('.calendar-day').forEach(day => day.classList.toggle('is-selected', day.dataset.date === dateKey));
     const groups = groupEventsByType(events);
     drawerTitle.textContent = `Journée du ${fullDateFormatter.format(dateFromKey(dateKey))}`;
-    drawerContent.replaceChildren(
+    const dayGroups = [
       createDayGroup('Matchs', groups.match, 'match'),
       createDayGroup('Entraînements', groups.training, 'training'),
       createDayGroup('Événements', groups.event, 'event')
-    );
+    ].filter(Boolean);
+    drawerContent.replaceChildren(...dayGroups);
     drawerLayer.hidden = false;
     document.body.classList.add('calendar-drawer-open');
     drawer.focus();
@@ -215,11 +212,9 @@
   const createDaySummary = events => {
     const groups = groupEventsByType(events);
     const summary = createElement('span', 'calendar-day-summary');
-    summary.append(
-      createCount(groups.match.length, 'match', 'matchs', 'is-match'),
-      createCount(groups.training.length, 'entraînement', 'entraînements', 'is-training'),
-      createCount(groups.event.length, 'événement', 'événements', 'is-event')
-    );
+    if (groups.match.length) summary.append(createCount(groups.match.length, 'match', 'matchs', 'is-match'));
+    if (groups.training.length) summary.append(createCount(groups.training.length, 'entraînement', 'entraînements', 'is-training'));
+    if (groups.event.length) summary.append(createCount(groups.event.length, 'événement', 'événements', 'is-event'));
     const teams = [...new Set(groups.match.map(event => event.teamCode))];
     if (teams.length) {
       const badges = createElement('span', 'calendar-team-badges');

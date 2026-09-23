@@ -54,9 +54,12 @@
 .calendar-day-summary{display:grid;gap:4px;width:100%;margin-top:7px}
 .calendar-count{display:flex;align-items:center;justify-content:space-between;gap:4px;border:1px solid rgba(31,90,63,.12);border-radius:8px;background:#f4f8f5;color:#52635a;padding:3px 6px;font-size:10px;line-height:1.2}
 .calendar-count strong{color:var(--g900);font-size:12px}
-.calendar-count.is-match{border-left:3px solid var(--g700)}
-.calendar-count.is-training{border-left:3px dashed var(--g500)}
-.calendar-count.is-event{border-left:3px solid var(--g900);background:#edf5f0}
+.calendar-count.is-match{border-color:var(--g700);background:var(--g700);color:#fff}
+.calendar-count.is-match strong{color:#fff}
+.calendar-count.is-training{border-color:var(--g500);background:#fff;color:var(--g700)}
+.calendar-count.is-training strong{color:var(--g700)}
+.calendar-count.is-event{border-color:var(--g900);background:var(--g900);color:#fff}
+.calendar-count.is-event strong{color:#fff}
 .calendar-team-badges{display:flex;flex-wrap:wrap;gap:3px;margin-top:2px}
 .calendar-team-badge{border-radius:999px;background:var(--g700);color:#fff;padding:2px 6px;font-size:9px;font-weight:700;line-height:1.35}
 .calendar-status{min-height:24px;margin:12px 0 0!important;color:#66746b!important;font-size:13px}
@@ -76,13 +79,19 @@
 .calendar-day-group{display:grid;gap:10px}
 .calendar-day-group-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0;padding-bottom:7px;border-bottom:2px solid var(--g700);font-family:'Barlow Condensed',sans-serif;font-size:15px;text-transform:uppercase}
 .calendar-group-count{display:inline-grid;place-items:center;min-width:25px;height:25px;border-radius:999px;background:#e7f2ea;color:var(--g800);font-size:12px}
-.calendar-group-empty{margin:0!important;padding:12px;border:1px dashed rgba(31,90,63,.22);border-radius:11px;background:#f7faf8;color:#748078!important;font-size:13px}
 .calendar-day-item{display:grid;gap:9px;border:1px solid var(--line);border-left:5px solid var(--g700);border-radius:14px;background:#fff;padding:14px}
-.calendar-day-item.is-away{border-left-style:dashed;background:#f7faf8}
-.calendar-day-item.is-training{border-left-color:var(--g500);border-left-style:dashed;background:#edf5f0}
-.calendar-day-item.is-event{border-left-color:var(--g900);background:#f4f8f5}
+.calendar-day-item.is-match{border-color:var(--g700);background:var(--g700);color:#fff}
+.calendar-day-item.is-away{border-left-style:dashed}
+.calendar-day-item.is-training{border-color:var(--g500);background:#fff;color:var(--g700)}
+.calendar-day-item.is-event{border-color:var(--g900);background:var(--g900);color:#fff}
 .calendar-day-item-title{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin:0;font-size:18px;color:var(--g900)}
+.calendar-day-item.is-training .calendar-day-item-title{color:var(--g700)}
+.calendar-day-item.is-match .calendar-day-item-title,.calendar-day-item.is-event .calendar-day-item-title{color:#fff}
 .calendar-day-item-time{flex:0 0 auto;border-radius:8px;background:var(--g700);color:#fff;padding:4px 7px;font-size:13px}
+.calendar-day-item.is-match .calendar-day-item-time{background:var(--g900)}
+.calendar-day-item.is-match .calendar-detail-row{border-bottom-color:rgba(255,255,255,.22)}
+.calendar-day-item.is-match .calendar-detail-label{color:rgba(255,255,255,.76)}
+.calendar-day-item.is-match .calendar-detail-link{color:#fff}
 .calendar-detail-row{display:grid;grid-template-columns:120px minmax(0,1fr);gap:12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
 .calendar-detail-row:last-child{border-bottom:0;padding-bottom:0}
 .calendar-detail-label{color:#6a776f;font-size:13px;font-weight:700}
@@ -96,7 +105,6 @@ body.calendar-drawer-open{overflow:hidden}
 .matches-heading p{max-width:720px;margin:8px 0 0;color:#627267;line-height:1.55}
 .competition-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .competition-card{display:flex;align-items:center;justify-content:space-between;gap:22px;padding:22px 24px;border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(234,244,237,.66));border:1px solid rgba(255,255,255,.82);box-shadow:0 16px 38px rgba(7,27,18,.09),inset 0 1px 0 rgba(255,255,255,.9)}
-.competition-card:last-child{grid-column:1/-1}
 .competition-card h3{flex:0 0 auto;margin:0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:34px;color:var(--g900)}
 .competition-links{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
 .competition-links .btn{min-height:40px;padding:9px 13px;font-size:12px}
@@ -291,7 +299,7 @@ img,video,iframe{max-width:100%;height:auto}
   .calendar-day-button{min-height:0;padding:12px}
   .calendar-day.is-outside,.calendar-day.is-empty:not(.is-selected){display:none}
   .calendar-day-number{font-size:14px}
-  .calendar-day-summary{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+  .calendar-day-summary{grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:5px}
   .calendar-count{display:grid;justify-items:center;padding:6px 4px;text-align:center}
   .calendar-team-badges{grid-column:1/-1}
   .calendar-drawer-layer{grid-template-columns:1fr;align-items:end}
@@ -301,7 +309,7 @@ img,video,iframe{max-width:100%;height:auto}
   .calendar-detail-row{grid-template-columns:1fr;gap:4px}
   .matches-heading h2{font-size:39px!important}
   .competition-grid{grid-template-columns:1fr!important}
-  .competition-card,.competition-card:last-child{grid-column:auto;padding:20px;border-radius:18px}
+  .competition-card{grid-column:auto;padding:20px;border-radius:18px}
   .competition-links{display:grid;width:100%;grid-template-columns:1fr}
   .competition-links .btn{display:flex;width:100%;justify-content:center}
 
@@ -404,7 +412,7 @@ img,video,iframe{max-width:100%;height:auto}
 </div></div></section>
 
 <section class="matches-section"><div class="wrap">
-  <section class="matches-panel matches-calendar" id="calendrier-club" aria-labelledby="calendrier-club-title" data-calendar-source="supabase">
+  <section class="matches-panel matches-calendar" id="calendrier-club" aria-labelledby="calendrier-club-title">
     <div class="calendar-intro">
       <div>
         <div class="eyebrow">Saison 2026-2027</div>
@@ -432,7 +440,7 @@ img,video,iframe{max-width:100%;height:auto}
     <div class="calendar-grid" id="club-calendar" role="grid" aria-label="Calendrier mensuel"></div>
     <div class="calendar-empty-month" id="calendar-empty-month">Aucune rencontre publiée pour ce mois.</div>
     <p class="calendar-status" id="calendar-status" role="status" aria-live="polite">Chargement du calendrier…</p>
-    <p class="calendar-note">Données issues de la vue publique Supabase du club. Les horaires affichés intègrent les éventuelles corrections du club.</p>
+    <p class="calendar-note">Matchs : données FFBB. Entraînements et événements : informations du club.</p>
   </section>
 
   <div class="calendar-drawer-layer" id="calendar-day-drawer" hidden>
