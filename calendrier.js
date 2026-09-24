@@ -147,10 +147,12 @@
   const createMatchCard = event => {
     const card = createElement('article', `calendar-day-item is-match ${event.homeAway === 'away' ? 'is-away' : 'is-home'}`);
     const heading = createElement('h5', 'calendar-day-item-title');
-    heading.append(
-      createElement('span', '', event.teamCode),
+    const matchMeta = createElement('span', 'calendar-match-meta');
+    matchMeta.append(
+      createElement('span', 'calendar-match-place', locationLabel(event.homeAway)),
       createElement('time', 'calendar-day-item-time', displayLocalTime(event.localTime))
     );
+    heading.append(createElement('span', '', event.teamCode), matchMeta);
     const details = createElement('div', 'calendar-day-item-details');
     appendDetailRow(details, 'Adversaire', event.opponentName);
     appendDetailRow(details, 'Rencontre', locationLabel(event.homeAway));
@@ -158,7 +160,7 @@
     appendDetailRow(details, 'Adresse', event.venueAddress);
     appendDetailRow(details, 'Journée', event.roundLabel);
     const ffbbUrl = event.ffbbMatchUrl || event.ffbbTeamUrl;
-    const ffbbLabel = event.ffbbMatchUrl ? 'Voir la fiche du match' : 'Voir la fiche de l’équipe';
+    const ffbbLabel = event.ffbbMatchUrl ? 'Voir la fiche du match pour la localisation' : 'Voir la fiche de l’équipe';
     appendDetailRow(details, 'FFBB', ffbbUrl ? ffbbLabel : '', ffbbUrl);
     card.append(heading, details);
     return card;
