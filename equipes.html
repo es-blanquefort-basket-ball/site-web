@@ -24,7 +24,7 @@
 .teams-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
 
 .teams-section{padding:56px 0 0}
-@media(min-width:1025px){.teams-section > .wrap{width:min(1320px,calc(100% - 40px));max-width:1320px}}
+@media(min-width:1025px){.teams-section > .wrap{width:min(1440px,calc(100% - 40px));max-width:1440px}}
 .section-brush-title{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:26px}
 .section-brush-title::before,.section-brush-title::after{content:"";height:3px;width:52px;background:var(--g700);border-radius:99px}
 .section-brush-title h2{margin:0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;color:#111;font-size:44px}
@@ -33,6 +33,17 @@
 .teams-update span{display:inline-flex;padding:6px 10px;border-radius:999px;background:var(--green-100);color:var(--green-700);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
 .loisirs-section,.loisirs-section+.teams-group,.teams-group+.teams-group{margin-top:48px}
 .teams-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.teams-grid--pair{grid-template-columns:repeat(2,minmax(0,1fr));max-width:860px;margin-inline:auto}
+.teams-grid--petits .teams-card{background:linear-gradient(145deg,rgba(231,242,235,.96),rgba(255,255,255,.98))}
+.team-subtitle{margin:8px 0 0;font-family:'Barlow Condensed',sans-serif;font-size:17px;line-height:1.25;color:var(--g700)}
+@media(min-width:1025px){
+  .teams-grid--graines{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .teams-grid--graines > .teams-card{grid-column:span 2}
+  .teams-grid--graines > .teams-card:nth-child(4){grid-column:2 / span 2}
+  .teams-grid--graines > .teams-card:nth-child(5){grid-column:4 / span 2}
+  .teams-grid--espoirs{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+
 .teams-card{
   position:relative;overflow:hidden;padding:24px;border-radius:26px;
   background:linear-gradient(145deg,rgba(255,255,255,.90),rgba(231,242,235,.68));
@@ -354,23 +365,28 @@ img,video,iframe{max-width:100%;height:auto}
   <div class="teams-update"><span>Mis à jour le 3 novembre 2026</span></div>
 
   <div class="teams-group">
-    <div class="section-brush-title"><h2>École de basket</h2></div>
-    <div class="teams-grid">
+    <div class="section-brush-title"><h2>Les Petits Géants</h2></div>
+    <div class="teams-grid teams-grid--pair teams-grid--petits">
       <article class="teams-card pending">
         <div class="team-photo-slot">Photo de groupe à venir</div>
-        <div class="team-heading"><h3>U5</h3><span class="team-status pending-status">Essais en cours</span></div>
+        <div class="team-heading"><div><h3>U5</h3><p class="team-subtitle">Micro Basket</p></div></div>
         <div class="team-detail"><h4>Créneau</h4><ul><li>Lundi 17h30–18h30 — Fongravey</li></ul></div>
       </article>
 
       <article class="teams-card pending">
         <div class="team-photo-slot">Photo de groupe à venir</div>
-        <div class="team-heading"><h3>U7</h3><span class="team-status pending-status">Essais en cours</span></div>
+        <div class="team-heading"><div><h3>U7</h3><p class="team-subtitle">Baby Basket</p></div></div>
         <div class="team-detail"><h4>Créneau</h4><ul><li>Lundi 17h30–18h30 — Fongravey</li></ul></div>
       </article>
+    </div>
+  </div>
 
+  <div class="teams-group">
+    <div class="section-brush-title"><h2>Les Graines de champions</h2></div>
+    <div class="teams-grid teams-grid--graines">
       <article class="teams-card">
         <div class="team-photo-slot">Photo de groupe à venir</div>
-        <div class="team-heading"><h3>U9 filles</h3><span class="team-status">Compétition</span></div>
+        <div class="team-heading"><h3>U9F</h3><span class="team-status">Compétition</span></div>
         <div class="team-detail"><h4>Compétition</h4><p>DFU9-10-P2</p></div>
         <div class="team-actions"><a href="calendrier.html">Calendrier du club</a></div>
         <div class="team-detail"><h4>Créneaux de la catégorie U9</h4><ul><li>Mardi 17h30–19h00 — Dupaty</li><li>Mercredi 16h30–17h45 — Port du Roy</li></ul></div>
@@ -378,7 +394,7 @@ img,video,iframe{max-width:100%;height:auto}
 
       <article class="teams-card">
         <div class="team-photo-slot">Photo de groupe à venir</div>
-        <div class="team-heading"><h3>U9 garçons 1</h3><span class="team-status">Compétition</span></div>
+        <div class="team-heading"><h3>U9M1</h3><span class="team-status">Compétition</span></div>
         <div class="team-detail"><h4>Compétition</h4><p>DMU9-10-P2</p></div>
         <div class="team-actions"><a href="calendrier.html">Calendrier du club</a></div>
         <div class="team-detail"><h4>Créneaux de la catégorie U9</h4><ul><li>Mardi 17h30–19h00 — Dupaty</li><li>Mercredi 16h30–17h45 — Port du Roy</li></ul></div>
@@ -386,7 +402,7 @@ img,video,iframe{max-width:100%;height:auto}
 
       <article class="teams-card">
         <div class="team-photo-slot">Photo de groupe à venir</div>
-        <div class="team-heading"><h3>U9 garçons 2</h3><span class="team-status">Compétition</span></div>
+        <div class="team-heading"><h3>U9M2</h3><span class="team-status">Compétition</span></div>
         <div class="team-detail"><h4>Compétition</h4><p>DMU9-10-P2</p></div>
         <div class="team-actions"><a href="calendrier.html">Calendrier du club</a></div>
         <div class="team-detail"><h4>Créneaux de la catégorie U9</h4><ul><li>Mardi 17h30–19h00 — Dupaty</li><li>Mercredi 16h30–17h45 — Port du Roy</li></ul></div>
@@ -394,7 +410,7 @@ img,video,iframe{max-width:100%;height:auto}
 
       <article class="teams-card">
         <div class="team-photo-slot">Photo de groupe à venir</div>
-        <div class="team-heading"><h3>U11 garçons 1</h3><span class="team-status">Compétition</span></div>
+        <div class="team-heading"><h3>U11 Mixte</h3><span class="team-status">Compétition</span></div>
         <div class="team-detail"><h4>Compétition</h4><p>DMU11-4-P2</p></div>
         <div class="team-actions"><a href="calendrier.html">Calendrier du club</a></div>
         <div class="team-detail"><h4>Créneaux de la catégorie U11</h4><ul><li>Mardi 17h30–19h00 — Dupaty</li><li>Mercredi 17h45–19h00 — Port du Roy</li></ul></div>
@@ -402,18 +418,17 @@ img,video,iframe{max-width:100%;height:auto}
 
       <article class="teams-card">
         <div class="team-photo-slot">Photo de groupe à venir</div>
-        <div class="team-heading"><h3>U11 garçons 2</h3><span class="team-status">Compétition</span></div>
+        <div class="team-heading"><h3>U11 M</h3><span class="team-status">Compétition</span></div>
         <div class="team-detail"><h4>Compétition</h4><p>DMU11-10-P2</p></div>
         <div class="team-actions"><a href="calendrier.html">Calendrier du club</a></div>
         <div class="team-detail"><h4>Créneaux de la catégorie U11</h4><ul><li>Mardi 17h30–19h00 — Dupaty</li><li>Mercredi 17h45–19h00 — Port du Roy</li></ul></div>
       </article>
-
     </div>
   </div>
 
   <div class="teams-group">
-    <div class="section-brush-title"><h2>Équipes engagées en compétition</h2></div>
-    <div class="teams-grid">
+    <div class="section-brush-title"><h2>Les Espoirs</h2></div>
+    <div class="teams-grid teams-grid--espoirs">
       <article class="teams-card">
         <div class="team-photo-slot">Photo d’équipe à venir</div>
         <div class="team-heading"><h3>U13F</h3><span class="team-status">Compétition</span></div>
@@ -464,10 +479,15 @@ img,video,iframe{max-width:100%;height:auto}
           <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/classement?poule=200000003064624&amp;phase=200000002899476" target="_blank" rel="noopener" aria-label="Poule et journée FFBB de l’équipe U18M">Poule / journée</a>
         </div>
       </article>
+    </div>
+  </div>
 
+  <div class="teams-group">
+    <div class="section-brush-title"><h2>Les Guides du parquet</h2></div>
+    <div class="teams-grid teams-grid--pair">
       <article class="teams-card">
         <div class="team-photo-slot">Photo d’équipe à venir</div>
-        <div class="team-heading"><h3>SG1 — DM2</h3><span class="team-status">Compétition</span></div>
+        <div class="team-heading"><div><h3>Seniors Garçons 1</h3><p class="team-subtitle">DM2</p></div><span class="team-status">Compétition</span></div>
         <div class="team-detail"><h4>Coach</h4><ul><li>Mickael DUPUIS</li></ul></div>
         <div class="team-detail"><h4>Entraînements</h4><ul><li>Mardi 20h30–22h00 — Port du Roy</li><li>Vendredi 20h30–22h30 — Port du Roy</li></ul></div>
         <div class="team-actions">
@@ -479,7 +499,7 @@ img,video,iframe{max-width:100%;height:auto}
 
       <article class="teams-card">
         <div class="team-photo-slot">Photo d’équipe à venir</div>
-        <div class="team-heading"><h3>SG2 — DM4</h3><span class="team-status">Compétition</span></div>
+        <div class="team-heading"><div><h3>Seniors Garçons 2</h3><p class="team-subtitle">DM4</p></div><span class="team-status">Compétition</span></div>
         <div class="team-detail"><h4>Coachs</h4><ul><li>Vincent VILLARD</li><li>Lucas MIRANDA DE SUZA</li></ul></div>
         <div class="team-detail"><h4>Entraînements</h4><ul><li>Mercredi 19h00–20h30 — Port du Roy</li><li>Vendredi 21h00–22h30 — Béchon</li></ul></div>
         <div class="team-actions">
@@ -492,7 +512,7 @@ img,video,iframe{max-width:100%;height:auto}
   </div>
 
   <div class="loisirs-section">
-    <div class="section-brush-title"><h2>Section Loisirs</h2></div>
+    <div class="section-brush-title"><h2>Les Inoxydables</h2></div>
     <article class="loisirs-feature">
       <div class="loisirs-visual">
         <img src="images/loisirs-recrutement-2026.png" alt="Section Loisirs mixte de l’ES Blanquefort Basket-Ball">
