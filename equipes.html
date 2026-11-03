@@ -24,14 +24,15 @@
 .teams-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
 
 .teams-section{padding:56px 0 0}
+@media(min-width:1025px){.teams-section > .wrap{width:min(1320px,calc(100% - 40px));max-width:1320px}}
 .section-brush-title{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:26px}
 .section-brush-title::before,.section-brush-title::after{content:"";height:3px;width:52px;background:var(--g700);border-radius:99px}
 .section-brush-title h2{margin:0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;color:#111;font-size:44px}
 
 .teams-update{display:flex;justify-content:center;margin:0 0 28px}
 .teams-update span{display:inline-flex;padding:6px 10px;border-radius:999px;background:var(--green-100);color:var(--green-700);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
-.loisirs-section,.loisirs-section+.teams-group{margin-top:48px}
-.teams-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.loisirs-section,.loisirs-section+.teams-group,.teams-group+.teams-group{margin-top:48px}
+.teams-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
 .teams-card{
   position:relative;overflow:hidden;padding:24px;border-radius:26px;
   background:linear-gradient(145deg,rgba(255,255,255,.90),rgba(231,242,235,.68));
@@ -353,13 +354,71 @@ img,video,iframe{max-width:100%;height:auto}
   <div class="teams-update"><span>Mis à jour le 3 novembre 2026</span></div>
 
   <div class="teams-group">
+    <div class="section-brush-title"><h2>École de basket</h2></div>
+    <div class="teams-grid">
+      <article class="teams-card pending">
+        <div class="team-photo-slot">Photo de groupe à venir</div>
+        <div class="team-heading"><h3>U5</h3><span class="team-status pending-status">Essais en cours</span></div>
+        <div class="team-detail"><h4>Créneau</h4><ul><li>Lundi 17h30–18h30 — Fongravey</li></ul></div>
+      </article>
+
+      <article class="teams-card pending">
+        <div class="team-photo-slot">Photo de groupe à venir</div>
+        <div class="team-heading"><h3>U7</h3><span class="team-status pending-status">Essais en cours</span></div>
+        <div class="team-detail"><h4>Créneau</h4><ul><li>Lundi 17h30–18h30 — Fongravey</li></ul></div>
+      </article>
+
+      <article class="teams-card">
+        <div class="team-photo-slot">Photo de groupe à venir</div>
+        <div class="team-heading"><h3>U9 filles</h3><span class="team-status">Compétition</span></div>
+        <div class="team-detail"><h4>Compétition</h4><p>DFU9-10-P2</p></div>
+        <div class="team-actions"><a href="calendrier.html">Calendrier du club</a></div>
+        <div class="team-detail"><h4>Créneaux de la catégorie U9</h4><ul><li>Mardi 17h30–19h00 — Dupaty</li><li>Mercredi 16h30–17h45 — Port du Roy</li></ul></div>
+      </article>
+
+      <article class="teams-card">
+        <div class="team-photo-slot">Photo de groupe à venir</div>
+        <div class="team-heading"><h3>U9 garçons 1</h3><span class="team-status">Compétition</span></div>
+        <div class="team-detail"><h4>Compétition</h4><p>DMU9-10-P2</p></div>
+        <div class="team-actions"><a href="calendrier.html">Calendrier du club</a></div>
+        <div class="team-detail"><h4>Créneaux de la catégorie U9</h4><ul><li>Mardi 17h30–19h00 — Dupaty</li><li>Mercredi 16h30–17h45 — Port du Roy</li></ul></div>
+      </article>
+
+      <article class="teams-card">
+        <div class="team-photo-slot">Photo de groupe à venir</div>
+        <div class="team-heading"><h3>U9 garçons 2</h3><span class="team-status">Compétition</span></div>
+        <div class="team-detail"><h4>Compétition</h4><p>DMU9-10-P2</p></div>
+        <div class="team-actions"><a href="calendrier.html">Calendrier du club</a></div>
+        <div class="team-detail"><h4>Créneaux de la catégorie U9</h4><ul><li>Mardi 17h30–19h00 — Dupaty</li><li>Mercredi 16h30–17h45 — Port du Roy</li></ul></div>
+      </article>
+
+      <article class="teams-card">
+        <div class="team-photo-slot">Photo de groupe à venir</div>
+        <div class="team-heading"><h3>U11 garçons 1</h3><span class="team-status">Compétition</span></div>
+        <div class="team-detail"><h4>Compétition</h4><p>DMU11-4-P2</p></div>
+        <div class="team-actions"><a href="calendrier.html">Calendrier du club</a></div>
+        <div class="team-detail"><h4>Créneaux de la catégorie U11</h4><ul><li>Mardi 17h30–19h00 — Dupaty</li><li>Mercredi 17h45–19h00 — Port du Roy</li></ul></div>
+      </article>
+
+      <article class="teams-card">
+        <div class="team-photo-slot">Photo de groupe à venir</div>
+        <div class="team-heading"><h3>U11 garçons 2</h3><span class="team-status">Compétition</span></div>
+        <div class="team-detail"><h4>Compétition</h4><p>DMU11-10-P2</p></div>
+        <div class="team-actions"><a href="calendrier.html">Calendrier du club</a></div>
+        <div class="team-detail"><h4>Créneaux de la catégorie U11</h4><ul><li>Mardi 17h30–19h00 — Dupaty</li><li>Mercredi 17h45–19h00 — Port du Roy</li></ul></div>
+      </article>
+
+    </div>
+  </div>
+
+  <div class="teams-group">
     <div class="section-brush-title"><h2>Équipes engagées en compétition</h2></div>
     <div class="teams-grid">
       <article class="teams-card">
         <div class="team-photo-slot">Photo d’équipe à venir</div>
         <div class="team-heading"><h3>U13F</h3><span class="team-status">Compétition</span></div>
         <div class="team-detail"><h4>Coachs</h4><ul><li>Nicolas DAMBA</li><li>Mickael DUPUIS</li></ul></div>
-        <div class="team-detail"><h4>Entraînements</h4><ul><li>Mardi 19h00–20h30 — Du Paty</li><li>Jeudi 18h30–20h00 — Béchon</li></ul></div>
+        <div class="team-detail"><h4>Entraînements</h4><ul><li>Mardi 19h00–20h30 — Dupaty</li><li>Jeudi 18h30–20h00 — Béchon</li></ul></div>
         <div class="team-actions">
           <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005370982" target="_blank" rel="noopener" aria-label="Calendrier FFBB de l’équipe U13F">Calendrier</a>
           <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005408294" target="_blank" rel="noopener" aria-label="Calendrier FFBB de phase 2 de l’équipe U13F">Calendrier phase 2</a>
@@ -385,7 +444,7 @@ img,video,iframe{max-width:100%;height:auto}
         <div class="team-photo-slot">Photo d’équipe à venir</div>
         <div class="team-heading"><h3>U15M</h3><span class="team-status">Compétition</span></div>
         <div class="team-detail"><h4>Coach</h4><ul><li>Vincent VILLARD</li></ul></div>
-        <div class="team-detail"><h4>Entraînements</h4><ul><li>Mardi 19h00–20h30 — Du Paty</li><li>Vendredi 19h30–21h00 — Béchon</li></ul></div>
+        <div class="team-detail"><h4>Entraînements</h4><ul><li>Mardi 19h00–20h30 — Dupaty</li><li>Vendredi 19h30–21h00 — Béchon</li></ul></div>
         <div class="team-actions">
           <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005371206" target="_blank" rel="noopener" aria-label="Calendrier FFBB de l’équipe U15M">Calendrier</a>
           <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005414841" target="_blank" rel="noopener" aria-label="Calendrier FFBB de phase 2 de l’équipe U15M">Calendrier phase 2</a>
@@ -395,13 +454,15 @@ img,video,iframe{max-width:100%;height:auto}
       </article>
 
       <article class="teams-card">
-        <div class="team-photo-slot">Photo de groupe à venir</div>
-        <div class="team-heading"><h3>U18</h3><span class="team-status">Compétition</span></div>
-        <p class="team-note">Équipe officiellement engagée pour la saison 2026-2027.</p>
+        <div class="team-photo-slot">Photo d’équipe à venir</div>
+        <div class="team-heading"><h3>U18M</h3><span class="team-status">Compétition</span></div>
+        <div class="team-detail"><h4>Coach</h4><ul><li>Vincent VILLARD</li></ul></div>
+        <div class="team-detail"><h4>Entraînements</h4><ul><li>Mercredi 19h00–20h30 — Port du Roy</li><li>Vendredi 21h00–22h30 — Béchon (gymnase du lycée)</li></ul></div>
         <div class="team-actions">
-          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005419968" target="_blank" rel="noopener" aria-label="Calendrier FFBB de phase 2 de l’équipe U18">Calendrier phase 2</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005419968" target="_blank" rel="noopener" aria-label="Calendrier FFBB de phase 2 de l’équipe U18M">Calendrier phase 2</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005419968/classement" target="_blank" rel="noopener" aria-label="Classement FFBB de l’équipe U18M">Classement</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/classement?poule=200000003064624&amp;phase=200000002899476" target="_blank" rel="noopener" aria-label="Poule et journée FFBB de l’équipe U18M">Poule / journée</a>
         </div>
-        <div class="team-detail"><h4>Créneaux</h4><ul><li>Mercredi 19h00–20h30 — Port du Roy</li><li>Vendredi 21h00–22h30 — Béchon</li></ul></div>
       </article>
 
       <article class="teams-card">
@@ -451,63 +512,6 @@ img,video,iframe{max-width:100%;height:auto}
     </article>
   </div>
 
-  <div class="teams-group">
-    <div class="section-brush-title"><h2>École de basket</h2></div>
-    <div class="teams-grid">
-      <article class="teams-card pending">
-        <div class="team-photo-slot">Photo de groupe à venir</div>
-        <div class="team-heading"><h3>U5</h3><span class="team-status pending-status">Essais en cours</span></div>
-        <div class="team-detail"><h4>Créneau</h4><ul><li>Lundi 17h30–18h30 — Fongravey</li></ul></div>
-      </article>
-
-      <article class="teams-card pending">
-        <div class="team-photo-slot">Photo de groupe à venir</div>
-        <div class="team-heading"><h3>U7</h3><span class="team-status pending-status">Essais en cours</span></div>
-        <div class="team-detail"><h4>Créneau</h4><ul><li>Lundi 17h30–18h30 — Fongravey</li></ul></div>
-      </article>
-
-      <article class="teams-card">
-        <div class="team-photo-slot">Photo de groupe à venir</div>
-        <div class="team-heading"><h3>U9 filles</h3><span class="team-status">Compétition</span></div>
-        <div class="team-detail"><h4>Compétition</h4><p>DFU9-10-P2</p></div>
-        <p class="team-note">Pour les informations sur les rencontres, <a href="contact.html">contactez le club</a>.</p>
-        <div class="team-detail"><h4>Créneaux de la catégorie U9</h4><ul><li>Mardi 17h30–19h00 — Du Paty</li><li>Mercredi 16h30–17h45 — Port du Roy</li></ul></div>
-      </article>
-
-      <article class="teams-card">
-        <div class="team-photo-slot">Photo de groupe à venir</div>
-        <div class="team-heading"><h3>U9 garçons 1</h3><span class="team-status">Compétition</span></div>
-        <div class="team-detail"><h4>Compétition</h4><p>DMU9-10-P2</p></div>
-        <p class="team-note">Pour les informations sur les rencontres, <a href="contact.html">contactez le club</a>.</p>
-        <div class="team-detail"><h4>Créneaux de la catégorie U9</h4><ul><li>Mardi 17h30–19h00 — Du Paty</li><li>Mercredi 16h30–17h45 — Port du Roy</li></ul></div>
-      </article>
-
-      <article class="teams-card">
-        <div class="team-photo-slot">Photo de groupe à venir</div>
-        <div class="team-heading"><h3>U9 garçons 2</h3><span class="team-status">Compétition</span></div>
-        <div class="team-detail"><h4>Compétition</h4><p>DMU9-10-P2</p></div>
-        <p class="team-note">Pour les informations sur les rencontres, <a href="contact.html">contactez le club</a>.</p>
-        <div class="team-detail"><h4>Créneaux de la catégorie U9</h4><ul><li>Mardi 17h30–19h00 — Du Paty</li><li>Mercredi 16h30–17h45 — Port du Roy</li></ul></div>
-      </article>
-
-      <article class="teams-card">
-        <div class="team-photo-slot">Photo de groupe à venir</div>
-        <div class="team-heading"><h3>U11 garçons 1</h3><span class="team-status">Compétition</span></div>
-        <div class="team-detail"><h4>Compétition</h4><p>DMU11-4-P2</p></div>
-        <p class="team-note">Pour les informations sur les rencontres, <a href="contact.html">contactez le club</a>.</p>
-        <div class="team-detail"><h4>Créneaux de la catégorie U11</h4><ul><li>Mardi 17h30–19h00 — Du Paty</li><li>Mercredi 17h45–19h00 — Port du Roy</li></ul></div>
-      </article>
-
-      <article class="teams-card">
-        <div class="team-photo-slot">Photo de groupe à venir</div>
-        <div class="team-heading"><h3>U11 garçons 2</h3><span class="team-status">Compétition</span></div>
-        <div class="team-detail"><h4>Compétition</h4><p>DMU11-10-P2</p></div>
-        <p class="team-note">Pour les informations sur les rencontres, <a href="contact.html">contactez le club</a>.</p>
-        <div class="team-detail"><h4>Créneaux de la catégorie U11</h4><ul><li>Mardi 17h30–19h00 — Du Paty</li><li>Mercredi 17h45–19h00 — Port du Roy</li></ul></div>
-      </article>
-
-    </div>
-  </div>
   <div class="teams-join">
     <div><h2>Envie de nous rejoindre ?</h2><p>Faites votre pré-inscription et nous vous orienterons vers la catégorie adaptée.</p></div>
     <a class="btn btn-primary" href="inscriptions.html">Faire une pré-inscription</a>
