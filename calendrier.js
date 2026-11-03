@@ -51,6 +51,7 @@
   };
 
   const displayLocalTime = value => {
+    if (!value) return 'Horaire à confirmer';
     const match = /^(\d{2}):(\d{2})/.exec(value);
     return match ? `${match[1]}h${match[2]}` : value;
   };
@@ -74,14 +75,14 @@
   const normalizeCalendarEntry = item => {
     const localDate = String(item.local_date || '').trim();
     const localTime = String(item.local_time || '').trim();
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(localDate) || !/^\d{2}:\d{2}/.test(localTime)) return null;
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(localDate) || (localTime && !/^\d{2}:\d{2}/.test(localTime))) return null;
     return {
       type: 'match',
       teamCode: String(item.team_code || 'Équipe').trim(),
       opponentName: String(item.opponent_name || 'Adversaire à confirmer').trim(),
       homeAway: item.home_away,
       localDate,
-      localTime,
+      localTime: /^00:00(?::00(?:\.0+)?)?$/.test(localTime) ? '' : localTime,
       venueName: item.venue_name ? String(item.venue_name).trim() : '',
       venueAddress: item.venue_address ? String(item.venue_address).trim() : '',
       roundLabel: item.round_label ? String(item.round_label).trim() : '',
@@ -150,7 +151,7 @@
     const matchMeta = createElement('span', 'calendar-match-meta');
     matchMeta.append(
       createElement('span', 'calendar-match-place', locationLabel(event.homeAway)),
-      createElement('time', 'calendar-day-item-time', displayLocalTime(event.localTime))
+      createElement(event.localTime ? 'time' : 'span', 'calendar-day-item-time', displayLocalTime(event.localTime))
     );
     heading.append(createElement('span', '', event.teamCode), matchMeta);
     const details = createElement('div', 'calendar-day-item-details');
