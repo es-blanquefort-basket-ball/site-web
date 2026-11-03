@@ -944,7 +944,7 @@
 
     .subgrid-v10{
       display:grid;
-      grid-template-columns:.72fr 1.28fr;
+      grid-template-columns:minmax(0,.56fr) minmax(0,1.44fr);
       gap:14px;
       margin-top:14px;
       align-items:stretch;
@@ -965,7 +965,8 @@
       position:relative;
       z-index:3;
       padding:24px;
-      max-width:72%;
+      max-width:100%;
+      padding-bottom:230px;
     }
     .reprise-v10-copy .kicker{
       font-family:"Barlow Condensed",sans-serif;
@@ -1132,9 +1133,9 @@
     }
 
 
-    /* V11 — Rentrée des associations : texte à gauche, affiche à droite */
-    .asso-v11{grid-template-areas:"copy visual";grid-template-columns:1.15fr .85fr}
-    .asso-v11 > img{grid-area:visual}
+    /* Journée Club : affiche et texte côte à côte, puis empilés sur mobile */
+    .asso-v11{grid-template-areas:"visual copy";grid-template-columns:minmax(0,.45fr) minmax(0,.55fr)}
+    .asso-v11 > img{grid-area:visual;align-self:start;padding:8px}
     .asso-v11 > .asso-v10-copy{grid-area:copy}
     @media(max-width:620px){
       .asso-v11{grid-template-areas:"visual" "copy";grid-template-columns:1fr}
@@ -1294,7 +1295,7 @@
       .season-head-v10 a{display:inline-block;margin-top:8px;font-size:12px}
       .season-photo-v10{min-height:240px}
       .season-copy-v10{padding:24px}
-      .reprise-v10-copy{max-width:100%;padding-right:120px}
+      .reprise-v10-copy{max-width:100%;padding-right:24px}
       .ball-v10{width:115px;height:115px;right:6px;bottom:38px}
       .shadow-v10{right:20px;bottom:28px;width:78px}
       .asso-v10{grid-template-columns:1fr}
@@ -1732,12 +1733,9 @@ img,video,iframe{max-width:100%;height:auto}
         <div class="season-copy-v10">
           <span class="badge">Saison 2026-2027</span>
           <h3>L’école de basket entre dans la compétition !</h3>
-          <p>Après la phase d’évaluation, nos jeunes basketteurs abordent désormais la phase de brassage, une étape importante pour préparer les championnats qui débuteront après la rentrée.</p>
+          <p>Nos U9 et U11 entrent à leur tour en compétition. C’est parti pour nos jeunes basketteurs, prêts à défendre les couleurs du club !</p>
           <h3>U18 : DÉFI RELEVÉ !</h3>
-          <p>Nos U18 seront eux aussi de la partie cette saison ! Une belle satisfaction pour le club, qui pourra compter sur cette équipe pour défendre nos couleurs.</p>
-          <p>Des U9 aux Seniors, toutes nos équipes sont mobilisées pour faire vivre une belle saison de basket.</p>
-          <p>Retrouvez les calendriers, les rencontres et les informations de vos équipes sur notre site.</p>
-          <p><em>Vert &amp; blanc un jour, Blanquefort toujours !</em></p>
+          <p>Nos U18 sont engagés en compétition cette saison ! Une belle étape franchie pour le club et une nouvelle équipe prête à défendre nos couleurs.</p>
           <div class="season-highlights-v15">
             <a class="season-highlight-v15" href="planning.html">
               <strong>Entraînements</strong>
@@ -1758,10 +1756,12 @@ img,video,iframe{max-width:100%;height:auto}
       <div class="subgrid-v10">
         <article class="reprise-v10">
           <div class="reprise-v10-copy">
-            <div class="kicker">Planning</div>
-            <h3>Créneaux d’entraînement 2026-2027</h3>
-            <p>Retrouvez les horaires et les gymnases de chaque catégorie.</p>
-            <a class="reprise-link" href="planning.html">Voir le planning</a>
+            <div class="kicker">Actualité sportive · U13 et U15</div>
+            <h3>PLACE AUX BRASSAGES !</h3>
+            <p>Après l’évaluation, les U13 et U15 passent à la phase de brassage, une étape décisive pour préparer la suite de la saison. Retrouvez les nouveaux calendriers des catégories U13 à U18 et toutes les informations pratiques.</p>
+            <a class="reprise-link" href="equipes.html">Les équipes</a>
+            <a class="reprise-link" href="calendrier.html">Le calendrier</a>
+            <a class="reprise-link" href="planning.html">Les entraînements</a>
           </div>
           <div class="shadow-v10" aria-hidden="true"></div>
           <img class="ball-v10" src="images/ballon-basket.png" alt="" aria-hidden="true">
