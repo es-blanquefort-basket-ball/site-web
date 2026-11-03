@@ -1139,12 +1139,42 @@
     }
 
 
-    /* Journée Club : affiche et texte côte à côte, puis empilés sur mobile */
-    .asso-v11{grid-template-areas:"visual copy";grid-template-columns:minmax(0,.45fr) minmax(0,.55fr)}
-    .asso-v11 > img{grid-area:visual;align-self:start;padding:8px}
-    .asso-v11 > .asso-v10-copy{grid-area:copy}
+    /* Journée Club : affiche dominante, présentation et conclusion dans la même carte */
+    .asso-v11{
+      grid-template-areas:"visual title" "visual intro" "conclusion conclusion";
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      grid-template-rows:auto 1fr auto;
+      align-content:start;
+    }
+    .asso-v11 > img{grid-area:visual;align-self:start;padding:0}
+    .asso-v11 > .asso-v10-copy{display:contents}
+    .asso-v11-heading{grid-area:title;padding:22px 22px 0}
+    .asso-v11-intro{grid-area:intro;padding:6px 22px 22px}
+    .asso-v11-conclusion{
+      grid-area:conclusion;
+      padding:18px 22px;
+      background:var(--g100);
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      line-height:1.45;
+    }
+    .asso-v11-conclusion p + p{margin-top:10px}
+    .asso-v11-christmas strong{
+      color:var(--g900);
+      font-family:"Barlow Condensed",sans-serif;
+      font-size:21px;
+      font-weight:700;
+    }
+    .asso-v11-conclusion p:last-child{color:var(--g800)}
     @media(max-width:620px){
-      .asso-v11{grid-template-areas:"visual" "copy";grid-template-columns:1fr}
+      .asso-v11{
+        grid-template-areas:"title" "visual" "intro" "conclusion";
+        grid-template-columns:minmax(0,1fr);
+        grid-template-rows:auto;
+      }
+      .asso-v11-heading{padding:20px 20px 12px}
+      .asso-v11-intro{padding:18px 20px 20px}
+      .asso-v11-conclusion{padding:18px 20px}
     }
 
 
@@ -1781,13 +1811,19 @@ img,video,iframe{max-width:100%;height:auto}
         <article class="asso-v10 asso-v11">
           <img src="images/journee-club-decembre-2026.png" alt="Une grande journée club se prépare — décembre 2026 — affiche originale de l’ES Blanquefort Basket-ball" width="1055" height="1491">
           <div class="asso-v10-copy">
-            <div class="kicker">Vie du club · Décembre 2026</div>
-            <h3>Une grande journée club se prépare</h3>
+            <div class="asso-v11-heading">
+              <div class="kicker">Vie du club · Décembre 2026</div>
+              <h3>Une grande journée club se prépare</h3>
+            </div>
+            <div class="asso-v11-intro">
             <p>En décembre, l’ES Blanquefort Basket-ball prépare un grand rendez-vous pour réunir toute la famille du club.</p>
             <p>Cette journée sera l’occasion de <strong>présenter l’ensemble du club, ses équipes et tous ceux qui le font vivre</strong>, avec la présence de nos joueurs, entraîneurs, bénévoles, dirigeants, partenaires et sponsors.</p>
             <p>Le club sera également présenté à la presse et à nos partenaires, avec l’objectif de mettre en valeur la dynamique de l’ES Blanquefort Basket-ball dans son ensemble.</p>
+            </div>
+          </div>
+          <div class="asso-v11-conclusion">
             <p>Une journée pensée pour rassembler <strong>licenciés, familles, bénévoles, partenaires et amis du club</strong> autour de nos couleurs et de notre passion commune.</p>
-            <p>Et pour les plus jeunes, ce rendez-vous accueillera également <strong>le Noël de l’École de basket</strong>.</p>
+            <p class="asso-v11-christmas">Et pour les plus jeunes, ce rendez-vous accueillera également <strong>le Noël de l’École de basket</strong>.</p>
             <p><strong>Date, horaires et programme complet à venir prochainement.</strong></p>
             <p><em>Un club, 2 couleurs, une passion.</em></p>
           </div>
