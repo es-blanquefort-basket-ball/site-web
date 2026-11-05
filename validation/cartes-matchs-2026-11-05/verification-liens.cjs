@@ -1,0 +1,16 @@
+const fs = require('node:fs');
+const vm = require('node:vm');
+const assert = require('node:assert/strict');
+const source = fs.readFileSync('calendrier.js', 'utf8');
+const helpers = source.slice(source.indexOf('  const safeFfbbUrl ='), source.indexOf('  const locationLabel ='));
+const context = { URL };
+vm.runInNewContext(helpers + ';this.checkMatch = individualMatchUrl; this.checkVenue = knownVenueAddress;', context);
+const match = 'https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm2/match/200000014548774';
+assert.equal(context.checkMatch(match), match);
+for (const url of ['https://competitions.ffbb.com/clubs/a/equipes/123', 'https://example.org/match/123', 'http://competitions.ffbb.com/match/123', 'javascript:alert(1)', null]) assert.equal(context.checkMatch(url), null);
+assert.equal(context.checkVenue('SALLE PORT DU ROY'), '55 avenue du Port du Roy, 33290 Blanquefort');
+assert.equal(context.checkVenue('Gymnase du Port-du-Roy'), '55 avenue du Port du Roy, 33290 Blanquefort');
+assert.equal(context.checkVenue('Salle Port du Roy de Bordeaux'), '');
+assert.equal(context.checkVenue('Gymnase du Collège'), '');
+assert.equal(context.checkVenue('Gymnase Le Béchon').includes('environ'), true);
+console.log('Liens individuels, rejets des pages équipe et domaines étrangers, alias et salles ambiguës vérifiés.');

@@ -1,0 +1,120 @@
+{
+  "responsive": [
+    {
+      "body": [
+        {
+          "height": 819,
+          "overflow": "auto",
+          "scrollHeight": 1939
+        }
+      ],
+      "cards": 8,
+      "close": [
+        {
+          "bottom": 60.25,
+          "top": 20.25
+        }
+      ],
+      "overflow": false,
+      "width": 1440
+    },
+    {
+      "body": [
+        {
+          "height": 943,
+          "overflow": "auto",
+          "scrollHeight": 1939
+        }
+      ],
+      "cards": 8,
+      "close": [
+        {
+          "bottom": 60.25,
+          "top": 20.25
+        }
+      ],
+      "overflow": false,
+      "width": 768
+    },
+    {
+      "body": [
+        {
+          "height": 639,
+          "overflow": "auto",
+          "scrollHeight": 3050
+        }
+      ],
+      "cards": 8,
+      "close": [
+        {
+          "bottom": 173.15228271484375,
+          "top": 133.15228271484375
+        }
+      ],
+      "overflow": false,
+      "width": 390
+    }
+  ],
+  "pages": [
+    {
+      "page": "index.html",
+      "count": 1,
+      "text": "PRÉVISUALISATION — LIVRAISON NON PUBLIÉE"
+    },
+    {
+      "page": "le-club.html",
+      "count": 1,
+      "text": "PRÉVISUALISATION — LIVRAISON NON PUBLIÉE"
+    },
+    {
+      "page": "equipes.html",
+      "count": 1,
+      "text": "PRÉVISUALISATION — LIVRAISON NON PUBLIÉE"
+    },
+    {
+      "page": "planning.html",
+      "count": 1,
+      "text": "PRÉVISUALISATION — LIVRAISON NON PUBLIÉE"
+    },
+    {
+      "page": "calendrier.html",
+      "count": 1,
+      "text": "PRÉVISUALISATION — LIVRAISON NON PUBLIÉE"
+    },
+    {
+      "page": "inscriptions.html",
+      "count": 1,
+      "text": "PRÉVISUALISATION — LIVRAISON NON PUBLIÉE"
+    },
+    {
+      "page": "essais.html",
+      "count": 1,
+      "text": "PRÉVISUALISATION — LIVRAISON NON PUBLIÉE"
+    },
+    {
+      "page": "partenaires.html",
+      "count": 1,
+      "text": "PRÉVISUALISATION — LIVRAISON NON PUBLIÉE"
+    },
+    {
+      "page": "sponsors.html",
+      "count": 1,
+      "text": "PRÉVISUALISATION — LIVRAISON NON PUBLIÉE"
+    },
+    {
+      "page": "contact.html",
+      "count": 1,
+      "text": "PRÉVISUALISATION — LIVRAISON NON PUBLIÉE"
+    },
+    {
+      "page": "mentions_legales_ESBB.html",
+      "count": 1,
+      "text": "PRÉVISUALISATION — LIVRAISON NON PUBLIÉE"
+    },
+    {
+      "page": "404.html",
+      "count": 1,
+      "text": "PRÉVISUALISATION — LIVRAISON NON PUBLIÉE"
+    }
+  ]
+}

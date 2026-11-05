@@ -81,6 +81,32 @@
     }
   };
 
+  // Adresses publiques validées dans contact.html. Les adresses importées restent prioritaires.
+  const knownVenueAddress = name => {
+    const normalized = String(name || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+    const aliases = {
+      'port du roy': '55 avenue du Port du Roy, 33290 Blanquefort',
+      'gymnase du port du roy': '55 avenue du Port du Roy, 33290 Blanquefort',
+      'salle port du roy': '55 avenue du Port du Roy, 33290 Blanquefort',
+      'salle du port du roy': '55 avenue du Port du Roy, 33290 Blanquefort',
+      'complexe sportif le port du roy': '55 avenue du Port du Roy, 33290 Blanquefort',
+      'dupaty': '19 rue Dupaty, 33290 Blanquefort',
+      'gymnase dupaty': '19 rue Dupaty, 33290 Blanquefort',
+      'salle dupaty': '19 rue Dupaty, 33290 Blanquefort',
+      'fongravey': 'Rue Jean Moulin — accès à hauteur du n°60, côté feu / gare de Blanquefort, 33290 Blanquefort',
+      'complexe sportif de fongravey': 'Rue Jean Moulin — accès à hauteur du n°60, côté feu / gare de Blanquefort, 33290 Blanquefort',
+      'bechon': 'Lycée Jean Monnet — accès gymnase par la rue du Béchon, côté installations sportives, à hauteur du n°34 environ, 33290 Blanquefort',
+      'gymnase le bechon': 'Lycée Jean Monnet — accès gymnase par la rue du Béchon, côté installations sportives, à hauteur du n°34 environ, 33290 Blanquefort'
+    };
+    return aliases[normalized] || '';
+  };
+
+  const individualMatchUrl = value => {
+    const safe = safeFfbbUrl(value);
+    return safe && /\/match\/\d+\/?$/.test(new URL(safe).pathname) ? safe : null;
+  };
+
   const locationLabel = homeAway => {
     if (homeAway === 'home') return 'Domicile';
     if (homeAway === 'away') return 'Extérieur';
@@ -99,9 +125,9 @@
       localDate,
       localTime: /^00:00(?::00(?:\.0+)?)?$/.test(localTime) ? '' : localTime,
       venueName: item.venue_name ? String(item.venue_name).trim() : '',
-      venueAddress: item.venue_address ? String(item.venue_address).trim() : '',
+      venueAddress: (item.venue_address ? String(item.venue_address).trim() : '') || knownVenueAddress(item.venue_name),
       roundLabel: item.round_label ? String(item.round_label).trim() : '',
-      ffbbMatchUrl: safeFfbbUrl(item.ffbb_match_url),
+      ffbbMatchUrl: individualMatchUrl(item.ffbb_match_url),
       ffbbTeamUrl: safeFfbbUrl(item.ffbb_team_url)
     };
   };
@@ -184,7 +210,7 @@
     }
     appendDetailRow(details, 'Journée', event.roundLabel);
     const ffbbUrl = event.ffbbMatchUrl || event.ffbbTeamUrl;
-    const ffbbLabel = event.ffbbMatchUrl ? 'Voir la fiche du match pour la localisation' : 'Voir la fiche de l’équipe';
+    const ffbbLabel = event.ffbbMatchUrl ? 'Fiche officielle du match' : 'Page de l’équipe FFBB (fiche du match indisponible)';
     appendDetailRow(details, 'FFBB', ffbbUrl ? ffbbLabel : '', ffbbUrl);
     card.append(heading, details);
     return card;
