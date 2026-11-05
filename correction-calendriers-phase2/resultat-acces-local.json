@@ -1,0 +1,45 @@
+{
+  "origin": "local_node_not_supabase",
+  "tested_at_utc": "2026-11-03T22:02:14.525Z",
+  "success": true,
+  "status": "success",
+  "failed_teams": 0,
+  "teams": [
+    {
+      "team": "U13F",
+      "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005408294",
+      "http_status": 200,
+      "ok": true,
+      "error": null,
+      "match_pages": 9
+    },
+    {
+      "team": "U13M",
+      "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005416665",
+      "http_status": 200,
+      "ok": true,
+      "error": null,
+      "match_pages": 5
+    },
+    {
+      "team": "U15M",
+      "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005414841",
+      "http_status": 200,
+      "ok": true,
+      "error": null,
+      "match_pages": 5
+    },
+    {
+      "team": "U18M",
+      "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005419968",
+      "http_status": 200,
+      "ok": true,
+      "error": null,
+      "match_pages": 13
+    }
+  ],
+  "mode": "probe",
+  "execution_environment": "not_attested",
+  "production_write": false,
+  "candidates": []
+}

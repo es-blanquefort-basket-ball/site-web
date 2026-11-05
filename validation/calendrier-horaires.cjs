@@ -18,7 +18,8 @@ const source = fs.readFileSync(path.join(__dirname, '..', 'calendrier.js'), 'utf
 const ending = /  fetchMonthEvents\(\);\s*\}\)\(\);\s*$/;
 assert(ending.test(source), 'Point de contrôle du script absent');
 const sandbox = {
-  document: { getElementById: () => element(), createElement: element, addEventListener() {} },
+  document: { getElementById: id => id.startsWith('calendar-team') ? null : element(), createElement: element, addEventListener() {} },
+  window: { location: { search: '' } }, URLSearchParams,
   URL, Intl, Date
 };
 vm.runInNewContext(source.replace(ending,

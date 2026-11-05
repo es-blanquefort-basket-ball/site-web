@@ -1,0 +1,74 @@
+--- production/calendrier.html
++++ valide/calendrier.html
+@@ -80,6 +80,13 @@
+ .calendar-drawer-close:hover,.calendar-drawer-close:focus-visible{border-color:var(--g500);outline:3px solid rgba(47,123,82,.16)}
+ .calendar-drawer-body{display:grid;gap:24px;overflow-y:auto;padding:22px 24px 32px}
+ .calendar-day-group{display:grid;gap:10px}
++@media(min-width:681px){
++  .calendar-drawer-layer{grid-template-rows:minmax(0,1fr)}
++  .calendar-drawer{min-height:0}
++  .calendar-drawer-head{flex-shrink:0}
++  .calendar-drawer-body{flex:1;min-height:0;align-content:start}
++  .calendar-day-group{padding:0;align-content:start}
++}
+ .calendar-day-group-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0;padding-bottom:7px;border-bottom:2px solid var(--g700);font-family:'Barlow Condensed',sans-serif;font-size:15px;text-transform:uppercase}
+ .calendar-group-count{display:inline-grid;place-items:center;min-width:25px;height:25px;border-radius:999px;background:#e7f2ea;color:var(--g800);font-size:12px}
+ .calendar-day-item{display:grid;gap:11px;border:1px solid var(--line);border-radius:16px;background:#fff;padding:16px;box-shadow:0 10px 24px rgba(7,27,18,.08)}
+@@ -423,7 +430,7 @@
+     <a class="btn btn-primary" href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034" target="_blank" rel="noopener">Voir la fiche FFBB</a>
+     <a class="btn btn-ghost" href="equipes.html">Voir nos équipes</a>
+   </div>
+-  <div class="matches-updated">Mis à jour le 23 septembre 2026</div>
++  <div class="matches-updated">Mis à jour le 4 novembre 2026</div>
+ </div></div></section>
+ 
+ <section class="matches-section"><div class="wrap">
+@@ -496,35 +503,35 @@
+       <h3>U9F</h3>
+       <p>Les horaires peuvent être précisés ultérieurement.</p>
+       <div class="competition-links">
+-        <a class="btn btn-primary" href="calendrier.html?equipe=U9F#calendrier-club" aria-label="Vérifier les publications du calendrier pour U9F">Vérifier les publications</a>
++        <a class="btn btn-primary" href="calendrier.html?equipe=U9F#calendrier-club" aria-label="Voir les matchs du calendrier pour U9F">Voir les matchs</a>
+       </div>
+     </article>
+     <article class="competition-card">
+       <h3>U9M1</h3>
+       <p>Les horaires peuvent être précisés ultérieurement.</p>
+       <div class="competition-links">
+-        <a class="btn btn-primary" href="calendrier.html?equipe=U9M1#calendrier-club" aria-label="Vérifier les publications du calendrier pour U9M1">Vérifier les publications</a>
++        <a class="btn btn-primary" href="calendrier.html?equipe=U9M1#calendrier-club" aria-label="Voir les matchs du calendrier pour U9M1">Voir les matchs</a>
+       </div>
+     </article>
+     <article class="competition-card">
+       <h3>U9M2</h3>
+       <p>Les horaires peuvent être précisés ultérieurement.</p>
+       <div class="competition-links">
+-        <a class="btn btn-primary" href="calendrier.html?equipe=U9M2#calendrier-club" aria-label="Vérifier les publications du calendrier pour U9M2">Vérifier les publications</a>
++        <a class="btn btn-primary" href="calendrier.html?equipe=U9M2#calendrier-club" aria-label="Voir les matchs du calendrier pour U9M2">Voir les matchs</a>
+       </div>
+     </article>
+     <article class="competition-card">
+       <h3>U11 Mixte</h3>
+       <p>Les horaires peuvent être précisés ultérieurement.</p>
+       <div class="competition-links">
+-        <a class="btn btn-primary" href="calendrier.html?equipe=U11%20Mixte#calendrier-club" aria-label="Vérifier les publications du calendrier pour U11 Mixte">Vérifier les publications</a>
++        <a class="btn btn-primary" href="calendrier.html?equipe=U11%20Mixte#calendrier-club" aria-label="Voir les matchs du calendrier pour U11 Mixte">Voir les matchs</a>
+       </div>
+     </article>
+     <article class="competition-card">
+       <h3>U11 M</h3>
+       <p>Les horaires peuvent être précisés ultérieurement.</p>
+       <div class="competition-links">
+-        <a class="btn btn-primary" href="calendrier.html?equipe=U11%20M#calendrier-club" aria-label="Vérifier les publications du calendrier pour U11 M">Vérifier les publications</a>
++        <a class="btn btn-primary" href="calendrier.html?equipe=U11%20M#calendrier-club" aria-label="Voir les matchs du calendrier pour U11 M">Voir les matchs</a>
+       </div>
+     </article>
+ 
+@@ -595,6 +602,6 @@
+ </main>
+ 
+ <script src="script.js"></script>
+-<script src="calendrier.js"></script>
++<script src="calendrier.js?v=20261104"></script>
+ <footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand-block"><img class="footer-logo" src="images/logo.png" alt="Logo ES Blanquefort Basket-Ball"><h3>ES Blanquefort Basket-Ball</h3><p>Club familial de basket à Blanquefort, porté par les joueurs, les familles, les bénévoles et les partenaires.</p></div><div><h4>Navigation</h4><ul><li><a href="index.html">Accueil</a></li><li><a href="le-club.html">Le club</a></li><li><a href="equipes.html">Équipes</a></li><li><a href="planning.html">Planning</a></li><li><a href="calendrier.html">Calendrier</a></li><li><a href="partenaires.html">Partenaires</a></li><li><a href="sponsors.html">Mur des verts et blancs</a></li></ul></div><div><h4>Contact</h4><p><strong>ES Blanquefort Basket-Ball</strong><br>Tél. 06 10 16 60 16<br><a href="mailto:contact@es-blanquefort-basketball.fr">contact@es-blanquefort-basketball.fr</a><br><a class="legal-link" href="mentions_legales_ESBB.html">Mentions légales</a></p></div><div><h4>Partenaires</h4><p>Entreprises locales, commerçants, artisans et familles partenaires : plusieurs façons de soutenir le club.</p><a class="legal-link" href="https://es-blanquefort-basket-ball.github.io/partenariat-club/" target="_blank" rel="noopener">Devenir partenaire</a></div></div><div class="footer-bottom"><span>© 2026 ES Blanquefort Basket-Ball</span><span>Site club développé par L’Rénov IA Studio · Mai 2026</span><span>Club affilié FFBB · Ligue Nouvelle-Aquitaine · Comité de Gironde · NAQ 0033-034</span></div></div></footer>
+ </body></html>

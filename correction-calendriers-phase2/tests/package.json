@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "description": "Tests locaux de la correction FFBB ; aucun déploiement Supabase",
+  "dependencies": {
+    "@electric-sql/pglite": "0.5.14",
+    "linkedom": "0.18.12",
+    "luxon": "3.7.2"
+  },
+  "scripts": {
+    "test:core": "node test-core.cjs",
+    "test:sql": "node test-import.cjs"
+  }
+}

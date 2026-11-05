@@ -1,0 +1,108 @@
+--- a/supabase/functions/ffbb-sync/index.ts
++++ b/supabase/functions/ffbb-sync/index.ts
+@@ -1,3 +1,5 @@
++// CANDIDAT LOCAL : ne pas déployer avant validation et test HTTP depuis Supabase non productif.
++import { handleReadOnly, isPhase2Team } from "../_shared/phase2-core.mjs";
+ import { withSupabase } from "npm:@supabase/server@^1";
+ import { DateTime } from "npm:luxon@3";
+ 
+@@ -241,6 +243,16 @@
+         );
+       }
+ 
++      // Les sondes utilisent les mêmes requêtes FFBB que le module, AVANT toute écriture de journal.
++      let options;
++      try { const raw=await req.clone().text(); options=raw.trim()?JSON.parse(raw):{}; }
++      catch { return Response.json({error:"Invalid JSON"},{status:400}); }
++      if(!options || typeof options!=="object" || Array.isArray(options)) return Response.json({error:"Object required"},{status:400});
++      if(options.mode==="phase2_probe" || options.mode==="phase2_preview") {
++        return await handleReadOnly({mode:options.mode==="phase2_probe"?"probe":"preview",codes:options.codes});
++      }
++      if(options.mode) return Response.json({error:"Unknown mode"},{status:400});
++
+       // Client serveur privilégié : bypass RLS
+       const supabase = ctx.supabaseAdmin;
+ 
+@@ -281,6 +293,7 @@
+           throw new Error(`Lecture teams : ${teamsError.message}`);
+         }
+ 
++        let sourceErrors = 0;
+         let matchesFound = 0;
+         let matchesCreated = 0;
+         let matchesUpdated = 0;
+@@ -291,6 +304,12 @@
+         const report: Array<Record<string, unknown>> = [];
+ 
+         for (const team of teams ?? []) {
++          // Empêche l'ancien chemin à clés synthétiques de doubler les nouveaux vrais IDs.
++          if(isPhase2Team(team)) {
++            sourceErrors++;
++            report.push({team:team.code,error:"PHASE2_REQUIRES_CONTROLLED_IMPORT"});
++            continue;
++          }
+           const response = await fetch(team.ffbb_team_url, {
+             headers: {
+               "User-Agent": "Mozilla/5.0 ESB-Basket-FFBB-Sync/1.0",
+@@ -299,6 +318,7 @@
+           });
+ 
+           if (!response.ok) {
++            sourceErrors++;
+             report.push({
+               team: team.code,
+               error: `FFBB HTTP ${response.status}`,
+@@ -308,6 +328,11 @@
+ 
+           const html = await response.text();
+           const parsed = parseMatches(html, team.ffbb_team_url);
++          if(parsed.length===0) {
++            sourceErrors++;
++            report.push({team:team.code,error:"EMPTY_OR_UNPARSEABLE_CALENDAR",matches:0});
++            continue;
++          }
+ 
+           matchesFound += parsed.length;
+ 
+@@ -497,9 +522,9 @@
+         }
+ 
+         const finalStatus =
+-          conflictsFound > 0 ? "warning" : "success";
+-
+-        await supabase
++          matchesFound===0 ? "error" : sourceErrors>0 || venueDetailErrors>0 || conflictsFound>0 ? "warning" : "success";
++
++        const {error: syncFinishError} = await supabase
+           .from("sync_runs")
+           .update({
+             finished_at: new Date().toISOString(),
+@@ -509,6 +534,7 @@
+             matches_updated: matchesUpdated,
+             conflicts_found: conflictsFound,
+             details: {
++              source_errors: sourceErrors,
+               venues_enriched: venuesEnriched,
+               venue_detail_errors: venueDetailErrors,
+               report,
+@@ -516,8 +542,10 @@
+           })
+           .eq("id", syncId);
+ 
++        if(syncFinishError) throw new Error("Journalisation finale impossible");
+         return Response.json({
+-          success: true,
++          success: finalStatus==="success",
++          sourceErrors,
+           syncId,
+           status: finalStatus,
+           matchesFound,
+@@ -529,7 +557,7 @@
+           teams: report,
+           message:
+             "Synchronisation terminée. Aucun match importé n'est publié automatiquement.",
+-        });
++        }, {status:finalStatus==="error"?502:200});
+       } catch (error) {
+         const message =
+           error instanceof Error

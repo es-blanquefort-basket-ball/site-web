@@ -1,0 +1,622 @@
+[
+  {
+    "id": "183828ad-317b-458c-8fe2-f73417c30cc1",
+    "team_code": "U13F",
+    "opponent_name": "AS LE HAILLAN",
+    "home_away": "home",
+    "local_date": "2026-09-19",
+    "local_time": "15:00",
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dfu13-3/match/200000014732674"
+  },
+  {
+    "id": "f0830283-47b4-4e06-a2ca-6248018d69d4",
+    "team_code": "U15M",
+    "opponent_name": "AS LE HAILLAN - 1",
+    "home_away": "home",
+    "local_date": "2026-09-19",
+    "local_time": "17:00",
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu15-3/match/200000014736060"
+  },
+  {
+    "id": "d628b220-fac7-4cd9-890b-9a849ea9c0ca",
+    "team_code": "SG1",
+    "opponent_name": "ENTENTE PESSAC BASKET CLUB - 3",
+    "home_away": "away",
+    "local_date": "2026-09-20",
+    "local_time": "11:00",
+    "venue_name": "SALLE FRANCOIS MITTERRAND",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm2/match/200000014548691"
+  },
+  {
+    "id": "2616d29d-e827-4767-a571-587e336aed47",
+    "team_code": "SG2",
+    "opponent_name": "CASTELNAU MEDOC BC - 4",
+    "home_away": "away",
+    "local_date": "2026-09-20",
+    "local_time": "15:00",
+    "venue_name": "GYMNASE CANTERANE",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm4/match/200000014733345"
+  },
+  {
+    "id": "373cd4db-2b6a-4971-b9bc-8b8a93945d53",
+    "team_code": "U13F",
+    "opponent_name": "EN - CTC MEDOC ESTUAIRE - LUDON BASKET CLUB",
+    "home_away": "away",
+    "local_date": "2026-09-26",
+    "local_time": "12:30",
+    "venue_name": "SALLE MARIE-CLAUDE CARCALY",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dfu13-3/match/200000014732689"
+  },
+  {
+    "id": "b5e148a2-68e2-4bc3-8cca-0d4d2ad5307e",
+    "team_code": "U15M",
+    "opponent_name": "SAINT MEDARD BASKET - 2",
+    "home_away": "away",
+    "local_date": "2026-09-26",
+    "local_time": "15:00",
+    "venue_name": "MAGUDAS",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu15-3/match/200000014736069"
+  },
+  {
+    "id": "648cc81d-9d2d-4349-84f0-be77281a5e1c",
+    "team_code": "U13M",
+    "opponent_name": "LES FILS DE ROLAND DE BLAYE - 2",
+    "home_away": "away",
+    "local_date": "2026-09-26",
+    "local_time": "14:30",
+    "venue_name": "GYMNASE ROBERT PAUL",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu13-5/match/200000014725226"
+  },
+  {
+    "id": "e9230514-52b1-42af-ab15-7b04a7109989",
+    "team_code": "SG1",
+    "opponent_name": "BORDEAUX BASTIDE BASKET - 2",
+    "home_away": "away",
+    "local_date": "2026-09-27",
+    "local_time": "11:00",
+    "venue_name": "SALLE PROMIS",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm2/match/200000014548701"
+  },
+  {
+    "id": "f0833e8b-fb99-4381-afa8-8991f380026c",
+    "team_code": "SG2",
+    "opponent_name": "AS LE HAILLAN - 2",
+    "home_away": "home",
+    "local_date": "2026-09-27",
+    "local_time": "11:00",
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm4/match/200000014733355"
+  },
+  {
+    "id": "fff26be8-21e1-485e-97b6-2eec1c3525e2",
+    "team_code": "U13F",
+    "opponent_name": "LACANAU BASKET CLUB",
+    "home_away": "away",
+    "local_date": "2026-10-03",
+    "local_time": "11:30",
+    "venue_name": "COMPLEXE DE LA COUSTEYRE",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dfu13-3/match/200000014732703"
+  },
+  {
+    "id": "7ecdd788-c79e-4b6b-bf5c-0b496c3e8000",
+    "team_code": "U13M",
+    "opponent_name": "BORDEAUX ETUDIANTS CLUB - 2",
+    "home_away": "home",
+    "local_date": "2026-10-03",
+    "local_time": "13:00",
+    "venue_name": "Port du Roy",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu13-5/match/200000014725235"
+  },
+  {
+    "id": "59e597c8-1200-4d5c-ad37-40c7976cea2b",
+    "team_code": "U15M",
+    "opponent_name": "LACANAU BASKET CLUB",
+    "home_away": "away",
+    "local_date": "2026-10-03",
+    "local_time": "16:00",
+    "venue_name": "COMPLEXE DE LA COUSTEYRE",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu15-3/match/200000014736077"
+  },
+  {
+    "id": "dcd56f7b-bc04-47a8-bb77-a784d43549fe",
+    "team_code": "SG1",
+    "opponent_name": "B.IZON - 1",
+    "home_away": "home",
+    "local_date": "2026-10-04",
+    "local_time": "14:00",
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm2/match/200000014548714"
+  },
+  {
+    "id": "2c3515f1-0dab-47f4-aeac-802a8ce815fb",
+    "team_code": "SG2",
+    "opponent_name": "SAM LESPARRE BASKET",
+    "home_away": "home",
+    "local_date": "2026-10-04",
+    "local_time": "12:00",
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm4/match/200000014733368"
+  },
+  {
+    "id": "19193ec6-7a63-4603-a1b4-d6c14c8d1d6b",
+    "team_code": "U13M",
+    "opponent_name": "SAINT ANDRE BASKET - 2",
+    "home_away": "home",
+    "local_date": "2026-10-10",
+    "local_time": "16:00",
+    "venue_name": "Port du Roy",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu13-5/match/200000014725244"
+  },
+  {
+    "id": "ed40463c-94e0-442e-89ae-b4bb41874582",
+    "team_code": "U13F",
+    "opponent_name": "BASKET DES PORTES DE L'ENTRE DEUX MERS - 1",
+    "home_away": "home",
+    "local_date": "2026-10-10",
+    "local_time": "14:00",
+    "venue_name": "Port du Roy",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dfu13-3/match/200000014732719"
+  },
+  {
+    "id": "003f7d89-fb32-4662-82a6-d73e7c480c26",
+    "team_code": "SG2",
+    "opponent_name": "SA MERIGNACAIS - 3",
+    "home_away": "away",
+    "local_date": "2026-10-11",
+    "local_time": "13:00",
+    "venue_name": "SALLE ROBERT BRETTES",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm4/match/200000014733380"
+  },
+  {
+    "id": "23769dde-7e51-41c6-ba78-e51b9042e520",
+    "team_code": "SG1",
+    "opponent_name": "BOULIAC BASKET CLUB - 1",
+    "home_away": "away",
+    "local_date": "2026-10-11",
+    "local_time": "15:00",
+    "venue_name": "SALLE SERGE BREUIL",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm2/match/200000014548726"
+  },
+  {
+    "id": "12b7f7fc-ba19-4b28-981c-6ad7afe3c7e2",
+    "team_code": "U13F",
+    "opponent_name": "AGJA CAUDERAN",
+    "home_away": "home",
+    "local_date": "2026-10-17",
+    "local_time": "14:00",
+    "venue_name": "Fongravey",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dfu13-3/match/200000014732735"
+  },
+  {
+    "id": "dbb172d5-06ba-424e-bac2-621fcd76f007",
+    "team_code": "U15M",
+    "opponent_name": "US LE BOUSCAT - 2",
+    "home_away": "home",
+    "local_date": "2026-10-17",
+    "local_time": "16:00",
+    "venue_name": "Fongravey",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu15-3/match/200000014736097"
+  },
+  {
+    "id": "954a3abd-1eb1-4b46-bfd8-3213a558afa2",
+    "team_code": "U13M",
+    "opponent_name": "BASKET CLUB ESTUAIRE GIRONDE",
+    "home_away": "away",
+    "local_date": "2026-10-17",
+    "local_time": "10:30",
+    "venue_name": "GYMNASE HUET",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu13-5/match/200000014725253"
+  },
+  {
+    "id": "c771679c-0ddd-49a8-bfcd-0601cba69cfa",
+    "team_code": "SG1",
+    "opponent_name": "EN - CTC BASKET HAUTE GIRONDE - LES FILS DE ROLAND DE BLAYE - 1",
+    "home_away": "away",
+    "local_date": "2026-11-01",
+    "local_time": "15:00",
+    "venue_name": "GYMNASE HUET",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm2/match/200000014548738"
+  },
+  {
+    "id": "fc040408-b41e-4f40-a8a5-3010f708232f",
+    "team_code": "SG2",
+    "opponent_name": "ETOILE SPORTIVE EYSINAISE - 2",
+    "home_away": "away",
+    "local_date": "2026-11-01",
+    "local_time": "13:00",
+    "venue_name": "COSEC ( PETIT )",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm4/match/200000014733392"
+  },
+  {
+    "id": "9ba2a930-a4b1-4af0-a15b-5b14f0565e6b",
+    "team_code": "U11 Mixte",
+    "opponent_name": "BC ST AVIT ST NAZAIRE - 2 (6)",
+    "home_away": "home",
+    "local_date": "2026-11-07",
+    "local_time": "15:30:00",
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "759cec75-e19a-4c7d-9723-52d2f839232a",
+    "team_code": "U11 M",
+    "opponent_name": "BORDEAUX ETUDIANTS CLUB - 2 (6)",
+    "home_away": "home",
+    "local_date": "2026-11-07",
+    "local_time": "14:00:00",
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "7c182800-7178-4f5c-8e6c-dfd56d55f04a",
+    "team_code": "U9M2",
+    "opponent_name": "BASKET CLUB CANEJANAIS (6)",
+    "home_away": "home",
+    "local_date": "2026-11-07",
+    "local_time": "12:30:00",
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "c5e2230c-1b76-4a86-8cdc-862da0231acc",
+    "team_code": "U9M1",
+    "opponent_name": "LES FILS DE ROLAND DE BLAYE (6)",
+    "home_away": "home",
+    "local_date": "2026-11-07",
+    "local_time": "11:00:00",
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "23210dfa-1c6b-4c86-8774-7dc832b8eb21",
+    "team_code": "U9F",
+    "opponent_name": "CASTELNAU MEDOC BC - 2 (6)",
+    "home_away": "home",
+    "local_date": "2026-11-07",
+    "local_time": "09:30:00",
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "890e8fa7-a20f-41a8-ae20-8b3fd5377d43",
+    "team_code": "SG2",
+    "opponent_name": "CASTELNAU MEDOC BC - 4",
+    "home_away": "home",
+    "local_date": "2026-11-08",
+    "local_time": "12:00",
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm4/match/200000014733405"
+  },
+  {
+    "id": "490a9e79-17e8-4e21-9c4b-ad191a48cc6f",
+    "team_code": "SG1",
+    "opponent_name": "ENTENTE PESSAC BASKET CLUB - 3",
+    "home_away": "home",
+    "local_date": "2026-11-08",
+    "local_time": "14:00",
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm2/match/200000014548751"
+  },
+  {
+    "id": "189b75ac-d9cc-4d5c-9af6-29b4cafe6f27",
+    "team_code": "U18M",
+    "opponent_name": "STE EULALIE BASKET BALL",
+    "home_away": "away",
+    "local_date": "2026-11-08",
+    "local_time": "11:00:00",
+    "venue_name": "Salle Valériane Ayayi",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "14cfcc18-737c-4beb-99a9-d2bdd6dd2e1c",
+    "team_code": "U9F",
+    "opponent_name": "ENTENTE PESSAC BASKET CLUB (4)",
+    "home_away": "away",
+    "local_date": "2026-11-14",
+    "local_time": "10:00:00",
+    "venue_name": "Salle Roger VINCENT 1",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "962fecdc-3bdc-4676-b91d-7d0bcf5c8f72",
+    "team_code": "U11 M",
+    "opponent_name": "BORDEAUX BASTIDE BASKET - 2 (4)",
+    "home_away": "away",
+    "local_date": "2026-11-14",
+    "local_time": null,
+    "venue_name": "SALLE PROMIS",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "bbd6e7fa-d072-4df8-b93d-5a7d14b07e50",
+    "team_code": "U9M1",
+    "opponent_name": "AS LE HAILLAN (4)",
+    "home_away": "away",
+    "local_date": "2026-11-14",
+    "local_time": null,
+    "venue_name": "Gymnase du Collège",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "b0206011-7df4-4cdd-86cd-40f957a3dddd",
+    "team_code": "U11 Mixte",
+    "opponent_name": "AGJA CAUDERAN - 2 (4)",
+    "home_away": "away",
+    "local_date": "2026-11-14",
+    "local_time": null,
+    "venue_name": "GYMNASE JULES FERRY",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "24456ec4-1107-48e5-92e9-246d03d504c2",
+    "team_code": "U9M2",
+    "opponent_name": "CASTELNAU MEDOC BC - 1 (4)",
+    "home_away": "away",
+    "local_date": "2026-11-14",
+    "local_time": "11:45:00",
+    "venue_name": "GYMNASE CANTERANE",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "727f4932-52ce-423c-825c-438b13f6d639",
+    "team_code": "U18M",
+    "opponent_name": "IE - CTC BASKET HAUTE GIRONDE - BASKET CLUB ESTUAIRE GIRONDE - 1",
+    "home_away": "home",
+    "local_date": "2026-11-15",
+    "local_time": "11:00:00",
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "246ddf9c-ceb9-47e6-9255-e13e33326d9c",
+    "team_code": "SG2",
+    "opponent_name": "AS LE HAILLAN - 2",
+    "home_away": "away",
+    "local_date": "2026-11-15",
+    "local_time": "15:00",
+    "venue_name": "Gymnase du Collège",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm4/match/200000014733415"
+  },
+  {
+    "id": "158617ea-a5f8-4dad-84bd-7cf5f7425787",
+    "team_code": "SG1",
+    "opponent_name": "BORDEAUX BASTIDE BASKET - 2",
+    "home_away": "home",
+    "local_date": "2026-11-15",
+    "local_time": "15:00",
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm2/match/200000014548761"
+  },
+  {
+    "id": "a0cfbe06-1f45-4d42-915d-87432314c52b",
+    "team_code": "U11 M",
+    "opponent_name": "JSA BORDEAUX BASKET - 3 (1)",
+    "home_away": "home",
+    "local_date": "2026-11-21",
+    "local_time": null,
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "eb12b459-1c3a-4e31-920a-e1af1dec4897",
+    "team_code": "U9M2",
+    "opponent_name": "LES PETITS MOUSSES LANGOIRAN (1)",
+    "home_away": "home",
+    "local_date": "2026-11-21",
+    "local_time": null,
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "65fa7e8c-84c7-4420-b710-eb50919b7aec",
+    "team_code": "U11 Mixte",
+    "opponent_name": "ETOILE SPORTIVE EYSINAISE - 2 (1)",
+    "home_away": "home",
+    "local_date": "2026-11-21",
+    "local_time": null,
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "b011b3b2-5f7d-4105-9f8e-7a0eab5c2808",
+    "team_code": "U11 M",
+    "opponent_name": "US CENON RIVE DROITE - 1 (2)",
+    "home_away": "away",
+    "local_date": "2026-11-28",
+    "local_time": "11:00:00",
+    "venue_name": "SALLE DE LA MAREGUE",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "cb69f1f2-7a87-4f45-8a27-d819fb6fabf6",
+    "team_code": "U9F",
+    "opponent_name": "CA BEGLES (2)",
+    "home_away": "home",
+    "local_date": "2026-11-28",
+    "local_time": null,
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "d58f4e09-75d1-4db5-b139-5b44260d92b2",
+    "team_code": "U9M1",
+    "opponent_name": "CMO BASSENS - 1 (2)",
+    "home_away": "away",
+    "local_date": "2026-11-28",
+    "local_time": "10:30:00",
+    "venue_name": "GYMNASE DU BOUSQUET",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "c0ee70ad-155a-4a65-ae27-be33b125beb0",
+    "team_code": "U9M2",
+    "opponent_name": "SA MERIGNACAIS (2)",
+    "home_away": "away",
+    "local_date": "2026-11-28",
+    "local_time": "11:15:00",
+    "venue_name": "SALLE ROBERT BRETTES",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "aacb7bb5-6259-4dca-9404-366c766b4ddd",
+    "team_code": "U18M",
+    "opponent_name": "UNION SPORTIVE BAZAS - 2",
+    "home_away": "home",
+    "local_date": "2026-11-29",
+    "local_time": "11:00:00",
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "5b6904aa-c199-4426-8b41-6b7f0cbb3f21",
+    "team_code": "SG2",
+    "opponent_name": "SAM LESPARRE BASKET",
+    "home_away": "away",
+    "local_date": "2026-11-29",
+    "local_time": "15:00",
+    "venue_name": "COSEC",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm4/match/200000014733428"
+  },
+  {
+    "id": "4d6a52f4-0a46-4e64-bc6a-8f3912b6f19f",
+    "team_code": "SG1",
+    "opponent_name": "B.IZON - 1",
+    "home_away": "away",
+    "local_date": "2026-11-29",
+    "local_time": "15:00",
+    "venue_name": "GYMNASE LES COSTAUDS",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm2/match/200000014548774"
+  },
+  {
+    "id": "49ae4c5e-1c1e-4715-b39b-679adc902e8c",
+    "team_code": "U9M1",
+    "opponent_name": "BORDEAUX ETUDIANTS CLUB (1)",
+    "home_away": "home",
+    "local_date": "2026-12-05",
+    "local_time": null,
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "91583827-3368-4425-a899-bae71fba295d",
+    "team_code": "U9F",
+    "opponent_name": "CASTELNAU MEDOC BC - 1 (1)",
+    "home_away": "home",
+    "local_date": "2026-12-05",
+    "local_time": null,
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "29284ed9-bf02-49d0-af22-4e45ef36c75a",
+    "team_code": "SG1",
+    "opponent_name": "BOULIAC BASKET CLUB - 1",
+    "home_away": "home",
+    "local_date": "2026-12-06",
+    "local_time": "14:00",
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm2/match/200000014548786"
+  },
+  {
+    "id": "ac1c174a-a91d-4a64-b776-c33427196d17",
+    "team_code": "U18M",
+    "opponent_name": "COUTRAS GUITRES BASKET - 2",
+    "home_away": "away",
+    "local_date": "2026-12-06",
+    "local_time": "11:00:00",
+    "venue_name": "SALLE DOURSAT",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "7a562d25-1973-4950-aa1e-89d42199abd4",
+    "team_code": "SG2",
+    "opponent_name": "SA MERIGNACAIS - 3",
+    "home_away": "home",
+    "local_date": "2026-12-06",
+    "local_time": "12:00",
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm4/match/200000014733440"
+  },
+  {
+    "id": "b555ee07-5417-414e-b2c6-38ccc9587de5",
+    "team_code": "U11 Mixte",
+    "opponent_name": "LE TAILLAN BASKET - 3 (3)",
+    "home_away": "away",
+    "local_date": "2026-12-12",
+    "local_time": null,
+    "venue_name": "SALLE DES SPORTS",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "22cc07eb-f721-49bc-8b45-9c424bd32445",
+    "team_code": "U9M1",
+    "opponent_name": "BASKET CLUB ESTUAIRE GIRONDE (3)",
+    "home_away": "away",
+    "local_date": "2026-12-12",
+    "local_time": "11:00:00",
+    "venue_name": "GYMNASE HUET",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "f3bda005-cb6b-4548-9c00-050b1a5911f9",
+    "team_code": "U9F",
+    "opponent_name": "AS PIAN MEDOC BASKET - 1 (3)",
+    "home_away": "away",
+    "local_date": "2026-12-12",
+    "local_time": "10:00:00",
+    "venue_name": "SALLE MUNICIPALE",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "e9889eb4-fc30-4a02-877e-990e7b8b17ce",
+    "team_code": "U9M2",
+    "opponent_name": "ESPERANCE POMPIGNAC (3)",
+    "home_away": "away",
+    "local_date": "2026-12-12",
+    "local_time": null,
+    "venue_name": "SALLE DE CADOUIN",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "2c8aa6a8-eb30-4c17-984b-6ee80666fab3",
+    "team_code": "U11 M",
+    "opponent_name": "BASKET BASSIN D'ARCACHON - 1 (3)",
+    "home_away": "away",
+    "local_date": "2026-12-12",
+    "local_time": "15:30:00",
+    "venue_name": "SALLE ET. TURPIN (ANC BONNEVAL)",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "b4440a43-18e6-48ba-9ffc-9b1af83d7272",
+    "team_code": "SG1",
+    "opponent_name": "EN - CTC BASKET HAUTE GIRONDE - LES FILS DE ROLAND DE BLAYE - 1",
+    "home_away": "home",
+    "local_date": "2026-12-13",
+    "local_time": "14:00",
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm2/match/200000014548798"
+  },
+  {
+    "id": "e3d44420-41ca-4652-86bf-31965a57a76b",
+    "team_code": "U18M",
+    "opponent_name": "LES PETITS MOUSSES LANGOIRAN - 2",
+    "home_away": "away",
+    "local_date": "2026-12-13",
+    "local_time": "11:00:00",
+    "venue_name": "SALLE RENE BAILLET",
+    "ffbb_match_url": null
+  },
+  {
+    "id": "217f82e0-a04c-4866-a020-e8d090626a2e",
+    "team_code": "SG2",
+    "opponent_name": "ETOILE SPORTIVE EYSINAISE - 2",
+    "home_away": "home",
+    "local_date": "2026-12-13",
+    "local_time": "12:00",
+    "venue_name": "SALLE PORT DU ROY",
+    "ffbb_match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm4/match/200000014733452"
+  }
+]

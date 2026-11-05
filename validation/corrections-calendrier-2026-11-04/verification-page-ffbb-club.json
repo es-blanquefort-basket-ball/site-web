@@ -1,0 +1,43 @@
+{
+  "ageOptions": [
+    "Catégorie d’âge",
+    "Séniors",
+    "U18",
+    "U15",
+    "U13",
+    "Genre",
+    "Féminins",
+    "Masculins"
+  ],
+  "teamLinks": [
+    {
+      "text": "Départementale féminine U13 - Division 3\n0033   |   DFU13-3   |   PHASE 2   |   POULE A",
+      "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005408294"
+    },
+    {
+      "text": "Départementale masculine seniors - Division 2\n0033   |   DM2   |   POULE C\n5e\n6",
+      "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005338623"
+    },
+    {
+      "text": "Départementale masculine seniors - Division 4\n0033   |   DM4   |   POULE C\n6e\n5",
+      "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005365625"
+    },
+    {
+      "text": "Départementale masculine U18 - Division 4\n0033   |   DMU18-4   |   PHASE 2   |   POULE E",
+      "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005419968"
+    },
+    {
+      "text": "Départementale masculine U15 - Division 3\n0033   |   DMU15-3   |   PHASE 2   |   POULE C",
+      "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005414841"
+    },
+    {
+      "text": "Départementale masculine U13 - Division 4\n0033   |   DMU13-4   |   PHASE 2   |   POULE B",
+      "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005416665"
+    },
+    {
+      "text": "Départementale masculine U13 - Division 5\n0033   |   DMU13-5   |   POULE C\n2e\n6",
+      "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005371520"
+    }
+  ],
+  "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034"
+}

@@ -1,0 +1,32 @@
+{
+  "calendrier.html": {
+    "local_before_equals_hostinger_text": true,
+    "main_equals_hostinger_text": false,
+    "new_equals_hostinger_text": false,
+    "hostinger_sha256": "1261017ccec801cef1a859e27ce77e61ce66c0716e6f4aa5d6cbd851e78c0dd6"
+  },
+  "calendrier.js": {
+    "local_before_equals_hostinger_text": true,
+    "main_equals_hostinger_text": false,
+    "new_equals_hostinger_text": false,
+    "hostinger_sha256": "3c0c0334a790715014544cabc9232213218295ecddadc868465277f3e95ce869"
+  },
+  "equipes.html": {
+    "local_before_equals_hostinger_text": true,
+    "main_equals_hostinger_text": false,
+    "new_equals_hostinger_text": false,
+    "hostinger_sha256": "f26d05ff34f8c0fac9cd178d6ee82500d90edc4d4cb7972e1c2c7d5dc99e66e7"
+  },
+  "style.css": {
+    "local_before_equals_hostinger_text": true,
+    "main_equals_hostinger_text": true,
+    "new_equals_hostinger_text": true,
+    "hostinger_sha256": "eaab8ad8fcfad41cf56abf92820d76281db54cf3c50b91025950c0ec17d3a62e"
+  },
+  "script.js": {
+    "local_before_equals_hostinger_text": true,
+    "main_equals_hostinger_text": true,
+    "new_equals_hostinger_text": true,
+    "hostinger_sha256": "50e67c24f87942af6a2da1d83a0a739ca62660e1dc6327eba0ecc73a7f306782"
+  }
+}

@@ -1,0 +1,322 @@
+[
+  {
+    "code": "U13F",
+    "team_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005408294",
+    "pool_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dfu13-3?poule=200000003064585&phase=200000002902208",
+    "observation": "Texte et liens visibles lus dans le navigateur le 3 novembre 2026. Pas un export importable ; ambiguïtés non arbitrées.",
+    "rows": [
+      {
+        "display_number": 1,
+        "round": "J1",
+        "date_display": "7 nov.",
+        "time_display": "00h00",
+        "home_away_display": "Extérieur",
+        "opponent": "AS LE HAILLAN",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dfu13-3/match/200000014909687"
+      },
+      {
+        "display_number": 14,
+        "round": "J2",
+        "date_display": "14 nov.",
+        "time_display": "00h00",
+        "home_away_display": "Domicile",
+        "opponent": "BORDEAUX ETUDIANTS CLUB",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dfu13-3/match/200000014904182"
+      },
+      {
+        "display_number": 5,
+        "round": "J2",
+        "date_display": "14 nov.",
+        "time_display": "00h00",
+        "home_away_display": "Domicile",
+        "opponent": "BORDEAUX ETUDIANTS CLUB",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dfu13-3/match/200000014909691"
+      },
+      {
+        "display_number": 27,
+        "round": "J3",
+        "date_display": "28 nov.",
+        "time_display": "00h00",
+        "home_away_display": "Extérieur",
+        "opponent": "AMICALE BASKETTEURS GRADIGNAN",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dfu13-3/match/200000014904195"
+      },
+      {
+        "display_number": 9,
+        "round": "J3",
+        "date_display": "28 nov.",
+        "time_display": "17h30",
+        "home_away_display": "Extérieur",
+        "opponent": "AMICALE BASKETTEURS GRADIGNAN",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dfu13-3/match/200000014909695"
+      },
+      {
+        "display_number": 37,
+        "round": "J4",
+        "date_display": "5 déc.",
+        "time_display": "00h00",
+        "home_away_display": "Extérieur",
+        "opponent": "AGJA CAUDERAN",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dfu13-3/match/200000014904205"
+      },
+      {
+        "display_number": 10,
+        "round": "J4",
+        "date_display": "5 déc.",
+        "time_display": "15h00",
+        "home_away_display": "Extérieur",
+        "opponent": "AGJA CAUDERAN",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dfu13-3/match/200000014909696"
+      },
+      {
+        "display_number": 50,
+        "round": "J5",
+        "date_display": "12 déc.",
+        "time_display": "00h00",
+        "home_away_display": "Domicile",
+        "opponent": "BOULIAC BASKET CLUB",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dfu13-3/match/200000014904218"
+      },
+      {
+        "display_number": 14,
+        "round": "J5",
+        "date_display": "12 déc.",
+        "time_display": "00h00",
+        "home_away_display": "Domicile",
+        "opponent": "BOULIAC BASKET CLUB",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dfu13-3/match/200000014909700"
+      }
+    ]
+  },
+  {
+    "code": "U13M",
+    "team_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005416665",
+    "pool_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu13-4?poule=200000003065651&phase=200000002902520",
+    "observation": "Texte et liens visibles lus dans le navigateur le 3 novembre 2026. Pas un export importable ; ambiguïtés non arbitrées.",
+    "rows": [
+      {
+        "display_number": 4,
+        "round": "J1",
+        "date_display": "21 nov.",
+        "time_display": "00h00",
+        "home_away_display": "Extérieur",
+        "opponent": "CASTELNAU MEDOC BC",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu13-4/match/200000014890292"
+      },
+      {
+        "display_number": 14,
+        "round": "J2",
+        "date_display": "14 nov.",
+        "time_display": "00h00",
+        "home_away_display": "Domicile",
+        "opponent": "US LE BOUSCAT - 2",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu13-4/match/200000014890302"
+      },
+      {
+        "display_number": 24,
+        "round": "J3",
+        "date_display": "28 nov.",
+        "time_display": "00h00",
+        "home_away_display": "Extérieur",
+        "opponent": "JSA BORDEAUX BASKET - 3",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu13-4/match/200000014890312"
+      },
+      {
+        "display_number": 31,
+        "round": "J4",
+        "date_display": "5 déc.",
+        "time_display": "12h00",
+        "home_away_display": "Extérieur",
+        "opponent": "SAM LESPARRE BASKET",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu13-4/match/200000014890319"
+      },
+      {
+        "display_number": 41,
+        "round": "J5",
+        "date_display": "12 déc.",
+        "time_display": "00h00",
+        "home_away_display": "Domicile",
+        "opponent": "SAINT MEDARD BASKET - 4",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu13-4/match/200000014890329"
+      }
+    ]
+  },
+  {
+    "code": "U15M",
+    "team_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005414841",
+    "pool_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu15-3?poule=200000003065402&phase=200000002902453",
+    "observation": "Texte et liens visibles lus dans le navigateur le 3 novembre 2026. Pas un export importable ; ambiguïtés non arbitrées.",
+    "rows": [
+      {
+        "display_number": 7,
+        "round": "J1",
+        "date_display": "7 nov.",
+        "time_display": "17h00",
+        "home_away_display": "Extérieur",
+        "opponent": "UNION SPORTIVE GAURIAC",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu15-3/match/200000014884692"
+      },
+      {
+        "display_number": 17,
+        "round": "J2",
+        "date_display": "14 nov.",
+        "time_display": "00h00",
+        "home_away_display": "Domicile",
+        "opponent": "BASKET BASSIN D'ARCACHON - 1",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu15-3/match/200000014884702"
+      },
+      {
+        "display_number": 27,
+        "round": "J3",
+        "date_display": "28 nov.",
+        "time_display": "13h00",
+        "home_away_display": "Extérieur",
+        "opponent": "CLUB LEO LAGRANGE LORMONT - 1",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu15-3/match/200000014884712"
+      },
+      {
+        "display_number": 34,
+        "round": "J4",
+        "date_display": "6 déc.",
+        "time_display": "11h15",
+        "home_away_display": "Extérieur",
+        "opponent": "B.IZON",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu15-3/match/200000014884719"
+      },
+      {
+        "display_number": 44,
+        "round": "J5",
+        "date_display": "12 déc.",
+        "time_display": "00h00",
+        "home_away_display": "Domicile",
+        "opponent": "US LE BOUSCAT - 2",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu15-3/match/200000014884729"
+      }
+    ]
+  },
+  {
+    "code": "U18M",
+    "team_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005419968",
+    "pool_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4?poule=200000003064624&phase=200000002902228",
+    "observation": "Texte et liens visibles lus dans le navigateur le 3 novembre 2026. Pas un export importable ; ambiguïtés non arbitrées.",
+    "rows": [
+      {
+        "display_number": 15,
+        "round": "J1",
+        "date_display": "8 nov.",
+        "time_display": "11h00",
+        "home_away_display": "Extérieur",
+        "opponent": "STE EULALIE BASKET BALL",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014955052"
+      },
+      {
+        "display_number": 15,
+        "round": "J1",
+        "date_display": "8 nov.",
+        "time_display": "11h00",
+        "home_away_display": "Extérieur",
+        "opponent": "STE EULALIE BASKET BALL",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014955437"
+      },
+      {
+        "display_number": 16,
+        "round": "J2",
+        "date_display": "15 nov.",
+        "time_display": "11h00",
+        "home_away_display": "Domicile",
+        "opponent": "IE - CTC BASKET HAUTE GIRONDE - BASKET CLUB ESTUAIRE GIRONDE - 1",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014955053"
+      },
+      {
+        "display_number": 16,
+        "round": "J2",
+        "date_display": "15 nov.",
+        "time_display": "11h00",
+        "home_away_display": "Domicile",
+        "opponent": "IE - CTC BASKET HAUTE GIRONDE - BASKET CLUB ESTUAIRE GIRONDE - 1",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014955438"
+      },
+      {
+        "display_number": 50,
+        "round": "J3",
+        "date_display": "29 nov.",
+        "time_display": "11h00",
+        "home_away_display": "Domicile",
+        "opponent": "UNION SPORTIVE BAZAS - 2",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014924498"
+      },
+      {
+        "display_number": 20,
+        "round": "J3",
+        "date_display": "29 nov.",
+        "time_display": "11h00",
+        "home_away_display": "Domicile",
+        "opponent": "UNION SPORTIVE BAZAS - 2",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014955057"
+      },
+      {
+        "display_number": 20,
+        "round": "J3",
+        "date_display": "29 nov.",
+        "time_display": "11h00",
+        "home_away_display": "Domicile",
+        "opponent": "UNION SPORTIVE BAZAS - 2",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014955442"
+      },
+      {
+        "display_number": 68,
+        "round": "J4",
+        "date_display": "6 déc.",
+        "time_display": "11h00",
+        "home_away_display": "Extérieur",
+        "opponent": "COUTRAS GUITRES BASKET - 2",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014924516"
+      },
+      {
+        "display_number": 23,
+        "round": "J4",
+        "date_display": "6 déc.",
+        "time_display": "11h00",
+        "home_away_display": "Extérieur",
+        "opponent": "COUTRAS GUITRES BASKET - 2",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014955060"
+      },
+      {
+        "display_number": 23,
+        "round": "J4",
+        "date_display": "6 déc.",
+        "time_display": "11h00",
+        "home_away_display": "Extérieur",
+        "opponent": "COUTRAS GUITRES BASKET - 2",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014955445"
+      },
+      {
+        "display_number": 86,
+        "round": "J5",
+        "date_display": "13 déc.",
+        "time_display": "11h00",
+        "home_away_display": "Extérieur",
+        "opponent": "LES PETITS MOUSSES LANGOIRAN - 2",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014924535"
+      },
+      {
+        "display_number": 26,
+        "round": "J5",
+        "date_display": "13 déc.",
+        "time_display": "11h00",
+        "home_away_display": "Extérieur",
+        "opponent": "LES PETITS MOUSSES LANGOIRAN - 2",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014955063"
+      },
+      {
+        "display_number": 26,
+        "round": "J5",
+        "date_display": "13 déc.",
+        "time_display": "11h00",
+        "home_away_display": "Extérieur",
+        "opponent": "LES PETITS MOUSSES LANGOIRAN - 2",
+        "match_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014955448"
+      }
+    ]
+  }
+]

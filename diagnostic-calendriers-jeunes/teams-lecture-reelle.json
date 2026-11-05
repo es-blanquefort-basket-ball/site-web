@@ -1,0 +1,35 @@
+[
+  {
+    "id": "a5cc2802-d81c-4719-802a-9f0c7743e13c",
+    "code": "U13F",
+    "name": "U13F",
+    "competition_label": "DFU13-3",
+    "ffbb_team_id": "200000005370982",
+    "ffbb_team_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005370982",
+    "ffbb_pool_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dfu13-3?phase=200000002899469&poule=200000003059588&journee=1",
+    "is_competition_active": true,
+    "is_public": true
+  },
+  {
+    "id": "2d493723-f8ff-4100-b62d-709296eff343",
+    "code": "U13M",
+    "name": "U13M",
+    "competition_label": "DMU13-5",
+    "ffbb_team_id": "200000005371520",
+    "ffbb_team_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005371520",
+    "ffbb_pool_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu13-5?phase=200000002899490&poule=200000003059648&journee=1",
+    "is_competition_active": true,
+    "is_public": true
+  },
+  {
+    "id": "e6b598cd-4aea-48ea-b41e-8a0b1f1e18b6",
+    "code": "U15M",
+    "name": "U15M",
+    "competition_label": "DMU15-3",
+    "ffbb_team_id": "200000005371206",
+    "ffbb_team_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005371206",
+    "ffbb_pool_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu15-3?phase=200000002899480&poule=200000003059626&journee=1",
+    "is_competition_active": true,
+    "is_public": true
+  }
+]

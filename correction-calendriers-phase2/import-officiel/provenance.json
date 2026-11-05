@@ -1,0 +1,23 @@
+{
+  "source": "../resultat-preview-local.json",
+  "sha256": "3552ee9476695a82d707dcea6bb8ca2dbb7428b678b226af24f695a3a6e3fdc4",
+  "collected_at_utc": "2026-11-03T22:19:51.158Z",
+  "origin": "local_node_not_supabase",
+  "source_team_http_status": {
+    "U13F": 200,
+    "U13M": 200,
+    "U15M": 200,
+    "U18M": 200
+  },
+  "source_detail_errors": {
+    "U13F": 0,
+    "U13M": 0,
+    "U15M": 0,
+    "U18M": 0
+  },
+  "count": 32,
+  "unambiguous": 11,
+  "ambiguous": 21,
+  "approval": "non approuvé pour publication",
+  "verification": "cohérence du fichier conservé, sans nouvelle consultation FFBB ni Supabase"
+}

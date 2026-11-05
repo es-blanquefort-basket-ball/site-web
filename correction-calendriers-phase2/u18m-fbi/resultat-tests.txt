@@ -1,0 +1,3 @@
+OK : MiniBasket réel en base locale, 57→62→57 ; verify sans écriture persistante, JWT/réseau non concernés.
+OK : 5 clés FBI uniques, IDs FFBB NULL, U18M hors sync, données/salles/UTC/vue, 57 lignes et corrections/droits/options préservés.
+OK : relance identique, doublon refusé, correction club/ID canonique/nouvel export/vue modifiée protégés, équipe existante préservée, collision et équipe active refusées.

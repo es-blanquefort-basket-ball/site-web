@@ -1,0 +1,47 @@
+--- production/equipes.html
++++ valide/equipes.html
+@@ -388,7 +388,7 @@
+         <div class="team-photo-slot">Photo de groupe à venir</div>
+         <div class="team-heading"><h3>U9F</h3><span class="team-status">Compétition</span></div>
+         <div class="team-detail"><h4>Compétition</h4><p>DFU9-10-P2</p></div>
+-        <div class="team-actions"><a href="calendrier.html?equipe=U9F#calendrier-club" aria-label="Consulter les publications du calendrier pour U9F">Calendrier — vérifier les publications</a></div>
++        <div class="team-actions"><a href="calendrier.html?equipe=U9F#calendrier-club" aria-label="Voir les matchs du calendrier pour U9F">Voir les matchs</a></div>
+         <div class="team-detail"><h4>Créneaux de la catégorie U9</h4><ul><li>Mardi 17h30–19h00 — Dupaty</li><li>Mercredi 16h30–17h45 — Port du Roy</li></ul></div>
+       </article>
+ 
+@@ -396,7 +396,7 @@
+         <div class="team-photo-slot">Photo de groupe à venir</div>
+         <div class="team-heading"><h3>U9M1</h3><span class="team-status">Compétition</span></div>
+         <div class="team-detail"><h4>Compétition</h4><p>DMU9-10-P2</p></div>
+-        <div class="team-actions"><a href="calendrier.html?equipe=U9M1#calendrier-club" aria-label="Consulter les publications du calendrier pour U9M1">Calendrier — vérifier les publications</a></div>
++        <div class="team-actions"><a href="calendrier.html?equipe=U9M1#calendrier-club" aria-label="Voir les matchs du calendrier pour U9M1">Voir les matchs</a></div>
+         <div class="team-detail"><h4>Créneaux de la catégorie U9</h4><ul><li>Mardi 17h30–19h00 — Dupaty</li><li>Mercredi 16h30–17h45 — Port du Roy</li></ul></div>
+       </article>
+ 
+@@ -404,7 +404,7 @@
+         <div class="team-photo-slot">Photo de groupe à venir</div>
+         <div class="team-heading"><h3>U9M2</h3><span class="team-status">Compétition</span></div>
+         <div class="team-detail"><h4>Compétition</h4><p>DMU9-10-P2</p></div>
+-        <div class="team-actions"><a href="calendrier.html?equipe=U9M2#calendrier-club" aria-label="Consulter les publications du calendrier pour U9M2">Calendrier — vérifier les publications</a></div>
++        <div class="team-actions"><a href="calendrier.html?equipe=U9M2#calendrier-club" aria-label="Voir les matchs du calendrier pour U9M2">Voir les matchs</a></div>
+         <div class="team-detail"><h4>Créneaux de la catégorie U9</h4><ul><li>Mardi 17h30–19h00 — Dupaty</li><li>Mercredi 16h30–17h45 — Port du Roy</li></ul></div>
+       </article>
+ 
+@@ -412,7 +412,7 @@
+         <div class="team-photo-slot">Photo de groupe à venir</div>
+         <div class="team-heading"><h3>U11 Mixte</h3><span class="team-status">Compétition</span></div>
+         <div class="team-detail"><h4>Compétition</h4><p>DMU11-4-P2</p></div>
+-        <div class="team-actions"><a href="calendrier.html?equipe=U11%20Mixte#calendrier-club" aria-label="Consulter les publications du calendrier pour U11 Mixte">Calendrier — vérifier les publications</a></div>
++        <div class="team-actions"><a href="calendrier.html?equipe=U11%20Mixte#calendrier-club" aria-label="Voir les matchs du calendrier pour U11 Mixte">Voir les matchs</a></div>
+         <div class="team-detail"><h4>Créneaux de la catégorie U11</h4><ul><li>Mardi 17h30–19h00 — Dupaty</li><li>Mercredi 17h45–19h00 — Port du Roy</li></ul></div>
+       </article>
+ 
+@@ -420,7 +420,7 @@
+         <div class="team-photo-slot">Photo de groupe à venir</div>
+         <div class="team-heading"><h3>U11 M</h3><span class="team-status">Compétition</span></div>
+         <div class="team-detail"><h4>Compétition</h4><p>DMU11-10-P2</p></div>
+-        <div class="team-actions"><a href="calendrier.html?equipe=U11%20M#calendrier-club" aria-label="Consulter les publications du calendrier pour U11 M">Calendrier — vérifier les publications</a></div>
++        <div class="team-actions"><a href="calendrier.html?equipe=U11%20M#calendrier-club" aria-label="Voir les matchs du calendrier pour U11 M">Voir les matchs</a></div>
+         <div class="team-detail"><h4>Créneaux de la catégorie U11</h4><ul><li>Mardi 17h30–19h00 — Dupaty</li><li>Mercredi 17h45–19h00 — Port du Roy</li></ul></div>
+       </article>
+     </div>

@@ -1,0 +1,26 @@
+{
+  "calendrier.html": {
+    "url": "https://es-blanquefort-basketball.fr/calendrier.html",
+    "http_status": 200,
+    "production_sha256": "1261017ccec801cef1a859e27ce77e61ce66c0716e6f4aa5d6cbd851e78c0dd6",
+    "validated_sha256": "5940392bdb33e47d98c1dd391c750903a0822000cb2837c7bbeebde7f61e7eaf",
+    "already_matches_validated": false,
+    "production_unchanged_since_review": true
+  },
+  "calendrier.js": {
+    "url": "https://es-blanquefort-basketball.fr/calendrier.js",
+    "http_status": 200,
+    "production_sha256": "3c0c0334a790715014544cabc9232213218295ecddadc868465277f3e95ce869",
+    "validated_sha256": "18eabaf1f27d15977ced20ce0a2a4400f4e8e74e6300175e6a3e0fbfccf70ab4",
+    "already_matches_validated": false,
+    "production_unchanged_since_review": true
+  },
+  "equipes.html": {
+    "url": "https://es-blanquefort-basketball.fr/equipes.html",
+    "http_status": 200,
+    "production_sha256": "f26d05ff34f8c0fac9cd178d6ee82500d90edc4d4cb7972e1c2c7d5dc99e66e7",
+    "validated_sha256": "c383715bd1b08c118f725467ce5839ff9f368fe2d49d7b9ab7c5b7897954a157",
+    "already_matches_validated": false,
+    "production_unchanged_since_review": true
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "source_path": "/Users/laurence/Downloads/rechercherRencontre.xlsx",
+  "source_sha256": "987ba1f290a4a40817bdba0a7c85a300959ed184fe2c156d828b75f03029f64b",
+  "sheet": "rechercherRencontre",
+  "range": "A1:G6",
+  "scores_excluded": true,
+  "rows": [
+    {
+      "group": "G05",
+      "fbi_division": "DMU18-4-P2",
+      "fbi_match_number": "15",
+      "team_code": "U18M",
+      "home_team": "STE EULALIE BASKET BALL",
+      "away_team": "ENTENTE SPORTIVE BLANQUEFORT",
+      "opponent_name": "STE EULALIE BASKET BALL",
+      "home_away": "away",
+      "local_date": "2026-11-08",
+      "local_time": "11:00",
+      "venue_name": "Salle Valériane Ayayi",
+      "source_cells": "rechercherRencontre!A2:G2",
+      "ffbb_match_id": null,
+      "competing_ffbb_ids": [
+        "200000014955052",
+        "200000014955437"
+      ],
+      "identity_status": "correspondance_FBI_FFBB_non_demontree",
+      "importable_with_ffbb_id": false
+    },
+    {
+      "group": "G06",
+      "fbi_division": "DMU18-4-P2",
+      "fbi_match_number": "16",
+      "team_code": "U18M",
+      "home_team": "ENTENTE SPORTIVE BLANQUEFORT",
+      "away_team": "IE - CTC BASKET HAUTE GIRONDE - BASKET CLUB ESTUAIRE GIRONDE - 1",
+      "opponent_name": "IE - CTC BASKET HAUTE GIRONDE - BASKET CLUB ESTUAIRE GIRONDE - 1",
+      "home_away": "home",
+      "local_date": "2026-11-15",
+      "local_time": "11:00",
+      "venue_name": "SALLE PORT DU ROY",
+      "source_cells": "rechercherRencontre!A3:G3",
+      "ffbb_match_id": null,
+      "competing_ffbb_ids": [
+        "200000014955053",
+        "200000014955438"
+      ],
+      "identity_status": "correspondance_FBI_FFBB_non_demontree",
+      "importable_with_ffbb_id": false
+    },
+    {
+      "group": "G07",
+      "fbi_division": "DMU18-4-P2",
+      "fbi_match_number": "20",
+      "team_code": "U18M",
+      "home_team": "ENTENTE SPORTIVE BLANQUEFORT",
+      "away_team": "UNION SPORTIVE BAZAS - 2",
+      "opponent_name": "UNION SPORTIVE BAZAS - 2",
+      "home_away": "home",
+      "local_date": "2026-11-29",
+      "local_time": "11:00",
+      "venue_name": "SALLE PORT DU ROY",
+      "source_cells": "rechercherRencontre!A4:G4",
+      "ffbb_match_id": null,
+      "competing_ffbb_ids": [
+        "200000014924498",
+        "200000014955057",
+        "200000014955442"
+      ],
+      "identity_status": "correspondance_FBI_FFBB_non_demontree",
+      "importable_with_ffbb_id": false
+    },
+    {
+      "group": "G08",
+      "fbi_division": "DMU18-4-P2",
+      "fbi_match_number": "23",
+      "team_code": "U18M",
+      "home_team": "COUTRAS GUITRES BASKET - 2",
+      "away_team": "ENTENTE SPORTIVE BLANQUEFORT",
+      "opponent_name": "COUTRAS GUITRES BASKET - 2",
+      "home_away": "away",
+      "local_date": "2026-12-06",
+      "local_time": "11:00",
+      "venue_name": "SALLE DOURSAT",
+      "source_cells": "rechercherRencontre!A5:G5",
+      "ffbb_match_id": null,
+      "competing_ffbb_ids": [
+        "200000014924516",
+        "200000014955060",
+        "200000014955445"
+      ],
+      "identity_status": "correspondance_FBI_FFBB_non_demontree",
+      "importable_with_ffbb_id": false
+    },
+    {
+      "group": "G09",
+      "fbi_division": "DMU18-4-P2",
+      "fbi_match_number": "26",
+      "team_code": "U18M",
+      "home_team": "LES PETITS MOUSSES LANGOIRAN - 2",
+      "away_team": "ENTENTE SPORTIVE BLANQUEFORT",
+      "opponent_name": "LES PETITS MOUSSES LANGOIRAN - 2",
+      "home_away": "away",
+      "local_date": "2026-12-13",
+      "local_time": "11:00",
+      "venue_name": "SALLE RENE BAILLET",
+      "source_cells": "rechercherRencontre!A6:G6",
+      "ffbb_match_id": null,
+      "competing_ffbb_ids": [
+        "200000014924535",
+        "200000014955063",
+        "200000014955448"
+      ],
+      "identity_status": "correspondance_FBI_FFBB_non_demontree",
+      "importable_with_ffbb_id": false
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "team": "U13F",
+    "visible_rows": 9,
+    "official_match_urls": 9,
+    "synthetic_keys": 5,
+    "key_collisions": 4,
+    "zero_times_not_flagged": 7,
+    "suspicious_times_flagged_by_current_rule": 0
+  },
+  {
+    "team": "U13M",
+    "visible_rows": 5,
+    "official_match_urls": 5,
+    "synthetic_keys": 5,
+    "key_collisions": 0,
+    "zero_times_not_flagged": 4,
+    "suspicious_times_flagged_by_current_rule": 0
+  },
+  {
+    "team": "U15M",
+    "visible_rows": 5,
+    "official_match_urls": 5,
+    "synthetic_keys": 5,
+    "key_collisions": 0,
+    "zero_times_not_flagged": 2,
+    "suspicious_times_flagged_by_current_rule": 0
+  },
+  {
+    "team": "U18M",
+    "visible_rows": 13,
+    "official_match_urls": 13,
+    "synthetic_keys": 5,
+    "key_collisions": 8,
+    "zero_times_not_flagged": 0,
+    "suspicious_times_flagged_by_current_rule": 0
+  }
+]

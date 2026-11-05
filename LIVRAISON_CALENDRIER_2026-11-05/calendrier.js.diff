@@ -1,0 +1,27 @@
+--- production/calendrier.js
++++ valide/calendrier.js
+@@ -173,7 +173,15 @@
+     appendDetailRow(details, 'Adversaire', event.opponentName);
+     appendDetailRow(details, 'Rencontre', locationLabel(event.homeAway));
+     appendDetailRow(details, 'Gymnase', event.venueName);
+-    appendDetailRow(details, 'Adresse', event.venueAddress);
++    appendDetailRow(details, 'Adresse', event.venueAddress || (event.venueName ? 'Adresse à vérifier' : ''));
++    if (event.venueAddress || event.venueName) {
++      const mapsUrl = new URL('https://www.google.com/maps/search/');
++      mapsUrl.searchParams.set('api', '1');
++      mapsUrl.searchParams.set('query', [event.venueName, event.venueAddress].filter(Boolean).join(', '));
++      appendDetailRow(details, 'Accès', event.venueAddress
++        ? 'Ouvrir Google Maps'
++        : 'Rechercher le gymnase sur Google Maps (adresse à vérifier)', mapsUrl.href);
++    }
+     appendDetailRow(details, 'Journée', event.roundLabel);
+     const ffbbUrl = event.ffbbMatchUrl || event.ffbbTeamUrl;
+     const ffbbLabel = event.ffbbMatchUrl ? 'Voir la fiche du match pour la localisation' : 'Voir la fiche de l’équipe';
+@@ -224,6 +232,7 @@
+     ].filter(Boolean);
+     drawerContent.replaceChildren(...dayGroups);
+     drawerLayer.hidden = false;
++    drawerContent.scrollTop = 0;
+     document.body.classList.add('calendar-drawer-open');
+     drawer.focus();
+   };

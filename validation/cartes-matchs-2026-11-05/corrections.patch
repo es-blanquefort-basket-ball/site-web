@@ -1,0 +1,859 @@
+diff --git a/404.html b/404.html
+index 43a9afb..8707989 100644
+--- a/404.html
++++ b/404.html
+@@ -223,6 +223,8 @@ body .section-essais-app{
+ }
+ 
+ </style>
++<link rel="stylesheet" href="site-update.css?v=20261105">
++<script src="site-update.js?v=20261105" defer></script>
+ </head><body>
+ <header id="hdr"><div class="wrap nav"><a class="brand" href="index.html"><img src="images/logo.png" alt="Logo ES Blanquefort Basket Ball"><span class="brand-text"><span class="brand-name">ES Blanquefort</span><span class="brand-sub">Basket-Ball</span></span></a><button class="burger" aria-label="Menu">☰</button><nav class="navlinks"><a class="" href="index.html">Accueil</a>
+ <a class="" href="le-club.html">Le club</a>
+@@ -233,5 +235,6 @@ body .section-essais-app{
+ <a class="btn btn-primary" href="inscriptions.html">S’inscrire</a></nav></div></header>
+ <div class="sponsor-strip">Partenaires du club : plusieurs offres pour soutenir l’ES Blanquefort Basket-Ball · <a href="https://es-blanquefort-basket-ball.github.io/partenariat-club/" target="_blank" rel="noopener">Voir le dossier partenaire</a></div>
+ <section class="notfound"><div class="wrap"><div class="notfound-card"><div><div class="eyebrow">Erreur 404 · Balle hors-jeu</div><h1 class="section-title">La page est <span>hors jeu</span></h1><p class="lead">La balle est sortie du terrain : la page demandée n’existe pas, a changé d’adresse ou n’est plus disponible.</p><br><div class="hero-actions"><a class="btn btn-primary" href="index.html">Retour à l’accueil</a><a class="btn btn-ghost" href="calendrier.html">Voir le calendrier</a></div></div><div class="court-404" aria-hidden="true"><div class="ball-404"></div></div></div></div></section>
++<p class="site-update"><span class="badge" data-site-update>Prévisualisation — livraison non publiée</span></p>
+ <footer><div class="wrap foot"><div><img class="foot-logo" src="images/logo.png" alt="ES Blanquefort Basket Ball"><p>Club de basket-ball à Blanquefort, en Gironde. Passion, partage, formation et esprit d’équipe.</p></div><div><h4>Navigation</h4><a href="index.html">Accueil</a><a href="le-club.html">Le club</a><a href="equipes.html">Équipes</a><a href="planning.html">Planning</a></div><div><h4>Compétitions</h4><a href="calendrier.html">Calendrier</a><a href="partenaires.html">Partenaires</a><a href="essais.html">Inscriptions</a></div><div><h4>Contact</h4><a href="contact.html">Nous écrire</a><p>contact@es-blanquefort-basketball.fr</p><p><a href="contact.html">Voir les gymnases et leurs accès</a></p></div></div><div class="wrap copy"><span>© 2026 ES Blanquefort Basket-Ball</span><span>Affilié FFBB · Ligue Nouvelle-Aquitaine</span></div></footer>
+ <script src="script.js"></script></body></html>
+\ No newline at end of file
+diff --git a/calendrier.html b/calendrier.html
+index 7871325..b5ce03c 100644
+--- a/calendrier.html
++++ b/calendrier.html
+@@ -413,6 +413,8 @@ img,video,iframe{max-width:100%;height:auto}
+ @keyframes calendar-drawer-up{from{transform:translateY(28px);opacity:.65}to{transform:translateY(0);opacity:1}}
+ </style>
+ 
++<link rel="stylesheet" href="site-update.css?v=20261105">
++<script src="site-update.js?v=20261105" defer></script>
+ </head><body class="">
+ <header id="hdr"><div class="wrap nav"><a class="brand" href="index.html"><img src="images/logo.png" alt="Logo ES Blanquefort Basket Ball"><span class="brand-text"><span class="brand-name">ES Blanquefort</span><span class="brand-sub">Basket-Ball</span></span></a><button class="burger" aria-label="Menu">☰</button><nav class="navlinks"><a class="" href="index.html">Accueil</a>
+ <a class="" href="le-club.html">Le club</a>
+@@ -602,6 +604,7 @@ img,video,iframe{max-width:100%;height:auto}
+ </main>
+ 
+ <script src="script.js"></script>
+-<script src="calendrier.js?v=20261104"></script>
++<script src="calendrier.js?v=20261105"></script>
++<p class="site-update"><span class="badge" data-site-update>Prévisualisation — livraison non publiée</span></p>
+ <footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand-block"><img class="footer-logo" src="images/logo.png" alt="Logo ES Blanquefort Basket-Ball"><h3>ES Blanquefort Basket-Ball</h3><p>Club familial de basket à Blanquefort, porté par les joueurs, les familles, les bénévoles et les partenaires.</p></div><div><h4>Navigation</h4><ul><li><a href="index.html">Accueil</a></li><li><a href="le-club.html">Le club</a></li><li><a href="equipes.html">Équipes</a></li><li><a href="planning.html">Planning</a></li><li><a href="calendrier.html">Calendrier</a></li><li><a href="partenaires.html">Partenaires</a></li><li><a href="sponsors.html">Mur des verts et blancs</a></li></ul></div><div><h4>Contact</h4><p><strong>ES Blanquefort Basket-Ball</strong><br>Tél. 06 10 16 60 16<br><a href="mailto:contact@es-blanquefort-basketball.fr">contact@es-blanquefort-basketball.fr</a><br><a class="legal-link" href="mentions_legales_ESBB.html">Mentions légales</a></p></div><div><h4>Partenaires</h4><p>Entreprises locales, commerçants, artisans et familles partenaires : plusieurs façons de soutenir le club.</p><a class="legal-link" href="https://es-blanquefort-basket-ball.github.io/partenariat-club/" target="_blank" rel="noopener">Devenir partenaire</a></div></div><div class="footer-bottom"><span>© 2026 ES Blanquefort Basket-Ball</span><span>Site club développé par L’Rénov IA Studio · Mai 2026</span><span>Club affilié FFBB · Ligue Nouvelle-Aquitaine · Comité de Gironde · NAQ 0033-034</span></div></div></footer>
+ </body></html>
+diff --git a/calendrier.js b/calendrier.js
+index f046194..c73eca9 100644
+--- a/calendrier.js
++++ b/calendrier.js
+@@ -81,6 +81,32 @@
+     }
+   };
+ 
++  // Adresses publiques validées dans contact.html. Les adresses importées restent prioritaires.
++  const knownVenueAddress = name => {
++    const normalized = String(name || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
++      .toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
++    const aliases = {
++      'port du roy': '55 avenue du Port du Roy, 33290 Blanquefort',
++      'gymnase du port du roy': '55 avenue du Port du Roy, 33290 Blanquefort',
++      'salle port du roy': '55 avenue du Port du Roy, 33290 Blanquefort',
++      'salle du port du roy': '55 avenue du Port du Roy, 33290 Blanquefort',
++      'complexe sportif le port du roy': '55 avenue du Port du Roy, 33290 Blanquefort',
++      'dupaty': '19 rue Dupaty, 33290 Blanquefort',
++      'gymnase dupaty': '19 rue Dupaty, 33290 Blanquefort',
++      'salle dupaty': '19 rue Dupaty, 33290 Blanquefort',
++      'fongravey': 'Rue Jean Moulin — accès à hauteur du n°60, côté feu / gare de Blanquefort, 33290 Blanquefort',
++      'complexe sportif de fongravey': 'Rue Jean Moulin — accès à hauteur du n°60, côté feu / gare de Blanquefort, 33290 Blanquefort',
++      'bechon': 'Lycée Jean Monnet — accès gymnase par la rue du Béchon, côté installations sportives, à hauteur du n°34 environ, 33290 Blanquefort',
++      'gymnase le bechon': 'Lycée Jean Monnet — accès gymnase par la rue du Béchon, côté installations sportives, à hauteur du n°34 environ, 33290 Blanquefort'
++    };
++    return aliases[normalized] || '';
++  };
++
++  const individualMatchUrl = value => {
++    const safe = safeFfbbUrl(value);
++    return safe && /\/match\/\d+\/?$/.test(new URL(safe).pathname) ? safe : null;
++  };
++
+   const locationLabel = homeAway => {
+     if (homeAway === 'home') return 'Domicile';
+     if (homeAway === 'away') return 'Extérieur';
+@@ -99,9 +125,9 @@
+       localDate,
+       localTime: /^00:00(?::00(?:\.0+)?)?$/.test(localTime) ? '' : localTime,
+       venueName: item.venue_name ? String(item.venue_name).trim() : '',
+-      venueAddress: item.venue_address ? String(item.venue_address).trim() : '',
++      venueAddress: (item.venue_address ? String(item.venue_address).trim() : '') || knownVenueAddress(item.venue_name),
+       roundLabel: item.round_label ? String(item.round_label).trim() : '',
+-      ffbbMatchUrl: safeFfbbUrl(item.ffbb_match_url),
++      ffbbMatchUrl: individualMatchUrl(item.ffbb_match_url),
+       ffbbTeamUrl: safeFfbbUrl(item.ffbb_team_url)
+     };
+   };
+@@ -184,7 +210,7 @@
+     }
+     appendDetailRow(details, 'Journée', event.roundLabel);
+     const ffbbUrl = event.ffbbMatchUrl || event.ffbbTeamUrl;
+-    const ffbbLabel = event.ffbbMatchUrl ? 'Voir la fiche du match pour la localisation' : 'Voir la fiche de l’équipe';
++    const ffbbLabel = event.ffbbMatchUrl ? 'Fiche officielle du match' : 'Page de l’équipe FFBB (fiche du match indisponible)';
+     appendDetailRow(details, 'FFBB', ffbbUrl ? ffbbLabel : '', ffbbUrl);
+     card.append(heading, details);
+     return card;
+diff --git a/contact.html b/contact.html
+index 6cca69d..c3d10e2 100644
+--- a/contact.html
++++ b/contact.html
+@@ -514,6 +514,8 @@ img,video,iframe{max-width:100%;height:auto}
+ }
+ </style>
+ 
++<link rel="stylesheet" href="site-update.css?v=20261105">
++<script src="site-update.js?v=20261105" defer></script>
+ </head><body>
+ <header id="hdr"><div class="wrap nav"><a class="brand" href="index.html"><img src="images/logo.png" alt="Logo ES Blanquefort Basket Ball"><span class="brand-text"><span class="brand-name">ES Blanquefort</span><span class="brand-sub">Basket-Ball</span></span></a><button class="burger" aria-label="Menu">☰</button><nav class="navlinks"><a class="" href="index.html">Accueil</a>
+ <a class="" href="le-club.html">Le club</a>
+@@ -600,6 +602,7 @@ img,video,iframe{max-width:100%;height:auto}
+ </section>
+ 
+ <script src="script.js"></script>
++<p class="site-update"><span class="badge" data-site-update>Prévisualisation — livraison non publiée</span></p>
+ <footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand-block"><img class="footer-logo" src="images/logo.png" alt="Logo ES Blanquefort Basket-Ball"><h3>ES Blanquefort Basket-Ball</h3><p>Club familial de basket à Blanquefort, porté par les joueurs, les familles, les bénévoles et les partenaires.</p></div><div><h4>Navigation</h4><ul><li><a href="index.html">Accueil</a></li><li><a href="le-club.html">Le club</a></li><li><a href="equipes.html">Équipes</a></li><li><a href="planning.html">Planning</a></li><li><a href="calendrier.html">Calendrier</a></li><li><a href="partenaires.html">Partenaires</a></li><li><a href="sponsors.html">Mur des verts et blancs</a></li></ul></div><div><h4>Contact</h4><p><strong>ES Blanquefort Basket-Ball</strong><br>Tél. 06 10 16 60 16<br><a href="mailto:contact@es-blanquefort-basketball.fr">contact@es-blanquefort-basketball.fr</a><br><a class="legal-link" href="mentions_legales_ESBB.html">Mentions légales</a></p></div><div><h4>Partenaires</h4><p>Entreprises locales, commerçants, artisans et familles partenaires : plusieurs façons de soutenir le club.</p><a class="legal-link" href="https://es-blanquefort-basket-ball.github.io/partenariat-club/" target="_blank" rel="noopener">Devenir partenaire</a></div></div><div class="footer-bottom"><span>© 2026 ES Blanquefort Basket-Ball</span><span>Site club développé par L’Rénov IA Studio · Mai 2026</span><span>Club affilié FFBB · Ligue Nouvelle-Aquitaine · Comité de Gironde · NAQ 0033-034</span></div></div></footer>
+ 
+ </body></html>
+\ No newline at end of file
+diff --git a/equipes.html b/equipes.html
+index 10f71a3..c617ab9 100644
+--- a/equipes.html
++++ b/equipes.html
+@@ -341,6 +341,8 @@ img,video,iframe{max-width:100%;height:auto}
+ }
+ </style>
+ 
++<link rel="stylesheet" href="site-update.css?v=20261105">
++<script src="site-update.js?v=20261105" defer></script>
+ </head><body class="">
+ <header id="hdr"><div class="wrap nav"><a class="brand" href="index.html"><img src="images/logo.png" alt="Logo ES Blanquefort Basket Ball"><span class="brand-text"><span class="brand-name">ES Blanquefort</span><span class="brand-sub">Basket-Ball</span></span></a><button class="burger" aria-label="Menu">☰</button><nav class="navlinks"><a class="" href="index.html">Accueil</a>
+ <a class="" href="le-club.html">Le club</a>
+@@ -540,6 +542,7 @@ img,video,iframe{max-width:100%;height:auto}
+ </main>
+ 
+ <script src="script.js"></script>
++<p class="site-update"><span class="badge" data-site-update>Prévisualisation — livraison non publiée</span></p>
+ <footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand-block"><img class="footer-logo" src="images/logo.png" alt="Logo ES Blanquefort Basket-Ball"><h3>ES Blanquefort Basket-Ball</h3><p>Club familial de basket à Blanquefort, porté par les joueurs, les familles, les bénévoles et les partenaires.</p></div><div><h4>Navigation</h4><ul><li><a href="index.html">Accueil</a></li><li><a href="le-club.html">Le club</a></li><li><a href="equipes.html">Équipes</a></li><li><a href="planning.html">Planning</a></li><li><a href="calendrier.html">Calendrier</a></li><li><a href="partenaires.html">Partenaires</a></li><li><a href="sponsors.html">Mur des verts et blancs</a></li></ul></div><div><h4>Contact</h4><p><strong>ES Blanquefort Basket-Ball</strong><br>Tél. 06 10 16 60 16<br><a href="mailto:contact@es-blanquefort-basketball.fr">contact@es-blanquefort-basketball.fr</a><br><a class="legal-link" href="mentions_legales_ESBB.html">Mentions légales</a></p></div><div><h4>Partenaires</h4><p>Entreprises locales, commerçants, artisans et familles partenaires : plusieurs façons de soutenir le club.</p><a class="legal-link" href="https://es-blanquefort-basket-ball.github.io/partenariat-club/" target="_blank" rel="noopener">Devenir partenaire</a></div></div><div class="footer-bottom"><span>© 2026 ES Blanquefort Basket-Ball</span><span>Site club développé par L’Rénov IA Studio · Mai 2026</span><span>Club affilié FFBB · Ligue Nouvelle-Aquitaine · Comité de Gironde · NAQ 0033-034</span></div></div></footer>
+ </body></html>
+ <style>
+diff --git a/essais.html b/essais.html
+index 75c3c98..7c83514 100644
+--- a/essais.html
++++ b/essais.html
+@@ -307,6 +307,8 @@ body .section-essais-app{
+ }
+ 
+ </style>
++<link rel="stylesheet" href="site-update.css?v=20261105">
++<script src="site-update.js?v=20261105" defer></script>
+ </head>
+ <body>
+ <header>
+@@ -648,6 +650,7 @@ document.addEventListener("input", function(e){
+ 
+ </script>
+ 
++<p class="site-update"><span class="badge" data-site-update>Prévisualisation — livraison non publiée</span></p>
+ <footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand-block"><img class="footer-logo" src="images/logo.png" alt="Logo ES Blanquefort Basket-Ball"><h3>ES Blanquefort Basket-Ball</h3><p>Club familial de basket à Blanquefort, porté par les joueurs, les familles, les bénévoles et les partenaires.</p></div><div><h4>Navigation</h4><ul><li><a href="index.html">Accueil</a></li><li><a href="le-club.html">Le club</a></li><li><a href="equipes.html">Équipes</a></li><li><a href="planning.html">Planning</a></li><li><a href="calendrier.html">Calendrier</a></li><li><a href="partenaires.html">Partenaires</a></li><li><a href="sponsors.html">Mur des verts et blancs</a></li></ul></div><div><h4>Contact</h4><p><strong>ES Blanquefort Basket-Ball</strong><br>Tél. 06 10 16 60 16<br><a href="mailto:contact@es-blanquefort-basketball.fr">contact@es-blanquefort-basketball.fr</a><br><a class="legal-link" href="mentions_legales_ESBB.html">Mentions légales</a></p></div><div><h4>Partenaires</h4><p>Entreprises locales, commerçants, artisans et familles partenaires : plusieurs façons de soutenir le club.</p><a class="legal-link" href="https://es-blanquefort-basket-ball.github.io/partenariat-club/" target="_blank" rel="noopener">Devenir partenaire</a></div></div><div class="footer-bottom"><span>© 2026 ES Blanquefort Basket-Ball</span><span>Site club développé par L’Rénov IA Studio · Mai 2026</span><span>Club affilié FFBB · Ligue Nouvelle-Aquitaine · Comité de Gironde · NAQ 0033-034</span></div></div></footer>
+ 
+ </body>
+diff --git a/index.html b/index.html
+index faef925..e4bf029 100644
+--- a/index.html
++++ b/index.html
+@@ -1707,6 +1707,8 @@ img,video,iframe{max-width:100%;height:auto}
+ }
+ </style>
+ 
++<link rel="stylesheet" href="site-update.css?v=20261105">
++<script src="site-update.js?v=20261105" defer></script>
+ </head>
+ <body class="home">
+ 
+@@ -1924,6 +1926,7 @@ img,video,iframe{max-width:100%;height:auto}
+ <script src="script.js"></script>
+ 
+ <!-- Footer volontairement simple dans cette maquette -->
++<p class="site-update"><span class="badge" data-site-update>Prévisualisation — livraison non publiée</span></p>
+ <footer class="site-footer">
+   <div class="container">
+     <div class="footer-grid">
+diff --git a/inscriptions.html b/inscriptions.html
+index 9671b61..4f33f77 100644
+--- a/inscriptions.html
++++ b/inscriptions.html
+@@ -1668,6 +1668,8 @@ img,video,iframe{max-width:100%;height:auto}
+ }
+ </style>
+ 
++<link rel="stylesheet" href="site-update.css?v=20261105">
++<script src="site-update.js?v=20261105" defer></script>
+ </head>
+ 
+ <body>
+@@ -2390,5 +2392,6 @@ img,video,iframe{max-width:100%;height:auto}
+     })();
+   </script>
+ 
++<p class="site-update"><span class="badge" data-site-update>Prévisualisation — livraison non publiée</span></p>
+ </body>
+ </html>
+diff --git a/le-club.html b/le-club.html
+index 5fec73a..9835ee2 100644
+--- a/le-club.html
++++ b/le-club.html
+@@ -484,6 +484,8 @@ img,video,iframe{max-width:100%;height:auto}
+ }
+ </style>
+ 
++<link rel="stylesheet" href="site-update.css?v=20261105">
++<script src="site-update.js?v=20261105" defer></script>
+ </head><body class="">
+ <header id="hdr"><div class="wrap nav"><a class="brand" href="index.html"><img src="images/logo.png" alt="Logo ES Blanquefort Basket Ball"><span class="brand-text"><span class="brand-name">ES Blanquefort</span><span class="brand-sub">Basket-Ball</span></span></a><button class="burger" aria-label="Menu">☰</button><nav class="navlinks"><a class="" href="index.html">Accueil</a>
+ <a class="active" href="le-club.html">Le club</a>
+@@ -600,6 +602,7 @@ img,video,iframe{max-width:100%;height:auto}
+ </main>
+ 
+ <script src="script.js"></script>
++<p class="site-update"><span class="badge" data-site-update>Prévisualisation — livraison non publiée</span></p>
+ <footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand-block"><img class="footer-logo" src="images/logo.png" alt="Logo ES Blanquefort Basket-Ball"><h3>ES Blanquefort Basket-Ball</h3><p>Club familial de basket à Blanquefort, porté par les joueurs, les familles, les bénévoles et les partenaires.</p></div><div><h4>Navigation</h4><ul><li><a href="index.html">Accueil</a></li><li><a href="le-club.html">Le club</a></li><li><a href="equipes.html">Équipes</a></li><li><a href="planning.html">Planning</a></li><li><a href="calendrier.html">Calendrier</a></li><li><a href="partenaires.html">Partenaires</a></li><li><a href="sponsors.html">Mur des verts et blancs</a></li></ul></div><div><h4>Contact</h4><p><strong>ES Blanquefort Basket-Ball</strong><br>Tél. 06 10 16 60 16<br><a href="mailto:contact@es-blanquefort-basketball.fr">contact@es-blanquefort-basketball.fr</a><br><a class="legal-link" href="mentions_legales_ESBB.html">Mentions légales</a></p></div><div><h4>Partenaires</h4><p>Entreprises locales, commerçants, artisans et familles partenaires : plusieurs façons de soutenir le club.</p><a class="legal-link" href="https://es-blanquefort-basket-ball.github.io/partenariat-club/" target="_blank" rel="noopener">Devenir partenaire</a></div></div><div class="footer-bottom"><span>© 2026 ES Blanquefort Basket-Ball</span><span>Site club développé par L’Rénov IA Studio · Mai 2026</span><span>Club affilié FFBB · Ligue Nouvelle-Aquitaine · Comité de Gironde · NAQ 0033-034</span></div></div></footer>
+ 
+ <script>
+diff --git a/mentions_legales_ESBB.html b/mentions_legales_ESBB.html
+index ca17252..2d82860 100644
+--- a/mentions_legales_ESBB.html
++++ b/mentions_legales_ESBB.html
+@@ -344,6 +344,8 @@ body .section-essais-app{
+ }
+ 
+ </style>
++<link rel="stylesheet" href="site-update.css?v=20261105">
++<script src="site-update.js?v=20261105" defer></script>
+ </head>
+ <body>
+ <div class="page">
+@@ -480,6 +482,7 @@ body .section-essais-app{
+     </div>
+ </div>
+ 
++<p class="site-update"><span class="badge" data-site-update>Prévisualisation — livraison non publiée</span></p>
+ <footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand-block"><img class="footer-logo" src="images/logo.png" alt="Logo ES Blanquefort Basket-Ball"><h3>ES Blanquefort Basket-Ball</h3><p>Club familial de basket à Blanquefort, porté par les joueurs, les familles, les bénévoles et les partenaires.</p></div><div><h4>Navigation</h4><ul><li><a href="index.html">Accueil</a></li><li><a href="le-club.html">Le club</a></li><li><a href="equipes.html">Équipes</a></li><li><a href="planning.html">Planning</a></li><li><a href="calendrier.html">Calendrier</a></li><li><a href="partenaires.html">Partenaires</a></li><li><a href="sponsors.html">Mur des verts et blancs</a></li></ul></div><div><h4>Contact</h4><p><strong>ES Blanquefort Basket-Ball</strong><br>Tél. 06 10 16 60 16<br><a href="mailto:contact@es-blanquefort-basketball.fr">contact@es-blanquefort-basketball.fr</a><br><a class="legal-link" href="mentions_legales_ESBB.html">Mentions légales</a></p></div><div><h4>Partenaires</h4><p>Entreprises locales, commerçants, artisans et familles partenaires : plusieurs façons de soutenir le club.</p><a class="legal-link" href="https://es-blanquefort-basket-ball.github.io/partenariat-club/" target="_blank" rel="noopener">Devenir partenaire</a></div></div><div class="footer-bottom"><span>© 2026 ES Blanquefort Basket-Ball</span><span>Site club développé par L’Rénov IA Studio · Mai 2026</span><span>Club affilié FFBB · Ligue Nouvelle-Aquitaine · Comité de Gironde · NAQ 0033-034</span></div></div></footer>
+ 
+ </body>
+diff --git a/partenaires.html b/partenaires.html
+index 9189287..c199201 100644
+--- a/partenaires.html
++++ b/partenaires.html
+@@ -1,4 +1,6 @@
+-<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Partenaires — ES Blanquefort Basket-Ball</title><meta name="description" content="Partenaires et offres de soutien du club."><meta name="theme-color" content="#1f5a3f"><link rel="icon" type="image/png" href="images/favicon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body class="">
++<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Partenaires — ES Blanquefort Basket-Ball</title><meta name="description" content="Partenaires et offres de soutien du club."><meta name="theme-color" content="#1f5a3f"><link rel="icon" type="image/png" href="images/favicon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="site-update.css?v=20261105">
++<script src="site-update.js?v=20261105" defer></script>
++</head><body class="">
+ <header id="hdr"><div class="wrap nav"><a class="brand" href="index.html"><img src="images/logo.png" alt="Logo ES Blanquefort Basket Ball"><span class="brand-text"><span class="brand-name">ES Blanquefort</span><span class="brand-sub">Basket-Ball</span></span></a><button class="burger" aria-label="Menu">☰</button><nav class="navlinks"><a class="" href="index.html">Accueil</a>
+ <a class="" href="le-club.html">Le club</a>
+ <a class="" href="equipes.html">Équipes</a>
+@@ -12,5 +14,6 @@
+ <section class="soft"><div class="wrap"><div class="eyebrow">Formules possibles</div><h2 class="section-title">Plusieurs façons de devenir partenaire</h2><div class="grid-3" style="margin-top:28px"><div class="card"><h3>Partenaire club</h3><p>Une présence sur la saison pour associer son activité à la vie du club.</p></div><div class="card"><h3>Sponsor du match</h3><p>Une mise en avant ponctuelle sur un match ou un événement identifié.</p></div><div class="card"><h3>Partenaire projet</h3><p>Un appui ciblé pour les équipements, les jeunes, les événements ou la communication.</p></div></div></div></section>
+ 
+ <script src="script.js"></script>
++<p class="site-update"><span class="badge" data-site-update>Prévisualisation — livraison non publiée</span></p>
+ <footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand-block"><img class="footer-logo" src="images/logo.png" alt="Logo ES Blanquefort Basket-Ball"><h3>ES Blanquefort Basket-Ball</h3><p>Club familial de basket à Blanquefort, porté par les joueurs, les familles, les bénévoles et les partenaires.</p></div><div><h4>Navigation</h4><ul><li><a href="index.html">Accueil</a></li><li><a href="le-club.html">Le club</a></li><li><a href="equipes.html">Équipes</a></li><li><a href="planning.html">Planning</a></li><li><a href="calendrier.html">Calendrier</a></li><li><a href="partenaires.html">Partenaires</a></li><li><a href="sponsors.html">Mur des verts et blancs</a></li></ul></div><div><h4>Contact</h4><p><strong>ES Blanquefort Basket-Ball</strong><br>Tél. 06 10 16 60 16<br><a href="mailto:contact@es-blanquefort-basketball.fr">contact@es-blanquefort-basketball.fr</a><br><a class="legal-link" href="mentions_legales_ESBB.html">Mentions légales</a></p></div><div><h4>Partenaires</h4><p>Entreprises locales, commerçants, artisans et familles partenaires : plusieurs façons de soutenir le club.</p><a class="legal-link" href="https://es-blanquefort-basket-ball.github.io/partenariat-club/" target="_blank" rel="noopener">Devenir partenaire</a></div></div><div class="footer-bottom"><span>© 2026 ES Blanquefort Basket-Ball</span><span>Site club développé par L’Rénov IA Studio · Mai 2026</span><span>Club affilié FFBB · Ligue Nouvelle-Aquitaine · Comité de Gironde · NAQ 0033-034</span></div></div></footer>
+ </body></html>
+\ No newline at end of file
+diff --git a/planning.html b/planning.html
+index 5b08d80..daabab1 100644
+--- a/planning.html
++++ b/planning.html
+@@ -443,6 +443,8 @@ a.venue-chip{
+   .schedule-grid{grid-template-columns:1fr!important}
+ }
+ </style>
++<link rel="stylesheet" href="site-update.css?v=20261105">
++<script src="site-update.js?v=20261105" defer></script>
+ </head>
+ <body>
+ <header id="hdr">
+@@ -568,6 +570,7 @@ a.venue-chip{
+   </div>
+ </main>
+ 
++<p class="site-update"><span class="badge" data-site-update>Prévisualisation — livraison non publiée</span></p>
+ <footer>
+   <div class="wrap footer-bottom">
+     <span>© 2026 ES Blanquefort Basket-Ball</span>
+diff --git a/site-update.css b/site-update.css
+new file mode 100644
+index 0000000..196c53e
+--- /dev/null
++++ b/site-update.css
+@@ -0,0 +1,3 @@
++/* Pastille globale : reprend les couleurs et la forme des badges existants. */
++.site-update{margin:20px auto;padding:0 16px;text-align:center;max-width:100%}
++.site-update .badge{display:inline-block;max-width:100%;padding:6px 10px;border-radius:999px;background:var(--green-100,#e7f1ea);color:var(--green-700,#1f5a3f);font-family:var(--cond,sans-serif);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;overflow-wrap:anywhere}
+diff --git a/site-update.js b/site-update.js
+new file mode 100644
+index 0000000..90c1593
+--- /dev/null
++++ b/site-update.js
+@@ -0,0 +1,14 @@
++document.addEventListener('DOMContentLoaded', () => {
++  // À renseigner avec la date réelle lors de la livraison validée (AAAA-MM-JJ).
++  // null empêche d'annoncer une publication qui n'a pas eu lieu.
++  const SITE_RELEASE_DATE = null;
++  const releaseDate = SITE_RELEASE_DATE && /^\d{4}-\d{2}-\d{2}$/.test(SITE_RELEASE_DATE)
++    ? new Date(`${SITE_RELEASE_DATE}T12:00:00`) : null;
++  if (releaseDate && !Number.isNaN(releaseDate.getTime())) {
++    const label = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(releaseDate);
++    document.querySelectorAll('[data-site-update]').forEach(chip => {
++      chip.textContent = `Site mis à jour le ${label}`;
++    });
++  }
++
++});
+diff --git a/sponsors.html b/sponsors.html
+index b3733e8..a73f6ac 100644
+--- a/sponsors.html
++++ b/sponsors.html
+@@ -1,4 +1,6 @@
+-<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Mur des verts et blancs — ES Blanquefort Basket-Ball</title><meta name="description" content="Mur des sponsors et partenaires de l’ES Blanquefort Basket-Ball."><meta name="theme-color" content="#1f5a3f"><link rel="icon" type="image/png" href="images/favicon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body class="">
++<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Mur des verts et blancs — ES Blanquefort Basket-Ball</title><meta name="description" content="Mur des sponsors et partenaires de l’ES Blanquefort Basket-Ball."><meta name="theme-color" content="#1f5a3f"><link rel="icon" type="image/png" href="images/favicon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="site-update.css?v=20261105">
++<script src="site-update.js?v=20261105" defer></script>
++</head><body class="">
+ <header id="hdr"><div class="wrap nav"><a class="brand" href="index.html"><img src="images/logo.png" alt="Logo ES Blanquefort Basket Ball"><span class="brand-text"><span class="brand-name">ES Blanquefort</span><span class="brand-sub">Basket-Ball</span></span></a><button class="burger" aria-label="Menu">☰</button><nav class="navlinks"><a class="" href="index.html">Accueil</a>
+ <a class="" href="le-club.html">Le club</a>
+ <a class="" href="equipes.html">Équipes</a>
+@@ -18,5 +20,6 @@
+ </div></section>
+ <section><div class="wrap grid-2"><div><div class="eyebrow">Votre entreprise ici</div><h2 class="section-title">Rejoindre le mur</h2><p class="lead">Le club propose plusieurs façons de soutenir la saison : visibilité club, soutien aux équipes, sponsor du match, opérations événementielles ou présence sur le Mur des verts et blancs.</p></div><div class="card"><h3>Demander le dossier</h3><p>Accédez au dossier partenaire ou contactez le club pour choisir la formule la plus adaptée.</p><br><div class="hero-actions"><a class="btn btn-primary" href="https://es-blanquefort-basket-ball.github.io/partenariat-club/" target="_blank" rel="noopener">Voir le dossier</a><a class="btn btn-ghost" href="contact.html">Contacter le club</a></div></div></div></section>
+ <script src="script.js"></script>
++<p class="site-update"><span class="badge" data-site-update>Prévisualisation — livraison non publiée</span></p>
+ <footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand-block"><img class="footer-logo" src="images/logo.png" alt="Logo ES Blanquefort Basket-Ball"><h3>ES Blanquefort Basket-Ball</h3><p>Club familial de basket à Blanquefort, porté par les joueurs, les familles, les bénévoles et les partenaires.</p></div><div><h4>Navigation</h4><ul><li><a href="index.html">Accueil</a></li><li><a href="le-club.html">Le club</a></li><li><a href="equipes.html">Équipes</a></li><li><a href="planning.html">Planning</a></li><li><a href="calendrier.html">Calendrier</a></li><li><a href="partenaires.html">Partenaires</a></li><li><a href="sponsors.html">Mur des verts et blancs</a></li></ul></div><div><h4>Contact</h4><p><strong>ES Blanquefort Basket-Ball</strong><br>Tél. 06 10 16 60 16<br><a href="mailto:contact@es-blanquefort-basketball.fr">contact@es-blanquefort-basketball.fr</a><br><a class="legal-link" href="mentions_legales_ESBB.html">Mentions légales</a></p></div><div><h4>Partenaires</h4><p>Entreprises locales, commerçants, artisans et familles partenaires : plusieurs façons de soutenir le club.</p><a class="legal-link" href="https://es-blanquefort-basket-ball.github.io/partenariat-club/" target="_blank" rel="noopener">Devenir partenaire</a></div></div><div class="footer-bottom"><span>© 2026 ES Blanquefort Basket-Ball</span><span>Site club développé par L’Rénov IA Studio · Mai 2026</span><span>Club affilié FFBB · Ligue Nouvelle-Aquitaine · Comité de Gironde · NAQ 0033-034</span></div></div></footer>
+ </body></html>
+\ No newline at end of file
+diff --git a/validation/cartes-matchs-2026-11-05/COMPTE_RENDU.md b/validation/cartes-matchs-2026-11-05/COMPTE_RENDU.md
+new file mode 100644
+index 0000000..8a5d345
+--- /dev/null
++++ b/validation/cartes-matchs-2026-11-05/COMPTE_RENDU.md
+@@ -0,0 +1,39 @@
++# Cartes de matchs et date globale — 5 novembre 2026
++
++## Modifications effectuées
++
++Branche dédiée : codex/cartes-matchs-dates-2026-11-05, créée depuis main à jour (34e3d6e) après fetch. Aucune fusion de ce chantier dans main, aucun téléversement Hostinger, aucune écriture Supabase.
++
++- Les adresses publiques de contact.html sont utilisées en secours lorsque l'adresse du match est vide. Correspondance par une liste explicite d'alias normalisés, sans rapprochement approximatif d'un gymnase inconnu. Les adresses importées renseignées restent prioritaires. Aucune contradiction matérielle relevée pour les gymnases du club : les adresses Port du Roy et Fongravey importées sont moins détaillées, mais ne désignent pas une autre rue. Les indications approximatives du Béchon sont conservées comme telles.
++- Une URL individuelle FFBB doit utiliser HTTPS, le domaine competitions.ffbb.com et un chemin terminé par /match/numéro. Libellé : « Fiche officielle du match ». Le lien d'équipe éventuel reste explicitement une page d'équipe, avec indication que la fiche du match est indisponible. Liens externes avec target=_blank et rel=noopener.
++- Une pastille globale est ajoutée aux 12 pages publiques non redirigées. Réutilisation de la forme et des couleurs du badge existant, sans modification des règles des cartes ou du Design System. Les deux petits fichiers site-update.js/css sont isolés pour fonctionner aussi sur la page Mentions légales, qui possède ses propres styles et ne charge pas le JavaScript commun. script.js et style.css restent inchangés.
++- La date globale est centralisée dans SITE_RELEASE_DATE (site-update.js). Elle reste null en prévisualisation : « Prévisualisation — livraison non publiée ». Lors de la publication validée, renseigner la date réelle au format ISO. Le 5 novembre 2026 donne « Site mis à jour le 5 novembre 2026 » ; une publication ultérieure doit porter sa date effective. Aucune date de publication fictive annoncée.
++- Les trois dates métier existantes restent inchangées : calendrier 4 novembre, équipes 3 novembre, planning 22 septembre. Aucun horaire, résultat ou date sportive modifié.
++
++## Fichiers modifiés
++
++12 pages : 404.html, calendrier.html, contact.html, equipes.html, essais.html, index.html, inscriptions.html, le-club.html, mentions_legales_ESBB.html, partenaires.html, planning.html, sponsors.html.
++
++Fonction du calendrier : calendrier.js. Deux fichiers communs ajoutés : site-update.css et site-update.js. matchs.html (redirection) et tout app/ inchangés. Documentation, CSV et preuves propres au chantier dans ce dossier validation.
++
++## Vérifications effectuées
++
++- Lecture publique Supabase : HTTP 200, 77 rencontres. Aucun POST/PATCH/DELETE et aucun score chargé. 33 URL individuelles enregistrées au format accepté ; 44 rencontres sans URL individuelle (fiches-ffbb-manquantes.csv).
++- Répartition des 44 liens manquants : U9F, U9M1, U9M2, U11 M, U13F, U13M, U15M, U18M : 5 chacune ; U11 Mixte : 4.
++- Le navigateur a ouvert la véritable fiche SG1–B.Izon 200000014548774 : B.Izon–Entente Sportive Blanquefort, journée 8, 29 novembre à 15h00, Gymnase Les Costauds, Rue des Écoles, 33450 Izon. Aucune dérogation appliquée. Les 32 autres destinations FFBB ne sont pas toutes revisitées : leur présence et leur format sont vérifiés, pas une nouvelle certification exhaustive du contenu FFBB.
++- 19 rencontres sans adresse à Port du Roy bénéficient du référentiel du site. Après ce secours, 25 rencontres restent sans adresse, réparties sur 22 noms de salles (adresses-a-verifier.csv). Aucun rapprochement arbitraire d'une salle générique : « Gymnase du Collège », « Salle des Sports », « COSEC » notamment restent à vérifier si leur adresse manque.
++- Ordinateur 1440×900, tablette 768×1024, téléphone 390×844 : huit matchs affichés le 14 novembre ; panneau avec overflow auto, contenu défilant, fermeture accessible. Défilement réel jusqu'au huitième match confirmé sur ordinateur et téléphone (captures ordinateur-bas.jpg et mobile-bas.jpg).
++- Journée du 15 novembre : U18M et SG1 sur fond vert foncé, SG2 extérieur sur fond blanc. Couleurs, pastilles, équipes, adversaires, heures et journées conservés. Les règles CSS home/away ne sont pas modifiées.
++- Les 12 pages ont une seule pastille ; contrôle DOM des 12 pages aux trois largeurs : aucun débordement horizontal détecté (pages-responsive.json). Filtre U9F : trois rencontres de novembre, équipe U9F sélectionnée.
++- Syntaxe JavaScript contrôlée ; verification-date.cjs valide l'absence de fausse date en prévisualisation et les dates de livraison du 5 et du 12 novembre ; verification-liens.cjs vérifie les rejets de pages d'équipe, de domaines étrangers et les alias des salles.
++- git diff --check sans erreur. Les fichiers métier locaux antérieurs sont conservés. Le seul écart par rapport au manifeste de la précédente intervention concerne .DS_Store, métadonnée macOS changée pendant l'utilisation du sélecteur de fichiers ; elle n'est ni restaurée ni incluse dans le commit. Le fichier local validation/calendrier-horaires.cjs n'est pas inclus.
++
++## Prévisualisation et points à valider
++
++GitHub Pages actuellement configuré sur main : https://es-blanquefort-basket-ball.github.io/site-web/ affiche la version précédente, PAS ce chantier. Aucun réglage Pages modifié. Une branche distante du même nom a été créée depuis main, mais le téléversement des changements y a été bloqué avant envoi : l'extension Chrome exige « Allow access to file URLs ». Aucune permission élargie. Le push Git n'a pas d'authentification utilisable dans cet environnement ; le connecteur GitHub avait déjà refusé les écritures lors de l'intervention précédente.
++
++Le commit local peut être publié avec GitHub Desktop : sélectionner la branche codex/cartes-matchs-dates-2026-11-05 et faire Push origin. Pour la prévisualisation demandée, dans Settings → Pages → Deploy from a branch, sélectionner cette branche et / (root), puis Save ; attendre la réussite du déploiement et vérifier l'URL Pages ci-dessus. Ne pas fusionner dans main. Cette sélection ne concerne que le site Pages de ce dépôt, sans toucher à Hostinger.
++
++Prévisualisation locale disponible sur http://127.0.0.1:8765/calendrier.html tant que le serveur de revue reste démarré. Le dossier de validation n'est pas destiné à Hostinger.
++
++À valider : rendu local, publication de la branche et déploiement GitHub Pages, puis date effective et livraison Hostinger. Lors de la livraison, sauvegarder les 12 HTML concernés et calendrier.js, ajouter uniquement les deux ressources site-update, renseigner la date réelle, purger le cache du seul domaine et contrôler ordinateur/mobile. Les anciennes instructions limitées à trois fichiers ne suffisent pas à ce nouveau chantier. Aucune mise en production effectuée.
+diff --git a/validation/cartes-matchs-2026-11-05/adresses-a-verifier.csv b/validation/cartes-matchs-2026-11-05/adresses-a-verifier.csv
+new file mode 100644
+index 0000000..7bed4f6
+--- /dev/null
++++ b/validation/cartes-matchs-2026-11-05/adresses-a-verifier.csv
+@@ -0,0 +1,26 @@
++team_code,opponent_name,local_date,venue_name
++U15M,UNION SPORTIVE GAURIAC,2026-11-07,GYMNASE LOUIS REGNIER
++U13F,AS LE HAILLAN,2026-11-07,Gymnase du Collège
++U18M,STE EULALIE BASKET BALL,2026-11-08,Salle Valériane Ayayi
++U9F,ENTENTE PESSAC BASKET CLUB (4),2026-11-14,Salle Roger VINCENT 1
++U11 M,BORDEAUX BASTIDE BASKET - 2 (4),2026-11-14,SALLE PROMIS
++U11 Mixte,AGJA CAUDERAN - 2 (4),2026-11-14,GYMNASE JULES FERRY
++U9M1,AS LE HAILLAN (4),2026-11-14,Gymnase du Collège
++U9M2,CASTELNAU MEDOC BC - 1 (4),2026-11-14,GYMNASE CANTERANE
++U13M,CASTELNAU MEDOC BC,2026-11-21,GYMNASE CANTERANE
++U15M,CLUB LEO LAGRANGE LORMONT - 1,2026-11-28,SALLE GEORGES BRASSENS
++U13M,JSA BORDEAUX BASKET - 3,2026-11-28,SALLE DES PEUPLIERS
++U13F,AMICALE BASKETTEURS GRADIGNAN,2026-11-28,SALLE JEHAN BUHAN
++U9M1,CMO BASSENS - 1 (2),2026-11-28,GYMNASE DU BOUSQUET
++U9M2,SA MERIGNACAIS (2),2026-11-28,SALLE ROBERT BRETTES
++U11 M,US CENON RIVE DROITE - 1 (2),2026-11-28,SALLE DE LA MAREGUE
++U13M,SAM LESPARRE BASKET,2026-12-05,COSEC
++U13F,AGJA CAUDERAN,2026-12-05,GYMNASE JULES FERRY
++U15M,B.IZON,2026-12-06,GYMNASE LES COSTAUDS
++U18M,COUTRAS GUITRES BASKET - 2,2026-12-06,SALLE DOURSAT
++U11 Mixte,LE TAILLAN BASKET - 3 (3),2026-12-12,SALLE DES SPORTS
++U9M1,BASKET CLUB ESTUAIRE GIRONDE (3),2026-12-12,GYMNASE HUET
++U11 M,BASKET BASSIN D'ARCACHON - 1 (3),2026-12-12,SALLE ET. TURPIN (ANC BONNEVAL)
++U9F,AS PIAN MEDOC BASKET - 1 (3),2026-12-12,SALLE MUNICIPALE
++U9M2,ESPERANCE POMPIGNAC (3),2026-12-12,SALLE DE CADOUIN
++U18M,LES PETITS MOUSSES LANGOIRAN - 2,2026-12-13,SALLE RENE BAILLET
+diff --git a/validation/cartes-matchs-2026-11-05/fiches-ffbb-manquantes.csv b/validation/cartes-matchs-2026-11-05/fiches-ffbb-manquantes.csv
+new file mode 100644
+index 0000000..3077827
+--- /dev/null
++++ b/validation/cartes-matchs-2026-11-05/fiches-ffbb-manquantes.csv
+@@ -0,0 +1,45 @@
++id,team_code,opponent_name,home_away,local_date,local_time,venue_name
++34fbbb82-019e-4ecb-b90c-1ad58e4c9565,U15M,UNION SPORTIVE GAURIAC,away,2026-11-07,17:00:00,GYMNASE LOUIS REGNIER
++23210dfa-1c6b-4c86-8774-7dc832b8eb21,U9F,CASTELNAU MEDOC BC - 2 (6),home,2026-11-07,09:30:00,SALLE PORT DU ROY
++c55b508a-302b-40a5-9d3e-ed02a6bc29d0,U13F,AS LE HAILLAN,away,2026-11-07,,Gymnase du Collège
++7c182800-7178-4f5c-8e6c-dfd56d55f04a,U9M2,BASKET CLUB CANEJANAIS (6),home,2026-11-07,12:30:00,SALLE PORT DU ROY
++c5e2230c-1b76-4a86-8cdc-862da0231acc,U9M1,LES FILS DE ROLAND DE BLAYE (6),home,2026-11-07,11:00:00,SALLE PORT DU ROY
++9ba2a930-a4b1-4af0-a15b-5b14f0565e6b,U11 Mixte,BC ST AVIT ST NAZAIRE - 2 (6),home,2026-11-07,15:30:00,SALLE PORT DU ROY
++759cec75-e19a-4c7d-9723-52d2f839232a,U11 M,BORDEAUX ETUDIANTS CLUB - 2 (6),home,2026-11-07,14:00:00,SALLE PORT DU ROY
++189b75ac-d9cc-4d5c-9af6-29b4cafe6f27,U18M,STE EULALIE BASKET BALL,away,2026-11-08,11:00:00,Salle Valériane Ayayi
++f94397fe-b53b-43bb-9524-678d8f42ae8b,U13M,US LE BOUSCAT - 2,home,2026-11-14,,SALLE PORT DU ROY
++14cfcc18-737c-4beb-99a9-d2bdd6dd2e1c,U9F,ENTENTE PESSAC BASKET CLUB (4),away,2026-11-14,10:00:00,Salle Roger VINCENT 1
++962fecdc-3bdc-4676-b91d-7d0bcf5c8f72,U11 M,BORDEAUX BASTIDE BASKET - 2 (4),away,2026-11-14,,SALLE PROMIS
++b0206011-7df4-4cdd-86cd-40f957a3dddd,U11 Mixte,AGJA CAUDERAN - 2 (4),away,2026-11-14,,GYMNASE JULES FERRY
++bbd6e7fa-d072-4df8-b93d-5a7d14b07e50,U9M1,AS LE HAILLAN (4),away,2026-11-14,,Gymnase du Collège
++24456ec4-1107-48e5-92e9-246d03d504c2,U9M2,CASTELNAU MEDOC BC - 1 (4),away,2026-11-14,11:45:00,GYMNASE CANTERANE
++6d398a5c-1431-4146-bdf8-99774af4371b,U13F,BORDEAUX ETUDIANTS CLUB,home,2026-11-14,,SALLE PORT DU ROY
++b16ea15b-e597-488f-8803-6265e146bc0f,U15M,BASKET BASSIN D'ARCACHON - 1,home,2026-11-14,,SALLE PORT DU ROY
++727f4932-52ce-423c-825c-438b13f6d639,U18M,IE - CTC BASKET HAUTE GIRONDE - BASKET CLUB ESTUAIRE GIRONDE - 1,home,2026-11-15,11:00:00,SALLE PORT DU ROY
++a0cfbe06-1f45-4d42-915d-87432314c52b,U11 M,JSA BORDEAUX BASKET - 3 (1),home,2026-11-21,,SALLE PORT DU ROY
++65fa7e8c-84c7-4420-b710-eb50919b7aec,U11 Mixte,ETOILE SPORTIVE EYSINAISE - 2 (1),home,2026-11-21,,SALLE PORT DU ROY
++eb12b459-1c3a-4e31-920a-e1af1dec4897,U9M2,LES PETITS MOUSSES LANGOIRAN (1),home,2026-11-21,,SALLE PORT DU ROY
++09adc6da-eb48-4cda-a6ac-f550c2eeb922,U13M,CASTELNAU MEDOC BC,away,2026-11-21,,GYMNASE CANTERANE
++8cb28d26-f917-45e9-a9c6-c69d3561adc4,U15M,CLUB LEO LAGRANGE LORMONT - 1,away,2026-11-28,13:00:00,SALLE GEORGES BRASSENS
++9f60f9ff-8dde-4a3e-ba28-92308c1ef760,U13M,JSA BORDEAUX BASKET - 3,away,2026-11-28,,SALLE DES PEUPLIERS
++e93e49dc-9a66-4307-b18b-5f9a95983272,U13F,AMICALE BASKETTEURS GRADIGNAN,away,2026-11-28,17:30:00,SALLE JEHAN BUHAN
++cb69f1f2-7a87-4f45-8a27-d819fb6fabf6,U9F,CA BEGLES (2),home,2026-11-28,,SALLE PORT DU ROY
++d58f4e09-75d1-4db5-b139-5b44260d92b2,U9M1,CMO BASSENS - 1 (2),away,2026-11-28,10:30:00,GYMNASE DU BOUSQUET
++c0ee70ad-155a-4a65-ae27-be33b125beb0,U9M2,SA MERIGNACAIS (2),away,2026-11-28,11:15:00,SALLE ROBERT BRETTES
++b011b3b2-5f7d-4105-9f8e-7a0eab5c2808,U11 M,US CENON RIVE DROITE - 1 (2),away,2026-11-28,11:00:00,SALLE DE LA MAREGUE
++aacb7bb5-6259-4dca-9404-366c766b4ddd,U18M,UNION SPORTIVE BAZAS - 2,home,2026-11-29,11:00:00,SALLE PORT DU ROY
++2d615f42-5073-42f2-a058-a2766d5b8e1b,U13M,SAM LESPARRE BASKET,away,2026-12-05,12:00:00,COSEC
++49ae4c5e-1c1e-4715-b39b-679adc902e8c,U9M1,BORDEAUX ETUDIANTS CLUB (1),home,2026-12-05,,SALLE PORT DU ROY
++ebea6ab2-1f57-44af-9a2f-4f5b90761ad9,U13F,AGJA CAUDERAN,away,2026-12-05,15:00:00,GYMNASE JULES FERRY
++91583827-3368-4425-a899-bae71fba295d,U9F,CASTELNAU MEDOC BC - 1 (1),home,2026-12-05,,SALLE PORT DU ROY
++845dba5c-6eba-436f-8771-04fb19b172a7,U15M,B.IZON,away,2026-12-06,11:15:00,GYMNASE LES COSTAUDS
++ac1c174a-a91d-4a64-b776-c33427196d17,U18M,COUTRAS GUITRES BASKET - 2,away,2026-12-06,11:00:00,SALLE DOURSAT
++ba6c4deb-265a-4893-9a14-438fd89ff3b2,U15M,US LE BOUSCAT - 2,home,2026-12-12,,SALLE PORT DU ROY
++dd48afb7-19cb-4ac1-8604-419ca67c4e65,U13M,SAINT MEDARD BASKET - 4,home,2026-12-12,,SALLE PORT DU ROY
++b555ee07-5417-414e-b2c6-38ccc9587de5,U11 Mixte,LE TAILLAN BASKET - 3 (3),away,2026-12-12,,SALLE DES SPORTS
++22cc07eb-f721-49bc-8b45-9c424bd32445,U9M1,BASKET CLUB ESTUAIRE GIRONDE (3),away,2026-12-12,11:00:00,GYMNASE HUET
++965a8af5-701d-4d25-a3b5-4c0e6b518f99,U13F,BOULIAC BASKET CLUB,home,2026-12-12,,SALLE PORT DU ROY
++2c8aa6a8-eb30-4c17-984b-6ee80666fab3,U11 M,BASKET BASSIN D'ARCACHON - 1 (3),away,2026-12-12,15:30:00,SALLE ET. TURPIN (ANC BONNEVAL)
++f3bda005-cb6b-4548-9c00-050b1a5911f9,U9F,AS PIAN MEDOC BASKET - 1 (3),away,2026-12-12,10:00:00,SALLE MUNICIPALE
++e9889eb4-fc30-4a02-877e-990e7b8b17ce,U9M2,ESPERANCE POMPIGNAC (3),away,2026-12-12,,SALLE DE CADOUIN
++e3d44420-41ca-4652-86bf-31965a57a76b,U18M,LES PETITS MOUSSES LANGOIRAN - 2,away,2026-12-13,11:00:00,SALLE RENE BAILLET
+diff --git a/validation/cartes-matchs-2026-11-05/mesures.json b/validation/cartes-matchs-2026-11-05/mesures.json
+new file mode 100644
+index 0000000..2f0b257
+--- /dev/null
++++ b/validation/cartes-matchs-2026-11-05/mesures.json
+@@ -0,0 +1,120 @@
++{
++  "responsive": [
++    {
++      "body": [
++        {
++          "height": 819,
++          "overflow": "auto",
++          "scrollHeight": 1939
++        }
++      ],
++      "cards": 8,
++      "close": [
++        {
++          "bottom": 60.25,
++          "top": 20.25
++        }
++      ],
++      "overflow": false,
++      "width": 1440
++    },
++    {
++      "body": [
++        {
++          "height": 943,
++          "overflow": "auto",
++          "scrollHeight": 1939
++        }
++      ],
++      "cards": 8,
++      "close": [
++        {
++          "bottom": 60.25,
++          "top": 20.25
++        }
++      ],
++      "overflow": false,
++      "width": 768
++    },
++    {
++      "body": [
++        {
++          "height": 639,
++          "overflow": "auto",
++          "scrollHeight": 3050
++        }
++      ],
++      "cards": 8,
++      "close": [
++        {
++          "bottom": 173.15228271484375,
++          "top": 133.15228271484375
++        }
++      ],
++      "overflow": false,
++      "width": 390
++    }
++  ],
++  "pages": [
++    {
++      "page": "index.html",
++      "count": 1,
++      "text": "PRÉVISUALISATION — LIVRAISON NON PUBLIÉE"
++    },
++    {
++      "page": "le-club.html",
++      "count": 1,
++      "text": "PRÉVISUALISATION — LIVRAISON NON PUBLIÉE"
++    },
++    {
++      "page": "equipes.html",
++      "count": 1,
++      "text": "PRÉVISUALISATION — LIVRAISON NON PUBLIÉE"
++    },
++    {
++      "page": "planning.html",
++      "count": 1,
++      "text": "PRÉVISUALISATION — LIVRAISON NON PUBLIÉE"
++    },
++    {
++      "page": "calendrier.html",
++      "count": 1,
++      "text": "PRÉVISUALISATION — LIVRAISON NON PUBLIÉE"
++    },
++    {
++      "page": "inscriptions.html",
++      "count": 1,
++      "text": "PRÉVISUALISATION — LIVRAISON NON PUBLIÉE"
++    },
++    {
++      "page": "essais.html",
++      "count": 1,
++      "text": "PRÉVISUALISATION — LIVRAISON NON PUBLIÉE"
++    },
++    {
++      "page": "partenaires.html",
++      "count": 1,
++      "text": "PRÉVISUALISATION — LIVRAISON NON PUBLIÉE"
++    },
++    {
++      "page": "sponsors.html",
++      "count": 1,
++      "text": "PRÉVISUALISATION — LIVRAISON NON PUBLIÉE"
++    },
++    {
++      "page": "contact.html",
++      "count": 1,
++      "text": "PRÉVISUALISATION — LIVRAISON NON PUBLIÉE"
++    },
++    {
++      "page": "mentions_legales_ESBB.html",
++      "count": 1,
++      "text": "PRÉVISUALISATION — LIVRAISON NON PUBLIÉE"
++    },
++    {
++      "page": "404.html",
++      "count": 1,
++      "text": "PRÉVISUALISATION — LIVRAISON NON PUBLIÉE"
++    }
++  ]
++}
+\ No newline at end of file
+diff --git a/validation/cartes-matchs-2026-11-05/pages-responsive.json b/validation/cartes-matchs-2026-11-05/pages-responsive.json
+new file mode 100644
+index 0000000..dd44525
+--- /dev/null
++++ b/validation/cartes-matchs-2026-11-05/pages-responsive.json
+@@ -0,0 +1,218 @@
++[
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/index.html",
++    "width": 1440
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/le-club.html",
++    "width": 1440
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/equipes.html",
++    "width": 1440
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/planning.html",
++    "width": 1440
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/calendrier.html",
++    "width": 1440
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/inscriptions.html",
++    "width": 1440
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/essais.html",
++    "width": 1440
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/partenaires.html",
++    "width": 1440
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/sponsors.html",
++    "width": 1440
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/contact.html",
++    "width": 1440
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/mentions_legales_ESBB.html",
++    "width": 1440
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/404.html",
++    "width": 1440
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/index.html",
++    "width": 768
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/le-club.html",
++    "width": 768
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/equipes.html",
++    "width": 768
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/planning.html",
++    "width": 768
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/calendrier.html",
++    "width": 768
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/inscriptions.html",
++    "width": 768
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/essais.html",
++    "width": 768
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/partenaires.html",
++    "width": 768
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/sponsors.html",
++    "width": 768
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/contact.html",
++    "width": 768
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/mentions_legales_ESBB.html",
++    "width": 768
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/404.html",
++    "width": 768
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/index.html",
++    "width": 390
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/le-club.html",
++    "width": 390
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/equipes.html",
++    "width": 390
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/planning.html",
++    "width": 390
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/calendrier.html",
++    "width": 390
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/inscriptions.html",
++    "width": 390
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/essais.html",
++    "width": 390
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/partenaires.html",
++    "width": 390
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/sponsors.html",
++    "width": 390
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/contact.html",
++    "width": 390
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/mentions_legales_ESBB.html",
++    "width": 390
++  },
++  {
++    "chip": "Prévisualisation — livraison non publiée",
++    "overflow": false,
++    "page": "/404.html",
++    "width": 390
++  }
++]
+\ No newline at end of file
+diff --git a/validation/cartes-matchs-2026-11-05/verification-date.cjs b/validation/cartes-matchs-2026-11-05/verification-date.cjs
+new file mode 100644
+index 0000000..75a6b6d
+--- /dev/null
++++ b/validation/cartes-matchs-2026-11-05/verification-date.cjs
+@@ -0,0 +1,13 @@
++const fs = require('node:fs');
++const vm = require('node:vm');
++const assert = require('node:assert/strict');
++const code = fs.readFileSync('site-update.js', 'utf8');
++function label(source) {
++  const chip = { textContent: 'Prévisualisation — livraison non publiée' };
++  vm.runInNewContext(source, { document: { addEventListener: (_, callback) => callback(), querySelectorAll: () => [chip] }, Intl, Date });
++  return chip.textContent;
++}
++assert.equal(label(code), 'Prévisualisation — livraison non publiée');
++assert.equal(label(code.replace('SITE_RELEASE_DATE = null', "SITE_RELEASE_DATE = '2026-11-05'")), 'Site mis à jour le 5 novembre 2026');
++assert.equal(label(code.replace('SITE_RELEASE_DATE = null', "SITE_RELEASE_DATE = '2026-11-12'")), 'Site mis à jour le 12 novembre 2026');
++console.log('Date centralisée : prévisualisation, livraison du 5 novembre et livraison ultérieure vérifiées.');
+diff --git a/validation/cartes-matchs-2026-11-05/verification-liens.cjs b/validation/cartes-matchs-2026-11-05/verification-liens.cjs
+new file mode 100644
+index 0000000..6d4c800
+--- /dev/null
++++ b/validation/cartes-matchs-2026-11-05/verification-liens.cjs
+@@ -0,0 +1,16 @@
++const fs = require('node:fs');
++const vm = require('node:vm');
++const assert = require('node:assert/strict');
++const source = fs.readFileSync('calendrier.js', 'utf8');
++const helpers = source.slice(source.indexOf('  const safeFfbbUrl ='), source.indexOf('  const locationLabel ='));
++const context = { URL };
++vm.runInNewContext(helpers + ';this.checkMatch = individualMatchUrl; this.checkVenue = knownVenueAddress;', context);
++const match = 'https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm2/match/200000014548774';
++assert.equal(context.checkMatch(match), match);
++for (const url of ['https://competitions.ffbb.com/clubs/a/equipes/123', 'https://example.org/match/123', 'http://competitions.ffbb.com/match/123', 'javascript:alert(1)', null]) assert.equal(context.checkMatch(url), null);
++assert.equal(context.checkVenue('SALLE PORT DU ROY'), '55 avenue du Port du Roy, 33290 Blanquefort');
++assert.equal(context.checkVenue('Gymnase du Port-du-Roy'), '55 avenue du Port du Roy, 33290 Blanquefort');
++assert.equal(context.checkVenue('Salle Port du Roy de Bordeaux'), '');
++assert.equal(context.checkVenue('Gymnase du Collège'), '');
++assert.equal(context.checkVenue('Gymnase Le Béchon').includes('environ'), true);
++console.log('Liens individuels, rejets des pages équipe et domaines étrangers, alias et salles ambiguës vérifiés.');

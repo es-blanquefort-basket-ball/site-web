@@ -1,0 +1,95 @@
+[
+  {
+    "page": "404.html",
+    "http": 200,
+    "dates": []
+  },
+  {
+    "page": "app/bureau.html",
+    "http": 200,
+    "dates": []
+  },
+  {
+    "page": "app/coachs.html",
+    "http": 200,
+    "dates": []
+  },
+  {
+    "page": "app/essais.html",
+    "http": 200,
+    "dates": []
+  },
+  {
+    "page": "app/licencies.html",
+    "http": 200,
+    "dates": []
+  },
+  {
+    "page": "app/mentions_legales_ESBB.html",
+    "http": 200,
+    "dates": []
+  },
+  {
+    "page": "calendrier.html",
+    "http": 200,
+    "dates": [
+      "Mis à jour le 23 septembre 2026"
+    ]
+  },
+  {
+    "page": "contact.html",
+    "http": 200,
+    "dates": []
+  },
+  {
+    "page": "equipes.html",
+    "http": 200,
+    "dates": [
+      "Mis à jour le 3 novembre 2026"
+    ]
+  },
+  {
+    "page": "essais.html",
+    "http": 200,
+    "dates": []
+  },
+  {
+    "page": "index.html",
+    "http": 200,
+    "dates": []
+  },
+  {
+    "page": "inscriptions.html",
+    "erreur": "<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>"
+  },
+  {
+    "page": "le-club.html",
+    "erreur": "<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>"
+  },
+  {
+    "page": "matchs.html",
+    "erreur": "<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>"
+  },
+  {
+    "page": "mentions_legales_ESBB.html",
+    "http": 200,
+    "dates": []
+  },
+  {
+    "page": "partenaires.html",
+    "http": 200,
+    "dates": []
+  },
+  {
+    "page": "planning.html",
+    "http": 200,
+    "dates": [
+      "Mis à jour le 22 septembre 2026"
+    ]
+  },
+  {
+    "page": "sponsors.html",
+    "http": 200,
+    "dates": []
+  }
+]

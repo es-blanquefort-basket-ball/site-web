@@ -1,0 +1,284 @@
+{
+  "observed_on": "2026-11-04",
+  "origin": "lecture DOM des pages publiques dans Chrome, sans API privée ni lecture de données internes",
+  "http_curl_first_page": {
+    "ffbb_match_id": "200000014955052",
+    "status": 403
+  },
+  "scores_and_phones_excluded": true,
+  "pages": [
+    {
+      "ffbb_match_id": "200000014955052",
+      "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014955052",
+      "group": "G05",
+      "observation": "page visible dans Chrome ; statut HTTP non mesuré",
+      "match_heading": "POULE E - JOURNÉE 1",
+      "date_time_label": "8 NOV. 11H00",
+      "teams": [
+        {
+          "label": "STE EULALIE BASKET BALL",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033002/equipes/200000005419971"
+        },
+        {
+          "label": "ENTENTE SPORTIVE BLANQUEFORT",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005419968"
+        }
+      ],
+      "venue_name": "Salle Valériane Ayayi",
+      "venue_address": "Lieu-dit Garderat, 33560 Sainte-Eulalie",
+      "fbi_number_displayed": false
+    },
+    {
+      "ffbb_match_id": "200000014955437",
+      "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014955437",
+      "group": "G05",
+      "observation": "page visible dans Chrome ; statut HTTP non mesuré",
+      "match_heading": "POULE E - JOURNÉE 1",
+      "date_time_label": "8 NOV. 11H00",
+      "teams": [
+        {
+          "label": "STE EULALIE BASKET BALL",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033002/equipes/200000005419971"
+        },
+        {
+          "label": "ENTENTE SPORTIVE BLANQUEFORT",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005419968"
+        }
+      ],
+      "venue_name": "Salle Valériane Ayayi",
+      "venue_address": "Lieu-dit Garderat, 33560 Sainte-Eulalie",
+      "fbi_number_displayed": false
+    },
+    {
+      "ffbb_match_id": "200000014955053",
+      "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014955053",
+      "group": "G06",
+      "observation": "page visible dans Chrome ; statut HTTP non mesuré",
+      "match_heading": "POULE E - JOURNÉE 2",
+      "date_time_label": "15 NOV. 11H00",
+      "teams": [
+        {
+          "label": "ENTENTE SPORTIVE BLANQUEFORT",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005419968"
+        },
+        {
+          "label": "IE - CTC BASKET HAUTE GIRONDE - BASKET CLUB ESTUAIRE GIRONDE - 1",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033012/equipes/200000005408592"
+        }
+      ],
+      "venue_name": "SALLE PORT DU ROY",
+      "venue_address": "Avenue du Port du Roy, 33290 Blanquefort",
+      "fbi_number_displayed": false
+    },
+    {
+      "ffbb_match_id": "200000014955438",
+      "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014955438",
+      "group": "G06",
+      "observation": "page visible dans Chrome ; statut HTTP non mesuré",
+      "match_heading": "POULE E - JOURNÉE 2",
+      "date_time_label": "15 NOV. 11H00",
+      "teams": [
+        {
+          "label": "ENTENTE SPORTIVE BLANQUEFORT",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005419968"
+        },
+        {
+          "label": "IE - CTC BASKET HAUTE GIRONDE - BASKET CLUB ESTUAIRE GIRONDE - 1",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033012/equipes/200000005408592"
+        }
+      ],
+      "venue_name": "SALLE PORT DU ROY",
+      "venue_address": "Avenue du Port du Roy, 33290 Blanquefort",
+      "fbi_number_displayed": false
+    },
+    {
+      "ffbb_match_id": "200000014924498",
+      "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014924498",
+      "group": "G07",
+      "observation": "page visible dans Chrome ; statut HTTP non mesuré",
+      "match_heading": "POULE E - JOURNÉE 3",
+      "date_time_label": "29 NOV. 11H00",
+      "teams": [
+        {
+          "label": "ENTENTE SPORTIVE BLANQUEFORT",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005419968"
+        },
+        {
+          "label": "UNION SPORTIVE BAZAS - 2",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033037/equipes/200000005408597"
+        }
+      ],
+      "venue_name": "SALLE PORT DU ROY",
+      "venue_address": "Avenue du Port du Roy, 33290 Blanquefort",
+      "fbi_number_displayed": false
+    },
+    {
+      "ffbb_match_id": "200000014955057",
+      "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014955057",
+      "group": "G07",
+      "observation": "page visible dans Chrome ; statut HTTP non mesuré",
+      "match_heading": "POULE E - JOURNÉE 3",
+      "date_time_label": "29 NOV. 11H00",
+      "teams": [
+        {
+          "label": "ENTENTE SPORTIVE BLANQUEFORT",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005419968"
+        },
+        {
+          "label": "UNION SPORTIVE BAZAS - 2",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033037/equipes/200000005408597"
+        }
+      ],
+      "venue_name": "SALLE PORT DU ROY",
+      "venue_address": "Avenue du Port du Roy, 33290 Blanquefort",
+      "fbi_number_displayed": false
+    },
+    {
+      "ffbb_match_id": "200000014955442",
+      "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014955442",
+      "group": "G07",
+      "observation": "page visible dans Chrome ; statut HTTP non mesuré",
+      "match_heading": "POULE E - JOURNÉE 3",
+      "date_time_label": "29 NOV. 11H00",
+      "teams": [
+        {
+          "label": "ENTENTE SPORTIVE BLANQUEFORT",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005419968"
+        },
+        {
+          "label": "UNION SPORTIVE BAZAS - 2",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033037/equipes/200000005408597"
+        }
+      ],
+      "venue_name": "SALLE PORT DU ROY",
+      "venue_address": "Avenue du Port du Roy, 33290 Blanquefort",
+      "fbi_number_displayed": false
+    },
+    {
+      "ffbb_match_id": "200000014924516",
+      "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014924516",
+      "group": "G08",
+      "observation": "page visible dans Chrome ; statut HTTP non mesuré",
+      "match_heading": "POULE E - JOURNÉE 4",
+      "date_time_label": "6 DÉC. 11H00",
+      "teams": [
+        {
+          "label": "COUTRAS GUITRES BASKET - 2",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033062/equipes/200000005408606"
+        },
+        {
+          "label": "ENTENTE SPORTIVE BLANQUEFORT",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005419968"
+        }
+      ],
+      "venue_name": "SALLE DOURSAT",
+      "venue_address": "Rue Pierre Brossolette, 33230 Coutras",
+      "fbi_number_displayed": false
+    },
+    {
+      "ffbb_match_id": "200000014955060",
+      "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014955060",
+      "group": "G08",
+      "observation": "page visible dans Chrome ; statut HTTP non mesuré",
+      "match_heading": "POULE E - JOURNÉE 4",
+      "date_time_label": "6 DÉC. 11H00",
+      "teams": [
+        {
+          "label": "COUTRAS GUITRES BASKET - 2",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033062/equipes/200000005408606"
+        },
+        {
+          "label": "ENTENTE SPORTIVE BLANQUEFORT",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005419968"
+        }
+      ],
+      "venue_name": "SALLE DOURSAT",
+      "venue_address": "Rue Pierre Brossolette, 33230 Coutras",
+      "fbi_number_displayed": false
+    },
+    {
+      "ffbb_match_id": "200000014955445",
+      "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014955445",
+      "group": "G08",
+      "observation": "page visible dans Chrome ; statut HTTP non mesuré",
+      "match_heading": "POULE E - JOURNÉE 4",
+      "date_time_label": "6 DÉC. 11H00",
+      "teams": [
+        {
+          "label": "COUTRAS GUITRES BASKET - 2",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033062/equipes/200000005408606"
+        },
+        {
+          "label": "ENTENTE SPORTIVE BLANQUEFORT",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005419968"
+        }
+      ],
+      "venue_name": "SALLE DOURSAT",
+      "venue_address": "Rue Pierre Brossolette, 33230 Coutras",
+      "fbi_number_displayed": false
+    },
+    {
+      "ffbb_match_id": "200000014924535",
+      "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014924535",
+      "group": "G09",
+      "observation": "page visible dans Chrome ; statut HTTP non mesuré",
+      "match_heading": "POULE E - JOURNÉE 5",
+      "date_time_label": "13 DÉC. 11H00",
+      "teams": [
+        {
+          "label": "LES PETITS MOUSSES LANGOIRAN - 2",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033044/equipes/200000005408582"
+        },
+        {
+          "label": "ENTENTE SPORTIVE BLANQUEFORT",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005419968"
+        }
+      ],
+      "venue_name": "SALLE RENE BAILLET",
+      "venue_address": "Lieu-dit Le Bourg, 33550 Langoiran",
+      "fbi_number_displayed": false
+    },
+    {
+      "ffbb_match_id": "200000014955063",
+      "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014955063",
+      "group": "G09",
+      "observation": "page visible dans Chrome ; statut HTTP non mesuré",
+      "match_heading": "POULE E - JOURNÉE 5",
+      "date_time_label": "13 DÉC. 11H00",
+      "teams": [
+        {
+          "label": "LES PETITS MOUSSES LANGOIRAN - 2",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033044/equipes/200000005408582"
+        },
+        {
+          "label": "ENTENTE SPORTIVE BLANQUEFORT",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005419968"
+        }
+      ],
+      "venue_name": "SALLE RENE BAILLET",
+      "venue_address": "Lieu-dit Le Bourg, 33550 Langoiran",
+      "fbi_number_displayed": false
+    },
+    {
+      "ffbb_match_id": "200000014955448",
+      "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/match/200000014955448",
+      "group": "G09",
+      "observation": "page visible dans Chrome ; statut HTTP non mesuré",
+      "match_heading": "POULE E - JOURNÉE 5",
+      "date_time_label": "13 DÉC. 11H00",
+      "teams": [
+        {
+          "label": "LES PETITS MOUSSES LANGOIRAN - 2",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033044/equipes/200000005408582"
+        },
+        {
+          "label": "ENTENTE SPORTIVE BLANQUEFORT",
+          "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005419968"
+        }
+      ],
+      "venue_name": "SALLE RENE BAILLET",
+      "venue_address": "Lieu-dit Le Bourg, 33550 Langoiran",
+      "fbi_number_displayed": false
+    }
+  ]
+}

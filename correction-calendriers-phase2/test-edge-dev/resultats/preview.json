@@ -1,0 +1,48 @@
+{
+  "project_ref": "upjjbmrfmpkihkfwlhxb",
+  "transport": "Supabase Dashboard Test -> Edge Function",
+  "response_http_status": 502,
+  "response": {
+    "success": false,
+    "status": "error",
+    "failed_teams": 4,
+    "teams": [
+      {
+        "team": "U13F",
+        "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005408294",
+        "http_status": 403,
+        "ok": false,
+        "error": "FFBB_HTTP_403",
+        "match_pages": 0
+      },
+      {
+        "team": "U13M",
+        "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005416665",
+        "http_status": 403,
+        "ok": false,
+        "error": "FFBB_HTTP_403",
+        "match_pages": 0
+      },
+      {
+        "team": "U15M",
+        "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005414841",
+        "http_status": 403,
+        "ok": false,
+        "error": "FFBB_HTTP_403",
+        "match_pages": 0
+      },
+      {
+        "team": "U18M",
+        "url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005419968",
+        "http_status": 403,
+        "ok": false,
+        "error": "FFBB_HTTP_403",
+        "match_pages": 0
+      }
+    ],
+    "mode": "preview",
+    "execution_environment": "not_attested",
+    "production_write": false,
+    "candidates": []
+  }
+}

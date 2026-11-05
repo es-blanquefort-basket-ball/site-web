@@ -1,0 +1,296 @@
+[
+  {
+    "test": "desktop-8-top",
+    "bodyHeight": 819,
+    "bodyScrollHeight": 1996,
+    "cards": 8,
+    "drawer": {
+      "bottom": 900,
+      "height": 900,
+      "left": 880,
+      "right": 1440,
+      "top": 0,
+      "width": 560,
+      "x": 880,
+      "y": 0
+    },
+    "firstCardTop": 147.5,
+    "groupPadding": "0px",
+    "headerBottom": 81.5,
+    "headerTop": 0,
+    "height": 900,
+    "horizontalOverflow": false,
+    "lastCardBottom": 2045.5,
+    "scrollTop": 0,
+    "width": 1440
+  },
+  {
+    "test": "desktop-8-bottom",
+    "bodyHeight": 819,
+    "bodyScrollHeight": 1996,
+    "cards": 8,
+    "drawer": {
+      "bottom": 900,
+      "height": 900,
+      "left": 880,
+      "right": 1440,
+      "top": 0,
+      "width": 560,
+      "x": 880,
+      "y": 0
+    },
+    "firstCardTop": -1030,
+    "groupPadding": "0px",
+    "headerBottom": 81.5,
+    "headerTop": 0,
+    "height": 900,
+    "horizontalOverflow": false,
+    "lastCardBottom": 868,
+    "scrollTop": 1177.5,
+    "width": 1440
+  },
+  {
+    "test": "desktop-7-top-reset",
+    "bodyHeight": 819,
+    "bodyScrollHeight": 1758,
+    "cards": 7,
+    "drawer": {
+      "bottom": 900,
+      "height": 900,
+      "left": 880,
+      "right": 1440,
+      "top": 0,
+      "width": 560,
+      "x": 880,
+      "y": 0
+    },
+    "firstCardTop": 147.5,
+    "groupPadding": "0px",
+    "headerBottom": 81.5,
+    "headerTop": 0,
+    "height": 900,
+    "horizontalOverflow": false,
+    "lastCardBottom": 1807,
+    "scrollTop": 0,
+    "width": 1440
+  },
+  {
+    "test": "tablet-8-top",
+    "bodyHeight": 943,
+    "bodyScrollHeight": 1996,
+    "cards": 8,
+    "drawer": {
+      "bottom": 1024,
+      "height": 1024,
+      "left": 208,
+      "right": 768,
+      "top": 0,
+      "width": 560,
+      "x": 208,
+      "y": 0
+    },
+    "firstCardTop": 147.5,
+    "groupPadding": "0px",
+    "headerBottom": 81.5,
+    "headerTop": 0,
+    "height": 1024,
+    "horizontalOverflow": false,
+    "lastCardBottom": 2045.5,
+    "scrollTop": 0,
+    "width": 768
+  },
+  {
+    "test": "tablet-8-bottom",
+    "bodyHeight": 943,
+    "bodyScrollHeight": 1996,
+    "cards": 8,
+    "drawer": {
+      "bottom": 1024,
+      "height": 1024,
+      "left": 208,
+      "right": 768,
+      "top": 0,
+      "width": 560,
+      "x": 208,
+      "y": 0
+    },
+    "firstCardTop": -906,
+    "groupPadding": "0px",
+    "headerBottom": 81.5,
+    "headerTop": 0,
+    "height": 1024,
+    "horizontalOverflow": false,
+    "lastCardBottom": 992,
+    "scrollTop": 1053.5,
+    "width": 768
+  },
+  {
+    "test": "mobile-8-top",
+    "bodyHeight": 639,
+    "bodyScrollHeight": 3104,
+    "cards": 8,
+    "drawer": {
+      "bottom": 844,
+      "height": 742.71875,
+      "left": 0,
+      "right": 370,
+      "top": 101.28125,
+      "width": 370,
+      "x": 0,
+      "y": 101.28125
+    },
+    "firstCardTop": 330.28125,
+    "groupPadding": "64px 0px",
+    "headerBottom": 205.28125,
+    "headerTop": 101.28125,
+    "height": 844,
+    "horizontalOverflow": false,
+    "lastCardBottom": 3228.28125,
+    "scrollTop": 0,
+    "width": 390
+  },
+  {
+    "test": "mobile-8-bottom",
+    "bodyHeight": 639,
+    "bodyScrollHeight": 3104,
+    "cards": 8,
+    "drawer": {
+      "bottom": 844,
+      "height": 742.71875,
+      "left": 0,
+      "right": 370,
+      "top": 101.28125,
+      "width": 370,
+      "x": 0,
+      "y": 101.28125
+    },
+    "firstCardTop": -2135.21875,
+    "groupPadding": "64px 0px",
+    "headerBottom": 205.28125,
+    "headerTop": 101.28125,
+    "height": 844,
+    "horizontalOverflow": false,
+    "lastCardBottom": 762.78125,
+    "scrollTop": 2465.5,
+    "width": 390
+  },
+  {
+    "test": "five-mini-filters-mobile",
+    "results": [
+      {
+        "cards": [
+          "U9F"
+        ],
+        "selected": "U9F",
+        "url": "http://127.0.0.1:8765/calendrier.html?equipe=U9F#calendrier-club"
+      },
+      {
+        "cards": [
+          "U9M1"
+        ],
+        "selected": "U9M1",
+        "url": "http://127.0.0.1:8765/calendrier.html?equipe=U9M1#calendrier-club"
+      },
+      {
+        "cards": [
+          "U9M2"
+        ],
+        "selected": "U9M2",
+        "url": "http://127.0.0.1:8765/calendrier.html?equipe=U9M2#calendrier-club"
+      },
+      {
+        "cards": [
+          "U11 Mixte"
+        ],
+        "selected": "U11 Mixte",
+        "url": "http://127.0.0.1:8765/calendrier.html?equipe=U11%20Mixte#calendrier-club"
+      },
+      {
+        "cards": [
+          "U11 M"
+        ],
+        "selected": "U11 M",
+        "url": "http://127.0.0.1:8765/calendrier.html?equipe=U11%20M#calendrier-club"
+      }
+    ]
+  },
+  {
+    "test": "desktop-three-matches-top",
+    "bodyHeight": 819,
+    "bodyScrollHeight": 886,
+    "cards": 3,
+    "drawer": {
+      "bottom": 900,
+      "height": 900,
+      "left": 880,
+      "right": 1440,
+      "top": 0,
+      "width": 560,
+      "x": 880,
+      "y": 0
+    },
+    "firstCardTop": 147.5,
+    "groupPadding": "0px",
+    "headerBottom": 81.5,
+    "headerTop": 0,
+    "height": 900,
+    "horizontalOverflow": false,
+    "lastCardBottom": 935,
+    "scrollTop": 0,
+    "width": 1440
+  },
+  {
+    "test": "desktop-one-match-top",
+    "bodyHeight": 819,
+    "bodyScrollHeight": 819,
+    "cards": 1,
+    "drawer": {
+      "bottom": 900,
+      "height": 900,
+      "left": 880,
+      "right": 1440,
+      "top": 0,
+      "width": 560,
+      "x": 880,
+      "y": 0
+    },
+    "firstCardTop": 147.5,
+    "groupPadding": "0px",
+    "headerBottom": 81.5,
+    "headerTop": 0,
+    "height": 900,
+    "horizontalOverflow": false,
+    "lastCardBottom": 376,
+    "scrollTop": 0,
+    "width": 1440
+  },
+  {
+    "test": "equipes-mobile",
+    "brokenImages": [],
+    "height": 844,
+    "horizontalOverflow": false,
+    "miniLinks": [
+      {
+        "text": "Voir les matchs",
+        "url": "http://127.0.0.1:8765/calendrier.html?equipe=U9F#calendrier-club"
+      },
+      {
+        "text": "Voir les matchs",
+        "url": "http://127.0.0.1:8765/calendrier.html?equipe=U9M1#calendrier-club"
+      },
+      {
+        "text": "Voir les matchs",
+        "url": "http://127.0.0.1:8765/calendrier.html?equipe=U9M2#calendrier-club"
+      },
+      {
+        "text": "Voir les matchs",
+        "url": "http://127.0.0.1:8765/calendrier.html?equipe=U11%20Mixte#calendrier-club"
+      },
+      {
+        "text": "Voir les matchs",
+        "url": "http://127.0.0.1:8765/calendrier.html?equipe=U11%20M#calendrier-club"
+      }
+    ],
+    "width": 390
+  }
+]

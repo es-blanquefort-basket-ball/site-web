@@ -1,0 +1,25 @@
+{
+  "source": "Résultats SQL confirmés par le club, pas une lecture directe via la clé publique",
+  "timeline": [
+    {
+      "date": "2026-09-28",
+      "result": "33 rencontres synchronisées correctement"
+    },
+    {
+      "date": "2026-09-30",
+      "result": "Premières erreurs HTTP 403 FFBB"
+    },
+    {
+      "date": "2026-10-23",
+      "status": "success",
+      "matches_found": 0,
+      "teams_http_403": [
+        "U13F",
+        "U13M",
+        "U15M",
+        "SG1",
+        "SG2"
+      ]
+    }
+  ]
+}

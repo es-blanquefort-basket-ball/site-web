@@ -1,0 +1,552 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Équipes — ES Blanquefort Basket-ball</title><meta name="description" content="Catégories et équipes du club."><meta name="theme-color" content="#1f5a3f"><link rel="icon" type="image/png" href="images/favicon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css">
+<style>
+:root{--g900:#0f2d20;--g800:#173d2d;--g700:#1f5a3f;--g500:#2f7b52;--line:rgba(31,90,63,.14)}
+.teams-page{background:linear-gradient(180deg,#f7faf8 0%,#edf5f0 48%,#fff 100%);padding-bottom:82px}
+.teams-hero{
+  position:relative;
+  overflow:hidden;
+  min-height:575px;
+  display:flex;
+  align-items:center;
+  color:#fff;
+  background:
+    linear-gradient(90deg,rgba(6,22,15,.95),rgba(15,45,32,.78) 52%,rgba(15,45,32,.28)),
+    url('assets/equipes-photo-hero.jpg') center/cover no-repeat;
+}
+
+.teams-hero .wrap{position:relative;z-index:2}
+.teams-copy{width:48%;padding:42px 0}
+.teams-kicker{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:2.4px;font-weight:700;color:var(--g700);font-size:13px}
+.teams-hero h1{margin:6px 0 0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:clamp(76px,9vw,118px);line-height:.82;color:#111}
+.teams-hero h1 span{display:block;color:var(--g700)}
+.teams-script{margin:14px 0 0;font-size:23px;font-style:italic;color:var(--g700)}
+.teams-hero p{max-width:620px;margin:22px 0 0;color:#44584d;font-size:17px;line-height:1.62}
+.teams-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+
+.teams-section{padding:56px 0 0}
+@media(min-width:1025px){.teams-section > .wrap{width:min(1440px,calc(100% - 40px));max-width:1440px}}
+.section-brush-title{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:26px}
+.section-brush-title::before,.section-brush-title::after{content:"";height:3px;width:52px;background:var(--g700);border-radius:99px}
+.section-brush-title h2{margin:0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;color:#111;font-size:44px}
+
+.teams-update{display:flex;justify-content:center;margin:0 0 28px}
+.teams-update span{display:inline-flex;padding:6px 10px;border-radius:999px;background:var(--green-100);color:var(--green-700);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.loisirs-section,.loisirs-section+.teams-group,.teams-group+.teams-group{margin-top:48px}
+.teams-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.teams-grid--pair{grid-template-columns:repeat(2,minmax(0,1fr));max-width:860px;margin-inline:auto}
+.teams-grid--petits .teams-card{background:linear-gradient(145deg,rgba(231,242,235,.96),rgba(255,255,255,.98))}
+.team-subtitle{margin:8px 0 0;font-family:'Barlow Condensed',sans-serif;font-size:17px;line-height:1.25;color:var(--g700)}
+@media(min-width:1025px){
+  .teams-grid--graines{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .teams-grid--graines > .teams-card{grid-column:span 2}
+  .teams-grid--graines > .teams-card:nth-child(4){grid-column:2 / span 2}
+  .teams-grid--graines > .teams-card:nth-child(5){grid-column:4 / span 2}
+  .teams-grid--espoirs{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+
+.teams-card{
+  position:relative;overflow:hidden;padding:24px;border-radius:26px;
+  background:linear-gradient(145deg,rgba(255,255,255,.90),rgba(231,242,235,.68));
+  border:1px solid rgba(255,255,255,.82);
+  box-shadow:0 22px 54px rgba(7,27,18,.12),inset 0 1px 0 rgba(255,255,255,.90);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)
+}
+.teams-card::before{content:"";position:absolute;inset:0 0 auto;height:7px;background:linear-gradient(90deg,var(--g700),var(--g500),transparent)}
+.teams-card.pending{background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(245,249,246,.82))}
+.team-photo-slot{min-height:82px;margin:-24px -24px 22px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(15,45,32,.96),rgba(47,123,82,.88));color:rgba(255,255,255,.78);font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+.pending .team-photo-slot{background:linear-gradient(135deg,rgba(23,61,45,.92),rgba(99,132,112,.82))}
+.team-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px}
+.teams-card h3{margin:0;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:35px;line-height:1;color:var(--g900)}
+.team-status{flex:0 0 auto;display:inline-flex;padding:6px 9px;border-radius:999px;background:#e7f1ea;color:#0b4b2b;border:1px solid rgba(11,75,43,.10);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase}
+.team-status.pending-status{background:#fff4e7;color:#8a4513;border-color:rgba(199,101,34,.18)}
+.team-detail{margin-top:17px}
+.team-detail h4{margin:0 0 7px;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:1.2px;font-size:13px;color:var(--g700)}
+.team-detail ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.team-detail li,.team-detail p{margin:0;color:#44584d;line-height:1.5}
+.team-note{margin:12px 0 0;color:#6b4a2e;line-height:1.5;font-style:italic}
+.team-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.team-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:9px 13px;border-radius:999px;background:#e3f0e8;color:#0b4b2b;border:1px solid rgba(11,75,43,.18);font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;transition:.2s}
+.team-actions a:hover{transform:translateY(-1px);background:#d8eadf}
+
+.loisirs-feature{display:grid;grid-template-columns:minmax(280px,.78fr) minmax(0,1.22fr);overflow:hidden;border-radius:26px;background:linear-gradient(125deg,var(--g900),var(--g700));box-shadow:0 24px 58px rgba(7,27,18,.18)}
+.loisirs-visual{position:relative;min-height:390px;background:#dfeae3}
+.loisirs-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 38%}
+.loisirs-content{display:flex;flex-direction:column;justify-content:center;padding:42px;color:#fff}
+.loisirs-kicker{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#b9dec3}
+.loisirs-content h3{margin:7px 0 16px;font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;text-transform:uppercase;color:#fff}
+.loisirs-content>p{margin:0;color:rgba(255,255,255,.82);font-size:17px;line-height:1.65}
+.loisirs-infos{display:flex;flex-wrap:wrap;gap:9px;margin:24px 0}
+.loisirs-infos li{list-style:none;padding:9px 13px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(255,255,255,.09);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:#fff}
+.loisirs-final{font-family:'Barlow Condensed',sans-serif;font-size:20px!important;font-weight:700;color:#fff!important}
+.loisirs-content .btn{align-self:flex-start;margin-top:20px}
+
+.teams-join{
+  position:relative;overflow:hidden;margin-top:24px;padding:34px;border-radius:26px;color:#fff;
+  background:linear-gradient(120deg,rgba(8,31,21,.98),rgba(31,90,63,.94));
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  box-shadow:0 24px 58px rgba(7,27,18,.18)
+}
+.teams-join::after{
+  content:"";position:absolute;right:-5%;top:-40%;width:42%;height:180%;
+  background:repeating-linear-gradient(-14deg,rgba(255,255,255,.08) 0 5px,transparent 5px 16px);
+  transform:rotate(5deg)
+}
+.teams-join> *{position:relative;z-index:1}
+.teams-join h2{margin:0;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:48px}
+.teams-join p{margin:7px 0 0;color:rgba(255,255,255,.80)}
+</style>
+
+
+<style id="esb-responsive-v1">
+/* =========================================================
+   PASSE RESPONSIVE ESB — TEST GITHUB
+   Desktop harmonisé + tablette + téléphone
+   ========================================================= */
+html{overflow-x:hidden}
+body{overflow-x:hidden}
+img,video,iframe{max-width:100%;height:auto}
+.wrap,.container{width:min(1180px,calc(100% - 40px));margin-inline:auto}
+
+/* ---------- Desktop : harmonisation des grands headers ---------- */
+.teams-hero,
+.matches-hero,
+.club-hero{
+  min-height:430px !important;
+}
+.teams-copy,
+.matches-copy{
+  padding:28px 0 !important;
+}
+.teams-hero h1{
+  font-size:clamp(62px,7vw,92px) !important;
+}
+.matches-hero h1{
+  font-size:clamp(60px,6.5vw,88px) !important;
+}
+.club-hero{
+  padding:64px 0 58px !important;
+}
+.club-hero h1{
+  font-size:clamp(58px,7vw,88px) !important;
+}
+
+/* ---------- Tablette ---------- */
+@media (max-width: 1024px){
+  .wrap,.container{width:min(100% - 32px,1180px)}
+
+  /* header/nav */
+  #hdr .nav{min-height:68px;position:relative}
+  #hdr .brand-text{display:none}
+  #hdr .burger{display:inline-flex!important;align-items:center;justify-content:center}
+  #hdr .navlinks{
+    position:absolute;
+    left:16px;right:16px;top:calc(100% + 8px);
+    display:none!important;
+    flex-direction:column;
+    align-items:stretch!important;
+    gap:4px!important;
+    padding:14px;
+    border-radius:18px;
+    background:rgba(255,255,255,.98);
+    box-shadow:0 18px 48px rgba(7,27,18,.18);
+    z-index:9999;
+  }
+  #hdr.open .navlinks,
+  #hdr .navlinks.open{display:flex!important}
+  #hdr .navlinks a{width:100%;text-align:center}
+
+  /* équipes */
+  .teams-hero{min-height:390px!important;background-position:center!important}
+  .teams-copy{width:62%!important}
+  .teams-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .loisirs-feature{grid-template-columns:1fr!important}
+  .loisirs-visual{min-height:360px}
+  .teams-join{align-items:flex-start!important}
+
+  /* matchs */
+  .matches-hero{min-height:390px!important;background-position:center!important}
+  .matches-copy{width:62%!important}
+  .matches-tools{grid-template-columns:1fr 1fr!important}
+  .matches-tools .matches-tool:last-child{grid-column:1/-1}
+  .matches-grid{grid-template-columns:1fr!important}
+
+  /* club */
+  .club-hero .wrap{grid-template-columns:1fr!important}
+  .club-hero-logo{display:none!important}
+  .timeline{grid-template-columns:1fr!important}
+  .feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .invest-layout{grid-template-columns:1fr!important}
+  .invest-form{position:static!important}
+  .docs{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+
+  /* contact */
+  .contact-grid{grid-template-columns:1fr!important}
+  .gyms-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+
+  /* accueil */
+  .rentree-top,
+  .news-feature{grid-template-columns:1fr!important}
+  .rentree-visual{min-height:260px!important}
+  .reprise-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .action-row{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .essential-row{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .partner-strip{grid-template-columns:repeat(3,minmax(160px,1fr))!important}
+
+  /* inscriptions */
+  .category-grid,
+  [class*="category-grid"]{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+
+  /* planning */
+  table{max-width:100%}
+  .table-wrap,[class*="table-wrap"]{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+  /* footer */
+  .footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+
+/* ---------- Téléphone ---------- */
+@media (max-width: 680px){
+  .wrap,.container{width:min(100% - 24px,1180px)}
+  body{font-size:15px}
+  .btn{min-height:44px;padding:11px 15px!important;font-size:13px!important}
+
+  /* hero équipes */
+  .teams-hero{
+    min-height:0!important;
+    padding:48px 0 44px!important;
+    background-position:60% center!important;
+  }
+  .teams-hero:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(6,22,15,.34);
+    pointer-events:none;
+  }
+  .teams-copy{width:100%!important;padding:0!important}
+  .teams-hero h1{font-size:58px!important;line-height:.9!important}
+  .teams-script{font-size:18px!important}
+  .teams-hero p{font-size:15px!important;max-width:100%!important}
+  .teams-actions{display:grid!important;grid-template-columns:1fr!important}
+  .teams-grid{grid-template-columns:1fr!important}
+  .teams-card:last-child{grid-column:auto}
+  .loisirs-visual{min-height:300px}
+  .loisirs-content{padding:26px!important}
+  .loisirs-content h3{font-size:42px!important}
+  .loisirs-content .btn{align-self:stretch;width:100%}
+  .section-brush-title{gap:9px!important}
+  .section-brush-title h2{font-size:34px!important;text-align:center}
+  .section-brush-title:before,.section-brush-title:after{width:28px!important}
+  .teams-join{display:block!important;padding:24px!important;border-radius:20px!important}
+  .teams-join h2{font-size:38px!important}
+  .teams-join .btn{display:flex;margin-top:18px;width:100%;justify-content:center}
+
+  /* hero matchs */
+  .matches-hero{
+    min-height:0!important;
+    padding:48px 0 44px!important;
+    background-position:66% center!important;
+  }
+  .matches-hero:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(6,22,15,.28);
+    pointer-events:none;
+  }
+  .matches-copy{width:100%!important;padding:0!important}
+  .matches-hero h1{font-size:54px!important;line-height:.92!important}
+  .matches-hero h1 span{font-size:.62em!important}
+  .matches-hero p{font-size:15px!important;max-width:100%!important}
+  .matches-actions{display:grid!important;grid-template-columns:1fr!important}
+  .matches-tools{grid-template-columns:1fr!important}
+  .matches-tools .matches-tool:last-child{grid-column:auto}
+  .matches-tool,.matches-panel,.newsletter-box{padding:20px!important;border-radius:18px!important}
+  .matches-panel h2{font-size:39px!important}
+
+  /* club */
+  .club-hero{padding:48px 0 44px!important}
+  .club-hero h1{font-size:54px!important}
+  .club-hero p{font-size:15px!important}
+  .club-head{display:block!important}
+  .club-head h2{font-size:44px!important}
+  .club-head p{margin-top:10px!important}
+  .feature-grid,.committee-grid,.docs{grid-template-columns:1fr!important}
+  .club-card,.timeline-card,.feature-card,.committee-card,.doc-link{border-radius:18px!important}
+  .label-band{grid-template-columns:1fr!important}
+  .club-final{display:block!important;padding:24px!important;border-radius:20px!important}
+  .club-final h2{font-size:38px!important}
+  .club-final-actions,.club-final .club-actions{display:grid!important;grid-template-columns:1fr!important;margin-top:18px!important}
+
+  /* accueil */
+  .app-section-head{padding-inline:12px!important;min-height:58px!important}
+  .app-icon{width:38px!important;height:38px!important;flex-basis:38px!important}
+  .app-section-head h2{font-size:25px!important}
+  .app-head-link{font-size:12px!important}
+  .rentree-panel{border-radius:18px!important}
+  .rentree-copy{padding:24px!important}
+  .rentree-copy h3{font-size:44px!important}
+  .rentree-copy p{font-size:15px!important}
+  .rentree-visual{min-height:210px!important}
+  .rentree-visual:after{font-size:26px!important}
+  .reprise-grid{grid-template-columns:1fr!important}
+  .reprise-item{min-height:auto!important;border-right:0!important;border-bottom:1px solid var(--line)!important}
+  .action-row{grid-template-columns:1fr!important}
+  .event-band{grid-template-columns:1fr!important;padding:20px!important}
+  .event-date{border-right:0!important;border-bottom:1px solid rgba(255,255,255,.22);padding:0 0 12px!important}
+  .news-photo{min-height:210px!important}
+  .news-content{padding:24px!important}
+  .news-mini-row{grid-template-columns:1fr!important}
+  .essential-row{grid-template-columns:1fr!important}
+  .essential-link{border-right:0!important;border-bottom:1px solid var(--line)!important}
+  .newsletter-band{display:block!important}
+  .newsletter-band .outline-btn{display:inline-flex;margin-top:14px}
+  .partner-strip{display:flex!important;overflow-x:auto!important}
+  .partner-card{flex:0 0 160px}
+
+  /* inscriptions */
+  .category-grid,[class*="category-grid"]{grid-template-columns:1fr!important}
+  [role="dialog"],.modal-content,[class*="modal-content"]{
+    width:calc(100% - 20px)!important;
+    max-width:none!important;
+    max-height:90vh!important;
+    overflow:auto!important;
+  }
+
+  /* planning */
+  .planning-hero,.training-hero,[class*="planning-hero"]{min-height:auto!important}
+  .venue-tabs,.filters,[class*="tabs"]{
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    overflow-x:auto!important;
+    gap:8px!important;
+    -webkit-overflow-scrolling:touch;
+    padding-bottom:6px;
+  }
+  .venue-tabs>*,
+  .filters>*,
+  [class*="tabs"]>*{flex:0 0 auto!important}
+  table{min-width:680px}
+  .table-wrap,[class*="table-wrap"]{overflow-x:auto!important}
+
+  /* contact */
+  .contact-main{padding:36px 0 54px!important}
+  .contact-card,.contact-form-card,.gym-card{padding:20px!important;border-radius:18px!important}
+  .gyms-grid{grid-template-columns:1fr!important}
+  .gyms-title{font-size:38px!important}
+
+  /* footer */
+  .footer-grid{grid-template-columns:1fr!important}
+  .footer-bottom{display:grid!important;gap:8px!important;text-align:center}
+}
+</style>
+
+</head><body class="">
+<header id="hdr"><div class="wrap nav"><a class="brand" href="index.html"><img src="images/logo.png" alt="Logo ES Blanquefort Basket Ball"><span class="brand-text"><span class="brand-name">ES Blanquefort</span><span class="brand-sub">Basket-Ball</span></span></a><button class="burger" aria-label="Menu">☰</button><nav class="navlinks"><a class="" href="index.html">Accueil</a>
+<a class="" href="le-club.html">Le club</a>
+<a class="active" href="equipes.html">Équipes</a>
+<a class="" href="planning.html">Planning</a>
+<a class="" href="calendrier.html">Calendrier</a>
+<a class="" href="partenaires.html">Partenaires</a><a class="btn btn-primary" href="inscriptions.html">S’inscrire</a></nav></div></header>
+
+<main class="teams-page">
+<section class="teams-hero"><div class="wrap"><div class="teams-copy">
+  <div class="teams-kicker">Saison 2026-2027</div>
+  <h1>Nos <span>équipes</span></h1>
+  <div class="teams-script">Un club, 2 couleurs, une passion.</div>
+  <p>Des U9 aux Seniors, les équipes de l’ES Blanquefort Basket-Ball défendent nos couleurs pour la saison 2026-2027. Retrouvez les équipes engagées, leurs entraînements et les accès aux compétitions FFBB disponibles.</p>
+  <div class="teams-actions">
+    <a class="btn btn-primary" href="inscriptions.html">Rejoindre le club</a>
+    <a class="btn btn-ghost" href="planning.html">Voir les créneaux</a>
+  </div>
+</div></div></section>
+
+<section class="teams-section"><div class="wrap">
+  <div class="teams-update"><span>Mis à jour le 3 novembre 2026</span></div>
+
+  <div class="teams-group">
+    <div class="section-brush-title"><h2>Les Petits Géants</h2></div>
+    <div class="teams-grid teams-grid--pair teams-grid--petits">
+      <article class="teams-card pending">
+        <div class="team-photo-slot">Photo de groupe à venir</div>
+        <div class="team-heading"><div><h3>U5</h3><p class="team-subtitle">Micro Basket</p></div></div>
+        <div class="team-detail"><h4>Créneau</h4><ul><li>Lundi 17h30–18h30 — Fongravey</li></ul></div>
+      </article>
+
+      <article class="teams-card pending">
+        <div class="team-photo-slot">Photo de groupe à venir</div>
+        <div class="team-heading"><div><h3>U7</h3><p class="team-subtitle">Baby Basket</p></div></div>
+        <div class="team-detail"><h4>Créneau</h4><ul><li>Lundi 17h30–18h30 — Fongravey</li></ul></div>
+      </article>
+    </div>
+  </div>
+
+  <div class="teams-group">
+    <div class="section-brush-title"><h2>Les Graines de champions</h2></div>
+    <div class="teams-grid teams-grid--graines">
+      <article class="teams-card">
+        <div class="team-photo-slot">Photo de groupe à venir</div>
+        <div class="team-heading"><h3>U9F</h3><span class="team-status">Compétition</span></div>
+        <div class="team-detail"><h4>Compétition</h4><p>DFU9-10-P2</p></div>
+        <div class="team-actions"><a href="calendrier.html?equipe=U9F#calendrier-club" aria-label="Consulter les publications du calendrier pour U9F">Calendrier — vérifier les publications</a></div>
+        <div class="team-detail"><h4>Créneaux de la catégorie U9</h4><ul><li>Mardi 17h30–19h00 — Dupaty</li><li>Mercredi 16h30–17h45 — Port du Roy</li></ul></div>
+      </article>
+
+      <article class="teams-card">
+        <div class="team-photo-slot">Photo de groupe à venir</div>
+        <div class="team-heading"><h3>U9M1</h3><span class="team-status">Compétition</span></div>
+        <div class="team-detail"><h4>Compétition</h4><p>DMU9-10-P2</p></div>
+        <div class="team-actions"><a href="calendrier.html?equipe=U9M1#calendrier-club" aria-label="Consulter les publications du calendrier pour U9M1">Calendrier — vérifier les publications</a></div>
+        <div class="team-detail"><h4>Créneaux de la catégorie U9</h4><ul><li>Mardi 17h30–19h00 — Dupaty</li><li>Mercredi 16h30–17h45 — Port du Roy</li></ul></div>
+      </article>
+
+      <article class="teams-card">
+        <div class="team-photo-slot">Photo de groupe à venir</div>
+        <div class="team-heading"><h3>U9M2</h3><span class="team-status">Compétition</span></div>
+        <div class="team-detail"><h4>Compétition</h4><p>DMU9-10-P2</p></div>
+        <div class="team-actions"><a href="calendrier.html?equipe=U9M2#calendrier-club" aria-label="Consulter les publications du calendrier pour U9M2">Calendrier — vérifier les publications</a></div>
+        <div class="team-detail"><h4>Créneaux de la catégorie U9</h4><ul><li>Mardi 17h30–19h00 — Dupaty</li><li>Mercredi 16h30–17h45 — Port du Roy</li></ul></div>
+      </article>
+
+      <article class="teams-card">
+        <div class="team-photo-slot">Photo de groupe à venir</div>
+        <div class="team-heading"><h3>U11 Mixte</h3><span class="team-status">Compétition</span></div>
+        <div class="team-detail"><h4>Compétition</h4><p>DMU11-4-P2</p></div>
+        <div class="team-actions"><a href="calendrier.html?equipe=U11%20Mixte#calendrier-club" aria-label="Consulter les publications du calendrier pour U11 Mixte">Calendrier — vérifier les publications</a></div>
+        <div class="team-detail"><h4>Créneaux de la catégorie U11</h4><ul><li>Mardi 17h30–19h00 — Dupaty</li><li>Mercredi 17h45–19h00 — Port du Roy</li></ul></div>
+      </article>
+
+      <article class="teams-card">
+        <div class="team-photo-slot">Photo de groupe à venir</div>
+        <div class="team-heading"><h3>U11 M</h3><span class="team-status">Compétition</span></div>
+        <div class="team-detail"><h4>Compétition</h4><p>DMU11-10-P2</p></div>
+        <div class="team-actions"><a href="calendrier.html?equipe=U11%20M#calendrier-club" aria-label="Consulter les publications du calendrier pour U11 M">Calendrier — vérifier les publications</a></div>
+        <div class="team-detail"><h4>Créneaux de la catégorie U11</h4><ul><li>Mardi 17h30–19h00 — Dupaty</li><li>Mercredi 17h45–19h00 — Port du Roy</li></ul></div>
+      </article>
+    </div>
+  </div>
+
+  <div class="teams-group">
+    <div class="section-brush-title"><h2>Les Espoirs</h2></div>
+    <div class="teams-grid teams-grid--espoirs">
+      <article class="teams-card">
+        <div class="team-photo-slot">Photo d’équipe à venir</div>
+        <div class="team-heading"><h3>U13F</h3><span class="team-status">Compétition</span></div>
+        <div class="team-detail"><h4>Coachs</h4><ul><li>Nicolas DAMBA</li><li>Mickael DUPUIS</li></ul></div>
+        <div class="team-detail"><h4>Entraînements</h4><ul><li>Mardi 19h00–20h30 — Dupaty</li><li>Jeudi 18h30–20h00 — Béchon</li></ul></div>
+        <div class="team-actions">
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005370982" target="_blank" rel="noopener" aria-label="Calendrier FFBB de l’équipe U13F">Calendrier</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005408294" target="_blank" rel="noopener" aria-label="Calendrier FFBB de phase 2 de l’équipe U13F">Calendrier phase 2</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005370982/classement" target="_blank" rel="noopener" aria-label="Classement FFBB de l’équipe U13F">Classement</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dfu13-3?phase=200000002899469&amp;poule=200000003059588&amp;journee=1" target="_blank" rel="noopener" aria-label="Poule et journée FFBB de l’équipe U13F">Poule / journée</a>
+        </div>
+      </article>
+
+      <article class="teams-card">
+        <div class="team-photo-slot">Photo d’équipe à venir</div>
+        <div class="team-heading"><h3>U13M</h3><span class="team-status">Compétition</span></div>
+        <div class="team-detail"><h4>Coach</h4><ul><li>Thomas RICHARD</li></ul></div>
+        <div class="team-detail"><h4>Entraînements</h4><ul><li>Mercredi 15h00–16h30 — Port du Roy</li><li>Vendredi 18h00–19h30 — Béchon</li></ul></div>
+        <div class="team-actions">
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005371520" target="_blank" rel="noopener" aria-label="Calendrier FFBB de l’équipe U13M">Calendrier</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005416665" target="_blank" rel="noopener" aria-label="Calendrier FFBB de phase 2 de l’équipe U13M">Calendrier phase 2</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005371520/classement" target="_blank" rel="noopener" aria-label="Classement FFBB de l’équipe U13M">Classement</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu13-5?phase=200000002899490&amp;poule=200000003059648&amp;journee=1" target="_blank" rel="noopener" aria-label="Poule et journée FFBB de l’équipe U13M">Poule / journée</a>
+        </div>
+      </article>
+
+      <article class="teams-card">
+        <div class="team-photo-slot">Photo d’équipe à venir</div>
+        <div class="team-heading"><h3>U15M</h3><span class="team-status">Compétition</span></div>
+        <div class="team-detail"><h4>Coach</h4><ul><li>Vincent VILLARD</li></ul></div>
+        <div class="team-detail"><h4>Entraînements</h4><ul><li>Mardi 19h00–20h30 — Dupaty</li><li>Vendredi 19h30–21h00 — Béchon</li></ul></div>
+        <div class="team-actions">
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005371206" target="_blank" rel="noopener" aria-label="Calendrier FFBB de l’équipe U15M">Calendrier</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005414841" target="_blank" rel="noopener" aria-label="Calendrier FFBB de phase 2 de l’équipe U15M">Calendrier phase 2</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005371206/classement" target="_blank" rel="noopener" aria-label="Classement FFBB de l’équipe U15M">Classement</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu15-3?phase=200000002899480&amp;poule=200000003059626&amp;journee=1" target="_blank" rel="noopener" aria-label="Poule et journée FFBB de l’équipe U15M">Poule / journée</a>
+        </div>
+      </article>
+
+      <article class="teams-card">
+        <div class="team-photo-slot">Photo d’équipe à venir</div>
+        <div class="team-heading"><h3>U18M</h3><span class="team-status">Compétition</span></div>
+        <div class="team-detail"><h4>Coach</h4><ul><li>Vincent VILLARD</li></ul></div>
+        <div class="team-detail"><h4>Entraînements</h4><ul><li>Mercredi 19h00–20h30 — Port du Roy</li><li>Vendredi 21h00–22h30 — Béchon (gymnase du lycée)</li></ul></div>
+        <div class="team-actions">
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005419968" target="_blank" rel="noopener" aria-label="Calendrier FFBB de phase 2 de l’équipe U18M">Calendrier phase 2</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005419968/classement" target="_blank" rel="noopener" aria-label="Classement FFBB de l’équipe U18M">Classement</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4/classement?poule=200000003064624&amp;phase=200000002899476" target="_blank" rel="noopener" aria-label="Poule et journée FFBB de l’équipe U18M">Poule / journée</a>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <div class="teams-group">
+    <div class="section-brush-title"><h2>Les Guides du parquet</h2></div>
+    <div class="teams-grid teams-grid--pair">
+      <article class="teams-card">
+        <div class="team-photo-slot">Photo d’équipe à venir</div>
+        <div class="team-heading"><div><h3>Seniors Garçons 1</h3><p class="team-subtitle">DM2</p></div><span class="team-status">Compétition</span></div>
+        <div class="team-detail"><h4>Coach</h4><ul><li>Mickael DUPUIS</li></ul></div>
+        <div class="team-detail"><h4>Entraînements</h4><ul><li>Mardi 20h30–22h00 — Port du Roy</li><li>Vendredi 20h30–22h30 — Port du Roy</li></ul></div>
+        <div class="team-actions">
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005338623" target="_blank" rel="noopener" aria-label="Calendrier FFBB de l’équipe SG1">Calendrier</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005338623/classement" target="_blank" rel="noopener" aria-label="Classement FFBB de l’équipe SG1">Classement</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm2?phase=200000002897490&amp;poule=200000003055085&amp;journee=1" target="_blank" rel="noopener" aria-label="Poule et journée FFBB de l’équipe SG1">Poule / journée</a>
+        </div>
+      </article>
+
+      <article class="teams-card">
+        <div class="team-photo-slot">Photo d’équipe à venir</div>
+        <div class="team-heading"><div><h3>Seniors Garçons 2</h3><p class="team-subtitle">DM4</p></div><span class="team-status">Compétition</span></div>
+        <div class="team-detail"><h4>Coachs</h4><ul><li>Vincent VILLARD</li><li>Lucas MIRANDA DE SUZA</li></ul></div>
+        <div class="team-detail"><h4>Entraînements</h4><ul><li>Mercredi 19h00–20h30 — Port du Roy</li><li>Vendredi 21h00–22h30 — Béchon</li></ul></div>
+        <div class="team-actions">
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005365625" target="_blank" rel="noopener" aria-label="Calendrier FFBB de l’équipe SG2">Calendrier</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005365625/classement" target="_blank" rel="noopener" aria-label="Classement FFBB de l’équipe SG2">Classement</a>
+          <a href="https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dm4?phase=200000002899174&amp;poule=200000003058836&amp;journee=1" target="_blank" rel="noopener" aria-label="Poule et journée FFBB de l’équipe SG2">Poule / journée</a>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <div class="loisirs-section">
+    <div class="section-brush-title"><h2>Les Inoxydables</h2></div>
+    <article class="loisirs-feature">
+      <div class="loisirs-visual">
+        <img src="images/loisirs-recrutement-2026.png" alt="Section Loisirs mixte de l’ES Blanquefort Basket-Ball">
+      </div>
+      <div class="loisirs-content">
+        <span class="loisirs-kicker">Section Loisirs</span>
+        <h3>Loisirs mixte</h3>
+        <p>Envie de jouer au basket dans une ambiance conviviale, sans pression, mais avec toujours autant de plaisir sur le terrain ? La section Loisirs de l’ES Blanquefort Basket-Ball accueille de nouveaux joueurs.</p>
+        <ul class="loisirs-infos">
+          <li>Tous niveaux</li>
+          <li>Jeudi 20h00–22h30</li>
+          <li>Gymnase du Béchon</li>
+        </ul>
+        <p class="loisirs-final">Venez nous rejoindre !</p>
+        <a class="btn btn-ghost" href="planning.html">Voir le planning</a>
+      </div>
+    </article>
+  </div>
+
+  <div class="teams-join">
+    <div><h2>Envie de nous rejoindre ?</h2><p>Faites votre pré-inscription et nous vous orienterons vers la catégorie adaptée.</p></div>
+    <a class="btn btn-primary" href="inscriptions.html">Faire une pré-inscription</a>
+  </div>
+</div></section>
+</main>
+
+<script src="script.js"></script>
+<footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand-block"><img class="footer-logo" src="images/logo.png" alt="Logo ES Blanquefort Basket-Ball"><h3>ES Blanquefort Basket-Ball</h3><p>Club familial de basket à Blanquefort, porté par les joueurs, les familles, les bénévoles et les partenaires.</p></div><div><h4>Navigation</h4><ul><li><a href="index.html">Accueil</a></li><li><a href="le-club.html">Le club</a></li><li><a href="equipes.html">Équipes</a></li><li><a href="planning.html">Planning</a></li><li><a href="calendrier.html">Calendrier</a></li><li><a href="partenaires.html">Partenaires</a></li><li><a href="sponsors.html">Mur des verts et blancs</a></li></ul></div><div><h4>Contact</h4><p><strong>ES Blanquefort Basket-Ball</strong><br>Tél. 06 10 16 60 16<br><a href="mailto:contact@es-blanquefort-basketball.fr">contact@es-blanquefort-basketball.fr</a><br><a class="legal-link" href="mentions_legales_ESBB.html">Mentions légales</a></p></div><div><h4>Partenaires</h4><p>Entreprises locales, commerçants, artisans et familles partenaires : plusieurs façons de soutenir le club.</p><a class="legal-link" href="https://es-blanquefort-basket-ball.github.io/partenariat-club/" target="_blank" rel="noopener">Devenir partenaire</a></div></div><div class="footer-bottom"><span>© 2026 ES Blanquefort Basket-Ball</span><span>Site club développé par L’Rénov IA Studio · Mai 2026</span><span>Club affilié FFBB · Ligue Nouvelle-Aquitaine · Comité de Gironde · NAQ 0033-034</span></div></div></footer>
+</body></html>
+<style>
+.teams-hero .teams-copy{width:52%;padding:42px 0}
+.teams-hero h1{color:#fff!important}
+.teams-hero h1 span{color:#b9dec3!important}
+.teams-hero .teams-kicker{color:#dceee1!important}
+.teams-hero .teams-script{color:#b9dec3!important}
+.teams-hero p{color:rgba(255,255,255,.84)!important}
+</style>

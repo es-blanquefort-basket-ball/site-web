@@ -1,0 +1,21 @@
+{
+  "staging_file": "/Users/laurence/Downloads/RAPPROCHEMENT_FBI_U13_U15_PHASE2.csv",
+  "staging_sha256": "6d55aea920032c3182b65c4fbaedc9ea395122408d5a6f088b12616dd007d753",
+  "source_xlsx_available": false,
+  "xlsx_sha256_status": "empreintes déclarées dans le CSV ; non revérifiées sans les XLSX",
+  "ignored_columns": [
+    "score_publie"
+  ],
+  "canonical_ffbb_ids_assigned": false,
+  "known_times": 6,
+  "unknown_times": 9,
+  "venue_names": 15,
+  "live_read": "GET public_calendar HTTP 200, 62 lignes, 2026-11-04 ; aucune écriture",
+  "published_same_team_same_date_collisions": [],
+  "live_matches_read": {
+    "http_status": 200,
+    "visible_rows": 13,
+    "visible_unpublished_rows": 0,
+    "scope": "droits publics, ne certifie pas les lignes masquées par RLS"
+  }
+}

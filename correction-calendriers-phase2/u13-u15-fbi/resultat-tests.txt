@@ -1,0 +1,4 @@
+OK PostgreSQL local : 33 + import MiniBasket + import U18M = 62 ; lot U13/U15 62→77→62.
+OK : 15 clés FBI, 15 salles, 9 dates conservées avec heures/timestamps NULL ; IDs FFBB et scores NULL.
+OK : 62 lignes/publications (dont U18M), corrections club, équipes historiques et définition/OID/droits/options de vue conservés.
+OK : verify sans écriture persistante, autorisation requise, relance idempotente, doublons/collisions publiées ou non refusés, corrections/ID canonique/vue modifiée protégés.

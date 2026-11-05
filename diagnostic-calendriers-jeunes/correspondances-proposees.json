@@ -1,0 +1,42 @@
+[
+  {
+    "code": "U13F",
+    "proposed_ffbb_team_id": "200000005408294",
+    "proposed_competition_label": "DFU13-3",
+    "proposed_ffbb_team_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005408294",
+    "proposed_ffbb_pool_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dfu13-3?poule=200000003064585&phase=200000002902208",
+    "phase": "200000002902208",
+    "pool": "200000003064585",
+    "status": "PROPOSITION — aucune écriture exécutée"
+  },
+  {
+    "code": "U13M",
+    "proposed_ffbb_team_id": "200000005416665",
+    "proposed_competition_label": "DMU13-4",
+    "proposed_ffbb_team_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005416665",
+    "proposed_ffbb_pool_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu13-4?poule=200000003065651&phase=200000002902520",
+    "phase": "200000002902520",
+    "pool": "200000003065651",
+    "status": "PROPOSITION — aucune écriture exécutée"
+  },
+  {
+    "code": "U15M",
+    "proposed_ffbb_team_id": "200000005414841",
+    "proposed_competition_label": "DMU15-3",
+    "proposed_ffbb_team_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005414841",
+    "proposed_ffbb_pool_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu15-3?poule=200000003065402&phase=200000002902453",
+    "phase": "200000002902453",
+    "pool": "200000003065402",
+    "status": "PROPOSITION — aucune écriture exécutée"
+  },
+  {
+    "code": "U18M",
+    "proposed_ffbb_team_id": "200000005419968",
+    "proposed_competition_label": "DMU18-4",
+    "proposed_ffbb_team_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/clubs/naq0033034/equipes/200000005419968",
+    "proposed_ffbb_pool_url": "https://competitions.ffbb.com/ligues/naq/comites/0033/competitions/dmu18-4?poule=200000003064624&phase=200000002902228",
+    "phase": "200000002902228",
+    "pool": "200000003064624",
+    "status": "PROPOSITION — aucune écriture exécutée"
+  }
+]
