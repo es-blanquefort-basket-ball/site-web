@@ -17,6 +17,21 @@
     'ffbb_team_url'
   ].join(',');
 
+  const teamForm = document.getElementById('calendar-team-form');
+  const teamSelect = document.getElementById('calendar-team');
+  const teamStatus = document.getElementById('calendar-team-status');
+  const requestedTeam = new URLSearchParams(window.location.search).get('equipe') || '';
+  let selectedTeam = requestedTeam.trim();
+  if (teamSelect) {
+    if (selectedTeam && ![...teamSelect.options].some(option => option.value === selectedTeam)) {
+      const option = document.createElement('option');
+      option.value = selectedTeam;
+      option.textContent = selectedTeam;
+      teamSelect.append(option);
+    }
+    teamSelect.value = selectedTeam;
+  }
+
   const calendar = document.getElementById('club-calendar');
   const monthTitle = document.getElementById('calendar-current-month');
   const status = document.getElementById('calendar-status');
@@ -158,7 +173,15 @@
     appendDetailRow(details, 'Adversaire', event.opponentName);
     appendDetailRow(details, 'Rencontre', locationLabel(event.homeAway));
     appendDetailRow(details, 'Gymnase', event.venueName);
-    appendDetailRow(details, 'Adresse', event.venueAddress);
+    appendDetailRow(details, 'Adresse', event.venueAddress || (event.venueName ? 'Adresse à vérifier' : ''));
+    if (event.venueAddress || event.venueName) {
+      const mapsUrl = new URL('https://www.google.com/maps/search/');
+      mapsUrl.searchParams.set('api', '1');
+      mapsUrl.searchParams.set('query', [event.venueName, event.venueAddress].filter(Boolean).join(', '));
+      appendDetailRow(details, 'Accès', event.venueAddress
+        ? 'Ouvrir Google Maps'
+        : 'Rechercher le gymnase sur Google Maps (adresse à vérifier)', mapsUrl.href);
+    }
     appendDetailRow(details, 'Journée', event.roundLabel);
     const ffbbUrl = event.ffbbMatchUrl || event.ffbbTeamUrl;
     const ffbbLabel = event.ffbbMatchUrl ? 'Voir la fiche du match pour la localisation' : 'Voir la fiche de l’équipe';
@@ -209,6 +232,7 @@
     ].filter(Boolean);
     drawerContent.replaceChildren(...dayGroups);
     drawerLayer.hidden = false;
+    drawerContent.scrollTop = 0;
     document.body.classList.add('calendar-drawer-open');
     drawer.focus();
   };
@@ -305,6 +329,13 @@
     url.searchParams.append('local_date', `gte.${rangeStart}`);
     url.searchParams.append('local_date', `lt.${rangeEnd}`);
     url.searchParams.set('order', 'local_date.asc,local_time.asc');
+    // Exact team identity: the common U9 competition must never identify a team.
+    if (selectedTeam) url.searchParams.set('team_code', `eq.${selectedTeam}`);
+    const teamAtRequest = selectedTeam;
+    const availabilityUrl = new URL(`${SUPABASE_URL}/rest/v1/${CALENDAR_VIEW}`);
+    availabilityUrl.searchParams.set('select', 'team_code');
+    availabilityUrl.searchParams.set('team_code', `eq.${teamAtRequest}`);
+    availabilityUrl.searchParams.set('limit', '1');
 
     try {
       const response = await fetch(url, { headers: { apikey: SUPABASE_PUBLISHABLE_KEY, Accept: 'application/json' } });
@@ -312,10 +343,31 @@
       const payload = await response.json();
       if (!Array.isArray(payload)) throw new Error('Format de réponse inattendu');
       if (requestId !== requestSequence) return;
-      renderCalendar(payload.map(normalizeCalendarEntry).filter(Boolean));
+      // Defensive filtering also protects against a response ignoring the query filter.
+      renderCalendar(payload.map(normalizeCalendarEntry).filter(Boolean)
+        .filter(event => !teamAtRequest || event.teamCode === teamAtRequest));
+      if (teamStatus) teamStatus.textContent = teamAtRequest
+        ? `Filtre : ${teamAtRequest}. Vérification des publications…`
+        : 'Toutes les équipes : rencontres publiées du club.';
+      if (teamAtRequest && teamStatus) {
+        try {
+          const availabilityResponse = await fetch(availabilityUrl, { headers: { apikey: SUPABASE_PUBLISHABLE_KEY, Accept: 'application/json' } });
+          if (!availabilityResponse.ok) throw new Error('Vérification indisponible');
+          const available = await availabilityResponse.json();
+          if (!Array.isArray(available)) throw new Error('Format inattendu');
+          if (requestId !== requestSequence) return;
+          const published = available.some(item => item.team_code === teamAtRequest);
+          teamStatus.textContent = published
+            ? `Filtre : ${teamAtRequest}. Parcourez les mois pour consulter les rencontres publiées.`
+            : `${teamAtRequest} : aucune rencontre publiée pour cette équipe. Le raccordement de ses données est en attente.`;
+        } catch {
+          if (requestId === requestSequence) teamStatus.textContent = `${teamAtRequest} : impossible de vérifier la présence de rencontres dans les autres mois.`;
+        }
+      }
     } catch (error) {
       if (requestId !== requestSequence) return;
       renderCalendar([]);
+      if (teamStatus) teamStatus.textContent = selectedTeam ? `Filtre : ${selectedTeam}. Publications non vérifiables actuellement.` : '';
       setStatus('Le calendrier est temporairement indisponible. Utilisez les liens FFBB ci-dessous.', true);
       console.error('Chargement du calendrier impossible :', error);
     }
@@ -329,6 +381,19 @@
     closeDayDrawer();
     fetchMonthEvents();
   };
+
+  teamForm?.addEventListener('submit', event => {
+    event.preventDefault();
+    selectedTeam = teamSelect.value;
+    const url = new URL(window.location.href);
+    if (selectedTeam) url.searchParams.set('equipe', selectedTeam);
+    else url.searchParams.delete('equipe');
+    window.history.replaceState(null, '', url);
+    selectedDateKey = null;
+    openDrawerAfterRender = false;
+    closeDayDrawer();
+    fetchMonthEvents();
+  });
 
   previousButton.addEventListener('click', () => changeMonth(-1));
   nextButton.addEventListener('click', () => changeMonth(1));
