@@ -79,18 +79,17 @@
 .calendar-drawer-close{display:grid;place-items:center;flex:0 0 auto;width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:#f4f8f5;color:var(--g900);cursor:pointer;font-size:22px}
 .calendar-drawer-close:hover,.calendar-drawer-close:focus-visible{border-color:var(--g500);outline:3px solid rgba(47,123,82,.16)}
 .calendar-drawer-body{display:grid;gap:24px;overflow-y:auto;padding:22px 24px 32px}
-.calendar-day-group{display:grid;gap:10px}
+.calendar-day-group{display:grid;gap:10px;padding:0;align-content:start}
 @media(min-width:681px){
   .calendar-drawer-layer{grid-template-rows:minmax(0,1fr)}
   .calendar-drawer{min-height:0}
   .calendar-drawer-head{flex-shrink:0}
   .calendar-drawer-body{flex:1;min-height:0;align-content:start}
-  .calendar-day-group{padding:0;align-content:start}
 }
 .calendar-day-group-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0;padding-bottom:7px;border-bottom:2px solid var(--g700);font-family:'Barlow Condensed',sans-serif;font-size:15px;text-transform:uppercase}
 .calendar-group-count{display:inline-grid;place-items:center;min-width:25px;height:25px;border-radius:999px;background:#e7f2ea;color:var(--g800);font-size:12px}
 .calendar-day-item{display:grid;gap:11px;border:1px solid var(--line);border-radius:16px;background:#fff;padding:16px;box-shadow:0 10px 24px rgba(7,27,18,.08)}
-.calendar-day-item.is-match{border-width:2px}
+.calendar-day-item.is-match{border-width:2px;gap:8px;padding:12px 14px;min-width:0;line-height:1.35}
 .calendar-day-item.is-home{border-color:var(--g700);background:linear-gradient(145deg,var(--g700),var(--g800));color:#fff;box-shadow:0 12px 28px rgba(31,90,63,.22)}
 .calendar-day-item.is-away{border-color:var(--g500);background:#fff;color:var(--g700);box-shadow:0 10px 24px rgba(31,90,63,.1)}
 .calendar-day-item.is-training{border-color:var(--g500);background:#fff;color:var(--g700)}
@@ -99,24 +98,20 @@
 .calendar-day-item.is-training .calendar-day-item-title{color:var(--g700)}
 .calendar-day-item.is-home .calendar-day-item-title,.calendar-day-item.is-event .calendar-day-item-title{color:#fff}
 .calendar-day-item.is-away .calendar-day-item-title{color:var(--g700)}
-.calendar-match-meta{display:flex;align-items:center;justify-content:flex-end;gap:7px;flex-wrap:wrap}
+.calendar-match-meta{display:flex;align-items:center;justify-content:flex-end;gap:7px;flex-wrap:wrap;flex-shrink:0;max-width:52%;font-size:13px}
 .calendar-match-place{border-radius:999px;padding:4px 8px;font-size:11px;font-weight:700;line-height:1.2}
 .calendar-day-item.is-home .calendar-match-place{background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.32)}
 .calendar-day-item.is-away .calendar-match-place{background:#edf5f0;color:var(--g700);border:1px solid rgba(47,123,82,.28)}
 .calendar-day-item-time{flex:0 0 auto;border-radius:8px;background:var(--g700);color:#fff;padding:4px 7px;font-size:13px}
 .calendar-day-item.is-home .calendar-day-item-time{background:var(--g900)}
 .calendar-day-item.is-away .calendar-day-item-time{background:#edf5f0;color:var(--g700)}
-.calendar-day-item.is-home .calendar-detail-row{border-bottom-color:rgba(255,255,255,.22)}
-.calendar-day-item.is-away .calendar-detail-row{border-bottom-color:rgba(31,90,63,.14)}
-.calendar-day-item.is-home .calendar-detail-label{color:rgba(255,255,255,.76)}
-.calendar-day-item.is-away .calendar-detail-label{color:var(--g700)}
-.calendar-day-item.is-home .calendar-detail-link{color:#fff}
-.calendar-day-item.is-away .calendar-detail-link{color:var(--g700)}
-.calendar-detail-row{display:grid;grid-template-columns:120px minmax(0,1fr);gap:12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
-.calendar-detail-row:last-child{border-bottom:0;padding-bottom:0}
-.calendar-detail-label{color:#6a776f;font-size:13px;font-weight:700}
-.calendar-detail-value{min-width:0;overflow-wrap:anywhere;font-weight:600}
-.calendar-detail-link{color:var(--g700);text-decoration:underline;text-underline-offset:3px}
+.calendar-match-teams{display:grid;gap:2px;min-width:0;overflow-wrap:anywhere}
+.calendar-match-opponent{font-size:15px;font-weight:500}
+.calendar-match-venue{display:grid;gap:2px;font-size:13px;overflow-wrap:anywhere}
+.calendar-match-venue-name{font-weight:600}
+.calendar-match-links{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;font-weight:600}
+.calendar-match-links a{display:inline-flex;align-items:center;min-height:28px;color:inherit;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
+.calendar-match-links a:focus-visible{outline:2px solid currentColor;outline-offset:3px;border-radius:3px}
 body.calendar-drawer-open{overflow:hidden}
 @keyframes calendar-drawer-in{from{transform:translateX(28px);opacity:.65}to{transform:translateX(0);opacity:1}}
 
@@ -327,8 +322,9 @@ img,video,iframe{max-width:100%;height:auto}
   .calendar-drawer-head,.calendar-drawer-body{padding:17px}
   .calendar-drawer-head h3{font-size:29px}
   .calendar-day-item-title{flex-wrap:wrap}
-  .calendar-match-meta{width:100%;justify-content:flex-start}
-  .calendar-detail-row{grid-template-columns:1fr;gap:4px}
+  .calendar-match-meta{max-width:100%;justify-content:flex-start}
+  .calendar-day-item.is-match .calendar-day-item-title{gap:6px 12px}
+  .calendar-match-links a{min-height:32px}
   .matches-heading h2{font-size:39px!important}
   .competition-grid{grid-template-columns:1fr!important}
   .competition-card{grid-column:auto;padding:20px;border-radius:18px}
@@ -602,6 +598,6 @@ img,video,iframe{max-width:100%;height:auto}
 </main>
 
 <script src="script.js"></script>
-<script src="calendrier.js?v=20261104"></script>
+<script src="calendrier.js?v=20261107"></script>
 <footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand-block"><img class="footer-logo" src="images/logo.png" alt="Logo ES Blanquefort Basket-Ball"><h3>ES Blanquefort Basket-Ball</h3><p>Club familial de basket à Blanquefort, porté par les joueurs, les familles, les bénévoles et les partenaires.</p></div><div><h4>Navigation</h4><ul><li><a href="index.html">Accueil</a></li><li><a href="le-club.html">Le club</a></li><li><a href="equipes.html">Équipes</a></li><li><a href="planning.html">Planning</a></li><li><a href="calendrier.html">Calendrier</a></li><li><a href="partenaires.html">Partenaires</a></li><li><a href="sponsors.html">Mur des verts et blancs</a></li></ul></div><div><h4>Contact</h4><p><strong>ES Blanquefort Basket-Ball</strong><br>Tél. 06 10 16 60 16<br><a href="mailto:contact@es-blanquefort-basketball.fr">contact@es-blanquefort-basketball.fr</a><br><a class="legal-link" href="mentions_legales_ESBB.html">Mentions légales</a></p></div><div><h4>Partenaires</h4><p>Entreprises locales, commerçants, artisans et familles partenaires : plusieurs façons de soutenir le club.</p><a class="legal-link" href="https://es-blanquefort-basket-ball.github.io/partenariat-club/" target="_blank" rel="noopener">Devenir partenaire</a></div></div><div class="footer-bottom"><span>© 2026 ES Blanquefort Basket-Ball</span><span>Site club développé par L’Rénov IA Studio · Mai 2026</span><span>Club affilié FFBB · Ligue Nouvelle-Aquitaine · Comité de Gironde · NAQ 0033-034</span></div></div></footer>
 </body></html>

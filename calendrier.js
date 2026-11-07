@@ -144,22 +144,6 @@
     event: events.filter(event => event.type === 'event')
   });
 
-  const appendDetailRow = (container, label, value, linkUrl = null) => {
-    if (!value) return;
-    const row = createElement('div', 'calendar-detail-row');
-    row.append(createElement('span', 'calendar-detail-label', label));
-    if (linkUrl) {
-      const link = createElement('a', 'calendar-detail-value calendar-detail-link', value);
-      link.href = linkUrl;
-      link.target = '_blank';
-      link.rel = 'noopener';
-      row.append(link);
-    } else {
-      row.append(createElement('span', 'calendar-detail-value', value));
-    }
-    container.append(row);
-  };
-
   const createMatchCard = event => {
     const card = createElement('article', `calendar-day-item is-match ${event.homeAway === 'away' ? 'is-away' : 'is-home'}`);
     const heading = createElement('h5', 'calendar-day-item-title');
@@ -168,25 +152,40 @@
       createElement('span', 'calendar-match-place', locationLabel(event.homeAway)),
       createElement(event.localTime ? 'time' : 'span', 'calendar-day-item-time', displayLocalTime(event.localTime))
     );
-    heading.append(createElement('span', '', event.teamCode), matchMeta);
-    const details = createElement('div', 'calendar-day-item-details');
-    appendDetailRow(details, 'Adversaire', event.opponentName);
-    appendDetailRow(details, 'Rencontre', locationLabel(event.homeAway));
-    appendDetailRow(details, 'Gymnase', event.venueName);
-    appendDetailRow(details, 'Adresse', event.venueAddress || (event.venueName ? 'Adresse à vérifier' : ''));
+    const teams = createElement('span', 'calendar-match-teams');
+    teams.append(
+      createElement('strong', '', event.teamCode),
+      createElement('span', 'calendar-match-opponent', event.opponentName)
+    );
+    heading.append(teams, matchMeta);
+    card.append(heading);
+    if (event.venueName || event.venueAddress) {
+      const venue = createElement('div', 'calendar-match-venue');
+      if (event.venueName) venue.append(createElement('span', 'calendar-match-venue-name', event.venueName));
+      if (event.venueAddress) venue.append(createElement('span', '', event.venueAddress));
+      card.append(venue);
+    }
+    const links = createElement('div', 'calendar-match-links');
+    const appendLink = (label, url, description) => {
+      const link = createElement('a', '', label);
+      link.href = url;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.setAttribute('aria-label', description);
+      links.append(link);
+    };
     if (event.venueAddress || event.venueName) {
       const mapsUrl = new URL('https://www.google.com/maps/search/');
       mapsUrl.searchParams.set('api', '1');
       mapsUrl.searchParams.set('query', [event.venueName, event.venueAddress].filter(Boolean).join(', '));
-      appendDetailRow(details, 'Accès', event.venueAddress
-        ? 'Ouvrir Google Maps'
-        : 'Rechercher le gymnase sur Google Maps (adresse à vérifier)', mapsUrl.href);
+      appendLink(event.venueAddress ? 'Google Maps' : 'Chercher la salle', mapsUrl.href,
+        `${event.venueAddress ? 'Google Maps' : 'Chercher la salle'} : ${event.venueName || event.venueAddress}`);
     }
-    appendDetailRow(details, 'Journée', event.roundLabel);
     const ffbbUrl = event.ffbbMatchUrl || event.ffbbTeamUrl;
-    const ffbbLabel = event.ffbbMatchUrl ? 'Voir la fiche du match pour la localisation' : 'Voir la fiche de l’équipe';
-    appendDetailRow(details, 'FFBB', ffbbUrl ? ffbbLabel : '', ffbbUrl);
-    card.append(heading, details);
+    if (ffbbUrl) appendLink('FFBB', ffbbUrl, event.ffbbMatchUrl
+      ? `Fiche FFBB du match ${event.teamCode} contre ${event.opponentName}`
+      : `Page FFBB de l’équipe ${event.teamCode}`);
+    if (links.children.length) card.append(links);
     return card;
   };
 
