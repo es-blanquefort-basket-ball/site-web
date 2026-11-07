@@ -1,14 +1,38 @@
 import { config } from './gestion-matchs-config.js';
 import { createApi, groupMatches, changesFor, missing, safeFfbbUrl } from './gestion-matchs-core.js';
+import { mountLive } from './gestion-matchs-live-ui.js';
 
 const api = createApi(config);
 const $ = id => document.getElementById(id);
 let rows = [], selected = null, pending = null, email = '', busy = false;
+let rights = { management: false, live: false }, pane = 'management';
+const live = mountLive(api, config, run);
+function syncAccess() {
+  $('management-tab').disabled = !rights.management;
+  $('live-tab').disabled = !rights.live;
+  live.sync();
+}
+async function switchPane(next) {
+  if (!rights[next]) throw new Error('Accès refusé à cet espace.');
+  if (pane === 'live' && !live.confirmLeave()) return;
+  pane = next;
+  $('workspace').hidden = next !== 'management'; $('live-workspace').hidden = next !== 'live';
+  $('management-tab').setAttribute('aria-pressed', String(next === 'management'));
+  $('live-tab').setAttribute('aria-pressed', String(next === 'live'));
+  if (next === 'live') await live.load(); else await load();
+}
+async function loadSession() {
+  rights = await api.capabilities();
+  $('login').hidden = true; $('private-space').hidden = false;
+  await switchPane(rights.management ? 'management' : 'live');
+}
 const labels = { date: 'Date', time: 'Horaire', venue: 'Salle' };
 const values = () => Object.fromEntries(Object.keys(labels).map(key => [key, $(key).value]));
 function message(text, edit = false) { $(edit ? 'edit-status' : 'status').textContent = text; }
 function clearPrivate() {
   rows = []; selected = null; pending = null;
+  rights = { management:false, live:false }; live.reset();
+  $('private-space').hidden = true; $('live-workspace').hidden = true;
   $('matches').replaceChildren(); $('team').replaceChildren(new Option('Toutes les équipes', ''));
   $('workspace').hidden = true; $('login').hidden = false;
   $('editor').close(); $('edit-form').reset(); $('match-label').textContent = '';
@@ -19,11 +43,15 @@ async function run(action, edit = false) {
   if (busy) return;
   busy = true;
   document.querySelectorAll('button').forEach(button => { button.disabled = true; });
+  document.querySelectorAll('#live-score-form input, #live-team, #team').forEach(control => { control.disabled = true; });
   message('Chargement…', edit);
   try { await action(); } catch (error) { message(error.message, edit); }
   finally {
     busy = false;
     document.querySelectorAll('button').forEach(button => { button.disabled = false; });
+    document.querySelectorAll('#live-score-form input, #live-team, #team').forEach(control => { control.disabled = false; });
+    if ($('status').textContent === 'Chargement…') message('');
+    syncAccess();
   }
 }
 function node(tag, text, className) {
@@ -69,7 +97,7 @@ async function load() {
   $('team').replaceChildren(new Option('Toutes les équipes', ''));
   for (const [id, label] of teams) $('team').append(new Option(missing(label), id));
   $('team').value = teams.has(previousTeam) ? previousTeam : '';
-  $('login').hidden = true; $('workspace').hidden = false;
+  $('login').hidden = true; $('workspace').hidden = pane !== 'management';
   render(); message(`${rows.length} rencontre(s) chargée(s).`);
 }
 function resetReview() {
@@ -89,15 +117,17 @@ $('code-form').addEventListener('submit', event => {
   event.preventDefault();
   run(async () => {
     await api.verifyCode(email, $('code').value.trim()); $('code').value = '';
-    try { await load(); }
+    try { await loadSession(); }
     catch (error) { clearPrivate(); await api.logout().catch(() => {}); throw error; }
   });
 });
-$('logout').addEventListener('click', () => run(async () => { clearPrivate(); await api.logout(); message('Déconnexion effectuée.'); }));
+$('logout').addEventListener('click', () => { if (live.confirmLeave()) run(async () => { clearPrivate(); await api.logout(); message('Déconnexion effectuée.'); }); });
 $('reload').addEventListener('click', () => run(async () => {
   try { await load(); } catch (error) { clearPrivate(); await api.logout().catch(() => {}); throw error; }
 }));
 $('team').addEventListener('change', render);
+$('management-tab').addEventListener('click', () => run(() => switchPane('management')));
+$('live-tab').addEventListener('click', () => run(() => switchPane('live')));
 $('edit-form').addEventListener('input', event => { if (event.target.id !== 'confirmation') resetReview(); });
 $('edit-form').addEventListener('submit', event => {
   event.preventDefault();

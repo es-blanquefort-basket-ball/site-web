@@ -131,3 +131,133 @@ Aucun enregistrement ni contrôle de propagation réel n’a été exécuté.
 Modification domicile/extérieur, résultats et historique privé auteur/date/avant/après.
 Aucune colonne de résultats ou d’historique supposée ni créée. Les règles sans scores
 publics pour U11 M2 et U9 restent à contrôler lors de leur raccordement futur.
+
+---
+
+# V2 — Suivi Live (7 novembre 2026)
+
+La V1 a été conservée au commit `0552f5d` sur `codex/site-m01-interface-matchs`.
+La V2 part de ce commit sur `codex/site-m01-suivi-live`. Aucun changement des fichiers
+publics, aucune fusion dans main et aucun déploiement. Le compte rendu V1 ci-dessus
+reste l’historique de sa livraison ; les indications V2 ci-dessous le complètent.
+
+## Essai local V2
+
+La commande `python3 validation/site-m01/preview.py` reste identique.
+Ouvrir http://127.0.0.1:8872/app/gestion-matchs.html et utiliser le code fictif `123456`.
+
+| Compte fictif | Gestion | Live |
+| --- | --- | --- |
+| autorise@example.test | Toutes les rencontres de test | Toutes les équipes de test |
+| gestion@example.test | Oui | Non |
+| live@example.test | Non | U11 M1 de test uniquement |
+| mini@example.test | Non | U11 M2 et U9 de test uniquement |
+| refuse@example.test | Non | Non |
+
+L’aperçu sauvegarde le Live **uniquement en mémoire du serveur local**. Un redémarrage
+réinitialise les étapes et les scores. La configuration temporaire est générée par ce
+serveur et pointe exclusivement vers 127.0.0.1 ; elle n’est pas inscrite dans les fichiers
+applicatifs. Les corrections organisationnelles restent verrouillées, même en simulation.
+Aucun envoi d’e-mail réel ni appel Supabase dans cet aperçu.
+
+## Comportements livrés
+
+Une porte d’entrée et une connexion, deux espaces accessibles selon des droits séparés.
+Les commandes de gestion V1 sont conservées. Un référent Live ne charge pas les données
+de gestion. Les rencontres Live sont demandées par identifiant d’équipe autorisé ; une
+réponse contenant une autre équipe est refusée. La sauvegarde revérifie l’identité et
+les droits avant chaque opération. Ces contrôles clients ne remplacent pas les RLS.
+
+Le Live présente les sept étapes validées, avec précédent/suivant et bornes. Un clic
+sauvegarde uniquement l’étape ; il ne requiert ni ne modifie le score. Le score facultatif
+peut être corrigé, ou effacé pour redevenir inconnu, à toute étape. Il s’enregistre avec
+une commande distincte. Un score saisi mais non enregistré reste indiqué comme tel,
+y compris lorsqu’une étape est sauvegardée. Une confirmation protège l’abandon du brouillon.
+
+La règle `scorePolicy` est un contrat de l’adaptateur alimenté par la règle réelle de
+chaque équipe, jamais inférée d’un nom ressemblant ou d’une catégorie. Seule la valeur
+explicite `numeric` permet les champs de score ; DMU11-10-P2 reste bloqué même si cette
+valeur était reçue par erreur. Les règles U9 et MiniBasket sont sans score. La simulation
+applique ces interdictions aussi côté serveur et retire les scores de ses réponses.
+Le résultat FFBB n’est ni lu ni modifié par le suivi Live.
+
+La fonction `publicLive()` prépare une projection limitée aux identifiants, équipe,
+adversaire, étape et scores autorisés. Elle exclut les identités et tout score interdit.
+**Ce n’est pas une protection d’une API publique** : avant la future page publique, la
+base devra produire cette projection sûre elle-même. Aucune page Live publique, aucun
+lien partageable et aucun abonnement Realtime n’ont été publiés ou activés.
+
+## Adaptations Supabase à vérifier
+
+`binding` reste nul dans le fichier applicatif, `writesApproved:false` et
+`liveWritesApproved:false`. L’OTP réel et les RLS ne sont toujours pas validés.
+Aucune nouvelle tentative d’écriture ni création de table/politique/fonction.
+
+Les requêtes 7 à 9 de `verification.sql` ajoutent seulement la lecture ciblée des colonnes,
+politiques et fonctions Live existantes. Avec les résultats des requêtes V1, elles serviront
+à identifier la relation réelle entre utilisateurs et équipes, ainsi que les mécanismes
+existants de statut/score. Aucune migration DDL n’est proposée : la nécessité d’une nouvelle
+table ou colonne ne peut pas être établie sans ces résultats. Préparer une migration à
+ce stade supposerait les types, clés et politiques, ce que la mission interdit.
+
+Contrat interne supplémentaire à raccorder aux éléments existants vérifiés :
+
+| Propriété `binding.live` | Contrat attendu après vérification |
+| --- | --- |
+| `accessRpc` | Fonction existante sans argument, fondée sur auth.uid(), renvoyant les identifiants réels des équipes autorisées, tableau vide sinon |
+| `readTable` | Relation privée existante, RLS limitée aux équipes autorisées, une ligne par identifiant réel de rencontre |
+| `read` | Correspondance des champs d’affichage V1, plus stage, clubScore, opponentScore, scorePolicy, competitionCode et revision |
+| `stage` dans les lignes normalisées | Entier 0 à 6 ; adapter les statuts SQL réels si leur représentation diffère |
+| `scorePolicy` dans les lignes normalisées | Règle d’équipe validée : numeric, minibasket-no-score, u9-no-score ; une règle inconnue interdit le score |
+| `revision` dans les lignes normalisées | Version non nulle permettant un contrôle atomique des modifications concurrentes |
+| `saveRpc` | Fonction atomique vérifiée : identité, équipe, règle de score, version, champs Live exclusivement ; réponse true après écriture effective |
+| `args.id`, `args.revision`, `args.patch` | Correspondance aux noms réels des arguments SQL, jamais des noms déduits |
+
+Les noms TEST_ONLY du serveur local sont fictifs et ne doivent pas être créés en production.
+Si aucune fonction existante ne satisfait ce contrat, adapter l’adaptateur au schéma vérifié
+ou préparer ensuite une migration minimale pour validation, sans l’exécuter.
+La RPC Live doit refuser les champs organisationnels et les résultats officiels, protéger
+contre les conflits de version, empêcher tout score U9/MiniBasket et ne jamais accorder
+implicitement les droits de gestion. Pour la future lecture publique, supprimer les identités
+et les scores interdits côté SQL/API, avant transmission au navigateur.
+
+La sauvegarde réelle préparée requiert un retour positif, puis une relecture concordante ;
+aucune mise à jour optimiste n’est présentée comme enregistrée. Les erreurs 403, 404, 409,
+le réseau indisponible et les réponses non confirmées sont signalés. Aucun test de sauvegarde
+ou de propagation Supabase réel n’a été exécuté.
+
+## Tests V2 exécutés
+
+- 15 contrôles V1 : tous réussis avec transport fictif, après les changements Live.
+- 21 contrôles Live : tous réussis (sept étapes, retour, indépendance score/étape,
+  champs facultatifs, corrections, valeurs invalides, politiques équipe, projection,
+  authentification, équipes autorisées, écriture verrouillée, refus, versions et relecture).
+- 13 contrôles HTTP contre le serveur local : tous réussis. Ils vérifient des refus
+  directement côté serveur de simulation, y compris en contournant l’interface.
+- Navigateur : compte live@example.test sans gestion et avec M1 seul ; étape sans score,
+  score 12–10 sauvegardé en mémoire, étape suivante puis précédente conservant ce score ;
+  correction à 11–10 sans changement d’étape. Compte mini@example.test : M2/U9 sans champs
+  de score et changement d’étape M2 réussi. Compte autorise : récapitulatif gestion V1,
+  annulation, bascule Gestion/Live.
+- Téléphone 390 px, tablette 820 px et ordinateur 1280 px : largeur du document égale
+  au viewport ; saisie et sauvegarde du score testées sur téléphone. Console navigateur
+  sans erreur au contrôle final. Capture mobile conservée hors dépôt.
+- Syntaxe Python, chemins locaux, différences Git et absence de changement des fichiers
+  calendrier/U11 contrôlés. Aucun test en production.
+
+Reproduire les tests :
+
+```sh
+node validation/site-m01/tests.mjs
+node validation/site-m01/tests-live.mjs
+# Avec le serveur de simulation démarré :
+python3 validation/site-m01/tests-preview.py
+```
+
+## Fichiers V2
+
+Modifiés : `app/gestion-matchs.html`, `.css`, `.js`, `gestion-matchs-core.js`,
+`gestion-matchs-config.js`, `validation/site-m01/preview.py`, `verification.sql`, `LIVRAISON.md`.
+Ajoutés : `app/gestion-matchs-live.js`, `app/gestion-matchs-live-ui.js`,
+`validation/site-m01/tests-live.mjs`, `validation/site-m01/tests-preview.py`.
+Le fichier de tests V1 est conservé sans modification.

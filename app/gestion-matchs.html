@@ -18,7 +18,7 @@
 <main class="wrap">
   <p class="eyebrow">Espace privé</p>
   <h1 class="section-title">Gestion des matchs</h1>
-  <p class="lead">Corriger la date, l’horaire et la salle d’une rencontre.</p>
+  <p class="lead">Gérer les rencontres et suivre leur déroulement en direct.</p>
   <noscript><p class="notice">JavaScript est nécessaire pour se connecter et gérer les matchs.</p></noscript>
   <p id="status" role="status" aria-live="polite"></p>
   <section id="login" class="card" aria-labelledby="login-title">
@@ -35,12 +35,39 @@
       <button class="btn btn-primary" type="submit">Se connecter</button>
     </form>
   </section>
+  <div id="private-space" hidden>
+    <div class="manager-tools"><nav aria-label="Espaces privés" class="manager-tools"><button id="management-tab" class="btn" type="button" aria-controls="workspace" aria-pressed="true">Gestion de la rencontre</button><button id="live-tab" class="btn" type="button" aria-controls="live-workspace" aria-pressed="false">Suivi Live</button></nav><button id="logout" class="btn" type="button">Se déconnecter</button></div>
   <section id="workspace" hidden aria-labelledby="list-title">
-    <div class="manager-tools"><h2 id="list-title">Rencontres par week-end</h2><button id="logout" class="btn" type="button">Se déconnecter</button></div>
+    <h2 id="list-title">Rencontres par week-end</h2>
     <div class="field"><label for="team">Équipe</label><select id="team"><option value="">Toutes les équipes</option></select></div>
     <button id="reload" class="btn" type="button">Actualiser les rencontres</button>
     <div id="matches"></div>
   </section>
+  <section id="live-workspace" hidden aria-labelledby="live-title">
+    <h2 id="live-title">Suivi Live</h2>
+    <p>Suivre les étapes du match. Le score Live est facultatif et distinct du résultat officiel.</p>
+    <p id="live-status" role="status" aria-live="polite"></p>
+    <div class="field"><label for="live-team">Équipe pour le Live</label><select id="live-team"><option value="">Toutes les équipes autorisées</option></select></div>
+    <button id="live-reload" class="btn" type="button">Actualiser le Live</button>
+    <div id="live-matches"></div>
+    <div id="live-detail" class="card" hidden>
+      <h3 id="live-match-label"></h3>
+      <p id="live-reference"></p>
+      <p id="live-current" class="live-current" aria-live="polite"></p>
+      <ol id="live-stages" aria-label="Étapes de la rencontre"></ol>
+      <div class="manager-tools"><button id="live-prev" class="btn" type="button">Précédent</button><button id="live-next" class="btn btn-primary" type="button">Étape suivante</button></div>
+      <p id="live-detail-status" role="status" aria-live="polite"></p>
+      <form id="live-score-form" hidden>
+        <h4>Score Live facultatif</h4>
+        <div class="formgrid"><div class="field"><label for="live-club-score">ES Blanquefort</label><input id="live-club-score" type="number" min="0" step="1" inputmode="numeric"></div><div class="field"><label for="live-opponent-score">Adversaire</label><input id="live-opponent-score" type="number" min="0" step="1" inputmode="numeric"></div></div>
+        <p>Laisser vide pour un score inconnu. Cette saisie ne modifie jamais le résultat officiel.</p>
+        <button class="btn btn-primary" type="submit">Enregistrer le score Live</button>
+      </form>
+      <p id="live-no-score" hidden>Suivi par étapes uniquement : aucun score numérique pour cette équipe.</p>
+      <button id="live-close" class="btn" type="button">Fermer le suivi</button>
+    </div>
+  </section>
+  </div>
   <dialog id="editor" aria-labelledby="edit-title">
     <form id="edit-form">
       <h2 id="edit-title">Modifier une rencontre</h2><p id="match-label"></p>

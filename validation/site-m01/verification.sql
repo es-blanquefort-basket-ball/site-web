@@ -48,3 +48,24 @@ FROM pg_trigger t WHERE t.tgrelid=to_regclass('public.matches') AND NOT t.tgisin
 -- Ne pas partager de littéraux sensibles si une définition en contient.
 -- Selon les résultats, une requête ciblée sur la relation d'autorisation référencée
 -- sera nécessaire. Ne pas exporter auth.users ni les listes d'adresses autorisées.
+
+-- SITE-M01 Live : compléments de lecture uniquement. Aucun DDL proposé sans schéma.
+-- 7. Repérer les champs de statut/score Live et les relations existantes dédiées.
+SELECT table_name, column_name, data_type, udt_name, is_nullable
+FROM information_schema.columns
+WHERE table_schema='public' AND
+ (table_name IN ('matches','teams') OR table_name ILIKE '%live%')
+ORDER BY table_name, ordinal_position;
+-- 8. Lire les politiques des seules relations Live existantes.
+SELECT schemaname, tablename, policyname, roles, cmd, qual, with_check
+FROM pg_policies WHERE schemaname='public' AND tablename ILIKE '%live%';
+-- 9. Identifier les fonctions Live existantes et leurs restrictions d'exécution.
+SELECT p.oid::regprocedure AS function, p.prosecdef, p.proacl, p.proconfig,
+       pg_get_functiondef(p.oid) AS definition
+FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace
+WHERE n.nspname='public' AND p.prokind='f' AND p.proname ILIKE '%live%';
+-- Les résultats 5 et 9 permettent de cibler ensuite la relation réelle de droits
+-- utilisateur/équipe. Ne pas supposer son nom, ni exporter les comptes ou e-mails.
+-- Vérifier : droits Live distincts de la gestion, règles de score par équipe,
+-- score Live distinct du résultat FFBB, version/concurrence et projection publique
+-- sans identité et sans scores pour les équipes qui les interdisent.

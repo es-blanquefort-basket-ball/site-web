@@ -1,3 +1,4 @@
+import { normalizeLive, liveChange } from './gestion-matchs-live.js';
 // Logique indépendante du DOM, également utilisée par les tests locaux.
 export const missing = value => value == null || value === '' ? '[À COMPLÉTER]' : String(value);
 export function validDate(value) {
@@ -46,11 +47,14 @@ export function createApi(config, transport = fetch) {
     return config.binding;
   };
   async function request(path, options = {}) {
-    const response = await transport(`${config.url}${path}`, {
+    let response;
+    try { response = await transport(`${config.url}${path}`, {
       ...options, headers: { apikey: config.key, ...(token ? { Authorization: `Bearer ${token}` } : {}), 'Content-Type': 'application/json', ...options.headers }, cache: 'no-store'
-    });
+    }); } catch { throw new Error('Erreur de connexion : modification non enregistrée. Vérifier le réseau puis actualiser.'); }
     if (!response.ok) {
       if ([401,403].includes(response.status)) throw new Error('Accès refusé : connexion ou autorisation insuffisante.');
+      if (response.status === 404) throw new Error('Rencontre introuvable ou service non raccordé.');
+      if (response.status === 409) throw new Error('Rencontre modifiée entre-temps : actualiser avant de réessayer.');
       throw new Error(`Service indisponible ou opération refusée (${response.status}). Réessayer ou contacter le club.`);
     }
     return response.status === 204 ? null : response.json();
@@ -71,7 +75,65 @@ export function createApi(config, transport = fetch) {
     if (allowed !== true) throw new Error('Accès refusé : compte non autorisé à gérer les rencontres.');
   }
   const query = (table, params) => `/rest/v1/${encodeURIComponent(table)}?${new URLSearchParams(params)}`;
+  async function liveTeams() {
+    await identity();
+    const b = binding().live;
+    if (!b?.accessRpc) throw new Error('Accès Live refusé : droits non raccordés.');
+    const teams = await request(`/rest/v1/rpc/${encodeURIComponent(b.accessRpc)}`, { method: 'POST', body: '{}' });
+    if (!Array.isArray(teams) || teams.some(id => typeof id !== 'string' || !id)) throw new Error('Accès Live refusé : réponse des droits invalide.');
+    return [...new Set(teams)];
+  }
+  async function liveList() {
+    const teams = await liveTeams(), b = binding().live;
+    if (!teams.length) throw new Error('Accès Live refusé : aucune équipe autorisée.');
+    const rows = [], seen = new Set();
+    for (const teamId of teams) {
+      let offset = 0;
+      while (true) {
+        const page = await request(query(b.readTable, { select: [...new Set(Object.values(b.read))].join(','), [b.read.teamId]: `eq.${teamId}`, order: `${b.read.id}.asc`, offset, limit: 500 }));
+        if (!Array.isArray(page)) throw new Error('Réponse Live invalide.');
+        for (const item of page) {
+          const row = Object.fromEntries(Object.entries(b.read).map(([key,column]) => [key,item[column]]));
+          if (row.id == null || String(row.teamId) !== teamId || seen.has(String(row.id))) throw new Error('Accès Live refusé : rencontre hors du périmètre autorisé.');
+          row.id = String(row.id); row.teamId = String(row.teamId); seen.add(row.id);
+          rows.push(normalizeLive(row));
+        }
+        if (page.length < 500) break;
+        offset += page.length;
+      }
+    }
+    return rows;
+  }
   return {
+    async capabilities() {
+      await identity(); const b = binding();
+      const management = b.accessRpc ? await request(`/rest/v1/rpc/${encodeURIComponent(b.accessRpc)}`, {method:'POST',body:'{}'}) === true : false;
+      const teams = b.live?.accessRpc ? await liveTeams() : [];
+      if (!management && !teams.length) throw new Error('Accès refusé : aucun espace autorisé.');
+      return { management, live: teams.length > 0 };
+    },
+    liveList,
+    async saveLive(match, patch) {
+      if (!config.liveWritesApproved) throw new Error('Modification non enregistrée : écritures Live désactivées en attente de validation Supabase.');
+      const teams = await liveTeams();
+      if (!teams.includes(match.teamId)) throw new Error('Accès Live refusé pour cette équipe.');
+      const fresh = (await liveList()).find(row => row.id === match.id);
+      if (!fresh) throw new Error('Rencontre introuvable ou accès retiré.');
+      if (fresh.revision == null || fresh.revision !== match.revision) throw new Error('Rencontre modifiée entre-temps : actualiser avant de réessayer.');
+      const change = liveChange(fresh, patch), b = binding().live;
+      if (!b.saveRpc || !b.args) throw new Error('Modification non enregistrée : raccordement Live non vérifié.');
+      const payload = {};
+      for (const [key,value] of Object.entries({ id: match.id, revision: match.revision, patch: change })) {
+        if (!b.args[key]) throw new Error('Arguments Live non vérifiés.');
+        payload[b.args[key]] = value;
+      }
+      // RPC atomique à vérifier : contrôle équipe, règle score et version côté base.
+      const saved = await request(`/rest/v1/rpc/${encodeURIComponent(b.saveRpc)}`, {method:'POST',body:JSON.stringify(payload)});
+      if (saved !== true) throw new Error('Modification non enregistrée : enregistrement Live non confirmé.');
+      const reread = (await liveList()).find(row => row.id === match.id);
+      if (!reread || Object.entries(change).some(([key,value]) => reread[key] !== value)) throw new Error('Réponse reçue, mais relecture Live non confirmée. Actualiser avant de réessayer.');
+      return reread;
+    },
     async sendCode(email) { await request('/auth/v1/otp', { method: 'POST', body: JSON.stringify({ email, create_user: false }) }); },
     async verifyCode(email, code) {
       const session = await request('/auth/v1/verify', { method: 'POST', body: JSON.stringify({ email, token: code, type: 'email' }) });

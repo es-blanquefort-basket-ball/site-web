@@ -6,5 +6,6 @@ export const config = Object.freeze({
   // Pas de noms de colonnes/RPC supposés : voir validation/site-m01/verification.sql.
   binding: null,
   // Le verrou ne remplace pas RLS. Activation après validation humaine des écritures.
-  writesApproved: false
+  writesApproved: false,
+  liveWritesApproved: false
 });
