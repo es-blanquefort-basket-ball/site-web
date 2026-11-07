@@ -1,0 +1,124 @@
+// Logique indépendante du DOM, également utilisée par les tests locaux.
+export const missing = value => value == null || value === '' ? '[À COMPLÉTER]' : String(value);
+export function validDate(value) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const date = new Date(`${value}T12:00:00Z`);
+  return !Number.isNaN(+date) && date.toISOString().slice(0, 10) === value && value >= '1900-01-01' && value <= '2100-12-31';
+}
+export function weekKey(value) {
+  if (!validDate(value)) return '';
+  const date = new Date(`${value}T12:00:00Z`);
+  date.setUTCDate(date.getUTCDate() + 6 - (date.getUTCDay() || 7));
+  return date.toISOString().slice(0, 10);
+}
+export function changesFor(match, values) {
+  const changes = {};
+  for (const field of ['date', 'time', 'venue']) {
+    const value = values[field].trim();
+    const original = String(match[field] ?? '');
+    const comparable = input => field === 'time' && /^\d{2}:\d{2}$/.test(input) ? `${input}:00` : input;
+    if (comparable(value) === comparable(original)) continue;
+    if (field === 'date' && !validDate(value)) throw new Error('Renseigner une date valide.');
+    if (field === 'time' && !/^([01]\d|2[0-3]):[0-5]\d(?::[0-5]\d)?$/.test(value)) throw new Error('Renseigner un horaire valide.');
+    if (field === 'venue' && (!value || value.length > 200 || /[\x00-\x1f\x7f]/.test(value))) throw new Error('Renseigner une salle de 1 à 200 caractères, sans caractère de contrôle.');
+    changes[field] = value;
+  }
+  if (!Object.keys(changes).length) throw new Error('Aucun changement à enregistrer.');
+  return changes;
+}
+export function groupMatches(rows, team = '') {
+  const groups = new Map();
+  for (const row of [...rows].filter(row => !team || row.teamId === team).sort((a,b) => `${a.date || '9999'} ${a.time || ''}`.localeCompare(`${b.date || '9999'} ${b.time || ''}`))) {
+    const week = weekKey(row.date);
+    if (!groups.has(week)) groups.set(week, []);
+    groups.get(week).push(row);
+  }
+  return groups;
+}
+export function safeFfbbUrl(value) {
+  try { const url = new URL(value); return url.protocol === 'https:' && url.hostname === 'competitions.ffbb.com' ? url.href : null; } catch { return null; }
+}
+
+export function createApi(config, transport = fetch) {
+  let token = null;
+  const binding = () => {
+    if (!config.binding) throw new Error('Accès aux rencontres indisponible : raccordement et droits en attente de vérification.');
+    return config.binding;
+  };
+  async function request(path, options = {}) {
+    const response = await transport(`${config.url}${path}`, {
+      ...options, headers: { apikey: config.key, ...(token ? { Authorization: `Bearer ${token}` } : {}), 'Content-Type': 'application/json', ...options.headers }, cache: 'no-store'
+    });
+    if (!response.ok) {
+      if ([401,403].includes(response.status)) throw new Error('Accès refusé : connexion ou autorisation insuffisante.');
+      throw new Error(`Service indisponible ou opération refusée (${response.status}). Réessayer ou contacter le club.`);
+    }
+    return response.status === 204 ? null : response.json();
+  }
+  async function identity() {
+    if (!token) throw new Error('Accès refusé : connexion nécessaire.');
+    const user = await request('/auth/v1/user');
+    if (!user?.id || user.is_anonymous) throw new Error('Accès refusé : identité non autorisée.');
+    return user;
+  }
+  async function authorize() {
+    await identity();
+    const b = binding();
+    // RPC existante à identifier, sans argument d’adresse fourni par le navigateur.
+    // Elle doit vérifier auth.uid() en base, et RLS doit aussi protéger chaque UPDATE.
+    if (!b.accessRpc) throw new Error('Accès refusé : contrôle des droits non raccordé.');
+    const allowed = await request(`/rest/v1/rpc/${encodeURIComponent(b.accessRpc)}`, { method: 'POST', body: '{}' });
+    if (allowed !== true) throw new Error('Accès refusé : compte non autorisé à gérer les rencontres.');
+  }
+  const query = (table, params) => `/rest/v1/${encodeURIComponent(table)}?${new URLSearchParams(params)}`;
+  return {
+    async sendCode(email) { await request('/auth/v1/otp', { method: 'POST', body: JSON.stringify({ email, create_user: false }) }); },
+    async verifyCode(email, code) {
+      const session = await request('/auth/v1/verify', { method: 'POST', body: JSON.stringify({ email, token: code, type: 'email' }) });
+      if (!session?.access_token) throw new Error('Connexion refusée : code invalide ou expiré.');
+      token = session.access_token;
+      await identity();
+    },
+    async logout() { try { if (token) await request('/auth/v1/logout', { method: 'POST' }); } finally { token = null; } },
+    authorize,
+    async list() {
+      await authorize();
+      const b = binding();
+      // Source privée vérifiée exposant les valeurs effectives et les identifiants réels.
+      const rows = []; let offset = 0;
+      while (true) {
+        const page = await request(query(b.readTable, { select: [...new Set(Object.values(b.read))].join(','), order: `${b.read.id}.asc`, offset, limit: 500 }));
+        if (!Array.isArray(page)) throw new Error('Réponse des rencontres invalide.');
+        rows.push(...page.map(row => Object.fromEntries(Object.entries(b.read).map(([key, column]) => [key, row[column]]))));
+        if (page.length < 500) break;
+        offset += page.length;
+      }
+      const seen = new Set();
+      for (const row of rows) {
+        if (row.id == null || row.teamId == null || seen.has(String(row.id))) throw new Error('Identifiant de rencontre ou relation équipe invalide.');
+        row.id = String(row.id); row.teamId = String(row.teamId); seen.add(row.id);
+      }
+      return rows;
+    },
+    async save(match, values) {
+      if (!config.writesApproved) throw new Error('Enregistrement désactivé : schéma, droits et validation humaine requis.');
+      await authorize();
+      const b = binding();
+      const changes = changesFor(match, values);
+      if (!b.matchId || !b.manual || !b.publicId) throw new Error('Raccordement des corrections non vérifié.');
+      const payload = {};
+      for (const [key, value] of Object.entries(changes)) {
+        if (!b.manual[key]) throw new Error('Champ de correction non vérifié.');
+        payload[b.manual[key]] = value;
+      }
+      // Les champs FFBB sources ne figurent jamais dans le payload.
+      const result = await request(query('matches', { [b.matchId]: `eq.${match.id}`, select: b.matchId }), { method: 'PATCH', headers: { Prefer: 'return=representation' }, body: JSON.stringify(payload) });
+      if (!Array.isArray(result) || result.length !== 1 || String(result[0][b.matchId]) !== match.id) throw new Error('Enregistrement non confirmé : aucune rencontre autorisée ou réponse ambiguë.');
+      const publicRows = await request(query('public_calendar', { [b.publicId]: `eq.${match.id}`, select: 'local_date,local_time,venue_name' }));
+      const fields = { date: 'local_date', time: 'local_time', venue: 'venue_name' };
+      const normalized = (key, value) => key === 'time' && /^\d{2}:\d{2}$/.test(value || '') ? `${value}:00` : value;
+      if (!Array.isArray(publicRows) || publicRows.length !== 1 || Object.entries(changes).some(([key, value]) => normalized(key, publicRows[0][fields[key]]) !== normalized(key, value))) throw new Error('Correction envoyée, mais propagation publique non confirmée. Actualiser avant toute nouvelle tentative.');
+      return publicRows[0];
+    }
+  };
+}

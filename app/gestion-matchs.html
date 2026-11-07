@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Gestion des matchs — ES Blanquefort Basket</title>
+  <link rel="icon" href="../images/favicon.png">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="gestion-matchs.css">
+  <script type="module" src="gestion-matchs.js"></script>
+</head>
+<body class="match-manager">
+<header class="wrap manager-header">
+  <a href="../index.html" class="brand"><img src="../assets/logo.png" alt="ES Blanquefort Basket"></a>
+  <a href="../calendrier.html">Consulter le calendrier public</a>
+</header>
+<main class="wrap">
+  <p class="eyebrow">Espace privé</p>
+  <h1 class="section-title">Gestion des matchs</h1>
+  <p class="lead">Corriger la date, l’horaire et la salle d’une rencontre.</p>
+  <noscript><p class="notice">JavaScript est nécessaire pour se connecter et gérer les matchs.</p></noscript>
+  <p id="status" role="status" aria-live="polite"></p>
+  <section id="login" class="card" aria-labelledby="login-title">
+    <h2 id="login-title">Connexion</h2>
+    <p>Utiliser une adresse disposant d’un accès autorisé par le club.</p>
+    <form id="email-form" class="field">
+      <label for="email">Adresse e-mail</label>
+      <input id="email" type="email" autocomplete="email" required maxlength="254">
+      <button class="btn btn-primary" type="submit">Recevoir un code</button>
+    </form>
+    <form id="code-form" class="field" hidden>
+      <label for="code">Code de connexion à usage unique</label>
+      <input id="code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6,10}" required maxlength="10">
+      <button class="btn btn-primary" type="submit">Se connecter</button>
+    </form>
+  </section>
+  <section id="workspace" hidden aria-labelledby="list-title">
+    <div class="manager-tools"><h2 id="list-title">Rencontres par week-end</h2><button id="logout" class="btn" type="button">Se déconnecter</button></div>
+    <div class="field"><label for="team">Équipe</label><select id="team"><option value="">Toutes les équipes</option></select></div>
+    <button id="reload" class="btn" type="button">Actualiser les rencontres</button>
+    <div id="matches"></div>
+  </section>
+  <dialog id="editor" aria-labelledby="edit-title">
+    <form id="edit-form">
+      <h2 id="edit-title">Modifier une rencontre</h2><p id="match-label"></p>
+      <div class="field"><label for="date">Date du match</label><input id="date" type="date" min="1900-01-01" max="2100-12-31"></div>
+      <div class="field"><label for="time">Horaire</label><input id="time" type="time" step="1"></div>
+      <div class="field"><label for="venue">Nom de la salle</label><input id="venue" type="text" maxlength="200"></div>
+      <p>Un champ manquant peut rester vide s’il n’est pas modifié. Aucun autre renseignement ne sera corrigé.</p>
+      <p id="edit-status" role="status" aria-live="polite"></p>
+      <div id="review" hidden><h3>Changements proposés</h3><ul id="changes"></ul><label><input id="confirmation" type="checkbox"> Je confirme ces modifications.</label></div>
+      <div class="manager-tools"><button id="prepare" class="btn btn-primary" type="submit">Vérifier les changements</button><button id="save" class="btn btn-primary" type="button" hidden>Enregistrer</button><button id="cancel" class="btn" type="button">Annuler</button></div>
+    </form>
+  </dialog>
+</main>
+</body>
+</html>
