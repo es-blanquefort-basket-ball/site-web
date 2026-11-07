@@ -86,4 +86,51 @@ document.addEventListener('DOMContentLoaded', () => {
       counters.forEach(animate);
     }
   }
+
+  // Accueil uniquement : dates publiques, sans jeton GitHub ni donnée personnelle affichée.
+  const updatedBadge = document.getElementById('site-last-updated');
+  if (updatedBadge) {
+    const parseUpdateDate = value => {
+      if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}T.*(?:Z|[+-]\d{2}:\d{2})$/.test(value)) return null;
+      const timestamp = Date.parse(value);
+      return Number.isFinite(timestamp) ? timestamp : null;
+    };
+    const readPublicDate = async (url, headers, extract) => {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 8000);
+      try {
+        const response = await fetch(url, { headers, signal: controller.signal, cache: 'no-store', credentials: 'omit' });
+        if (!response.ok) throw new Error('Date indisponible');
+        return parseUpdateDate(extract(await response.json()));
+      } finally {
+        clearTimeout(timeout);
+      }
+    };
+    const loadLastUpdate = async () => {
+      // Aucun filtre de chemin : tous les fichiers enregistrés sur main sont concernés.
+      const dates = await Promise.allSettled([
+        readPublicDate(
+          'https://api.github.com/repos/es-blanquefort-basket-ball/site-web/commits?sha=main&per_page=1',
+          { Accept: 'application/vnd.github+json' },
+          rows => rows[0]?.commit?.committer?.date
+        ),
+        // Vue publique existante ; pas de filtre de mois ni d’équipe.
+        readPublicDate(
+          'https://fgswygeqstgagmipltpq.supabase.co/rest/v1/public_calendar?select=updated_at&updated_at=not.is.null&order=updated_at.desc&limit=1',
+          { apikey: 'sb_publishable_dsoHXhS222GToiMUIpGkCA_lFPAJm-A', Accept: 'application/json' },
+          rows => rows[0]?.updated_at
+        )
+      ]);
+      const available = dates.filter(result => result.status === 'fulfilled' && result.value !== null)
+        .map(result => result.value);
+      if (!available.length) return;
+      const date = new Intl.DateTimeFormat('fr-FR', {
+        day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Paris'
+      }).format(new Date(Math.max(...available)));
+      updatedBadge.querySelector('.badge').textContent = `Dernière mise à jour le ${date}`;
+      updatedBadge.hidden = false;
+    };
+    loadLastUpdate();
+  }
+
 });

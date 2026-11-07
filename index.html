@@ -1420,7 +1420,9 @@
       .partner-strip{grid-template-columns:repeat(5,175px)}
       .wall-band{padding:52px 18px}
     }
-  </style>
+      .home-updated{margin-top:18px}
+    .home-updated .badge{max-width:100%;white-space:normal;overflow-wrap:anywhere}
+</style>
 
 <style id="esb-responsive-v1">
 /* =========================================================
@@ -1747,6 +1749,7 @@ img,video,iframe{max-width:100%;height:auto}
         <a class="btn btn-ghost" href="partenaires.html">Devenir partenaire</a>
         <a class="btn btn-orange" href="equipes.html">Découvrir les équipes</a>
       </div>
+      <div class="home-updated" id="site-last-updated" role="status" hidden><span class="badge"></span></div>
     </div>
     <div class="hero-logo">
       <img src="images/logo.png" alt="Logo ES Blanquefort Basket-Ball">
@@ -1921,7 +1924,7 @@ img,video,iframe{max-width:100%;height:auto}
 </main>
 
 
-<script src="script.js"></script>
+<script src="script.js?v=home-updated"></script>
 
 <!-- Footer volontairement simple dans cette maquette -->
 <footer class="site-footer">
