@@ -56,7 +56,6 @@
   const fullDateFormatter = new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 
   const updatedBadge = document.getElementById('calendar-updated');
-  const publishedBadge = document.getElementById('site-published');
   const updateDateFormatter = new Intl.DateTimeFormat('fr-FR', {
     day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Paris'
   });
@@ -89,14 +88,6 @@
       updatedBadge.textContent = 'Calendrier : date de mise à jour indisponible';
     }
   };
-
-  // La publication est une information de déploiement, jamais une date Supabase.
-  if (publishedBadge) {
-    const date = formatUpdateDate(publishedBadge.dataset.publishedAt);
-    publishedBadge.textContent = date
-      ? `Site publié le ${date}`
-      : 'Publication du site : date non renseignée';
-  }
 
   const pad = value => String(value).padStart(2, '0');
   const capitalize = value => value.charAt(0).toUpperCase() + value.slice(1);
