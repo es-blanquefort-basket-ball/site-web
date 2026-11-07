@@ -214,7 +214,10 @@ export function createApi(config, transport = fetch) {
         const publicRow = await rpc('site_m01_public_match',{p_id:match.id});
         const fields={date:'local_date',time:'local_time',venue:'venue_name'};
         const comparable=(key,value)=>key==='time' && /^\d{2}:\d{2}$/.test(value||'') ? `${value}:00` : value;
-        if (!reread || !publicRow || Object.entries(changes).some(([key,value])=>comparable(key,reread[key])!==comparable(key,value) || comparable(key,publicRow[fields[key]])!==comparable(key,value))) throw new Error('Correction envoyée, mais propagation publique non confirmée. Actualiser avant de réessayer.');
+        const agreesPublic = (key, value) => key === 'time' && /^\d{2}:\d{2}$/.test(publicRow?.local_time || '')
+          ? String(value).slice(0,5) === publicRow.local_time
+          : comparable(key,publicRow?.[fields[key]]) === comparable(key,value);
+        if (!reread || !publicRow || Object.entries(changes).some(([key,value])=>comparable(key,reread[key])!==comparable(key,value) || !agreesPublic(key,value))) throw new Error('Correction envoyée, mais propagation publique non confirmée. Actualiser avant de réessayer.');
         return publicRow;
       }
       if (!b.matchId || !b.manual || !b.publicId) throw new Error('Raccordement des corrections non vérifié.');

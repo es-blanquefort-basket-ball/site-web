@@ -48,6 +48,7 @@ BEGIN
  team_id %s PRIMARY KEY REFERENCES public.teams(%I) ON DELETE CASCADE,
  competition_code text NOT NULL, score_policy text NOT NULL
  CHECK(score_policy IN (''numeric'',''minibasket-no-score'',''u9-no-score'')),
+ source_competition text NOT NULL,
  CHECK(competition_code <> ''DMU11-10-P2'' OR score_policy=''minibasket-no-score''))',tt,tp);
  EXECUTE format('CREATE TABLE site_m01.match_state (
  match_id %s PRIMARY KEY REFERENCES public.matches(%I) ON DELETE CASCADE,
@@ -109,7 +110,7 @@ END $$;
 
 CREATE FUNCTION site_m01.project(m jsonb,p_scope text) RETURNS jsonb LANGUAGE plpgsql SET search_path='' AS $$
 DECLARE cfg site_m01.model; t jsonb; local_start timestamp; rule site_m01.team_rules;
- state site_m01.match_state; result jsonb; team_key text; mid text;
+ state site_m01.match_state; result jsonb; team_key text; mid text; calendar_row jsonb; calendar_rows jsonb; effective_competition text;
 BEGIN
  SELECT * INTO STRICT cfg FROM site_m01.model;
  IF cfg.scheduled_source IS NULL OR cfg.opponent IS NULL OR cfg.team_label IS NULL OR cfg.competition IS NULL THEN RAISE EXCEPTION 'Raccordement source à configurer une seule fois'; END IF;
@@ -121,9 +122,17 @@ BEGIN
   -- Le mapping source désigne un timestamp local réel, validé avant activation.
   local_start:=(m->>cfg.scheduled_source)::timestamp;
  END IF;
+ -- La vue réelle porte les règles MiniBasket/U18/U13/U15 : ne pas les dupliquer.
+ IF cfg.public_match_id IS NULL THEN RAISE EXCEPTION 'Identifiant public non raccordé'; END IF;
+ EXECUTE format('SELECT jsonb_agg(to_jsonb(v)) FROM public.public_calendar v WHERE v.%I::text=$1',cfg.public_match_id) INTO calendar_rows USING mid;
+ IF COALESCE(jsonb_array_length(calendar_rows),0)>1 THEN RAISE EXCEPTION 'Identifiant public dupliqué'; END IF;
+ calendar_row:=calendar_rows->0;
+ effective_competition:=COALESCE(calendar_row->>'competition_label',m->>cfg.competition);
  SELECT * INTO state FROM site_m01.match_state WHERE match_id::text=mid;
  result:=jsonb_build_object('id',mid,'teamId',team_key,'teamLabel',t->>cfg.team_label,'opponent',m->>cfg.opponent,
- 'date',to_char(local_start,'YYYY-MM-DD'),'time',to_char(local_start,'HH24:MI:SS'),
+ 'date',COALESCE(calendar_row->>'local_date',to_char(local_start,'YYYY-MM-DD')),
+ 'time',CASE WHEN calendar_row->>'local_time' IS NULL OR calendar_row->>'local_time' IN ('','00:00','00:00:00') THEN NULL
+ ELSE COALESCE(to_char(local_start,'HH24:MI:SS'),calendar_row->>'local_time') END,
  'venue',COALESCE(m->>'venue_name_override',m->>'venue_name_raw'),
  'revision',COALESCE(state.management_revision,0));
  -- Champs facultatifs uniquement s'ils existent : aucun lien ni lieu inventé.
@@ -131,8 +140,8 @@ BEGIN
  IF p_scope='live' THEN
   SELECT * INTO rule FROM site_m01.team_rules WHERE team_id::text=team_key;
   result:=result||jsonb_build_object('stage',COALESCE(state.stage,0),'revision',COALESCE(state.live_revision,0),
-  'competitionCode',m->>cfg.competition,'scorePolicy',CASE WHEN rule.competition_code=m->>cfg.competition THEN rule.score_policy ELSE NULL END);
-  IF rule.score_policy='numeric' AND rule.competition_code=m->>cfg.competition AND rule.competition_code<>'DMU11-10-P2' THEN
+  'competitionCode',rule.competition_code,'scorePolicy',CASE WHEN rule.source_competition=effective_competition THEN rule.score_policy ELSE NULL END);
+  IF rule.score_policy='numeric' AND rule.source_competition=effective_competition AND rule.competition_code<>'DMU11-10-P2' THEN
    result:=result||jsonb_build_object('clubScore',state.club_score,'opponentScore',state.opponent_score);
   END IF;
  END IF;
@@ -227,7 +236,7 @@ BEGIN
   UPDATE site_m01.match_state SET stage=(p_patch->>'stage')::integer WHERE match_id::text=p_id;
  ELSIF (SELECT count(*) FROM jsonb_object_keys(p_patch))=2 AND p_patch ?& ARRAY['clubScore','opponentScore'] THEN
   SELECT * INTO rule FROM site_m01.team_rules WHERE team_id::text=m->>cfg.match_team_fk;
-  IF rule.score_policy IS DISTINCT FROM 'numeric' OR rule.competition_code IS DISTINCT FROM m->>cfg.competition OR rule.competition_code='DMU11-10-P2' THEN RAISE EXCEPTION 'Score interdit pour cette équipe' USING ERRCODE='42501'; END IF;
+  IF before_value->>'scorePolicy' IS DISTINCT FROM 'numeric' OR rule.competition_code='DMU11-10-P2' THEN RAISE EXCEPTION 'Score interdit pour cette équipe' USING ERRCODE='42501'; END IF;
   FOREACH k IN ARRAY ARRAY['clubScore','opponentScore'] LOOP
    IF p_patch->k<>'null'::jsonb AND (jsonb_typeof(p_patch->k)<>'number' OR p_patch->>k !~ '^\d+$' OR (p_patch->>k)::numeric>2147483647) THEN RAISE EXCEPTION 'Score invalide'; END IF;
   END LOOP;
@@ -260,6 +269,7 @@ BEGIN
  m:=site_m01.match_row(p_id);
  IF m IS NULL THEN RAISE EXCEPTION 'Rencontre introuvable'; END IF;
  PERFORM site_m01.require_access('management',m->>cfg.match_team_fk);
+ IF (m->>'published') IS DISTINCT FROM 'true' OR (m->>'has_conflict') IS DISTINCT FROM 'false' OR (site_m01.team_row(m->>cfg.match_team_fk)->>'is_public') IS DISTINCT FROM 'true' THEN RAISE EXCEPTION 'Rencontre non publique : propagation non confirmée'; END IF;
  IF cfg.public_match_id IS NULL THEN RAISE EXCEPTION 'Identifiant public non raccordé'; END IF;
  EXECUTE format('SELECT jsonb_agg(jsonb_build_object(''local_date'',v.local_date,''local_time'',v.local_time,''venue_name'',v.venue_name)) FROM public.public_calendar v WHERE v.%I::text=$1',cfg.public_match_id) INTO rows USING p_id;
  IF rows IS NULL OR jsonb_array_length(rows)<>1 THEN RAISE EXCEPTION 'Propagation publique non vérifiable'; END IF;

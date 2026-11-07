@@ -10,7 +10,7 @@ from pglast import ast, parse_sql
 from pglast.stream import RawStream
 
 
-def prepare(source):
+def prepare(source, expected_options=None):
     statements = parse_sql(source)
     if len(statements) != 1 or not isinstance(statements[0].stmt, ast.SelectStmt):
         raise ValueError('Fournir uniquement le SELECT exact retourné par pg_get_viewdef.')
@@ -54,20 +54,24 @@ def prepare(source):
         return leaf(select.larg) if select.larg else select
 
     columns = leaf(root).targetList
-    positions = [i for i, target in enumerate(columns or ()) if target.name == 'venue_name']
+    def output_name(target):
+        column = fields(target.val)
+        return target.name or (column[-1] if column else None)
+    positions = [i for i, target in enumerate(columns or ()) if output_name(target) == 'venue_name']
     if len(positions) != 1:
         raise ValueError('Colonne de sortie venue_name non identifiée de façon unique.')
     position = positions[0]
 
-    def visit(select):
+    def visit(select, output_position=position):
         if select.withClause:
             raise ValueError('CTE dans la vue : vérifier les sources avant transformation.')
         if select.larg:
-            visit(select.larg)
-            visit(select.rarg)
+            visit(select.larg, output_position)
+            visit(select.rarg, output_position)
             return
         aliases = set()
         ranges = []
+        subqueries = {}
         def scan(value):
             if isinstance(value, ast.RangeVar):
                 ranges.append(value)
@@ -76,13 +80,25 @@ def prepare(source):
             elif isinstance(value, ast.JoinExpr):
                 scan(value.larg)
                 scan(value.rarg)
+            elif isinstance(value, ast.RangeSubselect) and value.alias and isinstance(value.subquery, ast.SelectStmt):
+                ranges.append(value)
+                subqueries[value.alias.aliasname] = value.subquery
             else:
                 raise ValueError('Source FROM complexe : vérifier la branche manuellement.')
         for source_range in select.fromClause or ():
             scan(source_range)
-        if position >= len(select.targetList or ()):
+        if output_position >= len(select.targetList or ()):
             raise ValueError('Branches UNION incompatibles.')
-        target = select.targetList[position]
+        target = select.targetList[output_position]
+        reference = fields(target.val)
+        if len(reference) == 2 and reference[0] in subqueries:
+            child = subqueries[reference[0]]
+            child_positions = [i for i, item in enumerate(leaf(child).targetList or ())
+                               if output_name(item) == reference[1]]
+            if len(child_positions) != 1:
+                raise ValueError('Projection de sous-vue ambiguë.')
+            visit(child, child_positions[0])
+            return
         # Ne modifier que la colonne salle, jamais les autres projections ou filtres.
         target.val = rewrite(target.val, aliases, len(ranges) == 1 and len(aliases) == 1)
     visit(root)
@@ -90,11 +106,16 @@ def prepare(source):
         raise ValueError('Aucune projection de salle brute à corriger.')
     patched = RawStream()(root)
     quote = lambda text: "'" + text.replace("'", "''") + "'"
+    options_guard = ''
+    if expected_options is not None:
+        expected = 'ARRAY[' + ','.join(quote(option) for option in expected_options) + ']::text[]'
+        options_guard = f"IF (SELECT COALESCE(reloptions,ARRAY[]::text[]) FROM pg_class WHERE oid='public.public_calendar'::regclass) <> {expected} THEN RAISE EXCEPTION 'Options de sécurité modifiées depuis le snapshot'; END IF;"
     # pg_get_viewdef retourne une forme canonique ; comparaison avant DDL et verrou.
     return f'''-- PROPOSITION NON EXÉCUTÉE : {edits} expression(s) salle corrigée(s).
 BEGIN;
 LOCK TABLE public.public_calendar IN ACCESS EXCLUSIVE MODE;
 DO $guard$ BEGIN
+ {options_guard}
  IF pg_get_viewdef('public.public_calendar'::regclass,true) <> {quote(source)} THEN
   RAISE EXCEPTION 'La vue a changé : régénérer le patch depuis sa définition actuelle';
  END IF;

@@ -1,0 +1,112 @@
+{
+  "policies": [
+    {
+      "cmd": "SELECT",
+      "qual": "(is_public = true)",
+      "roles": [
+        "anon",
+        "authenticated"
+      ],
+      "tablename": "teams",
+      "permissive": "PERMISSIVE",
+      "policyname": "Public can read public teams",
+      "schemaname": "public",
+      "with_check": null
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "((published = true) AND (has_conflict = false))",
+      "roles": [
+        "anon",
+        "authenticated"
+      ],
+      "tablename": "matches",
+      "permissive": "PERMISSIVE",
+      "policyname": "Public can read published matches",
+      "schemaname": "public",
+      "with_check": null
+    }
+  ],
+  "constraints": [
+    "UNIQUE (code)",
+    "UNIQUE (ffbb_team_id)",
+    "PRIMARY KEY (id)",
+    "UNIQUE (ffbb_match_id)",
+    "CHECK (home_away = ANY (ARRAY['home'::text, 'away'::text, 'neutral'::text]))",
+    "PRIMARY KEY (id)",
+    "CHECK (status = ANY (ARRAY['scheduled'::text, 'played'::text, 'postponed'::text, 'cancelled'::text]))",
+    "FOREIGN KEY (team_id) REFERENCES teams(id) ON DELETE CASCADE",
+    "FOREIGN KEY (venue_id) REFERENCES venues(id) ON DELETE SET NULL"
+  ],
+  "calendar_options": [
+    "security_invoker=true"
+  ],
+  "calendar_definition": " SELECT legacy.id,\n    legacy.team_code,\n    legacy.team_name,\n    legacy.competition_label,\n    legacy.opponent_name,\n    legacy.home_away,\n    legacy.starts_local,\n    legacy.local_date,\n    legacy.local_time,\n    legacy.venue_name,\n    legacy.venue_address,\n    legacy.round_label,\n    legacy.status,\n    legacy.ffbb_team_url,\n    legacy.ffbb_match_url,\n    legacy.updated_at\n   FROM ( SELECT legacy_1.id,\n            legacy_1.team_code,\n            legacy_1.team_name,\n            legacy_1.competition_label,\n            legacy_1.opponent_name,\n            legacy_1.home_away,\n            legacy_1.starts_local,\n            legacy_1.local_date,\n            legacy_1.local_time,\n            legacy_1.venue_name,\n            legacy_1.venue_address,\n            legacy_1.round_label,\n            legacy_1.status,\n            legacy_1.ffbb_team_url,\n            legacy_1.ffbb_match_url,\n            legacy_1.updated_at\n           FROM ( SELECT legacy_1_1.id,\n                    legacy_1_1.team_code,\n                    legacy_1_1.team_name,\n                    legacy_1_1.competition_label,\n                    legacy_1_1.opponent_name,\n                    legacy_1_1.home_away,\n                    legacy_1_1.starts_local,\n                    legacy_1_1.local_date,\n                    legacy_1_1.local_time,\n                    legacy_1_1.venue_name,\n                    legacy_1_1.venue_address,\n                    legacy_1_1.round_label,\n                    legacy_1_1.status,\n                    legacy_1_1.ffbb_team_url,\n                    legacy_1_1.ffbb_match_url,\n                    legacy_1_1.updated_at\n                   FROM ( SELECT m.id,\n                            t.code AS team_code,\n                            t.name AS team_name,\n                            t.competition_label,\n                            m.opponent_name,\n                            m.home_away,\n                            COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb) AS starts_local,\n                            to_char(COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb), 'YYYY-MM-DD'::text) AS local_date,\n                            to_char(COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb), 'HH24:MI'::text) AS local_time,\n                            COALESCE(m.venue_name_override, m.venue_name_raw) AS venue_name,\n                            m.venue_address_raw AS venue_address,\n                            m.round_label,\n                            m.status,\n                            t.ffbb_team_url,\n                            m.ffbb_match_url,\n                            m.updated_at\n                           FROM matches m\n                             JOIN teams t ON t.id = m.team_id\n                          WHERE m.published = true AND m.has_conflict = false) legacy_1_1\n                  WHERE NOT (EXISTS ( SELECT 1\n                           FROM matches m\n                          WHERE m.id = legacy_1_1.id AND (m.source_data ->> 'import_source'::text) = 'esbb_minibasket'::text))\n                UNION ALL\n                 SELECT m.id,\n                    t.code AS team_code,\n                    t.name AS team_name,\n                    t.competition_label,\n                    m.opponent_name,\n                    m.home_away,\n                    COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb) AS starts_local,\n                    COALESCE(m.scheduled_local_override::date, NULLIF(m.source_data ->> 'local_date'::text, ''::text)::date, m.scheduled_local_ffbb::date)::text AS local_date,\n                        CASE\n                            WHEN m.scheduled_local_override IS NOT NULL THEN NULLIF(m.scheduled_local_override::time without time zone, '00:00:00'::time without time zone)\n                            WHEN (m.source_data ->> 'time_known'::text) = 'true'::text THEN NULLIF(m.scheduled_local_ffbb::time without time zone, '00:00:00'::time without time zone)\n                            ELSE NULL::time without time zone\n                        END::text AS local_time,\n                    m.venue_name_raw AS venue_name,\n                    m.venue_address_raw AS venue_address,\n                    m.round_label,\n                    m.status,\n                    NULL::text AS ffbb_team_url,\n                    NULL::text AS ffbb_match_url,\n                    m.updated_at\n                   FROM matches m\n                     JOIN teams t ON t.id = m.team_id\n                  WHERE (m.source_data ->> 'import_source'::text) = 'esbb_minibasket'::text AND m.published = true AND m.has_conflict = false AND t.is_public = true) legacy_1\n          WHERE NOT (EXISTS ( SELECT 1\n                   FROM matches m\n                  WHERE m.id = legacy_1.id AND (m.source_data ->> 'import_source'::text) = 'esbb_u18m_fbi'::text))\n        UNION ALL\n         SELECT m.id,\n            t.code AS team_code,\n            t.name AS team_name,\n            m.competition_name AS competition_label,\n            m.opponent_name,\n            m.home_away,\n            COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb) AS starts_local,\n            COALESCE(m.scheduled_local_override::date, m.scheduled_local_ffbb::date, NULLIF(m.source_data ->> 'local_date'::text, ''::text)::date)::text AS local_date,\n            NULLIF(COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb)::time without time zone, '00:00:00'::time without time zone)::text AS local_time,\n            m.venue_name_raw AS venue_name,\n            m.venue_address_raw AS venue_address,\n            m.round_label,\n            m.status,\n            NULL::text AS ffbb_team_url,\n            m.ffbb_match_url,\n            m.updated_at\n           FROM matches m\n             JOIN teams t ON t.id = m.team_id\n          WHERE (m.source_data ->> 'import_source'::text) = 'esbb_u18m_fbi'::text AND m.published AND NOT m.has_conflict AND t.is_public) legacy\n  WHERE NOT (EXISTS ( SELECT 1\n           FROM matches m\n          WHERE m.id = legacy.id AND (m.source_data ->> 'import_source'::text) = 'esbb_u13_u15_fbi'::text))\nUNION ALL\n SELECT m.id,\n    t.code AS team_code,\n    t.name AS team_name,\n    m.competition_name AS competition_label,\n    m.opponent_name,\n    m.home_away,\n    COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb) AS starts_local,\n    COALESCE(m.scheduled_local_override::date, m.scheduled_local_ffbb::date, NULLIF(m.source_data ->> 'local_date'::text, ''::text)::date)::text AS local_date,\n    NULLIF(COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb)::time without time zone, '00:00:00'::time without time zone)::text AS local_time,\n    m.venue_name_raw AS venue_name,\n    m.venue_address_raw AS venue_address,\n    m.round_label,\n    m.status,\n    NULL::text AS ffbb_team_url,\n    m.ffbb_match_url,\n    m.updated_at\n   FROM matches m\n     JOIN teams t ON t.id = m.team_id\n  WHERE (m.source_data ->> 'import_source'::text) = 'esbb_u13_u15_fbi'::text AND m.published AND NOT m.has_conflict AND t.is_public;",
+  "columns_received": [
+    {
+      "type": "uuid",
+      "table": "teams",
+      "column": "id"
+    },
+    {
+      "type": "text",
+      "table": "teams",
+      "column": "code"
+    },
+    {
+      "type": "text",
+      "table": "teams",
+      "column": "name"
+    },
+    {
+      "type": "text",
+      "table": "teams",
+      "column": "competition_label"
+    },
+    {
+      "type": "text",
+      "table": "teams",
+      "column": "ffbb_team_id"
+    },
+    {
+      "type": "text",
+      "table": "teams",
+      "column": "ffbb_team_url"
+    },
+    {
+      "type": "text",
+      "table": "teams",
+      "column": "ffbb_ranking_url"
+    },
+    {
+      "type": "text",
+      "table": "teams",
+      "column": "ffbb_pool_url"
+    },
+    {
+      "type": "boolean",
+      "table": "teams",
+      "column": "is_competition_active"
+    },
+    {
+      "type": "boolean",
+      "table": "teams",
+      "column": "is_public"
+    },
+    {
+      "type": "timestamp with time zone",
+      "table": "teams",
+      "column": "created_at"
+    },
+    {
+      "type": "timestamp with time zone",
+      "table": "teams",
+      "column": "updated_at"
+    }
+  ],
+  "provenance": {
+    "source": "Pièce jointe utilisateur Texte collé.txt",
+    "sha256": "72d114ca922f04352c98a64fac35e795c9684ceda028946cca09bdd240175c93",
+    "note": "Le fichier reçu commence à la liste des colonnes teams ; liste matches non incluse. Définition complète de public_calendar présente, conservée sans reconstruction."
+  }
+}

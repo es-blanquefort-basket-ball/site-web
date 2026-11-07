@@ -27,4 +27,19 @@ for bad in ['SELECT x.venue_name_raw AS venue_name FROM public.teams x;',
  try: m.prepare(bad)
  except ValueError: check(True,'source ambiguë ou requête hors périmètre refusée')
  else: raise AssertionError(bad)
-print(str(count)+' contrôles AST réussis.')
+
+# Définition réelle reçue : seules les trois projections de salle diffèrent.
+import json
+from pglast import parse_sql
+from pglast.stream import RawStream
+root=Path(__file__).parent
+reference=json.loads((root/'reference/schema-received.json').read_text())
+source=reference['calendar_definition']
+check(source.count('m.venue_name_raw AS venue_name')==3,'trois branches brutes dans la définition réelle')
+patch=m.prepare(source,reference['calendar_options'])
+literal=patch.split("|| ' AS ' ||",1)[1].split(';\nEND $replace$;',1)[0].strip()
+actual=literal[1:-1].replace("''", "'")
+expected=source.replace('m.venue_name_raw AS venue_name','COALESCE(m.venue_name_override, m.venue_name_raw) AS venue_name')
+check(RawStream()(parse_sql(actual))==RawStream()(parse_sql(expected)),'AST réel identique sauf les trois COALESCE attendus')
+check(patch==(root/'sql/04-public-calendar-venue.sql').read_text(),'script final reproductible et garde security_invoker=true')
+print(str(count)+' contrôles AST réussis au total.')

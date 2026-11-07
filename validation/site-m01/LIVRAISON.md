@@ -456,3 +456,78 @@ mécanisme Live réutilisable non présent dans le dépôt avant d’adopter mat
 Configurer ensuite les identifiants réels des équipes et les administrateurs Auth existants
 lorsque le club décidera d’attribuer les accès. L’OTP e-mail réel, PostgREST et les politiques
 hébergées restent à tester. Aucun de ces points n’autorise l’activation en production.
+
+---
+
+# Finalisation depuis le snapshot réel reçu — 7 novembre 2026
+
+Les paragraphes antérieurs décrivent l’historique des livraisons. Les cinq correspondances
+techniques et le patch de la vue ne sont **plus en attente** : voir `ACTIVATION.md` pour
+la procédure courante soumise à validation.
+
+Le fichier reçu commence au bloc des colonnes teams ; il ne contient pas le début de la
+liste des colonnes matches. Sa définition de public_calendar est complète. Les noms
+utilisés par cette définition suffisent à finaliser les correspondances sans reconstruire
+un faux snapshot complet. L’extrait reçu est normalisé dans `reference/schema-received.json`,
+avec son empreinte et une note de provenance, et le SELECT exact est conservé séparément.
+Les contrôles SQL restent bloquants si un type réel ne correspond pas au contrat attendu.
+Aucune lecture ou exécution supplémentaire sur le projet réel n’a été réalisée.
+
+Correspondances finalisées : matches.scheduled_local_ffbb, matches.opponent_name,
+teams.name, matches.competition_name et public_calendar.id. Les clés UUID sont conservées.
+Le code de compétition de la règle d’équipe reste distinct du libellé competition_name :
+`team_rules.source_competition` le relie au libellé effectif de la vue. Un changement de
+compétition non configuré masque et interdit le score plutôt que l’attribuer à tort.
+
+Le projecteur privé réutilise la vue pour les dates/heures effectives : les heures inconnues
+MiniBasket/U9 restent inconnues. Il conserve aussi les secondes connues pour les corrections
+partielles. Le client vérifie la précision exposée par la vue publique (minute pour la
+branche historique) tout en contrôlant les secondes exactes lors de la relecture privée.
+La vérification privilégiée refuse de prétendre publier une rencontre exclue par les
+conditions published/has_conflict/is_public.
+
+`sql/04-public-calendar-venue.sql` est maintenant le patch final généré depuis le SELECT
+reçu. Trois expressions de salle sont corrigées : branches esbb_minibasket, esbb_u18m_fbi,
+esbb_u13_u15_fbi. L’AST est comparé au SELECT d’origine avec ces seules substitutions :
+aucune autre projection, clause WHERE, exclusion, UNION ou règle d’horaire n’est modifiée.
+La branche historique était déjà corrigée. Le script vérifie la définition et les options
+exactes du snapshot, sauvegarde l’ancienne vue en privé et maintient security_invoker=true.
+Les alias imbriqués legacy sont suivis par le générateur sans visiter les autres colonnes
+ou les sous-requêtes des filtres.
+
+Tests finaux ajoutés : `tests-real-schema.mjs` utilise les noms/UUID et la vue imbriquée
+réelle, avec uniquement des lignes fictives. Le garde du script final est exécuté tel quel :
+la définition canonique locale est identique au SELECT reçu, sans substitution du garde.
+Les résultats et colonnes sont comparés avant/après, ainsi que les ACL, la sécurité invoker,
+les règles de lecture, la séparation des équipes et les heures inconnues. Le client V2
+est testé contre ces RPC SQL locales pour la propagation et la précision des horaires.
+
+Résultats de la dernière passe :
+
+- 15 contrôles V1 réussis, 21 contrôles Live réussis.
+- 25 contrôles Postgres génériques réussis (droits, révocations, overrides, audit, rollback).
+- 15 contrôles Postgres avec la définition réelle et des données fictives réussis.
+- 12 contrôles AST réussis, dont la comparaison intégrale des trois seules substitutions
+  et la reproductibilité exacte du script final.
+- Total : 88 contrôles locaux. Aucun test hébergé Auth/OTP/PostgREST n’est revendiqué.
+- Fichiers calendrier.html, calendrier.js, équipes, style commun, HTML/CSS et interactions
+  V2 conservés. Aucun nouveau contrôle responsive requis par un changement visuel.
+
+Reproduire le nouveau test (PGlite 0.3.14, aucune connexion réseau) :
+
+```sh
+SITE_M01_PGLITE_PATH=/tmp/site-m01-pg/node_modules/@electric-sql/pglite/dist/index.js \
+node validation/site-m01/tests-real-schema.mjs
+```
+
+Fichiers de cette finalisation : configuration/commentaires et adaptateur RPC client,
+`sql/01-access-live.sql`, `sql/02-configure.sql`, `sql/04-public-calendar-venue.sql`,
+`calendar-view-patch.py`, tests SQL/AST, références du snapshot, ce compte rendu et
+`ACTIVATION.md`. Aucun fichier du calendrier public modifié. Les fichiers .DS_Store locaux
+préexistants sont laissés intacts et non inclus dans les changements.
+
+Restent à décider/configurer lors de la recette autorisée : UUID des administrateurs et
+utilisateurs Auth existants, UUID réels d’équipes, règles sportives par compétition et
+validation OTP/HTTP hébergée. Il ne manque plus de correspondance technique du snapshot.
+Aucun compte réel, habilitation réelle ou règle d’équipe réelle créé ; aucune migration
+réelle exécutée ; aucun verrou ouvert, fusion main ou déploiement Hostinger.

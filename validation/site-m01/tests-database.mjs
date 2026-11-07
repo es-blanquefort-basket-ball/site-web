@@ -19,8 +19,8 @@ const rpc=async(name,args)=>scalar(`select public.${name}(${args.map((_,i)=>'$'+
 await db.exec(`create role anon;create role authenticated;create schema auth;
 create table auth.users(id uuid primary key,is_anonymous boolean not null default false);
 create function auth.uid() returns uuid language sql as $$ select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid $$;
-create table teams(team_key bigint primary key,label text);
-create table matches(match_key bigint primary key,club_team bigint references teams(team_key),start_local timestamp,scheduled_local_override timestamp,venue_name_raw text,venue_name_override text,opponent text,competition text,home_away text,ffbb_match_url text,official_score integer);
+create table teams(team_key bigint primary key,label text,is_public boolean default true);
+create table matches(match_key bigint primary key,club_team bigint references teams(team_key),start_local timestamp,scheduled_local_override timestamp,venue_name_raw text,venue_name_override text,opponent text,competition text,home_away text,ffbb_match_url text,official_score integer,published boolean default true,has_conflict boolean default false);
 alter table matches enable row level security;alter table teams enable row level security;
 create view public_calendar as select match_key as match_id,coalesce(scheduled_local_override,start_local)::date as local_date,coalesce(scheduled_local_override,start_local)::time as local_time,venue_name_raw as venue_name from matches;
 grant select on public_calendar to anon; alter view public_calendar set(security_barrier=true);
@@ -37,7 +37,7 @@ await test('proposition installable, PK/FK réelles découvertes sans noms suppo
  assert.equal(await scalar('select count(*)::int as value from site_m01.team_access'),0);
 });
 await db.exec(`update site_m01.model set scheduled_source='start_local',opponent='opponent',team_label='label',competition='competition',public_match_id='match_id';
-insert into site_m01.team_rules values(11,'DMU11-4-P2','numeric'),(12,'DMU11-10-P2','minibasket-no-score'),(9,'TEST_U9','u9-no-score');`);
+insert into site_m01.team_rules values(11,'DMU11-4-P2','numeric','DMU11-4-P2'),(12,'DMU11-10-P2','minibasket-no-score','DMU11-10-P2'),(9,'TEST_U9','u9-no-score','TEST_U9');`);
 await db.query('insert into site_m01.administrators values($1)',[ids.admin]);
 await test('aucun privilège direct UPDATE ou lecture des tables privées',async()=>{
  await as('live');await assert.rejects(db.exec('update public.matches set venue_name_override=\'X\''),/permission denied/);
