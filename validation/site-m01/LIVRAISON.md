@@ -531,3 +531,83 @@ utilisateurs Auth existants, UUID réels d’équipes, règles sportives par com
 validation OTP/HTTP hébergée. Il ne manque plus de correspondance technique du snapshot.
 Aucun compte réel, habilitation réelle ou règle d’équipe réelle créé ; aucune migration
 réelle exécutée ; aucun verrou ouvert, fusion main ou déploiement Hostinger.
+
+---
+
+# Préparation d’intégration réelle et contrôle RLS renforcé — 7 novembre 2026
+
+Base contrôlée : cbbe273, même branche codex/site-m01-raccordement-acces. Les fichiers
+01-access-live.sql, 02-configure.sql, 04-public-calendar-venue.sql et 03-disable.sql ainsi
+que l’interface V2 et les fichiers du calendrier public sont conservés sans modification.
+Les procédures actuelles sont ACTIVATION.md, INTEGRATION_REELLE.md et RECETTE_REELLE.md ;
+elles remplacent les séquences préparatoires antérieures mentionnant un projet de test.
+La seule cible Supabase proposée est le projet existant fgswygeqstgagmipltpq.
+
+Le contrôle a identifié le bypass implicite possible des anciens points privés SECURITY
+DEFINER possédés par postgres. **La base 01 ne doit pas être mise en service seule.** Le
+nouveau 01a-rls-executor.sql transfère les fonctions privées à un rôle technique NOLOGIN,
+NOSUPERUSER, NOBYPASSRLS et non propriétaire des tables. Des politiques TO ce seul rôle
+appliquent les limites équipe/opération sous RLS. Aucun UPDATE global à authenticated
+ou anon ; seules les deux colonnes override sont modifiables par le rôle interne.
+
+Le rôle ne peut écrire ni administrators, ni team_rules, ni model, ni les champs sources
+FFBB. Il n’a aucun accès SELECT à auth.users ; les comptes cibles sont validés par FK et
+la suppression d’un compte retire ses habilitations. L’identité utilise auth.uid() et le
+claim signé is_anonymous, jamais user_metadata. Les auteurs d’audit sont imposés en base ;
+le rôle interne ne peut réécrire ou supprimer l’historique. Les fonctions Live verrouillent
+leur état privé et ne réclament pas un UPDATE de matches pour changer une étape.
+
+Les scripts sources sont assemblés dans INSTALLATION.sql : 01 -> 01a -> 02 -> 04 -> 05,
+un seul BEGIN/COMMIT et notification PostgREST après contrôles. Il n’existe donc pas
+d’intervalle exposant les anciennes fonctions superprivilégiées. Les empreintes des
+composants et la reproductibilité sont contrôlées. Une précondition en échec annule aussi
+le rôle créé : testé avec security_invoker=false. Le script 03 reste un arrêt séparé.
+
+Recherche dérogation strictement ciblée : aucune occurrence de dérogation/report de match
+identifiée dans les fichiers du dépôt ou le snapshot fourni ; les overrides ne constituent
+pas un suivi de demandes. Le connecteur a refusé la recherche de métadonnées sur le projet
+hébergé. L’absence dans la base complète n’est donc pas affirmée. Le seul manque est un
+point d’entrée de suivi vérifié ; 00-install-preconditions.sql prépare sa recherche sans
+sortir de données personnelles. Si l’absence est confirmée, le seul ajout proposé serait
+un suivi privé rattaché à matches.id, à valider avant toute création. Aucune table, route
+ou interface de demande n’est ajoutée ici.
+
+Lecture hébergée réellement réussie : GET public Auth settings HTTP 200, fournisseur
+e-mail actif, confirmation automatique désactivée, identités anonymes désactivées.
+Le signup global reste un réglage existant inchangé ; SITE-M01 conserve create_user:false
+et aucune habilitation n’est dérivée d’une inscription. Aucun OTP n’a été envoyé, aucun
+compte réel ni habilitation n’a été créé. Restent les deux opérations humaines précises :
+lecture de 00-install-preconditions.sql dans le SQL Editor et contrôle du modèle e-mail
+{{ .Token }}/envoi avant la recette sur le compte existant désigné.
+
+Tests locaux de cette passe :
+
+- 15 contrôles V1 et 21 contrôles Live conservés.
+- 25 contrôles Postgres génériques et 15 avec définition réelle, désormais exécutés avec
+  le rôle et les politiques du durcissement. Les refus acceptent aussi la ligne invisible
+  sous RLS (« introuvable »), sans affaiblir l’attente d’absence de mutation.
+- 18 nouveaux contrôles sécurité : propriétaire/ACL, SET ROLE client interdit, JWT anonyme,
+  métadonnées admin ignorées, SELECT et UPDATE RLS restrictives bloquant réellement les
+  RPC, droits de colonnes, historique non falsifiable, origine club_app protégée, suppression
+  Auth, arrêt et annulation complète du lot si un garde échoue.
+- 14 contrôles AST/assemblage : trois seules expressions salle, options, lot reproductible
+  et unique transaction externe. Total de la passe finale : 108 contrôles locaux réussis.
+- Aucune recette hébergée authentifiée déclarée réussie ; aucune migration/écriture réelle,
+  activation, fusion main, publication Hostinger ou nouveau projet Supabase.
+
+Fichiers ajoutés : sql/00-install-preconditions.sql, sql/01a-rls-executor.sql,
+sql/05-verify-installation.sql, sql/INSTALLATION.sql, build-installation.py,
+tests-rls-security.mjs, INTEGRATION_REELLE.md, RECETTE_REELLE.md.
+Fichiers modifiés : ACTIVATION.md, ce journal et les trois suites de tests adaptées.
+Les .DS_Store préexistants sont laissés intacts et exclus du commit.
+
+Reproduire les contrôles supplémentaires :
+
+```sh
+SITE_M01_PGLITE_PATH=/tmp/site-m01-pg/node_modules/@electric-sql/pglite/dist/index.js \
+node validation/site-m01/tests-rls-security.mjs
+```
+
+Décisions restantes : accord sur le lot et l’opérateur autorisé ; UUID Auth/équipes/règles
+à attribuer manuellement ; accord borné sur les rencontres et valeurs de recette réelles.
+Le volet dérogation n’est pas implémenté sans identification ou décision du club.

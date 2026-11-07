@@ -42,4 +42,11 @@ actual=literal[1:-1].replace("''", "'")
 expected=source.replace('m.venue_name_raw AS venue_name','COALESCE(m.venue_name_override, m.venue_name_raw) AS venue_name')
 check(RawStream()(parse_sql(actual))==RawStream()(parse_sql(expected)),'AST réel identique sauf les trois COALESCE attendus')
 check(patch==(root/'sql/04-public-calendar-venue.sql').read_text(),'script final reproductible et garde security_invoker=true')
-print(str(count)+' contrôles AST réussis au total.')
+builder_spec=importlib.util.spec_from_file_location('builder',root/'build-installation.py')
+builder=importlib.util.module_from_spec(builder_spec);builder_spec.loader.exec_module(builder)
+installation=(root/'sql/INSTALLATION.sql').read_text()
+check(builder.build()==installation,'bundle atomique reproductible depuis les scripts sources')
+from pglast import ast
+transactions=[node.stmt for node in parse_sql(installation) if isinstance(node.stmt,ast.TransactionStmt)]
+check(len(transactions)==2,'une seule transaction externe dans le bundle final')
+print(str(count)+' contrôles AST/assemblage réussis au total.')

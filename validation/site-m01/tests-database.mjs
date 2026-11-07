@@ -19,11 +19,12 @@ const rpc=async(name,args)=>scalar(`select public.${name}(${args.map((_,i)=>'$'+
 await db.exec(`create role anon;create role authenticated;create schema auth;
 create table auth.users(id uuid primary key,is_anonymous boolean not null default false);
 create function auth.uid() returns uuid language sql as $$ select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid $$;
+create function auth.jwt() returns jsonb language sql as $$ select jsonb_build_object('sub',auth.uid(),'is_anonymous',coalesce(nullif(current_setting('request.jwt.claim.is_anonymous',true),''),'false')::boolean) $$;
 create table teams(team_key bigint primary key,label text,is_public boolean default true);
 create table matches(match_key bigint primary key,club_team bigint references teams(team_key),start_local timestamp,scheduled_local_override timestamp,venue_name_raw text,venue_name_override text,opponent text,competition text,home_away text,ffbb_match_url text,official_score integer,published boolean default true,has_conflict boolean default false);
 alter table matches enable row level security;alter table teams enable row level security;
 create view public_calendar as select match_key as match_id,coalesce(scheduled_local_override,start_local)::date as local_date,coalesce(scheduled_local_override,start_local)::time as local_time,venue_name_raw as venue_name from matches;
-grant select on public_calendar to anon; alter view public_calendar set(security_barrier=true);
+grant select on public_calendar to anon; alter view public_calendar set(security_barrier=true,security_invoker=true);
 insert into teams values(11,'U11 M1 TEST'),(12,'U11 M2 TEST'),(9,'U9 TEST');
 insert into matches(match_key,club_team,start_local,venue_name_raw,opponent,competition,official_score) values
 (101,11,'2026-11-07 14:30:45','SALLE TEST','ADVERSAIRE TEST','DMU11-4-P2',77),
@@ -32,6 +33,7 @@ insert into matches(match_key,club_team,start_local,venue_name_raw,opponent,comp
 for(const id of Object.values(ids)) await db.query('insert into auth.users(id) values($1)',[id]);
 await test('proposition installable, PK/FK réelles découvertes sans noms supposés',async()=>{
  await db.exec(await fs.readFile(base+'sql/01-access-live.sql','utf8'));
+ await db.exec(await fs.readFile(base+'sql/01a-rls-executor.sql','utf8'));
  const cfg=(await db.query('select * from site_m01.model')).rows[0];
  assert.equal(cfg.match_pk,'match_key');assert.equal(cfg.match_team_fk,'club_team');assert.equal(cfg.team_pk,'team_key');
  assert.equal(await scalar('select count(*)::int as value from site_m01.team_access'),0);
@@ -56,14 +58,14 @@ await test('utilisateur et équipe doivent déjà exister',async()=>{await as('a
 await test('droits Gestion/Live et équipes séparés',async()=>{
  await as('live');assert.deepEqual(await rpc('site_m01_teams',['management']),[]);assert.deepEqual(await rpc('site_m01_teams',['live']),['11']);
  assert.equal((await db.query("select * from public.site_m01_list('management')")).rows.length,0);
- await assert.rejects(db.query("select * from public.site_m01_list('live','12')"),/refusé/);
+ await assert.rejects(db.query("select * from public.site_m01_list('live','12')"),/refusé|introuvable/);
  await as('manage');assert.deepEqual(await rpc('site_m01_teams',['live']),[]);
 });
 await test('serveur bloque toutes les écritures malgré un client modifié',async()=>{
  await as('both');await assert.rejects(rpc('site_m01_save_management',['101',0,{venue:'AUTRE SALLE TEST'}]),/désactivées/);await assert.rejects(rpc('site_m01_save_live',['101',0,{stage:1}]),/désactivées/);
 });
 await owner();await db.exec('update site_m01.model set management_enabled=true,live_enabled=true');
-await test('Live ne peut écrire Gestion et inversement',async()=>{await as('live');await assert.rejects(rpc('site_m01_save_management',['101',0,{venue:'X'}]),/refusé/);await as('manage');await assert.rejects(rpc('site_m01_save_live',['101',0,{stage:1}]),/refusé/)});
+await test('Live ne peut écrire Gestion et inversement',async()=>{await as('live');await assert.rejects(rpc('site_m01_save_management',['101',0,{venue:'X'}]),/refusé|introuvable/);await as('manage');await assert.rejects(rpc('site_m01_save_live',['101',0,{stage:1}]),/refusé|introuvable/)});
 await test('correction heure seule conserve date et sources FFBB',async()=>{
  await as('manage');assert.equal(await rpc('site_m01_save_management',['101',0,{time:'16:00:45'}]),true);
  await owner();const m=(await db.query("select *,to_char(start_local,'YYYY-MM-DD HH24:MI:SS') as source_text,to_char(scheduled_local_override,'YYYY-MM-DD HH24:MI:SS') as override_text from matches where match_key=101")).rows[0];
@@ -117,7 +119,7 @@ await test('historique privé atomique et lecture réservée administrateur',asy
 await test('révocation immédiate, priorité manuelle sur future origine app',async()=>{
  await owner();await db.query("insert into site_m01.team_access(user_id,team_id,origin,can_live) values($1,11,'club_app',true)",[ids.live]);
  await as('admin');await rpc('site_m01_set_access',[ids.live,'11',false,false,false]);
- await as('live');assert.deepEqual(await rpc('site_m01_teams',['live']),[]);await assert.rejects(rpc('site_m01_save_live',['101',4,{stage:3}]),/refusé/);
+ await as('live');assert.deepEqual(await rpc('site_m01_teams',['live']),[]);await assert.rejects(rpc('site_m01_save_live',['101',4,{stage:3}]),/refusé|introuvable/);
 });
 await test('anonyme et compte non habilité ne peuvent s’auto-attribuer de droits',async()=>{
  await owner();await db.exec('set role anon');await assert.rejects(rpc('site_m01_teams',['live']),/permission denied/);

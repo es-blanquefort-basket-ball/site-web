@@ -18,6 +18,7 @@ const call=async(name,args)=>scalar(`select public.${name}(${args.map((_,i)=>'$'
 await db.exec(`create role anon;create role authenticated;create schema auth;
 create table auth.users(id uuid primary key,is_anonymous boolean not null default false);
 create function auth.uid() returns uuid language sql as $$ select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid $$;
+create function auth.jwt() returns jsonb language sql as $$ select jsonb_build_object('sub',auth.uid(),'is_anonymous',coalesce(nullif(current_setting('request.jwt.claim.is_anonymous',true),''),'false')::boolean) $$;
 create table teams(id uuid primary key,code text unique,name text,competition_label text,ffbb_team_id text unique,ffbb_team_url text,ffbb_ranking_url text,ffbb_pool_url text,is_competition_active boolean default true,is_public boolean default true,created_at timestamptz,updated_at timestamptz);
 create table matches(id uuid primary key,team_id uuid references teams(id),opponent_name text,home_away text,scheduled_local_ffbb timestamp,scheduled_local_override timestamp,venue_name_raw text,venue_name_override text,venue_address_raw text,round_label text,status text,ffbb_match_url text,updated_at timestamptz,published boolean default true,has_conflict boolean default false,source_data jsonb default '{}',competition_name text,official_score integer);
 alter table teams enable row level security;alter table matches enable row level security;
@@ -36,6 +37,7 @@ await test('vue imbriquée reconstruite, sécurité et colonnes identiques',asyn
  assert.equal((await db.query('select * from public_calendar')).rows[0].id,match);
 });
 await db.exec(await fs.readFile(base+'sql/01-access-live.sql','utf8'));
+ await db.exec(await fs.readFile(base+'sql/01a-rls-executor.sql','utf8'));
 await test('configuration des cinq correspondances sans aucun placeholder',async()=>{
  await db.exec(await fs.readFile(base+'sql/02-configure.sql','utf8'));
  const m=(await db.query('select * from site_m01.model')).rows[0];
@@ -57,7 +59,7 @@ await test('MiniBasket/U9 conservent date et heure inconnue, pas de score',async
  await as(mini);const rows=(await db.query("select public.site_m01_list('live') as value")).rows.map(x=>x.value);
  assert.equal(rows.length,2);assert(rows.every(x=>x.time===null));assert(rows.every(x=>x.date==='2026-11-08'));
  for(const row of rows){assert.equal('clubScore' in row,false);await assert.rejects(call('site_m01_save_live',[row.id,0,{clubScore:2,opponentScore:1}]),/interdit/);await call('site_m01_save_live',[row.id,0,{stage:1}]);}
- await assert.rejects(db.query("select public.site_m01_list('live',$1)",[team]),/refusé/);
+ await assert.rejects(db.query("select public.site_m01_list('live',$1)",[team]),/refusé|introuvable/);
 });
 await test('Gestion date seule MiniBasket refusée si heure inconnue',async()=>{await as(manager);await assert.rejects(call('site_m01_save_management',[matchMini,0,{date:'2026-11-09'}]),/Date et horaire nécessaires/)});
 await owner();
@@ -84,7 +86,7 @@ await test('politique de lecture inchangée : équipe privée invisible à anon'
  assert(rows.every(r=>r.id!==uid(299)));assert.equal(rows.length,5);
  await assert.rejects(db.exec("update public.matches set venue_name_override='INTERDIT'"),/permission denied/);
 });
-await test('relecture privilégiée ne prétend pas publier une équipe privée',async()=>{await as(manager);await assert.rejects(call('site_m01_public_match',[uid(299)]),/non publique/)});
+await test('relecture privilégiée ne prétend pas publier une équipe privée',async()=>{await as(manager);await assert.rejects(call('site_m01_public_match',[uid(299)]),/non publique|introuvable/)});
 await test('salle corrigée propagée pour MiniBasket, U18 et U13/U15',async()=>{
  await as(manager);for(const id of [matchMini,match18,match13]) {
   await call('site_m01_save_management',[id,0,{venue:'SALLE FINALE TEST'}]);
@@ -120,11 +122,11 @@ await test('changement de compétition : score masqué et écriture refusée',as
 });
 await test('non habilité et Live ne peuvent modifier la Gestion',async()=>{
  await as(denied);assert.deepEqual(await call('site_m01_teams',['live']),[]);
- await as(live);await assert.rejects(call('site_m01_save_management',[match,0,{venue:'INTERDIT'}]),/refusé/);
+ await as(live);await assert.rejects(call('site_m01_save_management',[match,0,{venue:'INTERDIT'}]),/refusé|introuvable/);
 });
 await test('révocation des habilitations ferme immédiatement le Live',async()=>{
  await as(admin);await call('site_m01_set_access',[live,team,false,false,false]);
- await as(live);assert.deepEqual(await call('site_m01_teams',['live']),[]);await assert.rejects(call('site_m01_save_live',[match,1,{stage:2}]),/refusé/);
+ await as(live);assert.deepEqual(await call('site_m01_teams',['live']),[]);await assert.rejects(call('site_m01_save_live',[match,1,{stage:2}]),/refusé|introuvable/);
 });
 await test('SQL de mise en arrêt conserve l’historique et désactive les écritures',async()=>{
  await owner();const n=await scalar('select count(*)::int as value from site_m01.history');await db.exec(await fs.readFile(base+'sql/03-disable.sql','utf8'));
