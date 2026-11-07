@@ -17,16 +17,21 @@
     'ffbb_team_url'
   ].join(',');
 
+  // Les codes Supabase et les anciens liens restent inchangés.
+  const teamDisplayNames = new Map([['U11 Mixte', 'U11 M1'], ['U11 M', 'U11 M2']]);
+  const displayTeamName = code => teamDisplayNames.get(code) || code;
+  const technicalTeamCode = value => [...teamDisplayNames].find(([, name]) => name === value)?.[0] || value;
+
   const teamForm = document.getElementById('calendar-team-form');
   const teamSelect = document.getElementById('calendar-team');
   const teamStatus = document.getElementById('calendar-team-status');
   const requestedTeam = new URLSearchParams(window.location.search).get('equipe') || '';
-  let selectedTeam = requestedTeam.trim();
+  let selectedTeam = technicalTeamCode(requestedTeam.trim());
   if (teamSelect) {
     if (selectedTeam && ![...teamSelect.options].some(option => option.value === selectedTeam)) {
       const option = document.createElement('option');
       option.value = selectedTeam;
-      option.textContent = selectedTeam;
+      option.textContent = displayTeamName(selectedTeam);
       teamSelect.append(option);
     }
     teamSelect.value = selectedTeam;
@@ -188,7 +193,7 @@
     );
     const teams = createElement('span', 'calendar-match-teams');
     teams.append(
-      createElement('strong', '', event.teamCode),
+      createElement('strong', '', displayTeamName(event.teamCode)),
       createElement('span', 'calendar-match-opponent', event.opponentName)
     );
     heading.append(teams, matchMeta);
@@ -217,8 +222,8 @@
     }
     const ffbbUrl = event.ffbbMatchUrl || event.ffbbTeamUrl;
     if (ffbbUrl) appendLink('FFBB', ffbbUrl, event.ffbbMatchUrl
-      ? `Fiche FFBB du match ${event.teamCode} contre ${event.opponentName}`
-      : `Page FFBB de l’équipe ${event.teamCode}`);
+      ? `Fiche FFBB du match ${displayTeamName(event.teamCode)} contre ${event.opponentName}`
+      : `Page FFBB de l’équipe ${displayTeamName(event.teamCode)}`);
     if (links.children.length) card.append(links);
     return card;
   };
@@ -285,7 +290,7 @@
     const teams = [...new Set(groups.match.map(event => event.teamCode))];
     if (teams.length) {
       const badges = createElement('span', 'calendar-team-badges');
-      teams.slice(0, 3).forEach(team => badges.append(createElement('span', 'calendar-team-badge', team)));
+      teams.slice(0, 3).forEach(team => badges.append(createElement('span', 'calendar-team-badge', displayTeamName(team))));
       if (teams.length > 3) badges.append(createElement('span', 'calendar-team-badge', `+${teams.length - 3}`));
       summary.append(badges);
     }
@@ -380,7 +385,7 @@
       renderCalendar(payload.map(normalizeCalendarEntry).filter(Boolean)
         .filter(event => !teamAtRequest || event.teamCode === teamAtRequest));
       if (teamStatus) teamStatus.textContent = teamAtRequest
-        ? `Filtre : ${teamAtRequest}. Vérification des publications…`
+        ? `Filtre : ${displayTeamName(teamAtRequest)}. Vérification des publications…`
         : 'Toutes les équipes : rencontres publiées du club.';
       if (teamAtRequest && teamStatus) {
         try {
@@ -391,16 +396,16 @@
           if (requestId !== requestSequence) return;
           const published = available.some(item => item.team_code === teamAtRequest);
           teamStatus.textContent = published
-            ? `Filtre : ${teamAtRequest}. Parcourez les mois pour consulter les rencontres publiées.`
-            : `${teamAtRequest} : aucune rencontre publiée pour cette équipe. Le raccordement de ses données est en attente.`;
+            ? `Filtre : ${displayTeamName(teamAtRequest)}. Parcourez les mois pour consulter les rencontres publiées.`
+            : `${displayTeamName(teamAtRequest)} : aucune rencontre publiée pour cette équipe. Le raccordement de ses données est en attente.`;
         } catch {
-          if (requestId === requestSequence) teamStatus.textContent = `${teamAtRequest} : impossible de vérifier la présence de rencontres dans les autres mois.`;
+          if (requestId === requestSequence) teamStatus.textContent = `${displayTeamName(teamAtRequest)} : impossible de vérifier la présence de rencontres dans les autres mois.`;
         }
       }
     } catch (error) {
       if (requestId !== requestSequence) return;
       renderCalendar([]);
-      if (teamStatus) teamStatus.textContent = selectedTeam ? `Filtre : ${selectedTeam}. Publications non vérifiables actuellement.` : '';
+      if (teamStatus) teamStatus.textContent = selectedTeam ? `Filtre : ${displayTeamName(selectedTeam)}. Publications non vérifiables actuellement.` : '';
       setStatus('Le calendrier est temporairement indisponible. Utilisez les liens FFBB ci-dessous.', true);
       console.error('Chargement du calendrier impossible :', error);
     }
