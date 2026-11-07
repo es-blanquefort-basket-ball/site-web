@@ -43,7 +43,7 @@ export function safeFfbbUrl(value) {
 export function createApi(config, transport = fetch) {
   let token = null;
   const binding = () => {
-    if (!config.binding) throw new Error('Accès aux rencontres indisponible : raccordement et droits en attente de vérification.');
+    if (!config.binding || config.backendReady === false) throw new Error('Accès aux rencontres indisponible : raccordement et droits en attente de vérification.');
     return config.binding;
   };
   async function request(path, options = {}) {
@@ -68,6 +68,10 @@ export function createApi(config, transport = fetch) {
   async function authorize() {
     await identity();
     const b = binding();
+    if (b.protocol === 'site-m01-rpc') {
+      if (!(await rpc('site_m01_teams', { p_scope: 'management' })).length) throw new Error('Accès refusé : compte non autorisé à gérer les rencontres.');
+      return;
+    }
     // RPC existante à identifier, sans argument d’adresse fourni par le navigateur.
     // Elle doit vérifier auth.uid() en base, et RLS doit aussi protéger chaque UPDATE.
     if (!b.accessRpc) throw new Error('Accès refusé : contrôle des droits non raccordé.');
@@ -75,17 +79,43 @@ export function createApi(config, transport = fetch) {
     if (allowed !== true) throw new Error('Accès refusé : compte non autorisé à gérer les rencontres.');
   }
   const query = (table, params) => `/rest/v1/${encodeURIComponent(table)}?${new URLSearchParams(params)}`;
+  const rpc = (name, args = {}) => request(`/rest/v1/rpc/${name}`, { method:'POST', body:JSON.stringify(args) });
+  async function rpcList(scope, team = null) {
+    const rows = [], seen = new Set(); let offset = 0;
+    while (true) {
+      const page = await rpc('site_m01_list', {p_scope:scope,p_team:team,p_offset:offset,p_limit:500});
+      if (!Array.isArray(page)) throw new Error('Réponse des rencontres invalide.');
+      for (const row of page) {
+        if (row.id == null || row.teamId == null || seen.has(String(row.id)) || (team && String(row.teamId)!==team)) throw new Error('Accès refusé : identifiant ou équipe incohérents.');
+        seen.add(String(row.id)); rows.push({...row,id:String(row.id),teamId:String(row.teamId)});
+      }
+      if (page.length < 500) break;
+      offset += page.length;
+    }
+    return rows;
+  }
   async function liveTeams() {
     await identity();
-    const b = binding().live;
+    const root = binding();
+    const b = root.live;
+    if (root.protocol === 'site-m01-rpc') {
+      const teams = await rpc('site_m01_teams',{p_scope:'live'});
+      if (!Array.isArray(teams) || teams.some(id=>typeof id!=='string' || !id)) throw new Error('Accès Live refusé : droits invalides.');
+      return [...new Set(teams)];
+    }
     if (!b?.accessRpc) throw new Error('Accès Live refusé : droits non raccordés.');
     const teams = await request(`/rest/v1/rpc/${encodeURIComponent(b.accessRpc)}`, { method: 'POST', body: '{}' });
     if (!Array.isArray(teams) || teams.some(id => typeof id !== 'string' || !id)) throw new Error('Accès Live refusé : réponse des droits invalide.');
     return [...new Set(teams)];
   }
   async function liveList() {
-    const teams = await liveTeams(), b = binding().live;
+    const teams = await liveTeams(), root = binding(), b = root.live;
     if (!teams.length) throw new Error('Accès Live refusé : aucune équipe autorisée.');
+    if (root.protocol === 'site-m01-rpc') {
+      const rows = [];
+      for (const team of teams) rows.push(...(await rpcList('live',team)).map(normalizeLive));
+      return rows;
+    }
     const rows = [], seen = new Set();
     for (const teamId of teams) {
       let offset = 0;
@@ -107,6 +137,12 @@ export function createApi(config, transport = fetch) {
   return {
     async capabilities() {
       await identity(); const b = binding();
+      if (b.protocol === 'site-m01-rpc') {
+        const management = (await rpc('site_m01_teams',{p_scope:'management'})).length > 0;
+        const live = (await liveTeams()).length > 0;
+        if (!management && !live) throw new Error('Accès refusé : aucun espace autorisé.');
+        return {management,live};
+      }
       const management = b.accessRpc ? await request(`/rest/v1/rpc/${encodeURIComponent(b.accessRpc)}`, {method:'POST',body:'{}'}) === true : false;
       const teams = b.live?.accessRpc ? await liveTeams() : [];
       if (!management && !teams.length) throw new Error('Accès refusé : aucun espace autorisé.');
@@ -120,15 +156,17 @@ export function createApi(config, transport = fetch) {
       const fresh = (await liveList()).find(row => row.id === match.id);
       if (!fresh) throw new Error('Rencontre introuvable ou accès retiré.');
       if (fresh.revision == null || fresh.revision !== match.revision) throw new Error('Rencontre modifiée entre-temps : actualiser avant de réessayer.');
-      const change = liveChange(fresh, patch), b = binding().live;
-      if (!b.saveRpc || !b.args) throw new Error('Modification non enregistrée : raccordement Live non vérifié.');
+      const change = liveChange(fresh, patch), root = binding(), b = root.live;
+      if (root.protocol !== 'site-m01-rpc' && (!b?.saveRpc || !b.args)) throw new Error('Modification non enregistrée : raccordement Live non vérifié.');
       const payload = {};
-      for (const [key,value] of Object.entries({ id: match.id, revision: match.revision, patch: change })) {
+      if (root.protocol !== 'site-m01-rpc') for (const [key,value] of Object.entries({ id: match.id, revision: match.revision, patch: change })) {
         if (!b.args[key]) throw new Error('Arguments Live non vérifiés.');
         payload[b.args[key]] = value;
       }
       // RPC atomique à vérifier : contrôle équipe, règle score et version côté base.
-      const saved = await request(`/rest/v1/rpc/${encodeURIComponent(b.saveRpc)}`, {method:'POST',body:JSON.stringify(payload)});
+      const saved = root.protocol === 'site-m01-rpc'
+        ? await rpc('site_m01_save_live',{p_id:match.id,p_revision:match.revision,p_patch:change})
+        : await request(`/rest/v1/rpc/${encodeURIComponent(b.saveRpc)}`, {method:'POST',body:JSON.stringify(payload)});
       if (saved !== true) throw new Error('Modification non enregistrée : enregistrement Live non confirmé.');
       const reread = (await liveList()).find(row => row.id === match.id);
       if (!reread || Object.entries(change).some(([key,value]) => reread[key] !== value)) throw new Error('Réponse reçue, mais relecture Live non confirmée. Actualiser avant de réessayer.');
@@ -146,6 +184,7 @@ export function createApi(config, transport = fetch) {
     async list() {
       await authorize();
       const b = binding();
+      if (b.protocol === 'site-m01-rpc') return rpcList('management');
       // Source privée vérifiée exposant les valeurs effectives et les identifiants réels.
       const rows = []; let offset = 0;
       while (true) {
@@ -167,6 +206,17 @@ export function createApi(config, transport = fetch) {
       await authorize();
       const b = binding();
       const changes = changesFor(match, values);
+      if (b.protocol === 'site-m01-rpc') {
+        if (match.revision == null) throw new Error('Version de rencontre manquante.');
+        const saved = await rpc('site_m01_save_management',{p_id:match.id,p_revision:match.revision,p_patch:changes});
+        if (saved !== true) throw new Error('Enregistrement non confirmé.');
+        const reread = (await rpcList('management',match.teamId)).find(row=>row.id===match.id);
+        const publicRow = await rpc('site_m01_public_match',{p_id:match.id});
+        const fields={date:'local_date',time:'local_time',venue:'venue_name'};
+        const comparable=(key,value)=>key==='time' && /^\d{2}:\d{2}$/.test(value||'') ? `${value}:00` : value;
+        if (!reread || !publicRow || Object.entries(changes).some(([key,value])=>comparable(key,reread[key])!==comparable(key,value) || comparable(key,publicRow[fields[key]])!==comparable(key,value))) throw new Error('Correction envoyée, mais propagation publique non confirmée. Actualiser avant de réessayer.');
+        return publicRow;
+      }
       if (!b.matchId || !b.manual || !b.publicId) throw new Error('Raccordement des corrections non vérifié.');
       const payload = {};
       for (const [key, value] of Object.entries(changes)) {
@@ -181,6 +231,20 @@ export function createApi(config, transport = fetch) {
       const normalized = (key, value) => key === 'time' && /^\d{2}:\d{2}$/.test(value || '') ? `${value}:00` : value;
       if (!Array.isArray(publicRows) || publicRows.length !== 1 || Object.entries(changes).some(([key, value]) => normalized(key, publicRows[0][fields[key]]) !== normalized(key, value))) throw new Error('Correction envoyée, mais propagation publique non confirmée. Actualiser avant toute nouvelle tentative.');
       return publicRows[0];
+    },
+    async setAccess(userId,teamId,rights) {
+      if (!config.accessWritesApproved) throw new Error('Configuration des habilitations désactivée.');
+      await identity();
+      if (binding().protocol!=='site-m01-rpc') throw new Error('Administration non raccordée.');
+      if (!rights || ['management','live','enabled'].some(key=>typeof rights[key]!=='boolean')) throw new Error('Droits explicites requis.');
+      const result=await rpc('site_m01_set_access',{p_user:userId,p_team:teamId,p_manage:rights.management,p_live:rights.live,p_enabled:rights.enabled});
+      if (result!==true) throw new Error('Habilitation non confirmée.');
+      return true;
+    },
+    async listAccess(userId = null, offset = 0) {
+      await identity();
+      if (binding().protocol !== 'site-m01-rpc') throw new Error('Administration non raccordée.');
+      return rpc('site_m01_access_list',{p_user:userId,p_offset:offset,p_limit:100});
     }
   };
 }

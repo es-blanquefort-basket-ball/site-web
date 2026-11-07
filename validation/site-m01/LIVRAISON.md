@@ -261,3 +261,198 @@ Modifiés : `app/gestion-matchs.html`, `.css`, `.js`, `gestion-matchs-core.js`,
 Ajoutés : `app/gestion-matchs-live.js`, `app/gestion-matchs-live-ui.js`,
 `validation/site-m01/tests-live.mjs`, `validation/site-m01/tests-preview.py`.
 Le fichier de tests V1 est conservé sans modification.
+
+---
+
+# Préparation du raccordement réel et accès mixtes — 7 novembre 2026
+
+Branche `codex/site-m01-raccordement-acces` créée depuis la V2 `bbcbbbe`.
+V1 et V2 conservées dans l’historique. Le fichier local `.DS_Store` préexistant est laissé
+intact et n’est pas inclus dans les changements.
+
+## Ce qui est préparé
+
+Le client possède maintenant un adaptateur RPC concret pour la proposition SQL fournie.
+L’interface et le fonctionnement Live ne changent pas. Le mode de simulation V2 reste
+compatible. Aucune nouvelle interface d’administration n’est ajoutée : le mécanisme
+serveur et les méthodes clientes sont prêts pour une future interface ou un usage contrôlé
+par le club. Aucun utilisateur réel ni habilitation réelle n’est créé.
+
+Les éléments confirmés par le club sont réutilisés : `public.matches`, `public.teams`,
+`scheduled_local_override`, `venue_name_override`, RLS existantes et absence d’UPDATE
+accordé à anon/authenticated. Les clés primaires et la relation matches → teams sont
+découvertes automatiquement par la proposition SQL ; leurs noms et types ne sont pas
+supposés. Une structure composite ou ambiguë est refusée avant installation complète.
+
+`app/gestion-matchs-config.js` conserve tous les verrous :
+
+- `backendReady:false` bloque le raccordement réel en lecture tant qu’il n’est pas installé.
+- `writesApproved:false`, `liveWritesApproved:false`, `accessWritesApproved:false`.
+- Trois verrous indépendants côté base sont eux aussi initialisés à false.
+
+## Propositions SQL, non déployées
+
+Les fichiers ordonnés dans `validation/site-m01/sql/` sont des propositions à relire,
+**pas des migrations inscrites dans l’historique Supabase**. Le CLI Supabase n’est pas
+installé dans cet environnement ; aucun nom de migration horodatée n’est fabriqué.
+Après validation, les intégrer au processus de migration du projet réel.
+
+1. `00-schema-snapshot.sql` : une seule lecture de métadonnées suffit à finaliser les
+   correspondances restantes et récupérer la définition exacte de public_calendar.
+   Aucun compte ni aucune ligne sportive n’est lu par cette requête.
+2. `01-access-live.sql` : transaction d’installation du mécanisme privé et des façades RPC.
+   Aucun INSERT de compte, d’habilitation, de règle sportive ou de rencontre.
+3. `02-configure.sql` : cinq noms de colonnes encore non fournis doivent être confirmés
+   une fois : timestamp local source, adversaire, libellé équipe, compétition du match,
+   identifiant stable exposé par public_calendar. Le script refuse les noms absents et
+   types incompatibles. Les clés réelles et les champs override ne sont pas à reconfigurer.
+   Des recettes commentées préparent le bootstrap d’un administrateur Auth existant et
+   les règles des équipes par identifiant réel, sans aucun utilisateur à créer maintenant.
+4. Le générateur `calendar-view-patch.py` prépare le DDL ciblé depuis la définition réelle.
+5. `03-disable.sql` prépare un arrêt des écritures sans supprimer l’historique ni les données.
+
+Les cinq correspondances restent des points techniques, pas des données à inventer.
+Si le calendrier n’expose aucun identifiant stable de matches, la vérification publique
+ne peut pas être raccordée telle quelle : il faudra préparer une adaptation ciblée après
+lecture de la définition, sans rapprocher les matchs par nom/date/adversaire.
+Si la source est un timestamptz ou des colonnes date/heure séparées, adapter explicitement
+le petit projecteur plutôt que convertir silencieusement une heure en supposant son fuseau.
+
+## Structure privée et permissions
+
+Le schéma `site_m01` ne doit pas être ajouté aux schémas exposés dans Data API.
+Toutes ses tables ont RLS activée et aucun accès direct pour anon/authenticated :
+
+| Élément | Rôle |
+| --- | --- |
+| `administrators` | UUID Supabase Auth des seuls administrateurs des habilitations |
+| `team_access` | UUID Auth + équipe réelle + origine manual/club_app ; enabled, Gestion, Live |
+| `team_rules` | Règle de score par équipe réelle et compétition validée |
+| `match_state` | Sept étapes, scores Live facultatifs et deux versions distinctes, FK sur matches |
+| `history` | Auteur UUID, date, opération, ancienne et nouvelle valeur ; accès admin uniquement |
+| `model` | Correspondances techniques et verrous d’activation serveur |
+
+Les clés étrangères des habilitations/règles pointent vers les équipes existantes avec
+leur type natif ; les états Live pointent vers les rencontres existantes. Ce n’est pas un
+second catalogue de matchs. Les scores officiels et sources FFBB ne sont jamais modifiés.
+
+L’identité est vérifiée par auth.uid() et l’existence du compte Auth non anonyme. Aucun
+`user_metadata`, e-mail saisi ou rôle de l’interface n’accorde de droit. Les habilitations
+sont relues en base pour chaque opération. Les mutations d’accès et sauvegardes d’un même
+utilisateur partagent un verrou transactionnel, et les versions détectent les modifications
+obsolètes. Les tests vérifient ces versions ; aucun test de charge multiclient n’est revendiqué.
+
+Une ligne manuelle a priorité sur une future ligne club_app pour la même personne/équipe.
+La révocation manuelle reste une ligne `enabled:false` : elle ne révèle pas indirectement
+un ancien droit importé. `external_ref` est réservé à une future correspondance externe.
+Aucune synchronisation ni droit d’écriture client sur l’origine club_app n’est développé.
+Un administrateur des habilitations ne reçoit pas automatiquement Gestion/Live.
+
+Les façades RPC publiques sont **SECURITY INVOKER**, révoquées pour PUBLIC/anon et
+accordées à authenticated. Les points d’entrée privilégiés sont privés, avec search_path
+vide et contrôles explicites d’identité, équipe, opération et verrous. Ce choix SECURITY
+DEFINER est délibéré pour effectuer une mutation limitée et son audit atomique sans
+accorder UPDATE directement sur matches ; ces fonctions contournent donc RLS en tant que
+propriétaire et leurs contrôles internes doivent être revus avant validation. Les helpers
+n’ont aucun EXECUTE client. Aucune politique existante n’est remplacée ou élargie.
+
+Références techniques consultées :
+https://supabase.com/docs/guides/database/functions et
+https://supabase.com/docs/guides/database/postgres/row-level-security.
+
+## API préparée
+
+- `site_m01_teams(p_scope)` : équipes réellement autorisées pour management ou live.
+- `site_m01_list(...)` : projection limitée aux équipes autorisées, pagination.
+- `site_m01_save_management(p_id,p_revision,p_patch)` : uniquement date/heure/salle.
+- `site_m01_save_live(p_id,p_revision,p_patch)` : uniquement étape OU score Live.
+- `site_m01_public_match(p_id)` : vérification privée ciblée des valeurs de la vue publique.
+- `site_m01_set_access(...)` : administrateur identifié, UUID Auth existant, équipe réelle,
+  trois booléens explicites ; permet attribution, modification et révocation.
+- `site_m01_access_list(...)` : liste paginée des habilitations, administrateur seulement.
+- `site_m01_audit(...)` : historique paginé, administrateur seulement.
+
+Les méthodes clientes `setAccess()` et `listAccess()` sont préparées ; aucune saisie de
+nom ou d’adresse des futurs utilisateurs n’est nécessaire à cette étape.
+
+Une correction d’heure seule conserve la date ; une correction de date seule conserve
+l’heure et les secondes. Le serveur combine ces éléments dans scheduled_local_override.
+Si date ou heure indispensable est inconnue, il refuse plutôt que créer une valeur.
+Une correction de salle ne touche que venue_name_override. Aucun champ FFBB source ni
+résultat officiel n’est dans les SET de la fonction. Une sauvegarde Gestion est confirmée
+au client seulement après relecture privée et concordance avec public_calendar.
+
+U11 M1 = DMU11-4-P2 n’autorise le score qu’avec sa règle d’équipe explicitement configurée.
+DMU11-10-P2 reste bloqué même en cas de règle numérique erronée. Les U9 sont configurés
+par identifiant réel avec u9-no-score ; les appels Live ne peuvent modifier ces règles.
+Une règle absente/inconnue ou une compétition différente masque et interdit le score.
+Les réponses SQL Live omettent les champs de score pour ces équipes, avant transmission.
+Aucune identité de correcteur ne figure dans les réponses destinées aux rencontres.
+
+## Correction de salle de public_calendar
+
+```sh
+# definition.sql = texte exact du SELECT retourné par pg_get_viewdef, sans réécriture.
+python3 validation/site-m01/calendar-view-patch.py definition.sql > proposition-vue.sql
+```
+
+Le parseur AST ne transforme que la colonne de sortie venue_name, y compris dans les
+branches UNION et CASE. Les références directes à matches.venue_name_raw deviennent
+COALESCE(matches.venue_name_override,matches.venue_name_raw). Les branches déjà corrigées
+et les autres colonnes/filtres restent sémantiquement inchangés. Les sources ambiguës,
+CTE ou sous-requêtes complexes sont refusées pour éviter une réécriture hasardeuse.
+Le DDL généré verrouille la vue, vérifie sa définition exacte et sauvegarde l’ancienne
+définition en privé. Les options existantes sont réappliquées explicitement lors du CREATE OR REPLACE ;
+les accès sont conservés : vérifié localement
+avec un droit SELECT anon et security_barrier=true. La définition réelle n’étant pas
+accessible, aucun faux fichier de migration de cette vue n’est présenté comme définitif.
+
+## Tests exécutés
+
+- 15 tests V1 et 21 tests Live existants réussis après raccordement de l’adaptateur.
+- 25 contrôles dans un vrai moteur Postgres local (PGlite 0.3.14), avec uniquement des
+  UUID, équipes et matchs de test : installation, découverte des clés, ACL, droits par
+  équipe, Live sans Gestion et inversement, administration, révocation, priorité manuelle,
+  champs manuels, conservation date/heure/secondes, scores facultatifs, interdictions
+  U11 M2/U9 côté SQL, historique privé et annulation intégrale si l’audit échoue.
+- Ces contrôles incluent le client RPC contre les fonctions SQL locales : détection de
+  la vue non corrigée, génération et application réelle du patch sur la vue de test,
+  sauvegarde privée de sa définition, maintien des ACL/options, refus d’un patch périmé,
+  puis confirmation de propagation de la salle.
+- 9 tests du générateur AST : UNION, CASE, conservation des autres colonnes et refus des
+  sources ambiguës/requêtes hors périmètre.
+- Aucun compte ni habilitation réel, aucun DDL/DML en production. Le connecteur a encore
+  refusé la seule tentative de lecture ciblée ; les documentations ont pu être consultées.
+- L’interface n’a pas été modifiée visuellement ; les validations responsive V2 restent
+  applicables. Aucun nouveau contrôle navigateur du raccordement réel n’est revendiqué.
+
+Dépendances de développement uniquement (installées dans /tmp pour ces tests) :
+`@electric-sql/pglite@0.3.14`, `pglast==7.22` dans requirements-test.txt.
+
+Exemple de reproduction sans dépendance ajoutée au site :
+
+```sh
+pnpm --dir /tmp/site-m01-pg add @electric-sql/pglite@0.3.14
+python3 -m pip install --target /tmp/site-m01-pg/python -r validation/site-m01/requirements-test.txt
+PYTHONPATH=/tmp/site-m01-pg/python \
+SITE_M01_PGLITE_PATH=/tmp/site-m01-pg/node_modules/@electric-sql/pglite/dist/index.js \
+node validation/site-m01/tests-database.mjs
+PYTHONPATH=/tmp/site-m01-pg/python python3 validation/site-m01/tests-calendar-patch.py
+```
+
+## Fichiers de cette étape
+
+Modifiés : `app/gestion-matchs-config.js`, `app/gestion-matchs-core.js`, ce compte rendu.
+Ajoutés : `sql/00-schema-snapshot.sql`, `sql/01-access-live.sql`, `sql/02-configure.sql`,
+`sql/03-disable.sql`, `calendar-view-patch.py`, `tests-calendar-patch.py`,
+`tests-database.mjs`, `requirements-test.txt`, tous sous `validation/site-m01/`.
+
+## Restant à valider, une seule passe technique
+
+Récupérer le snapshot de métadonnées, finaliser les cinq correspondances et le patch exact
+de vue, puis revoir les propositions et les politiques existantes dans un environnement
+Supabase de test autorisé. Contrôler notamment les triggers existants et l’absence de
+mécanisme Live réutilisable non présent dans le dépôt avant d’adopter match_state.
+Configurer ensuite les identifiants réels des équipes et les administrateurs Auth existants
+lorsque le club décidera d’attribuer les accès. L’OTP e-mail réel, PostgREST et les politiques
+hébergées restent à tester. Aucun de ces points n’autorise l’activation en production.

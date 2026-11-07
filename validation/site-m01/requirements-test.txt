@@ -1,0 +1,2 @@
+# Développement uniquement, aucune dépendance du site publié.
+pglast==7.22
