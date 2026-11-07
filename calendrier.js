@@ -55,6 +55,49 @@
   const monthFormatter = new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric' });
   const fullDateFormatter = new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 
+  const updatedBadge = document.getElementById('calendar-updated');
+  const publishedBadge = document.getElementById('site-published');
+  const updateDateFormatter = new Intl.DateTimeFormat('fr-FR', {
+    day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Paris'
+  });
+
+  const formatUpdateDate = value => {
+    // Exiger un fuseau explicite pour ne pas dépendre du fuseau de l’appareil.
+    if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}T.*(?:Z|[+-]\d{2}:\d{2})$/.test(value)) return null;
+    const date = new Date(value);
+    return Number.isNaN(date.getTime()) ? null : updateDateFormatter.format(date);
+  };
+
+  const fetchCalendarUpdatedAt = async () => {
+    if (!updatedBadge) return;
+    updatedBadge.textContent = 'Calendrier : chargement de la date…';
+    // Requête globale indépendante du mois affiché et de l’équipe sélectionnée.
+    const url = new URL(`${SUPABASE_URL}/rest/v1/${CALENDAR_VIEW}`);
+    url.searchParams.set('select', 'updated_at');
+    url.searchParams.set('updated_at', 'not.is.null');
+    url.searchParams.set('order', 'updated_at.desc');
+    url.searchParams.set('limit', '1');
+    try {
+      const response = await fetch(url, { headers: { apikey: SUPABASE_PUBLISHABLE_KEY, Accept: 'application/json' } });
+      if (!response.ok) throw new Error('Date indisponible');
+      const rows = await response.json();
+      const date = Array.isArray(rows) ? formatUpdateDate(rows[0]?.updated_at) : null;
+      updatedBadge.textContent = date
+        ? `Calendrier mis à jour le ${date}`
+        : 'Calendrier : date de mise à jour indisponible';
+    } catch {
+      updatedBadge.textContent = 'Calendrier : date de mise à jour indisponible';
+    }
+  };
+
+  // La publication est une information de déploiement, jamais une date Supabase.
+  if (publishedBadge) {
+    const date = formatUpdateDate(publishedBadge.dataset.publishedAt);
+    publishedBadge.textContent = date
+      ? `Site publié le ${date}`
+      : 'Publication du site : date non renseignée';
+  }
+
   const pad = value => String(value).padStart(2, '0');
   const capitalize = value => value.charAt(0).toUpperCase() + value.slice(1);
 
@@ -446,5 +489,6 @@
     }
   });
 
+  fetchCalendarUpdatedAt();
   fetchMonthEvents();
 })();
