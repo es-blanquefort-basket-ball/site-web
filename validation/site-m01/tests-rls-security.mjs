@@ -15,7 +15,7 @@ const sql=async(file)=>db.exec(await fs.readFile(base+'sql/'+file,'utf8'));
 await db.exec(`create role anon;create role authenticated;create schema auth;
 create table auth.users(id uuid primary key,is_anonymous boolean default false);
 create function auth.uid() returns uuid language sql as $$ select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid $$;
-create function auth.jwt() returns jsonb language sql as $$ select jsonb_build_object('sub',auth.uid(),'is_anonymous',coalesce(nullif(current_setting('request.jwt.claim.is_anonymous',true),''),'false')::boolean,'user_metadata',jsonb_build_object('admin',true)) $$;
+create function auth.jwt() returns jsonb language sql as $$ select jsonb_build_object('sub',nullif(current_setting('request.jwt.claim.sub',true),'')::uuid,'is_anonymous',coalesce(nullif(current_setting('request.jwt.claim.is_anonymous',true),''),'false')::boolean,'user_metadata',jsonb_build_object('admin',true)) $$;
 create table teams(id uuid primary key,code text unique,name text,competition_label text,ffbb_team_url text,is_public boolean default true);
 create table matches(id uuid primary key,team_id uuid references teams(id),opponent_name text,home_away text,scheduled_local_ffbb timestamp,scheduled_local_override timestamp,venue_name_raw text,venue_name_override text,venue_address_raw text,round_label text,status text,ffbb_match_url text,updated_at timestamptz,published boolean default true,has_conflict boolean default false,source_data jsonb default '{}',competition_name text,official_score integer);
 alter table matches enable row level security;alter table teams enable row level security;
@@ -34,9 +34,33 @@ await test('installation atomique annulée si un garde de sécurité échoue',as
  assert.equal(await scalar("select count(*)::int as value from pg_roles where rolname='site_m01_executor'"),0);
  await db.exec('alter view public_calendar set(security_invoker=true)');
 });
+await test('sonde Auth annule tout si une dépendance interne exige USAGE',async()=>{
+ const definition=await scalar("select pg_get_functiondef('auth.jwt()'::regprocedure) as value");
+ await db.exec('create or replace function auth.jwt() returns jsonb language sql as $$select to_jsonb(auth.uid())$$');
+ await assert.rejects(sql('INSTALLATION.sql'),/permission denied for schema auth/);await db.exec('rollback');
+ assert.equal(await scalar("select to_regnamespace('site_m01') is null as value"),true);
+ assert.equal(await scalar("select count(*)::int as value from pg_roles where rolname='site_m01_executor'"),0);
+ await db.exec(definition);
+});
 await test('préconditions et installation fermée sans créer de compte réel',async()=>{
  await sql('00-install-preconditions.sql');await sql('INSTALLATION.sql');
  assert.equal(await scalar('select count(*)::int as value from site_m01.team_access'),0);
+});
+await test('Auth sans USAGE auth : appel direct refusé, relais invoker fonctionnel',async()=>{
+ await as(manager,'site_m01_executor');
+ assert.equal(await scalar("select has_schema_privilege(current_user,'auth','USAGE') as value"),false);
+ await assert.rejects(db.exec('select auth.uid()'),/permission denied for schema auth/);
+ assert.equal(await scalar('select site_m01.auth_uid() as value'),manager);
+ assert.equal((await scalar('select site_m01.auth_jwt() as value')).sub,manager);
+ await owner();
+ const helpers=(await db.query("select prosecdef,prosqlbody is not null as bound from pg_proc where oid in ('site_m01.auth_uid()'::regprocedure,'site_m01.auth_jwt()'::regprocedure)")).rows;
+ assert(helpers.every(h=>!h.prosecdef && h.bound));
+ assert.equal(await scalar("select has_function_privilege('authenticated','site_m01.auth_uid()','EXECUTE') as value"),false);
+});
+await test('relais Auth ne contourne pas EXECUTE de la fonction cible',async()=>{
+ await owner();await db.exec('revoke execute on function auth.uid() from public');
+ await as(manager,'site_m01_executor');await assert.rejects(db.exec('select site_m01.auth_uid()'),/permission denied for function uid/);
+ await owner();await db.exec('grant execute on function auth.uid() to public');
 });
 await test('rôle NOLOGIN sans BYPASSRLS, non propriétaire des tables',async()=>{
  const r=(await db.query("select * from pg_roles where rolname='site_m01_executor'")).rows[0];assert(!r.rolcanlogin && !r.rolsuper && !r.rolbypassrls && !r.rolcreaterole);

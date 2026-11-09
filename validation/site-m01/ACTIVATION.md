@@ -9,6 +9,13 @@ rôle interne sans BYPASSRLS et le durcissement obligatoire de la base cbbe273.
 
 ## 1. Avant l’accord d’installation
 
+Mise à jour du 9 novembre 2026 : les contrôles transmis sont pris en compte dans
+[l'avis corrigé](AVIS_INSTALLATION.md). Le nouveau 01a utilise deux relais Auth privés
+SECURITY INVOKER à corps préanalysé, sans GRANT sur auth. Le lot régénéré est
+techniquement préparé pour ces ACL ; il vérifie USAGE de l'installateur (sans délégation)
+et sonde les helpers sous l'exécuteur avant COMMIT. Ne pas relancer un audit général.
+Après accord explicite seulement, utiliser cette nouvelle copie d'INSTALLATION.sql.
+
 - Relire le lot, ses empreintes et le contrôle de sécurité.
 - Faire exécuter `sql/00-install-preconditions.sql` en lecture seule dans le SQL Editor du
   projet existant. Le connecteur n’a pas permis de faire cette lecture. Aucun audit FFBB.

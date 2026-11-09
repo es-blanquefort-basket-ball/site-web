@@ -2,6 +2,8 @@
 -- À exécuter AVANT toute attribution/activation. N'ouvre aucun verrou.
 BEGIN READ ONLY;
 DO $verify$ BEGIN
+ IF (SELECT count(*) FROM pg_proc p WHERE p.oid IN ('site_m01.auth_uid()'::regprocedure,'site_m01.auth_jwt()'::regprocedure) AND p.prosqlbody IS NOT NULL AND NOT p.prosecdef AND NOT has_function_privilege('authenticated',p.oid,'EXECUTE') AND NOT has_function_privilege('anon',p.oid,'EXECUTE'))<>2 THEN RAISE EXCEPTION 'Relais Auth privés préanalysés invoker requis'; END IF;
+ IF NOT has_function_privilege('site_m01_executor','auth.uid()','EXECUTE') OR NOT has_function_privilege('site_m01_executor','auth.jwt()','EXECUTE') THEN RAISE EXCEPTION 'EXECUTE Auth requis pour le rôle interne'; END IF;
  IF NOT EXISTS(SELECT 1 FROM pg_roles WHERE rolname='site_m01_executor' AND NOT rolcanlogin AND NOT rolsuper AND NOT rolbypassrls AND NOT rolcreaterole AND NOT rolcreatedb) THEN RAISE EXCEPTION 'Rôle exécuteur absent ou trop privilégié'; END IF;
  IF pg_has_role('authenticated','site_m01_executor','MEMBER') OR pg_has_role('anon','site_m01_executor','MEMBER') THEN RAISE EXCEPTION 'Élévation de rôle client interdite'; END IF;
  IF EXISTS(SELECT 1 FROM pg_auth_members WHERE member='site_m01_executor'::regrole OR (roleid='site_m01_executor'::regrole AND member<>(SELECT nspowner FROM pg_namespace WHERE nspname='site_m01'))) THEN RAISE EXCEPTION 'Délégation du rôle interne hors opérateur propriétaire interdite'; END IF;

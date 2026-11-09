@@ -306,7 +306,7 @@ END $acl$;
 
 
 -- Composant : 01a-rls-executor.sql
--- SHA256 : f29c988b9381251a6deb97245715ddcde86b60b4b53103d43aa6bee6436e0e5f
+-- SHA256 : be1e34c237286205edc56cfe7315b4180d436a1d666c3c9aaabaf39fbf10d0c5
 -- DURCISSEMENT OBLIGATOIRE après 01, avant toute configuration/activation.
 -- Proposition NON EXÉCUTÉE en production. Aucun compte ni droit métier créé.
 -- Les tables restent au propriétaire d'installation ; les fonctions privées sont
@@ -318,26 +318,44 @@ GRANT site_m01_executor TO CURRENT_USER;
 -- maintenir/arrêter les fonctions. Aucune appartenance pour les rôles applicatifs.
 GRANT USAGE ON SCHEMA site_m01 TO site_m01_executor;
 GRANT CREATE ON SCHEMA site_m01 TO site_m01_executor;
--- Ne pas redéléguer inutilement les helpers Auth si PUBLIC les rend déjà exécutables.
--- Sinon l'opérateur doit posséder l'option de délégation exacte, sans élargir les clients.
-DO $auth_acl$ DECLARE f regprocedure; n text; BEGIN
- FOREACH n IN ARRAY ARRAY['public','auth'] LOOP
-  IF NOT has_schema_privilege('site_m01_executor',n,'USAGE') THEN
-   EXECUTE format('GRANT USAGE ON SCHEMA %I TO site_m01_executor',n);
-  END IF;
+-- Relais SQL à corps préanalysé : résolution Auth par l'installateur à la création,
+-- puis EXECUTE sous l'appelant, sans USAGE auth ni privilège de délégation requis.
+-- Ne pas remplacer RETURN par un corps AS $$ ... $$ résolu à l'exécution.
+DO $auth_precondition$ BEGIN
+ IF NOT has_schema_privilege(current_user,'auth','USAGE') THEN
+  RAISE EXCEPTION 'USAGE auth requis pour l''installateur, sans option de délégation';
+ END IF;
+ IF NOT has_function_privilege('site_m01_executor','auth.uid()','EXECUTE') OR NOT has_function_privilege('site_m01_executor','auth.jwt()','EXECUTE') THEN
+  RAISE EXCEPTION 'EXECUTE des deux fonctions Auth requis sans délégation automatique';
+ END IF;
+END $auth_precondition$;
+CREATE FUNCTION site_m01.auth_uid() RETURNS uuid LANGUAGE sql STABLE SECURITY INVOKER
+ SET search_path='' RETURN auth.uid();
+CREATE FUNCTION site_m01.auth_jwt() RETURNS jsonb LANGUAGE sql STABLE SECURITY INVOKER
+ SET search_path='' RETURN auth.jwt();
+REVOKE ALL ON FUNCTION site_m01.auth_uid(),site_m01.auth_jwt() FROM PUBLIC,anon,authenticated;
+GRANT EXECUTE ON FUNCTION site_m01.auth_uid(),site_m01.auth_jwt() TO site_m01_executor;
+-- public est nécessaire aux relations et façades ; aucune délégation Auth.
+DO $public_acl$ BEGIN
+ IF NOT has_schema_privilege('site_m01_executor','public','USAGE') THEN
+  GRANT USAGE ON SCHEMA public TO site_m01_executor;
+ END IF;
+END $public_acl$;
+
+-- Conserver les fonctions validées de 01 ; seuls leurs appels Auth changent.
+DO $bind_auth$ DECLARE f record; definition text; BEGIN
+ FOR f IN SELECT p.oid FROM pg_proc p WHERE p.pronamespace='site_m01'::regnamespace
+  AND p.proname NOT IN ('auth_uid','auth_jwt') LOOP
+  definition:=pg_get_functiondef(f.oid);
+  EXECUTE replace(replace(definition,'auth.uid()','site_m01.auth_uid()'),'auth.jwt()','site_m01.auth_jwt()');
  END LOOP;
- FOREACH f IN ARRAY ARRAY['auth.uid()'::regprocedure,'auth.jwt()'::regprocedure] LOOP
-  IF NOT has_function_privilege('site_m01_executor',f,'EXECUTE') THEN
-   EXECUTE format('GRANT EXECUTE ON FUNCTION %s TO site_m01_executor',f);
-  END IF;
- END LOOP;
-END $auth_acl$;
+END $bind_auth$;
 
 -- JWT signé par Auth : aucune lecture privilégiée de auth.users et aucun user_metadata.
 -- L'existence des comptes cibles est contrôlée par les FK existantes vers auth.users.
 CREATE OR REPLACE FUNCTION site_m01.identity() RETURNS uuid LANGUAGE plpgsql SET search_path='' AS $$
-DECLARE u uuid:=auth.uid(); BEGIN
- IF u IS NULL OR COALESCE(auth.jwt()->>'is_anonymous','false')<>'false' THEN
+DECLARE u uuid:=site_m01.auth_uid(); BEGIN
+ IF u IS NULL OR COALESCE(site_m01.auth_jwt()->>'is_anonymous','false')<>'false' THEN
   RAISE EXCEPTION 'Connexion requise' USING ERRCODE='42501';
  END IF;
  RETURN u;
@@ -354,11 +372,11 @@ BEGIN
  PERFORM pg_advisory_xact_lock(hashtextextended(p_user::text,1));
  SELECT to_jsonb(a) INTO old_value FROM site_m01.team_access a WHERE user_id=p_user AND team_id::text=p_team AND origin='manual';
  EXECUTE format('INSERT INTO site_m01.team_access(user_id,team_id,origin,enabled,can_manage,can_live,changed_by)
- SELECT $1,t.%I,''manual'',$3,$4,$5,auth.uid() FROM public.teams t WHERE t.%I=(jsonb_populate_record(NULL::public.teams,jsonb_build_object(%L,$2))).%I
+ SELECT $1,t.%I,''manual'',$3,$4,$5,site_m01.auth_uid() FROM public.teams t WHERE t.%I=(jsonb_populate_record(NULL::public.teams,jsonb_build_object(%L,$2))).%I
  ON CONFLICT(user_id,team_id,origin) DO UPDATE SET enabled=excluded.enabled,can_manage=excluded.can_manage,can_live=excluded.can_live,changed_by=excluded.changed_by,changed_at=clock_timestamp()',cfg.team_pk,cfg.team_pk,cfg.team_pk,cfg.team_pk)
  USING p_user,p_team,p_enabled,p_manage,p_live;
  SELECT to_jsonb(a) INTO new_value FROM site_m01.team_access a WHERE user_id=p_user AND team_id::text=p_team AND origin='manual';
- INSERT INTO site_m01.history(actor_id,operation,subject_key,before_value,after_value) VALUES(auth.uid(),'access',p_user::text||'/'||p_team,old_value,new_value);
+ INSERT INTO site_m01.history(actor_id,operation,subject_key,before_value,after_value) VALUES(site_m01.auth_uid(),'access',p_user::text||'/'||p_team,old_value,new_value);
  RETURN true;
 EXCEPTION WHEN foreign_key_violation THEN
  RAISE EXCEPTION 'Utilisateur Auth ou équipe introuvable' USING ERRCODE='23503';
@@ -391,7 +409,7 @@ BEGIN
  ELSE RAISE EXCEPTION 'Étape et score doivent être modifiés séparément'; END IF;
  UPDATE site_m01.match_state SET live_revision=live_revision+1 WHERE match_id::text=p_id;
  after_value:=site_m01.project(m,'live');
- INSERT INTO site_m01.history(actor_id,operation,subject_key,before_value,after_value) VALUES(auth.uid(),'live',p_id,before_value,after_value);
+ INSERT INTO site_m01.history(actor_id,operation,subject_key,before_value,after_value) VALUES(site_m01.auth_uid(),'live',p_id,before_value,after_value);
  RETURN true;
 END $$;
 
@@ -409,7 +427,7 @@ CREATE POLICY site_m01_executor_read_admins ON site_m01.administrators FOR SELEC
 CREATE POLICY site_m01_executor_read_rules ON site_m01.team_rules FOR SELECT TO site_m01_executor
  USING(site_m01.is_admin() OR site_m01.allowed('management',team_id::text) OR site_m01.allowed('live',team_id::text));
 CREATE POLICY site_m01_executor_read_access ON site_m01.team_access FOR SELECT TO site_m01_executor
- USING(user_id=(SELECT auth.uid()) OR site_m01.is_admin());
+ USING(user_id=(SELECT site_m01.auth_uid()) OR site_m01.is_admin());
 CREATE POLICY site_m01_executor_insert_access ON site_m01.team_access FOR INSERT TO site_m01_executor
  WITH CHECK(site_m01.is_admin() AND origin='manual' AND (SELECT access_enabled FROM site_m01.model));
 CREATE POLICY site_m01_executor_update_access ON site_m01.team_access FOR UPDATE TO site_m01_executor
@@ -454,6 +472,14 @@ DO $check$ BEGIN
  IF EXISTS(SELECT 1 FROM pg_auth_members WHERE member='site_m01_executor'::regrole OR (roleid='site_m01_executor'::regrole AND member<>(SELECT nspowner FROM pg_namespace WHERE nspname='site_m01'))) THEN RAISE EXCEPTION 'Délégation du rôle interne hors opérateur propriétaire interdite'; END IF;
  IF EXISTS(SELECT 1 FROM pg_class WHERE relnamespace='site_m01'::regnamespace AND relowner=(SELECT oid FROM pg_roles WHERE rolname='site_m01_executor')) THEN RAISE EXCEPTION 'Le rôle ne doit pas posséder les tables'; END IF;
 END $check$;
+-- Sonde locale au rôle interne : échoue et annule le lot si une implémentation
+-- Auth hébergée a une dépendance interne incompatible. Aucun JWT n'est affiché.
+SET LOCAL ROLE site_m01_executor;
+DO $auth_probe$ BEGIN
+ PERFORM site_m01.auth_uid();
+ PERFORM site_m01.auth_jwt();
+END $auth_probe$;
+RESET ROLE;
 
 
 
@@ -814,11 +840,13 @@ END $replace$;
 
 
 -- Composant : 05-verify-installation.sql
--- SHA256 : f7f25600affd0037786c1cdde2a17636ea6132af5ef794e7d0a9ae1c0a6f4361
+-- SHA256 : 25c51f7eaf64b1b7532e83564ce8adf436b923396672582047446268b3c37599
 -- Contrôle bloquant EN LECTURE SEULE après 01 -> 01a -> 02 -> 04.
 -- À exécuter AVANT toute attribution/activation. N'ouvre aucun verrou.
 
 DO $verify$ BEGIN
+ IF (SELECT count(*) FROM pg_proc p WHERE p.oid IN ('site_m01.auth_uid()'::regprocedure,'site_m01.auth_jwt()'::regprocedure) AND p.prosqlbody IS NOT NULL AND NOT p.prosecdef AND NOT has_function_privilege('authenticated',p.oid,'EXECUTE') AND NOT has_function_privilege('anon',p.oid,'EXECUTE'))<>2 THEN RAISE EXCEPTION 'Relais Auth privés préanalysés invoker requis'; END IF;
+ IF NOT has_function_privilege('site_m01_executor','auth.uid()','EXECUTE') OR NOT has_function_privilege('site_m01_executor','auth.jwt()','EXECUTE') THEN RAISE EXCEPTION 'EXECUTE Auth requis pour le rôle interne'; END IF;
  IF NOT EXISTS(SELECT 1 FROM pg_roles WHERE rolname='site_m01_executor' AND NOT rolcanlogin AND NOT rolsuper AND NOT rolbypassrls AND NOT rolcreaterole AND NOT rolcreatedb) THEN RAISE EXCEPTION 'Rôle exécuteur absent ou trop privilégié'; END IF;
  IF pg_has_role('authenticated','site_m01_executor','MEMBER') OR pg_has_role('anon','site_m01_executor','MEMBER') THEN RAISE EXCEPTION 'Élévation de rôle client interdite'; END IF;
  IF EXISTS(SELECT 1 FROM pg_auth_members WHERE member='site_m01_executor'::regrole OR (roleid='site_m01_executor'::regrole AND member<>(SELECT nspowner FROM pg_namespace WHERE nspname='site_m01'))) THEN RAISE EXCEPTION 'Délégation du rôle interne hors opérateur propriétaire interdite'; END IF;

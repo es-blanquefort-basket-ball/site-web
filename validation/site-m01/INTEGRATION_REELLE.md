@@ -4,6 +4,13 @@ Cible unique : **fgswygeqstgagmipltpq**. Base revue : commit `cbbe273` sur
 `codex/site-m01-raccordement-acces`. Aucun nouveau projet Supabase, catalogue de matchs
 ou écran n’est prévu. Ce document décrit une préparation, pas une installation effectuée.
 
+Actualisation Auth du 9 novembre 2026 : [avis corrigé](AVIS_INSTALLATION.md).
+01a ne tente plus de déléguer USAGE sur auth : deux relais privés SQL préanalysés
+SECURITY INVOKER conservent les fonctions Auth officielles et les ACL EXECUTE effectives.
+Le lot a été régénéré ; sonde Auth bloquante avant COMMIT, aucun privilège supplémentaire.
+Les anciennes demandes de relecture générale de 00 ci-dessous sont historiques : les
+résultats du club sont acquis et l'installation reste soumise à accord explicite.
+
 ## Résultat du contrôle de sécurité
 
 Le contrôle a relevé une limite de `cbbe273` : les fonctions privées SECURITY DEFINER

@@ -611,3 +611,42 @@ node validation/site-m01/tests-rls-security.mjs
 Décisions restantes : accord sur le lot et l’opérateur autorisé ; UUID Auth/équipes/règles
 à attribuer manuellement ; accord borné sur les rencontres et valeurs de recette réelles.
 Le volet dérogation n’est pas implémenté sans identification ou décision du club.
+
+## 9 novembre 2026 — Adaptation aux permissions Auth réelles
+
+Les ACL transmises confirment EXECUTE PUBLIC sur auth.uid()/auth.jwt(), mais ni
+USAGE PUBLIC ni délégation USAGE par postgres sur auth. L'ancien bloc de GRANT de
+01a est incompatible avec ces permissions. L'avis précédent exigeant une intervention
+du propriétaire Auth est remplacé par AVIS_INSTALLATION.md : adaptation locale préparée.
+
+01a crée deux relais privés SQL à corps RETURN préanalysé, SECURITY INVOKER, appartenant
+à l'exécuteur. Aucun GRANT Auth, aucun propriétaire privilégié ajouté. Les appels Auth
+SITE-M01 sont redirigés sans modification des RPC ni des règles métier. USAGE auth de
+l'installateur (sans délégation) est contrôlé ; une sonde au rôle interne annule le lot
+si les helpers hébergés ont une dépendance incompatible. 05 contrôle ces relais.
+
+INSTALLATION.sql régénéré ; 01, 02, 04, 03 et toute l'interface app/ inchangés.
+Documents modifiés : ACTIVATION.md, INTEGRATION_REELLE.md, ce journal et avis corrigé.
+Tests modifiés : tests-database.mjs, tests-real-schema.mjs, tests-rls-security.mjs ;
+ajout de tests-auth-permissions.mjs. Les fixtures Auth lisent indépendamment les claims,
+sans appel artificiel auth.jwt → auth.uid nécessitant une nouvelle résolution de schéma.
+Cette dépendance fictive incompatible est conservée dans un test négatif de rollback.
+
+Résultat : **117 contrôles locaux réussis** (15 V1 + 21 Live + 25 base + 15 vue réelle
+avec données fictives + 21 sécurité/RLS + 6 ACL Auth dédiés + 14 AST/assemblage).
+L'installateur du test Auth dédié est non-superutilisateur, sans BYPASSRLS et sans
+option de délégation Auth ; les relais exacts de 01a fonctionnent sous l'exécuteur
+sans USAGE auth, restent refusés aux clients et respectent une révocation EXECUTE.
+Les autres suites restent locales, sans affirmation de recette hébergée effectuée.
+
+Verdict : techniquement installable avec le lot corrigé et ses gardes, après accord
+explicite. Aucun nouvel audit général requis. Aucun compte réel, migration de production,
+écriture de rencontre, activation, fusion main ou publication Hostinger. Tous les
+verrous restent fermés ; l'activation métier nécessitera sa validation distincte.
+
+Reproduire la vérification Auth supplémentaire :
+
+```sh
+SITE_M01_PGLITE_PATH=/tmp/site-m01-pg/node_modules/@electric-sql/pglite/dist/index.js \
+node validation/site-m01/tests-auth-permissions.mjs
+```

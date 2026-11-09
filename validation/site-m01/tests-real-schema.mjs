@@ -18,7 +18,7 @@ const call=async(name,args)=>scalar(`select public.${name}(${args.map((_,i)=>'$'
 await db.exec(`create role anon;create role authenticated;create schema auth;
 create table auth.users(id uuid primary key,is_anonymous boolean not null default false);
 create function auth.uid() returns uuid language sql as $$ select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid $$;
-create function auth.jwt() returns jsonb language sql as $$ select jsonb_build_object('sub',auth.uid(),'is_anonymous',coalesce(nullif(current_setting('request.jwt.claim.is_anonymous',true),''),'false')::boolean) $$;
+create function auth.jwt() returns jsonb language sql as $$ select jsonb_build_object('sub',nullif(current_setting('request.jwt.claim.sub',true),'')::uuid,'is_anonymous',coalesce(nullif(current_setting('request.jwt.claim.is_anonymous',true),''),'false')::boolean) $$;
 create table teams(id uuid primary key,code text unique,name text,competition_label text,ffbb_team_id text unique,ffbb_team_url text,ffbb_ranking_url text,ffbb_pool_url text,is_competition_active boolean default true,is_public boolean default true,created_at timestamptz,updated_at timestamptz);
 create table matches(id uuid primary key,team_id uuid references teams(id),opponent_name text,home_away text,scheduled_local_ffbb timestamp,scheduled_local_override timestamp,venue_name_raw text,venue_name_override text,venue_address_raw text,round_label text,status text,ffbb_match_url text,updated_at timestamptz,published boolean default true,has_conflict boolean default false,source_data jsonb default '{}',competition_name text,official_score integer);
 alter table teams enable row level security;alter table matches enable row level security;

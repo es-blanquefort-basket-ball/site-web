@@ -19,7 +19,7 @@ const rpc=async(name,args)=>scalar(`select public.${name}(${args.map((_,i)=>'$'+
 await db.exec(`create role anon;create role authenticated;create schema auth;
 create table auth.users(id uuid primary key,is_anonymous boolean not null default false);
 create function auth.uid() returns uuid language sql as $$ select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid $$;
-create function auth.jwt() returns jsonb language sql as $$ select jsonb_build_object('sub',auth.uid(),'is_anonymous',coalesce(nullif(current_setting('request.jwt.claim.is_anonymous',true),''),'false')::boolean) $$;
+create function auth.jwt() returns jsonb language sql as $$ select jsonb_build_object('sub',nullif(current_setting('request.jwt.claim.sub',true),'')::uuid,'is_anonymous',coalesce(nullif(current_setting('request.jwt.claim.is_anonymous',true),''),'false')::boolean) $$;
 create table teams(team_key bigint primary key,label text,is_public boolean default true);
 create table matches(match_key bigint primary key,club_team bigint references teams(team_key),start_local timestamp,scheduled_local_override timestamp,venue_name_raw text,venue_name_override text,opponent text,competition text,home_away text,ffbb_match_url text,official_score integer,published boolean default true,has_conflict boolean default false);
 alter table matches enable row level security;alter table teams enable row level security;
