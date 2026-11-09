@@ -25,7 +25,8 @@ alter table teams enable row level security;alter table matches enable row level
 create policy "Public can read public teams" on teams for select to anon,authenticated using(is_public=true);
 create policy "Public can read published matches" on matches for select to anon,authenticated using(published=true and has_conflict=false);
 grant select on teams,matches to anon,authenticated;`);
-await db.exec('create view public_calendar with(security_invoker=true) as '+reference.calendar_definition);
+const correctedDefinition=reference.calendar_definition.replaceAll('m.venue_name_raw AS venue_name','COALESCE(m.venue_name_override, m.venue_name_raw) AS venue_name');
+await db.exec('create view public_calendar with(security_invoker=true) as '+correctedDefinition);
 await db.exec('grant select on public_calendar to anon,authenticated');
 for(const id of [admin,live,manager,mini,denied]) await db.query('insert into auth.users values($1,false)',[id]);
 for(const [id,code,name,label,pub] of [[team,'TEST_M1','U11 M1 TEST','Championnat M1 TEST',true],[teamMini,'TEST_M2','U11 M2 TEST','MiniBasket TEST',true],[teamU9,'TEST_U9','U9 TEST','U9 TEST',true],[team18,'TEST_U18','U18 TEST','U18 TEST',true],[team13,'TEST_U13','U13 TEST','U13 TEST',true],[privateTeam,'TEST_PRIVATE','ÉQUIPE PRIVÉE TEST','PRIVÉ TEST',false]])
@@ -67,11 +68,9 @@ await owner();
 await db.query('update matches set venue_name_override=$1 where team_id<>$2',['SALLE CORRIGÉE TEST',privateTeam]);
 const before=(await db.query('select * from public_calendar order by id')).rows;
 const originalAcl=await scalar("select relacl::text as value from pg_class where oid='public_calendar'::regclass");
-await test('patch final issu du snapshot : trois branches salle, reste identique',async()=>{
+await test('vue déjà corrigée : quatre branches salle et reste identique',async()=>{
  const canonical=await scalar("select pg_get_viewdef('public_calendar'::regclass,true) as value");
- assert.equal(canonical,reference.calendar_definition,'Fixture identique à la définition reçue, sans substitution du garde');
- const sql=await fs.readFile(base+'sql/04-public-calendar-venue.sql','utf8');
- await db.exec(sql);
+ assert.equal(canonical,correctedDefinition,'Fixture identique à la référence corrigée');
  const after=(await db.query('select * from public_calendar order by id')).rows;
  assert.equal(after.length,before.length);
  for(let i=0;i<after.length;i++) {

@@ -1,4 +1,4 @@
--- Contrôle bloquant EN LECTURE SEULE après 01 -> 01a -> 02 -> 04.
+-- Contrôle bloquant EN LECTURE SEULE après 01 -> 01a -> 02.
 -- À exécuter AVANT toute attribution/activation. N'ouvre aucun verrou.
 BEGIN READ ONLY;
 DO $verify$ BEGIN
@@ -16,6 +16,14 @@ DO $verify$ BEGIN
  IF EXISTS(SELECT 1 FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname='site_m01' AND has_function_privilege('anon',p.oid,'EXECUTE')) THEN RAISE EXCEPTION 'Fonction privée accessible anonymement'; END IF;
  IF has_function_privilege('authenticated','site_m01.identity()','EXECUTE') OR has_function_privilege('authenticated','site_m01.allowed(text,text)','EXECUTE') THEN RAISE EXCEPTION 'Helper privé exposé'; END IF;
  IF NOT (SELECT COALESCE(reloptions,ARRAY[]::text[]) @> ARRAY['security_invoker=true'] FROM pg_class WHERE oid='public.public_calendar'::regclass) THEN RAISE EXCEPTION 'security_invoker=true requis'; END IF;
+ IF (SELECT count(*) FROM regexp_matches(pg_get_viewdef('public.public_calendar'::regclass,true),
+  'COALESCE\(m\.venue_name_override, m\.venue_name_raw\) AS venue_name','g'))<>4
+  OR pg_get_viewdef('public.public_calendar'::regclass,true) ~ 'm\.venue_name_raw AS venue_name'
+ THEN RAISE EXCEPTION 'Les quatre branches de public_calendar doivent utiliser venue_name_override'; END IF;
+ -- Empreinte de la définition reçue avec les trois projections brutes remplacées,
+ -- et sans autre modification. Un écart imprévu impose une nouvelle revue.
+ IF md5(pg_get_viewdef('public.public_calendar'::regclass,true)) <> '919d12fb7af679d5913a8738ae180045'
+ THEN RAISE EXCEPTION 'Définition public_calendar différente de la référence corrigée'; END IF;
  IF EXISTS(SELECT 1 FROM site_m01.model WHERE management_enabled OR live_enabled OR access_enabled) THEN RAISE EXCEPTION 'Les écritures doivent rester fermées avant recette'; END IF;
  IF (SELECT count(*) FROM pg_policies WHERE schemaname='public' AND policyname IN ('site_m01_executor_read_matches','site_m01_executor_update_matches','site_m01_executor_read_teams') AND roles=ARRAY['site_m01_executor']::name[])<>3 THEN RAISE EXCEPTION 'Politiques exécuteur manquantes ou élargies'; END IF;
 END $verify$;

@@ -21,8 +21,7 @@ Après accord explicite seulement, utiliser cette nouvelle copie d'INSTALLATION.
   projet existant. Le connecteur n’a pas permis de faire cette lecture. Aucun audit FFBB.
 - Vérifier que schéma site_m01 et rôle site_m01_executor n’existent pas déjà ; ne jamais
   les supprimer pour forcer une installation. Examiner un éventuel écart avant d’agir.
-- Conserver une sauvegarde du schéma, des ACL/options et de la vue actuelle. Le lot
-  sauvegarde aussi la définition/options de public_calendar avant le patch ciblé.
+- Conserver une sauvegarde du schéma, des ACL/options et de la vue actuelle.
 - L’opérateur doit pouvoir créer le rôle SQL limité et déléguer les fonctions. Si ces
   droits manquent, faire intervenir l’opérateur habilité, sans donner UPDATE aux clients.
 
@@ -34,9 +33,9 @@ Il contient une seule transaction, dans cet ordre :
 1. `01-access-live.sql` — tables privées et signatures RPC existantes.
 2. `01a-rls-executor.sql` — propriétaire limité, politiques RLS et privilèges minimaux.
 3. `02-configure.sql` — cinq correspondances finalisées, identifiants UUID vérifiés.
-4. `04-public-calendar-venue.sql` — trois expressions salle, security_invoker=true préservé.
-5. `05-verify-installation.sql` — contrôles bloquants, tous les verrous encore fermés.
-6. Notification de rechargement PostgREST, puis COMMIT unique.
+4. `05-verify-installation.sql` — contrôle des quatre branches de la vue et de
+   security_invoker=true, puis des autres garanties ; tous les verrous restent fermés.
+5. Notification de rechargement PostgREST, puis COMMIT unique.
 
 Ne pas exécuter 01 isolément : son propriétaire privilégié initial ne doit jamais être
 mis en service. L’assemblage atomique évite tout état intermédiaire exposé. Une précondition

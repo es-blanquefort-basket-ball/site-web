@@ -5,7 +5,7 @@ sont remplacés par une transaction unique. Arrêt séparé : 03-disable.sql.
 import hashlib
 import re
 from pathlib import Path
-COMPONENTS = ['01-access-live.sql','01a-rls-executor.sql','02-configure.sql','04-public-calendar-venue.sql','05-verify-installation.sql']
+COMPONENTS = ['01-access-live.sql','01a-rls-executor.sql','02-configure.sql','05-verify-installation.sql']
 
 def build():
     root = Path(__file__).parent / 'sql'

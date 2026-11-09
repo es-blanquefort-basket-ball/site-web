@@ -23,7 +23,8 @@ create policy public_teams on teams for select to anon,authenticated using(is_pu
 create policy public_matches on matches for select to anon,authenticated using(published and not has_conflict);
 grant select on teams,matches to anon,authenticated;`);
 const ref=JSON.parse(await fs.readFile(base+'reference/schema-received.json','utf8'));
-await db.exec('create view public_calendar with(security_invoker=true) as '+ref.calendar_definition);
+const correctedDefinition=ref.calendar_definition.replaceAll('m.venue_name_raw AS venue_name','COALESCE(m.venue_name_override, m.venue_name_raw) AS venue_name');
+await db.exec('create view public_calendar with(security_invoker=true) as '+correctedDefinition);
 await db.exec('grant select on public_calendar to anon,authenticated');
 for(const id of [admin,manager,live,denied,deleted]) await db.query('insert into auth.users(id) values($1)',[id]);
 for(const [id,code] of [[team,'TEST_A'],[other,'TEST_B']]) await db.query("insert into teams(id,code,name,competition_label) values($1,$2,$2,'CHAMPIONNAT TEST')",[id,code]);
@@ -34,6 +35,20 @@ await test('installation atomique annulée si un garde de sécurité échoue',as
  assert.equal(await scalar("select count(*)::int as value from pg_roles where rolname='site_m01_executor'"),0);
  await db.exec('alter view public_calendar set(security_invoker=true)');
 });
+await test('installation annulée si une branche de salle perd son override',async()=>{
+ await db.exec('create or replace view public_calendar with(security_invoker=true) as '+ref.calendar_definition);
+ await assert.rejects(sql('INSTALLATION.sql'),/quatre branches/);await db.exec('rollback');
+ assert.equal(await scalar("select to_regnamespace('site_m01') is null as value"),true);
+ assert.equal(await scalar("select count(*)::int as value from pg_roles where rolname='site_m01_executor'"),0);
+ await db.exec('create or replace view public_calendar with(security_invoker=true) as '+correctedDefinition);
+});
+await test('installation annulée si une autre partie de la vue diffère',async()=>{
+ const changed=correctedDefinition.replace('m.opponent_name,',"COALESCE(m.opponent_name, ''::text) AS opponent_name,");
+ await db.exec('create or replace view public_calendar with(security_invoker=true) as '+changed);
+ await assert.rejects(sql('INSTALLATION.sql'),/Définition public_calendar différente/);await db.exec('rollback');
+ assert.equal(await scalar("select to_regnamespace('site_m01') is null as value"),true);
+ await db.exec('create or replace view public_calendar with(security_invoker=true) as '+correctedDefinition);
+});
 await test('sonde Auth annule tout si une dépendance interne exige USAGE',async()=>{
  const definition=await scalar("select pg_get_functiondef('auth.jwt()'::regprocedure) as value");
  await db.exec('create or replace function auth.jwt() returns jsonb language sql as $$select to_jsonb(auth.uid())$$');
@@ -43,8 +58,10 @@ await test('sonde Auth annule tout si une dépendance interne exige USAGE',async
  await db.exec(definition);
 });
 await test('préconditions et installation fermée sans créer de compte réel',async()=>{
+ const before=await scalar("select pg_get_viewdef('public_calendar'::regclass,true) as value");
  await sql('00-install-preconditions.sql');await sql('INSTALLATION.sql');
  assert.equal(await scalar('select count(*)::int as value from site_m01.team_access'),0);
+ assert.equal(await scalar("select pg_get_viewdef('public_calendar'::regclass,true) as value"),before);
 });
 await test('Auth sans USAGE auth : appel direct refusé, relais invoker fonctionnel',async()=>{
  await as(manager,'site_m01_executor');

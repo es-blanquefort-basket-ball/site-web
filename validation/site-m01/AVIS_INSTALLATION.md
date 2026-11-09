@@ -54,8 +54,10 @@ absence d'UPDATE client, RLS active, security_invoker=true, absence du schéma/r
 SITE-M01 et absence de trigger utilisateur matches. auth.uid()/auth.jwt() existent et
 ont EXECUTE PUBLIC. Aucun nouvel audit général n'est nécessaire.
 
-Le contrôle exact de la définition/options de public_calendar reste bloquant dans le
-lot, comme auparavant. Il protège le patch des trois seules expressions de salle.
+Le contrôle de la définition/options de public_calendar reste bloquant dans le lot.
+La référence attendue est la définition reçue avec les trois expressions de salle
+déjà corrigées : quatre branches avec override et security_invoker=true. La vue
+publique n'est plus réécrite pendant l'installation.
 
 ## Preuves locales et limites
 
@@ -73,11 +75,11 @@ lot, comme auparavant. Il protège le patch des trois seules expressions de sall
 ## Installation contrôlée conservée
 
 Après accord explicite et sauvegarde prévue dans ACTIVATION.md, utiliser uniquement
-le **nouveau INSTALLATION.sql régénéré** : 01 → 01a corrigé → 02 → 04 → 05, une seule
+le **nouveau INSTALLATION.sql régénéré** : 01 → 01a corrigé → 02 → 05, une seule
 transaction. Ne pas reprendre une ancienne copie du lot ni exécuter 01 seul.
 Relire ensuite 05 en lecture seule, sans attribuer d'habilitation.
 
-01, 02, 04 et 03-disable.sql restent inchangés. Aucun rôle Auth privilégié n'est délégué,
+01, 02, 04 (hors lot) et 03-disable.sql restent inchangés. Aucun rôle Auth privilégié n'est délégué,
 aucun GRANT Auth n'est ajouté, aucune table Auth n'est lue par l'exécuteur, aucun
 UPDATE global et aucun contournement RLS. Les verrous serveur et client restent false,
 aucun administrateur/utilisateur métier n'est ajouté. La V2 et les fichiers du calendrier

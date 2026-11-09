@@ -1,10 +1,10 @@
--- INSTALLATION ATOMIQUE PROPOSÉE pour fgswygeqstgagmipltpq.
--- Ne pas exécuter sans validation humaine. Aucun compte/droit métier créé.
--- Source : build-installation.py ; 03-disable.sql reste séparé.
+-- INSTALLATION ATOMIQUE PROPOS�E pour fgswygeqstgagmipltpq.
+-- Ne pas ex�cuter sans validation humaine. Aucun compte/droit m�tier cr��.
+-- Source : build-installation.py ; 03-disable.sql reste s�par�.
 BEGIN;
 
 -- Composant : 01-access-live.sql
--- SHA256 : ec1821c94c97e380f3544f64f5edf3c8c71b9c7abf06756e599310f7d2be60c0
+-- SHA256 : f03ad495c0d9ac161f19c75f8c443a8a9aaa4a3a9381c8d8efbf12bec2a58fc6
 -- PROPOSITION UNIQUEMENT. Ne pas exécuter en production sans validation.
 -- Transaction atomique ; aucun compte, droit, règle sportive ou rencontre créé.
 -- Schéma privé NON exposé dans les réglages Data API.
@@ -306,7 +306,7 @@ END $acl$;
 
 
 -- Composant : 01a-rls-executor.sql
--- SHA256 : be1e34c237286205edc56cfe7315b4180d436a1d666c3c9aaabaf39fbf10d0c5
+-- SHA256 : 82e2b14611590f1a93bd4d646bba3d8a65ceb59f128e33cf65bb4a56916584c2
 -- DURCISSEMENT OBLIGATOIRE après 01, avant toute configuration/activation.
 -- Proposition NON EXÉCUTÉE en production. Aucun compte ni droit métier créé.
 -- Les tables restent au propriétaire d'installation ; les fonctions privées sont
@@ -484,7 +484,7 @@ RESET ROLE;
 
 
 -- Composant : 02-configure.sql
--- SHA256 : fb302834af18ed91808c3a2a5ae19494f39b5263250333168c98f9ae029008e4
+-- SHA256 : 2405bba084f93d6604962921213f4cfc31a9ff7108e0a084dea867438945522f
 -- CONFIGURATION FINALISÉE depuis la définition réelle fournie. NON EXÉCUTÉE.
 -- Aucun compte, aucune habilitation et aucune règle sportive ne sont insérés.
 -- Le bloc échoue et annule tout si un nom/type est absent ou incompatible.
@@ -531,317 +531,9 @@ END $$;
 -- La synchronisation club_app n'est pas développée ni autorisée aux clients.
 
 
--- Composant : 04-public-calendar-venue.sql
--- SHA256 : c27e5157a1dbd23b18ada3f174071582febe80410f42f24b5b4a23b1caec9289
--- PROPOSITION NON EXÉCUTÉE : 3 expression(s) salle corrigée(s).
-
-LOCK TABLE public.public_calendar IN ACCESS EXCLUSIVE MODE;
-DO $guard$ BEGIN
- IF (SELECT COALESCE(reloptions,ARRAY[]::text[]) FROM pg_class WHERE oid='public.public_calendar'::regclass) <> ARRAY['security_invoker=true']::text[] THEN RAISE EXCEPTION 'Options de sécurité modifiées depuis le snapshot'; END IF;
- IF pg_get_viewdef('public.public_calendar'::regclass,true) <> ' SELECT legacy.id,
-    legacy.team_code,
-    legacy.team_name,
-    legacy.competition_label,
-    legacy.opponent_name,
-    legacy.home_away,
-    legacy.starts_local,
-    legacy.local_date,
-    legacy.local_time,
-    legacy.venue_name,
-    legacy.venue_address,
-    legacy.round_label,
-    legacy.status,
-    legacy.ffbb_team_url,
-    legacy.ffbb_match_url,
-    legacy.updated_at
-   FROM ( SELECT legacy_1.id,
-            legacy_1.team_code,
-            legacy_1.team_name,
-            legacy_1.competition_label,
-            legacy_1.opponent_name,
-            legacy_1.home_away,
-            legacy_1.starts_local,
-            legacy_1.local_date,
-            legacy_1.local_time,
-            legacy_1.venue_name,
-            legacy_1.venue_address,
-            legacy_1.round_label,
-            legacy_1.status,
-            legacy_1.ffbb_team_url,
-            legacy_1.ffbb_match_url,
-            legacy_1.updated_at
-           FROM ( SELECT legacy_1_1.id,
-                    legacy_1_1.team_code,
-                    legacy_1_1.team_name,
-                    legacy_1_1.competition_label,
-                    legacy_1_1.opponent_name,
-                    legacy_1_1.home_away,
-                    legacy_1_1.starts_local,
-                    legacy_1_1.local_date,
-                    legacy_1_1.local_time,
-                    legacy_1_1.venue_name,
-                    legacy_1_1.venue_address,
-                    legacy_1_1.round_label,
-                    legacy_1_1.status,
-                    legacy_1_1.ffbb_team_url,
-                    legacy_1_1.ffbb_match_url,
-                    legacy_1_1.updated_at
-                   FROM ( SELECT m.id,
-                            t.code AS team_code,
-                            t.name AS team_name,
-                            t.competition_label,
-                            m.opponent_name,
-                            m.home_away,
-                            COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb) AS starts_local,
-                            to_char(COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb), ''YYYY-MM-DD''::text) AS local_date,
-                            to_char(COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb), ''HH24:MI''::text) AS local_time,
-                            COALESCE(m.venue_name_override, m.venue_name_raw) AS venue_name,
-                            m.venue_address_raw AS venue_address,
-                            m.round_label,
-                            m.status,
-                            t.ffbb_team_url,
-                            m.ffbb_match_url,
-                            m.updated_at
-                           FROM matches m
-                             JOIN teams t ON t.id = m.team_id
-                          WHERE m.published = true AND m.has_conflict = false) legacy_1_1
-                  WHERE NOT (EXISTS ( SELECT 1
-                           FROM matches m
-                          WHERE m.id = legacy_1_1.id AND (m.source_data ->> ''import_source''::text) = ''esbb_minibasket''::text))
-                UNION ALL
-                 SELECT m.id,
-                    t.code AS team_code,
-                    t.name AS team_name,
-                    t.competition_label,
-                    m.opponent_name,
-                    m.home_away,
-                    COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb) AS starts_local,
-                    COALESCE(m.scheduled_local_override::date, NULLIF(m.source_data ->> ''local_date''::text, ''''::text)::date, m.scheduled_local_ffbb::date)::text AS local_date,
-                        CASE
-                            WHEN m.scheduled_local_override IS NOT NULL THEN NULLIF(m.scheduled_local_override::time without time zone, ''00:00:00''::time without time zone)
-                            WHEN (m.source_data ->> ''time_known''::text) = ''true''::text THEN NULLIF(m.scheduled_local_ffbb::time without time zone, ''00:00:00''::time without time zone)
-                            ELSE NULL::time without time zone
-                        END::text AS local_time,
-                    m.venue_name_raw AS venue_name,
-                    m.venue_address_raw AS venue_address,
-                    m.round_label,
-                    m.status,
-                    NULL::text AS ffbb_team_url,
-                    NULL::text AS ffbb_match_url,
-                    m.updated_at
-                   FROM matches m
-                     JOIN teams t ON t.id = m.team_id
-                  WHERE (m.source_data ->> ''import_source''::text) = ''esbb_minibasket''::text AND m.published = true AND m.has_conflict = false AND t.is_public = true) legacy_1
-          WHERE NOT (EXISTS ( SELECT 1
-                   FROM matches m
-                  WHERE m.id = legacy_1.id AND (m.source_data ->> ''import_source''::text) = ''esbb_u18m_fbi''::text))
-        UNION ALL
-         SELECT m.id,
-            t.code AS team_code,
-            t.name AS team_name,
-            m.competition_name AS competition_label,
-            m.opponent_name,
-            m.home_away,
-            COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb) AS starts_local,
-            COALESCE(m.scheduled_local_override::date, m.scheduled_local_ffbb::date, NULLIF(m.source_data ->> ''local_date''::text, ''''::text)::date)::text AS local_date,
-            NULLIF(COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb)::time without time zone, ''00:00:00''::time without time zone)::text AS local_time,
-            m.venue_name_raw AS venue_name,
-            m.venue_address_raw AS venue_address,
-            m.round_label,
-            m.status,
-            NULL::text AS ffbb_team_url,
-            m.ffbb_match_url,
-            m.updated_at
-           FROM matches m
-             JOIN teams t ON t.id = m.team_id
-          WHERE (m.source_data ->> ''import_source''::text) = ''esbb_u18m_fbi''::text AND m.published AND NOT m.has_conflict AND t.is_public) legacy
-  WHERE NOT (EXISTS ( SELECT 1
-           FROM matches m
-          WHERE m.id = legacy.id AND (m.source_data ->> ''import_source''::text) = ''esbb_u13_u15_fbi''::text))
-UNION ALL
- SELECT m.id,
-    t.code AS team_code,
-    t.name AS team_name,
-    m.competition_name AS competition_label,
-    m.opponent_name,
-    m.home_away,
-    COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb) AS starts_local,
-    COALESCE(m.scheduled_local_override::date, m.scheduled_local_ffbb::date, NULLIF(m.source_data ->> ''local_date''::text, ''''::text)::date)::text AS local_date,
-    NULLIF(COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb)::time without time zone, ''00:00:00''::time without time zone)::text AS local_time,
-    m.venue_name_raw AS venue_name,
-    m.venue_address_raw AS venue_address,
-    m.round_label,
-    m.status,
-    NULL::text AS ffbb_team_url,
-    m.ffbb_match_url,
-    m.updated_at
-   FROM matches m
-     JOIN teams t ON t.id = m.team_id
-  WHERE (m.source_data ->> ''import_source''::text) = ''esbb_u13_u15_fbi''::text AND m.published AND NOT m.has_conflict AND t.is_public;' THEN
-  RAISE EXCEPTION 'La vue a changé : régénérer le patch depuis sa définition actuelle';
- END IF;
-END $guard$;
-CREATE TABLE IF NOT EXISTS site_m01.view_backup (
- id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
- saved_at timestamptz NOT NULL DEFAULT clock_timestamp(), definition text NOT NULL,
- view_options text[]
-);
-ALTER TABLE site_m01.view_backup ENABLE ROW LEVEL SECURITY;
-REVOKE ALL ON site_m01.view_backup FROM PUBLIC,anon,authenticated;
-INSERT INTO site_m01.view_backup(definition,view_options)
- SELECT ' SELECT legacy.id,
-    legacy.team_code,
-    legacy.team_name,
-    legacy.competition_label,
-    legacy.opponent_name,
-    legacy.home_away,
-    legacy.starts_local,
-    legacy.local_date,
-    legacy.local_time,
-    legacy.venue_name,
-    legacy.venue_address,
-    legacy.round_label,
-    legacy.status,
-    legacy.ffbb_team_url,
-    legacy.ffbb_match_url,
-    legacy.updated_at
-   FROM ( SELECT legacy_1.id,
-            legacy_1.team_code,
-            legacy_1.team_name,
-            legacy_1.competition_label,
-            legacy_1.opponent_name,
-            legacy_1.home_away,
-            legacy_1.starts_local,
-            legacy_1.local_date,
-            legacy_1.local_time,
-            legacy_1.venue_name,
-            legacy_1.venue_address,
-            legacy_1.round_label,
-            legacy_1.status,
-            legacy_1.ffbb_team_url,
-            legacy_1.ffbb_match_url,
-            legacy_1.updated_at
-           FROM ( SELECT legacy_1_1.id,
-                    legacy_1_1.team_code,
-                    legacy_1_1.team_name,
-                    legacy_1_1.competition_label,
-                    legacy_1_1.opponent_name,
-                    legacy_1_1.home_away,
-                    legacy_1_1.starts_local,
-                    legacy_1_1.local_date,
-                    legacy_1_1.local_time,
-                    legacy_1_1.venue_name,
-                    legacy_1_1.venue_address,
-                    legacy_1_1.round_label,
-                    legacy_1_1.status,
-                    legacy_1_1.ffbb_team_url,
-                    legacy_1_1.ffbb_match_url,
-                    legacy_1_1.updated_at
-                   FROM ( SELECT m.id,
-                            t.code AS team_code,
-                            t.name AS team_name,
-                            t.competition_label,
-                            m.opponent_name,
-                            m.home_away,
-                            COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb) AS starts_local,
-                            to_char(COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb), ''YYYY-MM-DD''::text) AS local_date,
-                            to_char(COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb), ''HH24:MI''::text) AS local_time,
-                            COALESCE(m.venue_name_override, m.venue_name_raw) AS venue_name,
-                            m.venue_address_raw AS venue_address,
-                            m.round_label,
-                            m.status,
-                            t.ffbb_team_url,
-                            m.ffbb_match_url,
-                            m.updated_at
-                           FROM matches m
-                             JOIN teams t ON t.id = m.team_id
-                          WHERE m.published = true AND m.has_conflict = false) legacy_1_1
-                  WHERE NOT (EXISTS ( SELECT 1
-                           FROM matches m
-                          WHERE m.id = legacy_1_1.id AND (m.source_data ->> ''import_source''::text) = ''esbb_minibasket''::text))
-                UNION ALL
-                 SELECT m.id,
-                    t.code AS team_code,
-                    t.name AS team_name,
-                    t.competition_label,
-                    m.opponent_name,
-                    m.home_away,
-                    COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb) AS starts_local,
-                    COALESCE(m.scheduled_local_override::date, NULLIF(m.source_data ->> ''local_date''::text, ''''::text)::date, m.scheduled_local_ffbb::date)::text AS local_date,
-                        CASE
-                            WHEN m.scheduled_local_override IS NOT NULL THEN NULLIF(m.scheduled_local_override::time without time zone, ''00:00:00''::time without time zone)
-                            WHEN (m.source_data ->> ''time_known''::text) = ''true''::text THEN NULLIF(m.scheduled_local_ffbb::time without time zone, ''00:00:00''::time without time zone)
-                            ELSE NULL::time without time zone
-                        END::text AS local_time,
-                    m.venue_name_raw AS venue_name,
-                    m.venue_address_raw AS venue_address,
-                    m.round_label,
-                    m.status,
-                    NULL::text AS ffbb_team_url,
-                    NULL::text AS ffbb_match_url,
-                    m.updated_at
-                   FROM matches m
-                     JOIN teams t ON t.id = m.team_id
-                  WHERE (m.source_data ->> ''import_source''::text) = ''esbb_minibasket''::text AND m.published = true AND m.has_conflict = false AND t.is_public = true) legacy_1
-          WHERE NOT (EXISTS ( SELECT 1
-                   FROM matches m
-                  WHERE m.id = legacy_1.id AND (m.source_data ->> ''import_source''::text) = ''esbb_u18m_fbi''::text))
-        UNION ALL
-         SELECT m.id,
-            t.code AS team_code,
-            t.name AS team_name,
-            m.competition_name AS competition_label,
-            m.opponent_name,
-            m.home_away,
-            COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb) AS starts_local,
-            COALESCE(m.scheduled_local_override::date, m.scheduled_local_ffbb::date, NULLIF(m.source_data ->> ''local_date''::text, ''''::text)::date)::text AS local_date,
-            NULLIF(COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb)::time without time zone, ''00:00:00''::time without time zone)::text AS local_time,
-            m.venue_name_raw AS venue_name,
-            m.venue_address_raw AS venue_address,
-            m.round_label,
-            m.status,
-            NULL::text AS ffbb_team_url,
-            m.ffbb_match_url,
-            m.updated_at
-           FROM matches m
-             JOIN teams t ON t.id = m.team_id
-          WHERE (m.source_data ->> ''import_source''::text) = ''esbb_u18m_fbi''::text AND m.published AND NOT m.has_conflict AND t.is_public) legacy
-  WHERE NOT (EXISTS ( SELECT 1
-           FROM matches m
-          WHERE m.id = legacy.id AND (m.source_data ->> ''import_source''::text) = ''esbb_u13_u15_fbi''::text))
-UNION ALL
- SELECT m.id,
-    t.code AS team_code,
-    t.name AS team_name,
-    m.competition_name AS competition_label,
-    m.opponent_name,
-    m.home_away,
-    COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb) AS starts_local,
-    COALESCE(m.scheduled_local_override::date, m.scheduled_local_ffbb::date, NULLIF(m.source_data ->> ''local_date''::text, ''''::text)::date)::text AS local_date,
-    NULLIF(COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb)::time without time zone, ''00:00:00''::time without time zone)::text AS local_time,
-    m.venue_name_raw AS venue_name,
-    m.venue_address_raw AS venue_address,
-    m.round_label,
-    m.status,
-    NULL::text AS ffbb_team_url,
-    m.ffbb_match_url,
-    m.updated_at
-   FROM matches m
-     JOIN teams t ON t.id = m.team_id
-  WHERE (m.source_data ->> ''import_source''::text) = ''esbb_u13_u15_fbi''::text AND m.published AND NOT m.has_conflict AND t.is_public;',reloptions FROM pg_class WHERE oid='public.public_calendar'::regclass;
-DO $replace$ DECLARE options text[]; BEGIN
- SELECT reloptions INTO options FROM pg_class WHERE oid='public.public_calendar'::regclass;
- -- CREATE OR REPLACE peut réinitialiser reloptions : les réappliquer explicitement.
- EXECUTE 'CREATE OR REPLACE VIEW public.public_calendar'
-  || CASE WHEN cardinality(options)>0 THEN ' WITH ('||array_to_string(options,',')||')' ELSE '' END
-  || ' AS ' || 'SELECT legacy.id, legacy.team_code, legacy.team_name, legacy.competition_label, legacy.opponent_name, legacy.home_away, legacy.starts_local, legacy.local_date, legacy.local_time, legacy.venue_name, legacy.venue_address, legacy.round_label, legacy.status, legacy.ffbb_team_url, legacy.ffbb_match_url, legacy.updated_at FROM (SELECT legacy_1.id, legacy_1.team_code, legacy_1.team_name, legacy_1.competition_label, legacy_1.opponent_name, legacy_1.home_away, legacy_1.starts_local, legacy_1.local_date, legacy_1.local_time, legacy_1.venue_name, legacy_1.venue_address, legacy_1.round_label, legacy_1.status, legacy_1.ffbb_team_url, legacy_1.ffbb_match_url, legacy_1.updated_at FROM (SELECT legacy_1_1.id, legacy_1_1.team_code, legacy_1_1.team_name, legacy_1_1.competition_label, legacy_1_1.opponent_name, legacy_1_1.home_away, legacy_1_1.starts_local, legacy_1_1.local_date, legacy_1_1.local_time, legacy_1_1.venue_name, legacy_1_1.venue_address, legacy_1_1.round_label, legacy_1_1.status, legacy_1_1.ffbb_team_url, legacy_1_1.ffbb_match_url, legacy_1_1.updated_at FROM (SELECT m.id, t.code AS team_code, t.name AS team_name, t.competition_label, m.opponent_name, m.home_away, COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb) AS starts_local, to_char(COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb), CAST(''YYYY-MM-DD'' AS text)) AS local_date, to_char(COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb), CAST(''HH24:MI'' AS text)) AS local_time, COALESCE(m.venue_name_override, m.venue_name_raw) AS venue_name, m.venue_address_raw AS venue_address, m.round_label, m.status, t.ffbb_team_url, m.ffbb_match_url, m.updated_at FROM matches AS m INNER JOIN teams AS t ON t.id = m.team_id WHERE m.published = TRUE AND m.has_conflict = FALSE) AS legacy_1_1 WHERE NOT EXISTS (SELECT 1 FROM matches AS m WHERE m.id = legacy_1_1.id AND (m.source_data ->> CAST(''import_source'' AS text)) = CAST(''esbb_minibasket'' AS text)) UNION ALL SELECT m.id, t.code AS team_code, t.name AS team_name, t.competition_label, m.opponent_name, m.home_away, COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb) AS starts_local, CAST(COALESCE(CAST(m.scheduled_local_override AS date), CAST(NULLIF(m.source_data ->> CAST(''local_date'' AS text), CAST('''' AS text)) AS date), CAST(m.scheduled_local_ffbb AS date)) AS text) AS local_date, CAST(CASE WHEN m.scheduled_local_override IS NOT NULL THEN NULLIF(CAST(m.scheduled_local_override AS time), CAST(''00:00:00'' AS time)) WHEN (m.source_data ->> CAST(''time_known'' AS text)) = CAST(''true'' AS text) THEN NULLIF(CAST(m.scheduled_local_ffbb AS time), CAST(''00:00:00'' AS time)) ELSE CAST(NULL AS time) END AS text) AS local_time, COALESCE(m.venue_name_override, m.venue_name_raw) AS venue_name, m.venue_address_raw AS venue_address, m.round_label, m.status, CAST(NULL AS text) AS ffbb_team_url, CAST(NULL AS text) AS ffbb_match_url, m.updated_at FROM matches AS m INNER JOIN teams AS t ON t.id = m.team_id WHERE (m.source_data ->> CAST(''import_source'' AS text)) = CAST(''esbb_minibasket'' AS text) AND m.published = TRUE AND m.has_conflict = FALSE AND t.is_public = TRUE) AS legacy_1 WHERE NOT EXISTS (SELECT 1 FROM matches AS m WHERE m.id = legacy_1.id AND (m.source_data ->> CAST(''import_source'' AS text)) = CAST(''esbb_u18m_fbi'' AS text)) UNION ALL SELECT m.id, t.code AS team_code, t.name AS team_name, m.competition_name AS competition_label, m.opponent_name, m.home_away, COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb) AS starts_local, CAST(COALESCE(CAST(m.scheduled_local_override AS date), CAST(m.scheduled_local_ffbb AS date), CAST(NULLIF(m.source_data ->> CAST(''local_date'' AS text), CAST('''' AS text)) AS date)) AS text) AS local_date, CAST(NULLIF(CAST(COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb) AS time), CAST(''00:00:00'' AS time)) AS text) AS local_time, COALESCE(m.venue_name_override, m.venue_name_raw) AS venue_name, m.venue_address_raw AS venue_address, m.round_label, m.status, CAST(NULL AS text) AS ffbb_team_url, m.ffbb_match_url, m.updated_at FROM matches AS m INNER JOIN teams AS t ON t.id = m.team_id WHERE (m.source_data ->> CAST(''import_source'' AS text)) = CAST(''esbb_u18m_fbi'' AS text) AND m.published AND NOT m.has_conflict AND t.is_public) AS legacy WHERE NOT EXISTS (SELECT 1 FROM matches AS m WHERE m.id = legacy.id AND (m.source_data ->> CAST(''import_source'' AS text)) = CAST(''esbb_u13_u15_fbi'' AS text)) UNION ALL SELECT m.id, t.code AS team_code, t.name AS team_name, m.competition_name AS competition_label, m.opponent_name, m.home_away, COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb) AS starts_local, CAST(COALESCE(CAST(m.scheduled_local_override AS date), CAST(m.scheduled_local_ffbb AS date), CAST(NULLIF(m.source_data ->> CAST(''local_date'' AS text), CAST('''' AS text)) AS date)) AS text) AS local_date, CAST(NULLIF(CAST(COALESCE(m.scheduled_local_override, m.scheduled_local_ffbb) AS time), CAST(''00:00:00'' AS time)) AS text) AS local_time, COALESCE(m.venue_name_override, m.venue_name_raw) AS venue_name, m.venue_address_raw AS venue_address, m.round_label, m.status, CAST(NULL AS text) AS ffbb_team_url, m.ffbb_match_url, m.updated_at FROM matches AS m INNER JOIN teams AS t ON t.id = m.team_id WHERE (m.source_data ->> CAST(''import_source'' AS text)) = CAST(''esbb_u13_u15_fbi'' AS text) AND m.published AND NOT m.has_conflict AND t.is_public';
-END $replace$;
-
-
-
 -- Composant : 05-verify-installation.sql
--- SHA256 : 25c51f7eaf64b1b7532e83564ce8adf436b923396672582047446268b3c37599
--- Contrôle bloquant EN LECTURE SEULE après 01 -> 01a -> 02 -> 04.
+-- SHA256 : de6265697e59d329a2f8dd8bd56c6a5c94b6912a08a3b40d2f7c4eb5481975a9
+-- Contrôle bloquant EN LECTURE SEULE après 01 -> 01a -> 02.
 -- À exécuter AVANT toute attribution/activation. N'ouvre aucun verrou.
 
 DO $verify$ BEGIN
@@ -859,6 +551,14 @@ DO $verify$ BEGIN
  IF EXISTS(SELECT 1 FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname='site_m01' AND has_function_privilege('anon',p.oid,'EXECUTE')) THEN RAISE EXCEPTION 'Fonction privée accessible anonymement'; END IF;
  IF has_function_privilege('authenticated','site_m01.identity()','EXECUTE') OR has_function_privilege('authenticated','site_m01.allowed(text,text)','EXECUTE') THEN RAISE EXCEPTION 'Helper privé exposé'; END IF;
  IF NOT (SELECT COALESCE(reloptions,ARRAY[]::text[]) @> ARRAY['security_invoker=true'] FROM pg_class WHERE oid='public.public_calendar'::regclass) THEN RAISE EXCEPTION 'security_invoker=true requis'; END IF;
+ IF (SELECT count(*) FROM regexp_matches(pg_get_viewdef('public.public_calendar'::regclass,true),
+  'COALESCE\(m\.venue_name_override, m\.venue_name_raw\) AS venue_name','g'))<>4
+  OR pg_get_viewdef('public.public_calendar'::regclass,true) ~ 'm\.venue_name_raw AS venue_name'
+ THEN RAISE EXCEPTION 'Les quatre branches de public_calendar doivent utiliser venue_name_override'; END IF;
+ -- Empreinte de la définition reçue avec les trois projections brutes remplacées,
+ -- et sans autre modification. Un écart imprévu impose une nouvelle revue.
+ IF md5(pg_get_viewdef('public.public_calendar'::regclass,true)) <> '919d12fb7af679d5913a8738ae180045'
+ THEN RAISE EXCEPTION 'Définition public_calendar différente de la référence corrigée'; END IF;
  IF EXISTS(SELECT 1 FROM site_m01.model WHERE management_enabled OR live_enabled OR access_enabled) THEN RAISE EXCEPTION 'Les écritures doivent rester fermées avant recette'; END IF;
  IF (SELECT count(*) FROM pg_policies WHERE schemaname='public' AND policyname IN ('site_m01_executor_read_matches','site_m01_executor_update_matches','site_m01_executor_read_teams') AND roles=ARRAY['site_m01_executor']::name[])<>3 THEN RAISE EXCEPTION 'Politiques exécuteur manquantes ou élargies'; END IF;
 END $verify$;
@@ -872,6 +572,6 @@ ORDER BY n.nspname,p.proname;
 
 
 
--- Rafraîchir PostgREST seulement si toute la transaction est validée.
+-- Rafra�chir PostgREST seulement si toute la transaction est valid�e.
 NOTIFY pgrst, 'reload schema';
 COMMIT;
